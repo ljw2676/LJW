@@ -23,6 +23,7 @@ PUBLIC " - //mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<!-- <mapper resource="mybatis/members-sql.xml" /> -->
 		<mapper resource="mybatis/test-sql.xml" />
+		<mapper resource="mybatis/group-sql.xml" />
 	</mappers>
 	
 	</configuration>
