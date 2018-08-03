@@ -1,5 +1,6 @@
 package yogi.admin.member;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,16 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import yogi.common.common.CommandMap;
 
 
 
 @Controller
 public class AdminMemberController {
+	
+	private Map<String, Object> map = new HashMap<String, Object>();
+	private Map session;
+	private HttpServletRequest request;
 
 	@Autowired
 	private AdminMemberService adminMemberService;
@@ -34,14 +38,12 @@ public class AdminMemberController {
 	}*/
 	
 	@RequestMapping(value="/admin/member/list")
-	public ModelAndView memberList(CommandMap map) throws Exception{
+	public String memberList(Model model) throws Exception{
 		
-		ModelAndView mv = new ModelAndView("adminMemberList");
+		List<Map<String, Object>> list = adminMemberService.list(map);
 		
-		List<Map<String, Object>> list = adminMemberService.list(map.getMap());
+		model.addAttribute("list", list);
 		
-		mv.addObject("list", list);
-		
-		return mv;
+		return "adminMemberList";
 	}
 }

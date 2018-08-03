@@ -21,15 +21,15 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${list}" var="adminMemberList" varStatus="stat">
+		<c:forEach items="${list}" var="list" varStatus="stat">
 		<tr>
-			<td>${adminMemberList.m_no}</td>
-			<td>${adminMemberList.m_id}</td>
-			<td>${adminMemberList.m_phone}</td>
-			<td>${adminMemberList.m_grade}</td>
-			<td>${adminMemberList.m_lv}</td>
-			<td>${adminMemberList.m_penalty}</td>
-			<td>${adminMemberList.m_date}</td>
+			<td>${list.m_no}</td>
+			<td>${list.m_id}</td>
+			<td>${list.m_phone}</td>
+			<td>${list.m_grade}</td>
+			<td>${list.m_lv}</td>
+			<td>${list.m_penalty}</td>
+			<td>${list.m_date}</td>
 		</tr>
 		</c:forEach>
 	</tbody>
