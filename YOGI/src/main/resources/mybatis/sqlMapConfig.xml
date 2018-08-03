@@ -22,6 +22,7 @@ PUBLIC " - //mybatis.org//DTD Config 3.0//EN"
 	<!-- SQL 정의한 xml문서 Mapping -->
 	<mappers>
 		<!-- <mapper resource="mybatis/members-sql.xml" /> -->
+		<mapper resource="mybatis/test-sql.xml" />
 	</mappers>
 	
 	</configuration>
