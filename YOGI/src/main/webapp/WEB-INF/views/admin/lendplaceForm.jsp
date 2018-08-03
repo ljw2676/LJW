@@ -62,63 +62,18 @@ function Check() {
 		<h1>장소 등록</h1>
 	</tr>
 </table>
-<form name="lp_form" action="<c:url value="/admin/lendplace/Insert"/>" method="post" enctype="multipart/form-data" theme="simple">
-	<table border="0" width=1000px align=center>
-	
-	<tr>
-			<td>대관 시작 날짜</td>
-			<input type="text" name="l_sdate" />
-		</tr>
-		
-		
-		<tr>
-			<td>대관 종료 날짜</td>
-			<input type="text" name="l_edate" />
-		</tr>
-		
-		<tr>
-		<tr>
-			<td>장소명</td>
-			<input type="text" name="l_subject" />
-		</tr>
-		
-		<tr>
-			<td>주소</td>
-			<input type="text" name="l_addr" />
-		</tr>
-		
-		
-		<tr>
-			<td>내용</td>
-			<textarea name="l_content"></textarea>
-		</tr>
-		
-		
-		<tr>
-			<td>대표 이미지</td>
-			<input type="file" name="l_rep_img" />
-		</tr>
-		
-		<tr>
-			<td>수용인원</td>
-			<input type="number" name="l_enable" />
-		</tr>
-		
-		
-		<tr>
-			<td>비용</td>
-			<input type="number" name="l_payment" />
-		</tr>
-		
-		
-	
-			<td>
-				<input type="button" value="장소등록" onclick="return Check();">
-			</td>
-		</tr>
-		
-		
-	</table>
+
+<form name="lp_form" action="<c:url value='/admin/lendplace/Insert'/>" method="post" enctype="multipart/form-data" theme="simple" >
+대관 시작 날짜 <input type="text" name="l_sdate" /><br />
+대관 종료 날짜 <input type="text" name="l_edate" /><br />
+장소명 <input type="text" name="l_subject" /><br />
+주소 <input type="text" name="l_addr" /><br />
+내용 <textarea name="l_content"></textarea><br />
+대표 이미지 <input type="file" name="l_rep_img" /><br />
+수용인원 <input type="number" name="l_enable" /><br />
+비용 <input type="number" name="l_payment" /><br />
+<input type="button" value="장소등록" onclick="return Check();">
+
 </form>
 </body>
 </html>
