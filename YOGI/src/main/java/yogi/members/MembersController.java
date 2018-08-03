@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,18 +27,18 @@ public class MembersController {
 	 public String createForm(){
 		return "createForm";
 	}*/
-	/*
+	
 	@RequestMapping(value="/members/createForm", method=RequestMethod.GET)
 	public String createForm(Model model) {	
 		return "createForm";
-	}*/
+	}
 	
 
-	@RequestMapping(value="/joinForm", method=RequestMethod.POST)
-	public String join(MembersModel model) {
-			System.out.println("컨트롤러 : " + model.getM_name());
-			membersService.insertMember(model);//일반 회원가입	
-		return "redirect:/firstPage";
+	@RequestMapping(value="/members/createForm", method=RequestMethod.POST)
+	public String join(@ModelAttribute("member") MembersModel member) throws Exception{
+			System.out.println("컨트롤러 : " + member.getM_name());
+			membersService.insertMember(member);//일반 회원가입	
+		return "redirect:/first";
 	}
 	
 //	@RequestMapping(value="/loginForm", method=RequestMethod.GET)

@@ -14,13 +14,11 @@ public class MembersServiceImpl implements MembersService{
 	@Resource(name="membersDAO")
 	private MembersDAO membersDAO;
 	
-	@Resource(name="sqlSessionTemplate")
-	private SqlSessionTemplate sqlMapper;
 	
 	@Override
-	public void insertMember(MembersModel model) {
+	public void insertMember(MembersModel model) throws Exception{
 		System.out.println("서비스 : " + model.getM_name());
-		sqlMapper.insert("member.insertMember",model);
+		membersDAO.insertMember(model);
 	}
 	
 	

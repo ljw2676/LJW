@@ -9,7 +9,7 @@ import yogi.common.dao.AbstractDAO;
 @Repository("membersDAO")
 public class MembersDAO extends AbstractDAO{
 	
-	public void insertBoard(MembersModel model) throws Exception{
+	public void insertMember(MembersModel model){
 		System.out.println("DAO : " + model.getM_name());
 		insert("test.insertMember", model);
 	}
