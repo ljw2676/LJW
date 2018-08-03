@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lendplace">
+
+<!-- 장소목록 조회 -->
+<select id="selectLendplaceList" resultType="hashmap">
+	<![CDATA[
+		SELECT 
+			* 
+		FROM LENDPLACE
+		ORDER BY L_NO DESC
+	]]>
+</select> 
+
+<!-- 장소상세페이지 조회 -->
+<select id="selectLendplaceDetail" resultType="hashmap" parameterType="hashmap">
+	<![CDATA[
+		SELECT 
+			*
+		FROM LENDPLACE
+		WHERE L_NO = #{L_NO}
+	]]>
+</select>
+
+<!-- 장소 등록 -->
+<insert id="insertLendplace" parameterType="hashmap">
+	<![CDATA[
+   		INSERT INTO LENDPLACE (
+   			L_NO,
+			L_SUBJECT,
+			L_ADDR,
+			L_CONTENT,
+			L_REP_IMG,
+			L_ENABLE,
+			L_PAYMENT,
+			L_SDATE,
+			L_EDATE )
+		VALUES (
+			LENDPLACE_SEQ.NEXTVAL,
+			#{L_SUBJECT},
+			#{L_ADDR},
+			#{L_CONTENT},
+			#{L_REP_IMG},
+			#{L_ENABLE},
+			#{L_PAYMENT},
+			#{L_SDATE},
+			#{L_EDATE} )
+	]]>
+</insert>
+
+<!-- 장소 내용 수정 -->
+<update id="updateLendplace" parameterType="hashmap" >
+	<![CDATA[
+		UPDATE LENDPLACE 
+		SET
+			L_SUBJECT = #{L_SUBJECT},
+			L_CONTENT = #{L_CONTENT},
+			L_REP_IMG = #{L_REP_IMG},
+			L_ENABLE = #{L_ENABLE},
+			L_PAYMENT = #{L_PAYMENT}
+		WHERE L_NO = #{L_NO}
+	]]>
+</update>
+
+<!-- 장소검색 -->
+<!-- <select id="searchLendplaceList" resultType="lendplace" parameterType="hashmap">
+	<![CDATA[
+		SELECT 
+			*
+		FROM LENDPLACE
+		WHERE
+			<dynamic prepend="where">
+			$param$
+			</dynamic> 
+		ORDER BY L_NO DESC
+	]]>
+</select> -->
+
+<!-- 장소예약 신청 -->
+<insert id="insertPlacebook" parameterType="hashmap">
+	<![CDATA[
+		INSERT INTO PLACEBOOK (
+			PB_NO,
+			L_NO,
+			M_NO,
+			L_DATE )
+		VALUES (
+			PLACEBOOK_SEQ.NEXTVAL,
+			#{L_NO},
+			#{M_NO},
+			#{L_DATE} )
+	]]>
+</insert>
+
+<!-- 날짜 중복 체크 -->
+<!--  
+<select id="dateCheck" resultType="hashmap" parameterType="hashmap">
+	<![CDATA[
+		SELECT
+			*
+		FROM PLACEBOOK
+		WHERE L_NO = #{L_NO} 
+		AND L_DATE = #{L_DATE}
+	]]>
+</select>
+ -->
+ 
+<!-- 장소 삭제 -->
+<delete id="deleteLendplace" parameterType="hashmap">
+	<![CDATA[
+		DELETE
+		FROM LENDPLACE
+		WHERE L_NO = #{L_NO}
+	]]>
+</delete>
+
+<!-- 장소예약 신청 취소 -->
+<delete id="deletePlacebook" parameterType="hashmap">
+	<![CDATA[
+		DELETE
+		FROM PLACEBOOK
+		WHERE L_NO = #{L_NO}
+		AND M_NO = #{M_NO}
+	]]>
+</delete>
+
+<!-- 장소후기 입력 -->
+<insert id="insertReview">
+	<![CDATA[
+		INSERT INTO REVIEW (
+			R_NO,
+			R_CONTENT,
+			R_RATING,
+			R_DATE,
+			L_NO,
+			M_NO )
+		VALUES (
+			REVIEW_SEQ.NEXTVAL,
+			#{R_CONTENT},
+			#{R_RATING},
+			#{R_DATE},
+			#{L_NO},
+			#{M_NO} )
+	]]>
+</insert>
+
+
+<!-- 장소후기 삭제 -->
+<delete id="deleteReview">
+	<![CDATA[
+		DELETE
+		FROM REVIEW
+		WHERE R_NO = #{R_NO}
+	]]>
+</delete>
+
+
+</mapper>
+
