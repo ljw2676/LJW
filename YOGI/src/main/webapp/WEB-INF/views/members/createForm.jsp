@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta charset="UTF-8">
@@ -81,23 +81,24 @@
 		join.submit();
 	}
 
-	function openConfirmId(userinput) {
+	/* function openConfirmId(userinput) {
 		var url = "membersIdChk.action?m_id=" + document.userinput.m_id.value;
 		var join = document.userinput;
 		if (join.m_id.value == "") {
-			/* alertify.error("아이디를 입력해주세요"); */
+			// alertify.error("아이디를 입력해주세요");
 			join.m_id.focus();
 			return false;
 		}
 		open(url, "confirm", "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300,height=400");
-	}
+	} */
 </script>
 </head>
 <body>
 	회원가입
-	<form:form commandName="member" method="post">
+	<form:form commandName="member" name="userinput" method="post">
 			아이디 : <input type="text" name="m_id"/> <br>
 			비밀번호 : <input type="password" name="m_password"/> <br>
+			비밀번호 : <input type="password" name="m_password_check"/> <br>
 			이름 : <input type="text" name="m_name"/> <br>
 			핸드폰 번호 : <input type="text" name="m_phone"/> <br>
 		
