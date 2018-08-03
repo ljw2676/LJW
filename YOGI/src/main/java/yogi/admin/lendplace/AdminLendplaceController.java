@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import yogi.common.common.CommandMap;
+import yogi.config.CommandMap;;
 
 @Controller
 public class AdminLendplaceController {
