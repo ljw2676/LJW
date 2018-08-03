@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC " - //mybatis.org//DTD Config 3.0//EN" " http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="admin">
+<!-- 멤버 관리 -->
+	<!-- 멤버 목록 가져오기 -->
+	<select resultType="hashmap" parameterType="hashmap" id="selectMemberList">	
+		SELECT m_no, m_id, m_phone, m_grade, m_lv, m_penalty, to_char(m_date, 'yyyy/MM/dd') as m_date FROM Members ORDER BY m_no DESC 
+	</select>
+
+	<!-- 회원목록에서 검색하기 -->
+	<select id="MemberList_search_m_name_select_all"> 
+		SELECT * FROM members WHERE m_name like '%'||#m_name#||'%' ORDER BY m_no desc 
+	</select>
+
+	<select id="MemberList_search_m_id_select_all"> 
+		SELECT * FROM members WHERE m_id like '%'||#m_id#||'%' ORDER BY m_no desc
+	</select>
+
+<!-- 멤버 관리 끝 -->
+
+
+<!-- 신고 관리 -->
+	<!-- 신고 목록 가져오기 -->
+	<select resultType="hashmap" parameterType="hashmap" id="report_select_all">
+		<![CDATA[
+				SELECT 
+					r_no,
+					m_no,
+					m_pno,
+					gg_no,
+					r_coment
+				FROM
+					Report
+				ORDER BY
+					r_no DESC
+		]]>
+	</select>
+
+	<!-- 회원 비활성화 -->
+	<update parameterType="hashmap" id="member_inactive"> 
+		{call declare begin UPDATE Members SET m_active=#{m_active} WHERE m_no=#{m_no} UPDATE Group_Gathering SET gg_active=#{gg_active} WHERE gg_no=#{gg_no} end } 
+	</update>
+
+	<!-- 모임 비활성화 -->
+	<update parameterType="hashmap" id="group_inactive"> 
+		UPDATE Group_Gathering SET gg_active=#{gg_active} WHERE gg_no=#{gg_no} 
+	</update>
+
+	<!-- 신고목록에서 검색하기 -->
+	<select id="ReportList_search_gg_name_select_all"> 
+		select m.*,g.* from group_gathering g inner join members m on g.m_no=m.m_no where g.gg_penalty>0 and gg_name like '%'||#gg_name#||'%' order by g.gg_no desc 
+	</select>
+
+	<select id="ReportList_search_m_id_select_all"> 
+		select m.*,g.* from group_gathering g inner join members m on g.m_no=m.m_no where g.gg_penalty>0 and m_id like '%'||#m_id#||'%' ORDER BY g.gg_no desc 
+	</select>
+
+	<select id="ReportList_search_m_name_select_all"> 
+		select m.*,g.* from group_gathering g inner join members m on g.m_no=m.m_no where g.gg_penalty>0 and m_name like '%'||#m_name#||'%' ORDER BY g.gg_no desc 
+	</select>
+
+<!-- 신고 관리 끝-->
+
+
+<!-- 장소 관리 -->
+	<!-- 장소 목록 가져오기 -->
+	<select resultType="hashmap" parameterType="hashmap" id="lendplaceAdmin_select_all"> 
+		SELECT l_no, l_subject, l_addr, l_sdate, l_edate FROM lendplace ORDER BY l_no desc 
+	</select>
+
+	<!-- 장소 목록에서 검색하기 -->
+	<select id="LendplaceAdmin_search_l_subject_select_all"> 
+		select lendplace.l_no, lendplace.l_subject, lendplace.l_addr, lendplace.l_sdate, lendplace.l_edate, placebook.l_date, members.m_id from lendplace, placebook, members where lendplace.l_no = placebook.l_no and placebook.m_no = members.m_no and l_subject like '%'||#l_subject#||'%' ORDER BY lendplace.l_no desc 
+	</select>
+
+	<select id="LendplaceAdmin_search_l_addr_select_all"> 
+		select lendplace.l_no, lendplace.l_subject, lendplace.l_addr, lendplace.l_sdate, lendplace.l_edate, placebook.l_date, members.m_id from lendplace, placebook, members where lendplace.l_no = placebook.l_no and placebook.m_no = members.m_no and l_addr like '%'||#l_addr#||'%' ORDER BY lendplace.l_no desc 
+	</select>
+
+	<select id="LendplaceAdmin_search_m_id_select_all"> 
+		select lendplace.l_no, lendplace.l_subject, lendplace.l_addr, lendplace.l_sdate, lendplace.l_edate, placebook.l_date, members.m_id from lendplace, placebook, members where lendplace.l_no = placebook.l_no and placebook.m_no = members.m_no and m_id like '%'||#m_id#||'%' ORDER BY lendplace.l_no desc 
+	</select>
+
+<!-- 장소 관리 끝 -->
+
+
+</mapper>
