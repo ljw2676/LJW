@@ -13,5 +13,4 @@ public class AdminLendplaceDAO extends AbstractDAO{
 		insert("lendplace.lendplace_insert", map);
 	}
 	
-
 }
