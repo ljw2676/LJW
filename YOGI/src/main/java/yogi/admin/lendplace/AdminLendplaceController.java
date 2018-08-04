@@ -41,11 +41,11 @@ public class AdminLendplaceController {
 			return "/admin/lendplaceDeleteButton";
 		}
 	  
-	  @RequestMapping(value="/admin/lendplace/Delete")
+	 /* @RequestMapping(value="/admin/lendplace/Delete")
 	  public ModelAndView lendplaceDelete(LendplaceModel lendplaceModel) throws Exception {
 		 lendplaceService.deletePlace(lendplaceModel);
 		 return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트 : 관리자 장소 리스트 페이지
-	  }
+	  }*/
 	
 
 }

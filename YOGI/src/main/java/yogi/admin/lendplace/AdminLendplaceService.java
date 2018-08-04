@@ -12,4 +12,7 @@ public interface AdminLendplaceService {
 
 	public void insertPlace(LendplaceModel lendplaceModel) throws Exception;
 
+//	public void deletePlace(LendplaceModel lendplaceModel) throws Exception;
+
 }
+
