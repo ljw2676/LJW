@@ -23,12 +23,14 @@ public class LendplaceServiceImpl implements LendplaceService {
 
 	@Override
 	public Map<String, Object> selectLendplaceDetail(Map<String, Object> map) throws Exception {
-
 		return lendplaceDAO.selectLendplaceDetail(map);
 	}
 
 	@Override
 	public void insertLendplace(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		lendplaceDAO.insertLendplace(map);		
+	
+	
 	}
 
 //	@Override
