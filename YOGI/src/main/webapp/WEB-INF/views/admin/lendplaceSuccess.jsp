@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>등록 완료</title>
 </head>
 <body>
 등록 완료 !
