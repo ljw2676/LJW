@@ -1,5 +1,6 @@
 package yogi.lendplace;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,9 @@ public class LendplaceServiceImpl implements LendplaceService {
 
 	@Override
 	public Map<String, Object> selectLendplaceDetail(Map<String, Object> map) throws Exception {
-		return lendplaceDAO.selectLendplaceDetail(map);
+		Map<String, Object> resultMap = lendplaceDAO.selectLendplaceDetail(map);
+		
+		return resultMap;
 	}
 
 	@Override

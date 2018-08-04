@@ -26,7 +26,7 @@
 			<c:forEach items="${list }" var="row">
 					<tr>
 						<td>${row.L_NO}번</td>
-						<td><a href="#this" name="title" onclick="fn_groupDetailLink('${row.L_NO}')">${row.L_SUBJECT}</a></td>
+						<td><a href="#this" name="title">${row.L_SUBJECT}</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
 						<td>${row.L_ADDR}</td>
 						<td>${row.L_ENABLE}명</td>
 						<td>${row.L_PAYMENT}원</td>
@@ -39,5 +39,28 @@
 		등록된 장소가 없습니다.
 	</c:otherwise>
 </c:choose>
+
+<br><br>
+
+<a href="<c:url value='/admin/lendplace/Form'/>">글쓰기</a>
+
+<form id="commonForm" name="commonForm"></form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
+<script type="text/javascript">
+		$(document).ready(function() {
+			$("a[name='title']").on("click", function(e) { //제목 
+				e.preventDefault();
+				fn_selectLendplaceDetail($(this));
+			});
+		});
+		
+		function fn_selectLendplaceDetail(obj) {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/lendplace/detail' />");
+			comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
+			comSubmit.submit();
+		}
+</script>
 </body>
 </html>

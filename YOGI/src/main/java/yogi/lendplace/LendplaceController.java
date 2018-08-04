@@ -29,21 +29,29 @@ public class LendplaceController {
     	return mv;
     }
 	
-	
-	
-	@RequestMapping(value="/lendplace/insertForm")
-	public ModelAndView insertLendplaceForm(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/lendplace/insertForm");
+	@RequestMapping(value="/lendplace/detail")
+	public ModelAndView selectLendplaceDetail(CommandMap commandMap) throws Exception{
+		ModelAndView mv = new ModelAndView("/lendplace/detail");
+		
+		Map<String,Object> map = lendplaceService.selectLendplaceDetail(commandMap.getMap());
+		mv.addObject("map", map);
 		
 		return mv;
 	}
 	
-	@RequestMapping(value="/lendplace/insert")
-	public ModelAndView insertLendplace(CommandMap commandMap, HttpServletRequest request) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/lendplace/openBoardList.do");
-		
-		lendplaceService.insertLendplace(commandMap.getMap(), request);
-		
-		return mv;
-	}
+//	@RequestMapping(value="/lendplace/insertForm")
+//	public ModelAndView insertLendplaceForm(CommandMap commandMap) throws Exception{
+//		ModelAndView mv = new ModelAndView("/lendplace/insertForm");
+//		
+//		return mv;
+//	}
+//	
+//	@RequestMapping(value="/lendplace/insert")
+//	public ModelAndView insertLendplace(CommandMap commandMap, HttpServletRequest request) throws Exception{
+//		ModelAndView mv = new ModelAndView("redirect:/lendplace/openBoardList.do");
+//		
+//		lendplaceService.insertLendplace(commandMap.getMap(), request);
+//		
+//		return mv;
+//	}
 }
