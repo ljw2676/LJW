@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>등록 완료</title>
+<title>성공~</title>
 </head>
 <body>
-등록 완료 !
+성공 ~!
 
 </body>
 </html>
+

@@ -1,6 +1,8 @@
 package yogi.admin.lendplace;
 
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +13,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import yogi.admin.lendplace.AdminLendplaceDAO;
 import yogi.common.util.FileUploadComponent;
 import yogi.common.util.YogiUtils;
+import yogi.config.CommandMap;
 import yogi.lendplace.LendplaceModel;
 
 @Service("adminLendplaceService")
@@ -32,8 +35,13 @@ public class AdminLendplaceServiceImpl implements AdminLendplaceService {
 //		map.put("l_edate", YogiUtils.dateParse(map.get("l_edate").toString()));
 		lendplaceDAO.insertPlace(lendplaceModel);
 	}
-	
-	
-	
 
+	@Override
+	public void deletePlace(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		lendplaceDAO.deletePlace(map);
+		
+	}
 }
+	
+	

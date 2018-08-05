@@ -1,5 +1,8 @@
 package yogi.admin.lendplace;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +15,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import yogi.lendplace.LendplaceModel;
-import yogi.members.MembersModel;
+import yogi.config.CommandMap;
+
 @Controller
 public class AdminLendplaceController {
 	
@@ -41,11 +45,13 @@ public class AdminLendplaceController {
 			return "/admin/lendplaceDeleteButton";
 		}
 	  
-	 /* @RequestMapping(value="/admin/lendplace/Delete")
-	  public ModelAndView lendplaceDelete(LendplaceModel lendplaceModel) throws Exception {
-		 lendplaceService.deletePlace(lendplaceModel);
+	  @RequestMapping(value="/admin/lendplace/Delete")
+	  public ModelAndView lendplaceDelete(CommandMap commandMap) throws Exception {
+		 lendplaceService.deletePlace(commandMap.getMap());
 		 return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트 : 관리자 장소 리스트 페이지
-	  }*/
-	
+	  }
+	  
+
+
 
 }

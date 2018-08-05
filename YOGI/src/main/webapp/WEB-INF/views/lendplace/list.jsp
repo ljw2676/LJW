@@ -22,6 +22,7 @@
 						<td>인원</td>
 						<td>비용</td>
 						<td>기간</td>
+						<td>삭제</td>
 					</tr>
 			<c:forEach items="${list }" var="row">
 					<tr>
@@ -31,6 +32,12 @@
 						<td>${row.L_ENABLE}명</td>
 						<td>${row.L_PAYMENT}원</td>
 						<td>${row.L_SDATE} ~ ${row.L_EDATE}</td>
+						<!-- a태그 사용 -->
+						<!--<td><a href="#this" name="delete">삭제</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>-->
+						<!-- 버튼 + 제이쿼리 + 맵 -->
+						<td><input type="button" id="delete" value="삭제" onclick="#this"> <input type="hidden" id="L_NO" value="${row.L_NO}"></td>
+						<!-- 버튼 + 스크립트 + 자바빈 -->
+						<!--<td><input type="button" value="삭제" onclick="lendDelete(${row.L_NO})" /><input type="hidden" id="L_NO" value="${row.L_NO}"></td>-->
 					</tr>
 			</c:forEach>
 		</table>
@@ -53,7 +60,13 @@
 				e.preventDefault();
 				fn_selectLendplaceDetail($(this));
 			});
+			
+			$("#delete").on("click", function(e) { //삭제
+				e.preventDefault();
+				fn_deleteLendplace($(this));
+			});
 		});
+		
 		
 		function fn_selectLendplaceDetail(obj) {
 			var comSubmit = new ComSubmit();
@@ -61,6 +74,24 @@
 			comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
 			comSubmit.submit();
 		}
+		
+		function fn_deleteLendplace(obj) {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/admin/lendplace/Delete' />");
+			comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
+			comSubmit.submit();
+		}
+		
+		function lendDelete(no) {
+	         if(confirm("삭제 하시겠습니까?") == true){
+	            location.href='/admin/lendplace/Delete?L_NO='+no;
+	         }else {
+	            return;
+	         }
+		}
+		
+		
+		
 </script>
 </body>
 </html>

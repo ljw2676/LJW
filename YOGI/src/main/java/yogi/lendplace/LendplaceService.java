@@ -13,6 +13,7 @@ public interface LendplaceService {
 
 	void insertLendplace(Map<String, Object> map,HttpServletRequest request) throws Exception;
 	
+	
 //	void updateLendplace(Map<String, Object> map,HttpServletRequest request) throws Exception;
 //	
 //	void insertPlacebook(Map<String, Object> map) throws Exception;
