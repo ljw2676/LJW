@@ -19,6 +19,7 @@ PUBLIC " - //mybatis.org//DTD Config 3.0//EN"
 	   <typeAliases>
 	   		<typeAlias alias="LendplaceModel" type="yogi.lendplace.LendplaceModel"/>
 	   		<typeAlias alias="MembersModel" type="yogi.members.MembersModel"/>
+	   		<typeAlias alias="groupModel" type="yogi.group.GroupModel" />
 	   </typeAliases>
 	<!-- SQL 정의한 xml문서 Mapping -->
 	<mappers>
