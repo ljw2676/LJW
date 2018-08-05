@@ -9,18 +9,26 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>그룹 리스트</title>
 </head>
 <body>
 <c:choose>
 	<c:when test="${fn:length(list) > 0 }">
 		<c:forEach items="${list }" var="row">
-			<a href="#this" onclick="fn_groupDetailLink('${row.GG_NO}')"><${row.GG_NAME}</a>
 			${row.GG_NO}
 			${row.GG_NAME}
 			${row.GG_PLACE}
 		</c:forEach>
 	</c:when>
 </c:choose>
+<form name="search_form" action="<c:url value="/group/groupSearch"/>" method="post">
+
+<input id="searchWord" type="hidden" name="searchWord" value="${searchWord}">
+<input id="searchAddr" type="hidden" name="searchAddr" value="${searchAddr}">
+<input id="searchPay" type="hidden" name="searchPay" value="${searcPay}">
+<input id="searchMStart" type="hidden" name="searchMStart" value="${searchMStart}">
+
+<input type="submit" value="검색">
+</form>
 </body>
 </html>

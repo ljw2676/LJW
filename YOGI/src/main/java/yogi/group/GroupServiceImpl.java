@@ -23,4 +23,13 @@ public class GroupServiceImpl implements GroupService {
 		return resultList;
 	}
 
+	@Override
+	public List<Map<String, Object>> searchGroupList(String query) throws Exception {
+		
+		List<Map<String, Object>> resultList = groupDAO.searchGroupList(query);
+		
+		return resultList;
+	}
+
+		
 }

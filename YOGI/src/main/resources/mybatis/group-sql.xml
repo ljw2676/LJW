@@ -7,4 +7,7 @@
 		select * from group_gathering order by gg_no desc															
 	</select>
 
+	<select id="group_search" resultType="GroupModel" parameterType="hashmap">
+		select * from group_gathering where ${param} order by gg_no desc
+	</select>
 </mapper>
