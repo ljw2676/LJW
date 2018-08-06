@@ -81,26 +81,36 @@
 		join.submit();
 	}
 
-	/* function openConfirmId(userinput) {
-		var url = "membersIdChk.action?m_id=" + document.userinput.m_id.value;
+	function openConfirmId(userinput) {
+		var url = "/yogi/members/membersIdChk?m_id="+document.userinput.m_id.value;
 		var join = document.userinput;
 		if (join.m_id.value == "") {
-			// alertify.error("아이디를 입력해주세요");
+			alertify.error("아이디를 입력해주세요");
 			join.m_id.focus();
 			return false;
 		}
 		open(url, "confirm", "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300,height=400");
-	} */
+	}
 </script>
 </head>
 <body>
 	회원가입
-	<form:form commandName="member" name="userinput" method="post">
-			아이디 : <input type="text" name="m_id"/> <br>
+	<%-- <form:form commandName="member" name="userinput" method="post" enctype="multipart/form-data">
+		프로필 사진을 넣어주세용 : <input type="file" name="m_profile"/>
+		<input type="submit"/>
+	</form:form>
+ --%>
+ 
+	<form:form commandName="member" name="userinput" method="post" enctype="multipart/form-data">
+			아이디 : <input type="text" name="m_id"/>
+			<input type="button" value="아이디 중복 확인" onclick="openConfirmId(this.form)"/> 
+			<br>
 			비밀번호 : <input type="password" name="m_password"/> <br>
 			비밀번호 : <input type="password" name="m_password_check"/> <br>
 			이름 : <input type="text" name="m_name"/> <br>
 			핸드폰 번호 : <input type="text" name="m_phone"/> <br>
+			
+			프로필 사진을 넣어주세용 : <input type="file" name="m_profile"/>
 		
 		<br><br>	
 		<div class="category">
@@ -125,6 +135,40 @@
 			<input type="checkbox" name="m_fav_field" value="공예">공예
 		</div>
 		<br><br>
+		
+		<div class="area">
+			<input type="checkbox" name="m_fav_area" value="종로구">종로구
+			<input type="checkbox" name="m_fav_area" value="중구">중구
+			<input type="checkbox" name="m_fav_area" value="용산구">용산구
+			<input type="checkbox" name="m_fav_area" value="성동구">성동구<br>
+	
+			<input type="checkbox" name="m_fav_area" value="광진구">광진구
+			<input type="checkbox" name="m_fav_area" value="동대문구">동대문구
+			<input type="checkbox" name="m_fav_area" value="중랑구">중랑구
+			<input type="checkbox" name="m_fav_area" value="성북구">성북구<br>
+
+			<input type="checkbox" name="m_fav_area" value="강북구">강북구
+			<input type="checkbox" name="m_fav_area" value="도봉구">도봉구
+			<input type="checkbox" name="m_fav_area" value="노원구">노원구
+			<input type="checkbox" name="m_fav_area" value="은평구">은평구 <br>
+	
+			<input type="checkbox" name="m_fav_area" value="서대문구">서대문구
+			<input type="checkbox" name="m_fav_area" value="마포구">마포구
+			<input type="checkbox" name="m_fav_area" value="양천구">양천구
+			<input type="checkbox" name="m_fav_area" value="강서구">강서구<br>
+	
+			<input type="checkbox" name="m_fav_area" value="구로구">구로구
+			<input type="checkbox" name="m_fav_area" value="금천구">금천구
+			<input type="checkbox" name="m_fav_area" value="영등포구">영등포구
+			<input type="checkbox" name="m_fav_area" value="동작구">동작구<br>
+	
+			<input type="checkbox" name="m_fav_area" value="관악구">관악구
+			<input type="checkbox" name="m_fav_area" value="서초구">서초구
+			<input type="checkbox" name="m_fav_area" value="강남구">강남구
+			<input type="checkbox" name="m_fav_area" value="송파구">송파구<br>
+	
+			<input type="checkbox" name="m_fav_area" value="강동구">강동구
+		</div>
 			
 		<input type="button" value="제출!" onclick="insert()"/>
 	</form:form>

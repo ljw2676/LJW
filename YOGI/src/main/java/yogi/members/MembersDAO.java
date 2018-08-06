@@ -13,5 +13,13 @@ public class MembersDAO extends AbstractDAO{
 		System.out.println("DAO : " + model.getM_name());
 		insert("test.insertMember", model);
 	}
+	
+	public MembersModel loginCheck(MembersModel model){
+		return (MembersModel)selectOne("test.loginCheck", model);
+	}
+	
+	public int idCheck(String id) {
+		return (Integer)selectOne("test.idCheck", id);
+	}
 
 }

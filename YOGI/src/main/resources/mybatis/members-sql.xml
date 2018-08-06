@@ -18,7 +18,7 @@
       <result property="m_active" column="M_ACTIVE" />
    </resultMap>
    
-   <!-- 회원가입 -->
+   <!-- 회원가입 V -->
 	<insert id="insertMember" parameterType="MembersModel">
 		INSERT INTO MEMBERS(m_no, m_id, m_name, m_password, m_phone, m_fav_area, m_fav_field, m_date, m_grade, m_penalty, m_lv, m_profile)
 		VALUES(members_seq.nextval, #{m_id}, #{m_name}, #{m_password}, #{m_phone}, #{m_fav_area}, #{m_fav_field}, #{m_date}, 0, 0,'일반회원', #{m_profile})
@@ -37,9 +37,9 @@
 		delete from group_gathering where m_no=#{m_no}
 	</delete>
 	
-	<!-- id 중복 확인 -->
+	<!-- id 중복 확인 V -->
 	<select id="idCheck" resultType="hashmap" parameterType="string">
-		SELECT * FROM MEMBERS WHERE m_id=#{m_id}
+		SELECT COUNT(*) FROM MEMBERS WHERE m_id=#{m_id}
 	</select>
 	
 	<!-- id 찾기 -->
@@ -55,7 +55,7 @@
 		update members set m_password='0000' where m_id=#{m_id} and m_name=#{m_name} and m_phone=#{m_phone}
 	</update>
 	
-	<!-- 로그인 췤췤 -->
+	<!-- 로그인 췤췤 V -->
 	<select id="loginCheck" resultType="MembersModel" parameterType="MembersModel">
 		SELECT * FROM MEMBERS WHERE m_id = #{m_id} and m_password=#{m_password}
 	</select>

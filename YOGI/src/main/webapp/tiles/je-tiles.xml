@@ -6,4 +6,5 @@
 <tiles-definitions>
 	<definition name="firstPage" template="/WEB-INF/views/firstPage/firstPage.jsp" />
 	<definition name="createForm" template="/WEB-INF/views/members/createForm.jsp" />
+	<definition name="mainPage" template="/WEB-INF/views/main/main.jsp" />
 </tiles-definitions>

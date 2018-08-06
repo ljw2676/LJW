@@ -21,7 +21,15 @@
    <!-- 회원가입 -->
 	<insert id="insertMember" parameterType="MembersModel">
 		INSERT INTO MEMBERS(m_no, m_id, m_name, m_password, m_phone)
-		VALUES(members_seq.nextval, #{m_id}, '정으니', '0000', '폰 번호')
+		VALUES(members_seq.nextval, '아이디', #{m_name}, '0000', '폰 번호')
 	</insert>
+	
+	<select id="idCheck" resultType="int" parameterType="string">
+		SELECT COUNT(*) FROM MEMBERS WHERE m_id=#{m_id}
+	</select>
+	
+	<select id="loginCheck" resultType="MembersModel" parameterType="MembersModel">
+		SELECT * FROM MEMBERS WHERE m_id = #{m_id} and m_password=#{m_password}
+	</select>
 	
 </mapper>   
