@@ -18,16 +18,10 @@ public class GroupDAO{
 
 	@Resource
 	private SqlSessionTemplate sqlSession;
-	private GroupSearchModel sModel;
 	
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> selectGroupList(Map<String, Object> map) {
 		return sqlSession.selectList("group.group_select_all",map);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> searchGroupList(String query) {
-		return sqlSession.selectList("group.group_search",query);
-	}
-
 }

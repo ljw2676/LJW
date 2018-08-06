@@ -19,94 +19,27 @@ import java.util.HashMap;
 import yogi.group.GroupService;
 import org.springframework.ui.Model;
 import yogi.group.GroupSearchModel;
+import yogi.common.util.*;
+import yogi.config.CommandMap;
 
 @Controller
 public class GroupController {
-
-	private Map<String, Object> map = new HashMap<String, Object>();
-	private Map session;
-	private HttpServletRequest request;
-	private GroupSearchModel sModel;
-	
-	@Resource
-	private List<Map<String,Object>> list;
 	
 	@Autowired
 	private GroupService groupService;
-	private GroupSearchModel GroupSearchModel;
 	
 	@RequestMapping(value="/group/groupList")
-    public String groupList(Model model) throws Exception{
-         list = groupService.selectGroupList(map);
-    
-        model.addAttribute("list", list);
-        return "/group/groupList";
+    public ModelAndView groupList(CommandMap map, HttpServletRequest request) throws Exception{
+		YogiUtils.savePageURI(request);
+		ModelAndView mv = new ModelAndView("/group/groupList");
+		List<Map<String,Object>> list = groupService.selectGroupList(map.getMap());
+		PagingCalculator paging = new PagingCalculator("group/groupList", map.getCurrentPageNo(), list, 6 ,3);
+		Map<String, Object> result = paging.getPagingList();
+		mv.addObject("list", result.get("list"));
+		mv.addObject("pagingHtml", result.get("pagingHtml"));
+		mv.addObject("currentPageNo", map.getCurrentPageNo());
+        return mv;
     }	
 	
-	@RequestMapping(value="/group/groupSearch", method= {RequestMethod.POST})
-	public String search(Model model) throws Exception{
-		String query = createQuery();
-		if(query.length() > 0){
-		
-		list = groupService.searchGroupList(query);
-		} else {
-		 return "/group/groupList";
-		}
-		
-		model.addAttribute("list", list);
-		return "/group/groupList";
-	}
-	
-private String createQuery(){
-		
-		List<String> queryList = new ArrayList<String>();
-		
-		if(sModel.getSearchWord() != null && sModel.getSearchWord().length() > 0){ 
-			queryList.add("(gg_name like '%"+sModel.getSearchWord()+"%' or gg_simple like '%"+sModel.getSearchWord()+"%' or gg_detail like '% "+sModel.getSearchWord()+"%')");
-		} 
-		
-		if(sModel.getSearchCategory() != null && sModel.getSearchCategory().length() > 0){
-			queryList.add("REGEXP_LIKE(gg_category,'"+sModel.getSearchCategory()+"')");
-		} //
-		
-		if(sModel.getSearchAddr() != null && sModel.getSearchAddr().length() > 0){
-			queryList.add("REGEXP_LIKE(gg_place,'"+sModel.getSearchAddr()+"')");
-
-		}
-		
-		if(sModel.getSearchPay() != null && sModel.getSearchPay().length() > 0) {
-			if(sModel.getSearchPay().equals("유료")){
-				queryList.add("gg_cost > 0");	
-			} if(sModel.getSearchPay().equals("무료")){ 
-				queryList.add("gg_cost <= 0");
-			}
-		}
-				
-		if(sModel.getSearchMStart() != null){
-			queryList.add("(gg_date LIKE '%"+sModel.getSearchMStart()+"%')");
-		}
-		
-		System.out.println(sModel.getSearchWord());
-		System.out.println(sModel.getSearchCategory());	
-		System.out.println(sModel.getSearchAddr());
-		System.out.println(sModel.getSearchPay());
-		System.out.println(sModel.getSearchMStart());
-		
-		
-		
-		String query = "";
-		if(queryList.size() > 1){
-			for (int i = 0; i < queryList.size(); i++) {
-				query += queryList.get(i);
-				if(queryList.size()-1 == i){
-					continue;
-				}
-				query += " and ";
-			}
-		} else if(queryList.size() == 1){
-			query = queryList.get(0);
-		}
-		return query;
-	}
 	
 }

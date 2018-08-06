@@ -12,18 +12,27 @@
 <title>그룹 리스트</title>
 </head>
 <body>
-<c:choose>
-	<c:when test="${fn:length(list) > 0 }">
-		<c:forEach items="${list }" var="row">
-			${row.GG_NO}
-			${row.GG_NAME}
-			${row.GG_PLACE}
+	<c:choose>
+		<c:when test="${fn:length(list) > 0 }">
+		<table>
+		<tr>
+		<c:forEach items="${list }" var="row">		
+		<td>
+			${row.GG_NAME}<br />
+			${row.GG_PLACE}<br />
+			${row.GG_DETAIL}<br />
+		<td/>
 		</c:forEach>
+		</tr>
+		</table>
 	</c:when>
-</c:choose>
-<form name="search_form" action="<c:url value="/group/groupSearch"/>" method="post">
-<input type="checkbox" name="searchCategory" value="${searchCategory}">공연
-<input type="submit" value="검색">
-</form>
+	<c:otherwise>
+	<h4>등록된 게시물이 없습니다.</h4>
+	</c:otherwise>
+	</c:choose>
+	
+		<div>
+		<ul>${pagingHtml}</ul>
+		</div>
 </body>
 </html>

@@ -4,10 +4,22 @@
 <mapper namespace="group">
 
 	<select id="group_select_all" resultType="hashmap" parameterType="hashmap">														
-		select * from group_gathering order by gg_no desc															
+		select * from group_gathering	
+		<where>		
+		<if test="searchWord != null">
+				(gg_name like '%' || #{searchWord} || '%'  or gg_detail like '%' || #{searchWord} || '%')
+			</if>
+			<if test="searchCategory != null">
+				AND REGEXP_LIKE(gg_category,#{searchCategory})
+			</if>
+			<if test="searchAddr != null">
+				AND REGEXP_LIKE(gg_place,#{searchAddr})
+			</if>
+			<if test="searchMStart != null">
+				AND REGEXP_LIKE(gg_date,#{searchMStart})
+			</if>
+		</where>	
+		ORDER BY gg_no DESC															
 	</select>
 
-	<select id="group_search" resultType="GroupModel" parameterType="hashmap">
-		select * from group_gathering where ${param} order by gg_no desc
-	</select>
 </mapper>

@@ -27,7 +27,7 @@ public class PagingCalculator {
 	 * @param blockPage : 한페이지에 보여줄 페이지 수
 	 */
 	public PagingCalculator(String action, int currentPageNo, List<?> list, int blockCount, int blockPage) {
-		this.action = "/tepspr/"+action;
+		this.action = "/yogi/"+action;
 		this.currentPageNo = currentPageNo;
 		this.list = list;
 		this.totalCount = list.size();

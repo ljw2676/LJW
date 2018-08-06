@@ -14,5 +14,4 @@ public interface GroupService {
 	
 	List<Map<String, Object>> selectGroupList(Map<String, Object> map) throws Exception;	
 	
-	List<Map<String, Object>> searchGroupList(String query) throws Exception;
 }
