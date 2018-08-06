@@ -22,12 +22,7 @@
 	</c:when>
 </c:choose>
 <form name="search_form" action="<c:url value="/group/groupSearch"/>" method="post">
-
-<input id="searchWord" type="hidden" name="searchWord" value="${searchWord}">
-<input id="searchAddr" type="hidden" name="searchAddr" value="${searchAddr}">
-<input id="searchPay" type="hidden" name="searchPay" value="${searcPay}">
-<input id="searchMStart" type="hidden" name="searchMStart" value="${searchMStart}">
-
+<input type="checkbox" name="searchCategory" value="${searchCategory}">공연
 <input type="submit" value="검색">
 </form>
 </body>

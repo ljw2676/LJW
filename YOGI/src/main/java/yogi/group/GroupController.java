@@ -27,11 +27,13 @@ public class GroupController {
 	private Map session;
 	private HttpServletRequest request;
 	private GroupSearchModel sModel;
+	
 	@Resource
 	private List<Map<String,Object>> list;
 	
 	@Autowired
 	private GroupService groupService;
+	private GroupSearchModel GroupSearchModel;
 	
 	@RequestMapping(value="/group/groupList")
     public String groupList(Model model) throws Exception{
