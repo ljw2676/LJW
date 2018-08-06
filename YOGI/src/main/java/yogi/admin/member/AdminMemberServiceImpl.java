@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import yogi.members.MembersDAO;
@@ -18,7 +17,7 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 	private AdminMemberDao adminMemberDao;
 	
 	@Override
-	public List<Map<String, Object>> list(Map<String, Object> map) {
+	public List<Map<String, Object>> selectAdminMemberList(Map<String, Object> map) throws Exception{
 		return adminMemberDao.selectMemberList(map);
 	}
 

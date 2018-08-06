@@ -1,6 +1,7 @@
 package yogi.admin.lendplace;
 
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,14 @@ public class AdminLendplaceDAO extends AbstractDAO{
 		// TODO Auto-generated method stub
 		delete("lendplace.deleteLendplace",map);
 		
+	}
+	
+	public List<Map<String, Object>> selectLendplaceList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>)selectList("admin.selectAdminLendplaceList", map);
+	}
+	
+	public List<Map<String, Object>> selectPlaceBookList(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>)selectList("admin.selectAdminPlaceBookList", map);
 	}
 	
 }

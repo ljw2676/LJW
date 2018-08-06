@@ -4,8 +4,19 @@
 <mapper namespace="admin">
 <!-- 멤버 관리 -->
 	<!-- 멤버 목록 가져오기 -->
-	<select resultType="hashmap" parameterType="hashmap" id="selectMemberList">	
-		SELECT m_no, m_id, m_phone, m_grade, m_lv, m_penalty, to_char(m_date, 'yyyy/MM/dd') as m_date FROM Members ORDER BY m_no DESC 
+	<select id="selectAdminMemberList" resultType="hashmap">	
+		SELECT 
+			m_no,
+			m_id,
+			m_phone,
+			m_grade,
+			m_lv,
+			m_penalty,
+			to_char(m_date,'yyyy/MM/dd') as m_date
+		FROM 
+			Members 
+		ORDER BY 
+			m_no DESC 
 	</select>
 
 	<!-- 회원목록에서 검색하기 -->
@@ -19,17 +30,40 @@
 
 <!-- 멤버 관리 끝 -->
 
+<!-- 모임 관리 -->
+	<!-- 모임 목록 가져오기 -->
+	<select id="selectAdminGroupList" resultType="hashmap">
+		SELECT
+			gg_no,
+			gg_name,
+			m_name,
+			gg_category,
+			gg_place,
+			gg_cost,
+			gg_total,
+			gg_penalty,
+			gg_active,
+			to_char(gg_date,'yyyy/MM/dd') as gg_date
+		FROM
+			group_gathering g, members m
+		WHERE
+			g.m_no = m.m_no
+		ORDER BY
+			gg_no DESC
+	</select>
+
+<!-- 모임 관리 끝-->
 
 <!-- 신고 관리 -->
 	<!-- 신고 목록 가져오기 -->
-	<select resultType="hashmap" parameterType="hashmap" id="report_select_all">
+	<select id="selectAdminReportList" resultType="hashmap">
 		<![CDATA[
 				SELECT 
 					r_no,
 					m_no,
 					m_pno,
 					gg_no,
-					r_coment
+					r_comment
 				FROM
 					Report
 				ORDER BY
@@ -65,10 +99,22 @@
 
 <!-- 장소 관리 -->
 	<!-- 장소 목록 가져오기 -->
-	<select resultType="hashmap" parameterType="hashmap" id="lendplaceAdmin_select_all"> 
-		SELECT l_no, l_subject, l_addr, l_sdate, l_edate FROM lendplace ORDER BY l_no desc 
+	<select id="selectAdminLendplaceList" resultType="hashmap"> 
+		SELECT 
+			l_no, 
+			l_subject, 
+			l_addr,
+			l_enable,
+			l_payment,
+			l_sdate, 
+			l_edate,
+			l_rate
+		FROM 
+			lendplace 
+		ORDER BY 
+			l_no desc 
 	</select>
-
+	
 	<!-- 장소 목록에서 검색하기 -->
 	<select id="LendplaceAdmin_search_l_subject_select_all"> 
 		select lendplace.l_no, lendplace.l_subject, lendplace.l_addr, lendplace.l_sdate, lendplace.l_edate, placebook.l_date, members.m_id from lendplace, placebook, members where lendplace.l_no = placebook.l_no and placebook.m_no = members.m_no and l_subject like '%'||#l_subject#||'%' ORDER BY lendplace.l_no desc 
@@ -84,5 +130,21 @@
 
 <!-- 장소 관리 끝 -->
 
+<!-- 장소 예약 현황 -->
+	<!-- 장소 예약 현황 -->
+	<select id="selectAdminPlaceBookList" resultType="hashmap">
+		SELECT
+			pb_no,
+			l_no,
+			m_no,
+			to_char(l_sdate,'yyyy/MM/dd') as l_sdate
+		FROM
+			placebook
+		ORDER BY
+			l_no desc
+	</select>
+
+
+<!-- 장소 예약 현황 끝-->
 
 </mapper>

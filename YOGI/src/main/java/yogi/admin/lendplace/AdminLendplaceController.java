@@ -1,6 +1,7 @@
 package yogi.admin.lendplace;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -24,33 +25,52 @@ public class AdminLendplaceController {
 	private AdminLendplaceService lendplaceService;
 	
 	@RequestMapping(value= "/admin/lendplace/Form")
-	 public String lendplaceForm(){
+	public String lendplaceForm(){
 		return "/admin/lendplaceForm";
 	}
 
-	  @RequestMapping(value="/admin/lendplace/Form", method=RequestMethod.POST)
-	    public ModelAndView lendplaceInsert(@ModelAttribute("lendplaceModel")LendplaceModel lendplaceModel) throws Exception{
-		   System.out.println("컨트롤러");
-		   lendplaceService.insertPlace(lendplaceModel);
-			return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트:관리자 장소 리스트 페이지
-	    }
+	@RequestMapping(value="/admin/lendplace/Form", method=RequestMethod.POST)
+	public ModelAndView lendplaceInsert(@ModelAttribute("lendplaceModel")LendplaceModel lendplaceModel) throws Exception{
+		System.out.println("컨트롤러");
+		lendplaceService.insertPlace(lendplaceModel);
+		return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트:관리자 장소 리스트 페이지
+	}
 	  
-	  @RequestMapping(value= "/admin/lendplaceSuccess")
-		 public String lendplaceSuccess(){
-			return "/admin/lendplaceSuccess";
-		}
+	@RequestMapping(value= "/admin/lendplaceSuccess")
+	public String lendplaceSuccess(){
+		return "/admin/lendplaceSuccess";
+	}
 	  
-	  @RequestMapping(value= "/admin/lendplace/DeleteButton")
-		 public String lendplaceDelete(){
-			return "/admin/lendplaceDeleteButton";
-		}
+	@RequestMapping(value= "/admin/lendplace/DeleteButton")
+	public String lendplaceDelete(){
+		return "/admin/lendplaceDeleteButton";
+	}
 	  
-	  @RequestMapping(value="/admin/lendplace/Delete")
-	  public ModelAndView lendplaceDelete(CommandMap commandMap) throws Exception {
-		 lendplaceService.deletePlace(commandMap.getMap());
-		 return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트 : 관리자 장소 리스트 페이지
-	  }
-	  
+	@RequestMapping(value="/admin/lendplace/Delete")
+	public ModelAndView lendplaceDelete(CommandMap commandMap) throws Exception {
+		lendplaceService.deletePlace(commandMap.getMap());
+		return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트 : 관리자 장소 리스트 페이지
+	}
+	
+	@RequestMapping(value="/admin/lendplace/list")
+	public ModelAndView lendplaceList(CommandMap commandMap) throws Exception{
+		ModelAndView mv = new ModelAndView("adminLendplaceList");
+		List<Map<String, Object>> list = lendplaceService.selectLendplaceList(commandMap.getMap());
+		
+		mv.addObject("list", list);
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/admin/placeBook/list")
+	public ModelAndView placeBookList(CommandMap commandMap) throws Exception{
+		ModelAndView mv = new ModelAndView("adminPlaceBookList");
+		List<Map<String, Object>> list = lendplaceService.selectPlaceBookList(commandMap.getMap());
+		
+		mv.addObject("list", list);
+		
+		return mv;
+	}
 
 
 

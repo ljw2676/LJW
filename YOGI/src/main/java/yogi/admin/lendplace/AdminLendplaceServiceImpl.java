@@ -1,6 +1,7 @@
 package yogi.admin.lendplace;
 
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -41,6 +42,16 @@ public class AdminLendplaceServiceImpl implements AdminLendplaceService {
 		// TODO Auto-generated method stub
 		lendplaceDAO.deletePlace(map);
 		
+	}
+
+	@Override
+	public List<Map<String, Object>> selectLendplaceList(Map<String, Object> map) throws Exception {
+		return lendplaceDAO.selectLendplaceList(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectPlaceBookList(Map<String, Object> map) throws Exception {
+		return lendplaceDAO.selectPlaceBookList(map);
 	}
 }
 	

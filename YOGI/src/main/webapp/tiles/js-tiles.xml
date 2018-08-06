@@ -3,5 +3,9 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
-	<definition name="adminMemberList" template="/WEB-INF/views/admin/adminMemberList.jsp"></definition>
+	<definition name="adminMemberList" template="/WEB-INF/views/admin/adminMemberList.jsp"/>
+	<definition name="adminGroupList" template="/WEB-INF/views/admin/adminGroupList.jsp"/>
+	<definition name="adminReportList" template="/WEB-INF/views/admin/adminReportList.jsp"/>
+	<definition name="adminLendplaceList" template="/WEB-INF/views/admin/adminLendplaceList.jsp"/>
+	<definition name="adminPlaceBookList" template="/WEB-INF/views/admin/adminPlaceBookList.jsp"/>
 </tiles-definitions>
