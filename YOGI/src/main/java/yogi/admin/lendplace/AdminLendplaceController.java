@@ -29,12 +29,12 @@ public class AdminLendplaceController {
 		return "/admin/lendplaceForm";
 	}
 
-	@RequestMapping(value="/admin/lendplace/Form", method=RequestMethod.POST)
-	public ModelAndView lendplaceInsert(@ModelAttribute("lendplaceModel")LendplaceModel lendplaceModel) throws Exception{
-		System.out.println("컨트롤러");
-		lendplaceService.insertPlace(lendplaceModel);
-		return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트:관리자 장소 리스트 페이지
-	}
+	 @RequestMapping(value="/admin/lendplace/Insert")
+	    public ModelAndView lendplaceInsert(CommandMap commandMap) throws Exception{
+		   System.out.println("컨트롤러");
+		   lendplaceService.insertPlace(commandMap.getMap());
+		   return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트:관리자 장소 리스트 페이지
+	    }
 	  
 	@RequestMapping(value= "/admin/lendplaceSuccess")
 	public String lendplaceSuccess(){
@@ -71,6 +71,21 @@ public class AdminLendplaceController {
 		
 		return mv;
 	}
+	
+	  
+	  @RequestMapping(value="/admin/lendplace/Apply")
+	    public ModelAndView placebookInsert(CommandMap commandMap) throws Exception{
+		   lendplaceService.applyPlace(commandMap.getMap());
+		   return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트:관리자 장소 리스트 페이지
+	    }
+	  
+	  @RequestMapping(value="/admin/lendplace/Cancel")
+	    public ModelAndView placebookCancel(CommandMap commandMap) throws Exception{
+		   lendplaceService.cancelPlace(commandMap.getMap());
+		   return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트:관리자 장소 리스트 페이지
+	    }
+	
+	
 
 
 

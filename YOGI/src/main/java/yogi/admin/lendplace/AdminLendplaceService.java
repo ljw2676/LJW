@@ -9,7 +9,7 @@ import yogi.lendplace.LendplaceModel;
 
 public interface AdminLendplaceService {
 
-	public void insertPlace(LendplaceModel lendplaceModel) throws Exception;
+	public void insertPlace(Map<String, Object> map) throws Exception;
 
 	public void deletePlace(Map<String, Object> map) throws Exception;
 	
@@ -17,6 +17,9 @@ public interface AdminLendplaceService {
 	
 	public List<Map<String, Object>> selectPlaceBookList(Map<String, Object> map) throws Exception;
 
+	public void applyPlace(Map<String, Object> map) throws Exception;
+
+	public void cancelPlace(Map<String, Object> map) throws Exception;
 
 }
 

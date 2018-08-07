@@ -11,17 +11,8 @@ public interface LendplaceService {
 
 	Map<String, Object> selectLendplaceDetail(Map<String, Object> map) throws Exception;
 
-	void insertLendplace(Map<String, Object> map,HttpServletRequest request) throws Exception;
+//	public void updateLendplace(Map<String, Object> map) throws Exception;
 	
-	
-//	void updateLendplace(Map<String, Object> map,HttpServletRequest request) throws Exception;
-//	
-//	void insertPlacebook(Map<String, Object> map) throws Exception;
-//	
-//	void deleteLendplace(Map<String, Object> map) throws Exception;
-//	
-//	void deletePlacebook(Map<String, Object> map) throws Exception;
-//	
 //	void insertReview(Map<String, Object> map) throws Exception;
 //	
 //	void deleteReview(Map<String, Object> map) throws Exception;

@@ -19,16 +19,17 @@ import java.util.HashMap;
 import yogi.group.GroupService;
 import org.springframework.ui.Model;
 import yogi.group.GroupSearchModel;
-import yogi.common.util.*;
+import yogi.common.util.PagingCalculator;
+import yogi.common.util.YogiUtils;
 import yogi.config.CommandMap;
 
 @Controller
 public class GroupController {
-	
+
 	@Autowired
 	private GroupService groupService;
 	
-	@RequestMapping(value="/group/groupList")
+	@RequestMapping(value="/group/groupList" ,method={RequestMethod.GET, RequestMethod.POST})
     public ModelAndView groupList(CommandMap map, HttpServletRequest request) throws Exception{
 		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("/group/groupList");
@@ -38,6 +39,10 @@ public class GroupController {
 		mv.addObject("list", result.get("list"));
 		mv.addObject("pagingHtml", result.get("pagingHtml"));
 		mv.addObject("currentPageNo", map.getCurrentPageNo());
+		System.out.println(map.get("searchCategory"));
+		System.out.println(map.get("searchAddr"));		
+		System.out.println(map.get("searchPay"));
+		System.out.println(map.get("searchWord"));
         return mv;
     }	
 	

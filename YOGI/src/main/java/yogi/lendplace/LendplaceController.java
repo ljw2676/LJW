@@ -26,7 +26,7 @@ public class LendplaceController {
     	List<Map<String, Object>> list = lendplaceService.selectLendplaceList(commandMap.getMap());
     	mv.addObject("list",list);
     	
-    	return mv;
+		return mv;
     }
 	
 	@RequestMapping(value="/lendplace/detail")

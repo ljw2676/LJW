@@ -4,6 +4,7 @@
 <mapper namespace="group">
 
 	<select id="group_select_all" resultType="hashmap" parameterType="hashmap">														
+	  	
 		select * from group_gathering	
 		<where>		
 		<if test="searchWord != null">
@@ -18,8 +19,17 @@
 			<if test="searchMStart != null">
 				AND REGEXP_LIKE(gg_date,#{searchMStart})
 			</if>
+			<if test="searchPay != null">
+				<if test='searchPay.equals("유료")'> 
+					<![CDATA[ AND gg_cost > 0  ]]>	
+				</if>
+				<if test='searchPay.equals("무료")'>
+					<![CDATA[ AND gg_cost <= 0 ]]>
+				</if>
+			</if>
 		</where>	
-		ORDER BY gg_no DESC															
+		ORDER BY gg_no DESC	
+																
 	</select>
 
 </mapper>

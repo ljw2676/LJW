@@ -27,14 +27,14 @@ public class AdminLendplaceServiceImpl implements AdminLendplaceService {
 //	private FileUploadComponent fileUploadComp;
 
 	@Override
-	public void insertPlace (LendplaceModel lendplaceModel) throws Exception {
+	public void insertPlace (Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
 		
 //		String uploadFilePath = fileUploadComp.saveFile(request.getFile("file"));
 //		map.put("l_rep_img", uploadFilePath);
 //		map.put("l_sdate", YogiUtils.dateParse(map.get("l_sdate").toString()));
 //		map.put("l_edate", YogiUtils.dateParse(map.get("l_edate").toString()));
-		lendplaceDAO.insertPlace(lendplaceModel);
+		lendplaceDAO.insertPlace(map);
 	}
 
 	@Override
@@ -53,6 +53,21 @@ public class AdminLendplaceServiceImpl implements AdminLendplaceService {
 	public List<Map<String, Object>> selectPlaceBookList(Map<String, Object> map) throws Exception {
 		return lendplaceDAO.selectPlaceBookList(map);
 	}
+	
+	@Override
+	public void applyPlace(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		lendplaceDAO.applyPlace(map);
+		
+	}
+
+	@Override
+	public void cancelPlace(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		lendplaceDAO.cancelPlace(map);
+	}
+	
+	
 }
 	
 	

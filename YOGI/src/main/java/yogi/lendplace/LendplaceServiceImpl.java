@@ -1,15 +1,13 @@
 package yogi.lendplace;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
-import yogi.members.MembersDAO;
 
 @Service("lendplaceService")
 public class LendplaceServiceImpl implements LendplaceService {
@@ -19,6 +17,26 @@ public class LendplaceServiceImpl implements LendplaceService {
 	
 	@Override
 	public List<Map<String, Object>> selectLendplaceList(Map<String, Object> map) throws Exception {
+		
+		if(map.get("searchAddr") == null || StringUtils.isBlank(map.get("searchAddr").toString())){
+			map.remove("searchAddr");
+		}
+		if(map.get("min_pay") == null || StringUtils.isBlank(map.get("min_pay").toString())){
+			map.remove("min_pay");
+		}
+		if(map.get("max_pay") == null || StringUtils.isBlank(map.get("max_pay").toString())){
+			map.remove("max_pay");
+		}
+		if(map.get("searchWord") == null || StringUtils.isBlank(map.get("searchWord").toString())){
+			map.remove("searchWord");
+		}
+		if(map.get("l_sdate") == null || StringUtils.isBlank(map.get("l_sdate").toString())){
+			map.remove("l_sdate");
+		}
+		if(map.get("l_edate") == null || StringUtils.isBlank(map.get("l_edate").toString())){
+			map.remove("l_edate");
+		}
+		
 		return lendplaceDAO.selectLendplaceList(map);
 	}
 
@@ -29,27 +47,9 @@ public class LendplaceServiceImpl implements LendplaceService {
 		return resultMap;
 	}
 
-	@Override
-	public void insertLendplace(Map<String, Object> map, HttpServletRequest request) throws Exception {
-		lendplaceDAO.insertLendplace(map);		
-	
-	
-	}
 
 //	@Override
 //	public void updateLendplace(Map<String, Object> map, HttpServletRequest request) throws Exception {
-//	}
-//
-//	@Override
-//	public void insertPlacebook(Map<String, Object> map) throws Exception {
-//	}
-//
-//	@Override
-//	public void deleteLendplace(Map<String, Object> map) throws Exception {
-//	}
-//
-//	@Override
-//	public void deletePlacebook(Map<String, Object> map) throws Exception {
 //	}
 //
 //	@Override
