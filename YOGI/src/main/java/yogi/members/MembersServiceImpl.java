@@ -1,5 +1,6 @@
 package yogi.members;
 
+import java.util.Calendar;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,13 +18,14 @@ public class MembersServiceImpl implements MembersService{
 	
 	
 	@Override
-	public void insertMember(MembersModel model, HttpServletRequest request) throws Exception{
-		System.out.println("서비스 : " + model.getM_name());
+	public void insertMember(MembersModel model){
+		model.setM_date(Calendar.getInstance().getTime());
 		membersDAO.insertMember(model);
 	}
 	
 	@Override
 	public int checkId(String id) {
+		System.out.println("Service : "+id);
 		return membersDAO.idCheck(id);
 	}
 
