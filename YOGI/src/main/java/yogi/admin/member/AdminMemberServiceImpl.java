@@ -29,16 +29,12 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 
 	@Override
 	public void inactivateMember(Map<String, Object> map) {
-		System.out.println("adminMemberService 실행");
-		System.out.println("커맨드맵 : "+map.get("M_NO"));
 		adminMemberDao.inactivateMember(map);
 		
 	}
 	
 	@Override
 	public void activateMember(Map<String, Object> map) {
-		System.out.println("adminMemberService 실행");
-		System.out.println("커맨드맵 : "+map.get("M_NO"));
 		adminMemberDao.activateMember(map);
 		
 	}

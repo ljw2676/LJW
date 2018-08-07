@@ -17,6 +17,18 @@ public class AdminGroupServiceImpl implements AdminGroupService{
 	public List<Map<String, Object>> selectAdminGroupList(Map<String, Object> map) throws Exception {
 		return adminGroupDao.selectGroupList(map);
 	}
+
+	@Override
+	public void inactivateGroup(Map<String, Object> map) throws Exception {
+		adminGroupDao.inactivateGroup(map);
+		
+	}
+	
+	@Override
+	public void activateGroup(Map<String, Object> map) throws Exception {
+		adminGroupDao.activateGroup(map);
+		
+	}
 	
 	
 }

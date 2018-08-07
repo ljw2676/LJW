@@ -38,8 +38,8 @@ public class AdminMemberController {
 	@RequestMapping(value="/admin/member/inactivateMember")
 	public ModelAndView inactivateMember(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/admin/member/list");
-		System.out.println("adminMemberController 실행");
-		System.out.println("커맨드맵 : "+commandMap.get("M_NO"));
+		//System.out.println("adminMemberController 실행");
+		//System.out.println("커맨드맵 : "+commandMap.get("M_NO"));
 		adminMemberService.inactivateMember(commandMap.getMap());
 		
 		return mv;
@@ -48,8 +48,8 @@ public class AdminMemberController {
 	@RequestMapping(value="/admin/member/activateMember")
 	public ModelAndView activateMember(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/admin/member/list");
-		System.out.println("adminMemberController 실행");
-		System.out.println("커맨드맵 : "+commandMap.get("M_NO"));
+		//System.out.println("adminMemberController 실행");
+		//System.out.println("커맨드맵 : "+commandMap.get("M_NO"));
 		adminMemberService.activateMember(commandMap.getMap());
 		
 		return mv;

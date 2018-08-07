@@ -18,15 +18,11 @@ public class AdminMemberDao extends AbstractDAO{
 	
 	//멤버 비활성화
 	public void inactivateMember(Map<String, Object> map) {
-		System.out.println("adminMemberDao 실행");
-		System.out.println("커맨드맵 : "+map.get("M_NO"));
 		update("admin.inactivateMember", map);
 	}
 	
 	//멤버 활성화
 		public void activateMember(Map<String, Object> map) {
-			System.out.println("adminMemberDao 실행");
-			System.out.println("커맨드맵 : "+map.get("M_NO"));
 			update("admin.activateMember", map);
 		}
 		

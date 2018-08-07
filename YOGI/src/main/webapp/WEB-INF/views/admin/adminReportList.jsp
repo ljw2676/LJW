@@ -34,7 +34,7 @@
 			<td>${row.R_COMMENT}</td>
 			<td>
 				<a href="#this" name="inactivateMember">멤버</a><input type="hidden" id="M_NO" value="${row.M_NO}">			
-				<a href="${inactivateGroupUrl }"><input type="text" onclick="return inaGch()" value="모임"></a>
+				<a href="#this" name="inactivateGroup">모임</a><input type="hidden" id="GG_NO" value="${row.GG_NO}">
 			</td>
 		</tr>
 		</c:forEach>
@@ -55,12 +55,23 @@
 				e.preventDefault();
 				fn_inactivateMember($(this));
 			});
+			$("a[name='inactivateGroup']").on("click", function(e) { //비활성화
+				e.preventDefault();
+				fn_inactivateGroup($(this));
+			});
 		});
 		
 		function fn_inactivateMember(obj) {
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/admin/member/inactivateMember' />");
 			comSubmit.addParam("M_NO", obj.parent().find("#M_NO").val());
+			comSubmit.submit();
+		}
+		
+		function fn_inactivateGroup(obj) {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/admin/group/inactivateGroup' />");
+			comSubmit.addParam("GG_NO", obj.parent().find("#GG_NO").val());
 			comSubmit.submit();
 		}
 		

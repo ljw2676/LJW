@@ -14,6 +14,6 @@ public interface AdminMemberService {
 	//회원 비활성화
 	void inactivateMember(Map<String, Object> map) throws Exception;
 	
-	//회원 비활성화
+	//회원 활성화
 	void activateMember(Map<String, Object> map) throws Exception;
 }
