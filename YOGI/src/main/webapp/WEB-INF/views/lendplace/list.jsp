@@ -84,6 +84,7 @@
 						<td>인원</td>
 						<td>비용</td>
 						<td>기간</td>
+						<td>평점</td>
 						<td>신청</td>
 						<td>취소</td>
 					</tr>
@@ -95,6 +96,7 @@
 						<td>${row.L_ENABLE}명</td>
 						<td>${row.L_PAYMENT}원</td>
 						<td>${row.L_SDATE} ~ ${row.L_EDATE}</td>
+						<td>${row.L_RATE}</td>
 						<!-- 장소 신청 버튼 -->
 						<td><a href="#this" name="apply">신청</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
 						<td><a href="#this" name="cancel">취소</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
