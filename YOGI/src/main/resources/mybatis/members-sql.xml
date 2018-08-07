@@ -20,9 +20,9 @@
    
    <!-- 회원가입 V -->
 	<insert id="insertMember" parameterType="MembersModel">
-		INSERT INTO MEMBERS(m_no, m_id, m_name, m_password, m_phone, m_fav_area, m_fav_field, m_date, m_grade, m_penalty, m_lv, m_profile)
-		VALUES(members_seq.nextval, #{m_id}, #{m_name}, #{m_password}, #{m_phone}, #{m_fav_area}, #{m_fav_field}, #{m_date}, 0, 0,'일반회원', #{m_profile})
-	</insert>
+		INSERT INTO MEMBERS(m_no, m_id, m_name, m_password, m_phone, m_fav_area, m_fav_field, m_grade, m_penalty, m_lv, m_active, m_date, m_profile)
+		VALUES(members_seq.nextval, #{m_id}, #{m_name}, #{m_password}, #{m_phone}, #{m_fav_area, jdbcType=VARCHAR}, #{m_fav_field, jdbcType=VARCHAR},  0, 0,'일반회원', 0, #{m_date}, #{m_profile, jdbcType=VARCHAR})
+ 	</insert>
 	
 	<!-- 회원정보 수정 -->
 	<update id="updateMember" parameterType="MembersModel">

@@ -15,6 +15,25 @@
 		<argument-resolvers>
 			<beans:bean class="yogi.config.CustomMapArgumentResolver"></beans:bean>
 		</argument-resolvers>
+		
+		<!-- messageConvertert -->
+		<message-converters>
+			<beans:bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<beans:property name="supportedMediaTypes">
+					<beans:list>
+						<beans:value>text/html; charset=UTF-8</beans:value>
+				</beans:list>
+				</beans:property>
+			</beans:bean>
+			<beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<beans:property name="supportedMediaTypes">
+					<beans:list>
+						<beans:value>application/json; charset=UTF-8</beans:value>
+					</beans:list>
+				</beans:property>
+			</beans:bean>
+
+         </message-converters>
 	</annotation-driven>
 
 	<!-- 빈자동설정 범위 -->

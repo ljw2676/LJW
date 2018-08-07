@@ -5,13 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 	var kor_check = /([^가-힣ㄱ-ㅎㅏ-ㅣ\x20])/i;
 	var eng_check = /^[A-za-z]/g;
 	var num_check = /^[0-9]*$/;
 	var phone_check1 = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 	var phone_check2 = /^\d{2,3}-\d{3,4}-\d{4}$/;
-	
+	var id_check = 0;
+
 	function insert() {
 		var join = document.userinput
 		if (join.m_id.value == "") {
@@ -20,49 +23,49 @@
 			join.m_id.focus();
 			return false;
 		}
-		
+
 		if (join.m_password.value == "") {
 			/* alertify.error("비밀번호를 입력해주세요"); */
 			alert("비밀번호를 입력해주세요");
 			join.m_password.focus();
 			return false;
 		}
-		
+
 		if (userinput.m_password.value.length < 4) {
 			/* alertify.error("최소 4자리 이상 입력해주세요!"); */
-			alert("최소 4자리 이상 입력해주세요!"); 
+			alert("최소 4자리 이상 입력해주세요!");
 			userinput.m_password.focus();
 			return false;
 		}
-		
+
 		if (join.m_password_check.value == "") {
 			alert("비밀번호를 한번 더 입력해주세요!");
 			/* alertify.error("비밀번호를 한번 더 입력해주세요!"); */
 			join.m_password.focus();
 			return false;
-		} 
-		
+		}
+
 		if (join.m_password_check.value != join.m_password.value) {
 			/* alertify.error("비밀번호를 틀리게 입력하셨습니다..."); */
 			alert("비밀번호를 틀리게 입력하셨습니다...");
 			join.m_password.focus();
 			return false;
-		} 
-		
+		}
+
 		if (join.m_name.value == "") {
 			/* alertify.error("이름을 입력해주세요"); */
 			alert("이름을 입력해주세요");
 			join.m_name.focus();
 			return false;
 		}
-		
+
 		if (join.m_name.value.match(num_check)) {
 			alert("이름을 입력해주세요");
 			/* alertify.error("이름에는 숫자가 포함될수 없습니다."); */
 			join.m_name.focus();
 			return false;
 		}
-		
+
 		if (join.m_phone.value == "") {
 			/* alertify.error("전화번호를 입력해주세요"); */
 			alert("전화번호를 입력해주세요");
@@ -70,27 +73,59 @@
 			return false;
 		}
 
-		if(!join.m_phone.value.match(phone_check1) && !join.m_phone.value.match(phone_check2)){
-			 alert("전화번호 형식이 잘못되었습니다. 다시 입력해주세요.");
+		if (!join.m_phone.value.match(phone_check1)
+				&& !join.m_phone.value.match(phone_check2)) {
+			alert("전화번호 형식이 잘못되었습니다. 다시 입력해주세요.");
 			/* alertify.error("전화번호 형식이 잘못되었습니다. 다시 입력해주세요.");
 			alertify.log("예) 010-1234-1234<br> 또는 02-123-1234");
 			 */join.m_phone.focus();
+			return false;
+		}
+		if(id_check != 1){
+			alert("아이디 중복 확인을 해주세요.");
+			join.m_id.focus();
 			return false;
 		}
 		alert("회원가입 완료! 환영합니다 >__<");
 		join.submit();
 	}
 
-	function openConfirmId(userinput) {
-		var url = "/yogi/members/membersIdChk?m_id="+document.userinput.m_id.value;
-		var join = document.userinput;
-		if (join.m_id.value == "") {
-			alertify.error("아이디를 입력해주세요");
-			join.m_id.focus();
-			return false;
-		}
-		open(url, "confirm", "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300,height=400");
-	}
+	
+	$(document).ready(function(){
+		$("#checkId").bind("click", function() {
+			var userId = $("#m_id").val();
+			$.ajax({
+				async:true,
+				type:'POST', 
+				data : {"userId":userId},
+				url:'/yogi/checkId',
+				dataType : "json",
+				success : function(data){
+					if (userId == "") {
+						alert("아이디를 입력해주세요");
+						$("#m_id").focus();
+					}
+					else if(data.cnt > 0){
+						alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
+						$("#m_id").focus();
+					}else{
+						id_check=1;
+						alert("사용가능한 아이디입니다.");
+						$("#m_password").foucs();
+					}
+				},
+				error : function(error){
+					alert("error: " + error)
+				}
+			})
+		})
+	})
+	
+	
+	
+	
+	
+	
 </script>
 </head>
 <body>
@@ -102,15 +137,14 @@
  --%>
  
 	<form:form commandName="member" name="userinput" method="post" enctype="multipart/form-data">
-			아이디 : <input type="text" name="m_id"/>
-			<input type="button" value="아이디 중복 확인" onclick="openConfirmId(this.form)"/> 
-			<br>
-			비밀번호 : <input type="password" name="m_password"/> <br>
-			비밀번호 : <input type="password" name="m_password_check"/> <br>
-			이름 : <input type="text" name="m_name"/> <br>
-			핸드폰 번호 : <input type="text" name="m_phone"/> <br>
+		아이디 : <input type="text" name="m_id" id="m_id"/>
+		<input type="button" value="중복확인" id="checkId" />
+		비밀번호 : <input type="password" name="m_password"/> <br>
+		비밀번호 : <input type="password" name="m_password_check"/> <br>
+		이름 : <input type="text" name="m_name"/> <br>
+		핸드폰 번호 : <input type="text" name="m_phone"/> <br>
 			
-			프로필 사진을 넣어주세용 : <input type="file" name="m_profile"/>
+		<!-- 프로필 사진을 넣어주세용 : <input type="file" name="m_profile"/> -->
 		
 		<br><br>	
 		<div class="category">
@@ -135,7 +169,6 @@
 			<input type="checkbox" name="m_fav_field" value="공예">공예
 		</div>
 		<br><br>
-		
 		<div class="area">
 			<input type="checkbox" name="m_fav_area" value="종로구">종로구
 			<input type="checkbox" name="m_fav_area" value="중구">중구
