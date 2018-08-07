@@ -29,29 +29,27 @@ public class AdminLendplaceController {
 		return "/admin/lendplaceForm";
 	}
 
+	//장소등록
 	 @RequestMapping(value="/admin/lendplace/Insert")
 	    public ModelAndView lendplaceInsert(CommandMap commandMap) throws Exception{
 		   System.out.println("컨트롤러");
 		   lendplaceService.insertPlace(commandMap.getMap());
 		   return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트:관리자 장소 리스트 페이지
 	    }
-	  
+	//테스트용 success화면
 	@RequestMapping(value= "/admin/lendplaceSuccess")
 	public String lendplaceSuccess(){
 		return "/admin/lendplaceSuccess";
 	}
 	  
-	@RequestMapping(value= "/admin/lendplace/DeleteButton")
-	public String lendplaceDelete(){
-		return "/admin/lendplaceDeleteButton";
-	}
-	  
+	//장소 삭제
 	@RequestMapping(value="/admin/lendplace/Delete")
 	public ModelAndView lendplaceDelete(CommandMap commandMap) throws Exception {
 		lendplaceService.deletePlace(commandMap.getMap());
 		return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트 : 관리자 장소 리스트 페이지
 	}
 	
+	//장소 리스트
 	@RequestMapping(value="/admin/lendplace/list")
 	public ModelAndView lendplaceList(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("adminLendplaceList");
@@ -62,6 +60,7 @@ public class AdminLendplaceController {
 		return mv;
 	}
 	
+	//장소 신청 리스트
 	@RequestMapping(value="/admin/placeBook/list")
 	public ModelAndView placeBookList(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("adminPlaceBookList");
@@ -72,17 +71,18 @@ public class AdminLendplaceController {
 		return mv;
 	}
 	
-	  
+	  //장소 신청
 	  @RequestMapping(value="/admin/lendplace/Apply")
 	    public ModelAndView placebookInsert(CommandMap commandMap) throws Exception{
 		   lendplaceService.applyPlace(commandMap.getMap());
-		   return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트:관리자 장소 리스트 페이지
+		   return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트 : 장소 리스트 페이지
 	    }
 	  
+	  //장소 신청 취소
 	  @RequestMapping(value="/admin/lendplace/Cancel")
 	    public ModelAndView placebookCancel(CommandMap commandMap) throws Exception{
 		   lendplaceService.cancelPlace(commandMap.getMap());
-		   return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트:관리자 장소 리스트 페이지
+		   return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트:장소 리스트 페이지
 	    }
 	
 	

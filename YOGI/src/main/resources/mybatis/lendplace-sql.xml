@@ -111,7 +111,7 @@
 			PB_NO,
 			L_NO,
 			M_NO,
-			L_SDATE )
+			PB_DATE )
 		VALUES (
 			PLACEBOOK_SEQ.NEXTVAL,
 			#{L_NO},

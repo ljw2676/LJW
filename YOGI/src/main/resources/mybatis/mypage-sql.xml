@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC " - //mybatis.org//DTD Config 3.0//EN" " http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mypage">
+
+<!-- 회원정보 검색 -->
+	<select id="selectOneMember" resultType="hashmap">
+		SELECT * FROM MEMBERS WHERE m_id=#{m_id}
+	</select>
+	
+	<!-- 마이페이지 내가 개설한 모임 -->
+	<select id="writeHistory" resultType="hashmap">
+		SELECT * FROM GROUP_GATHERING where m_no=#{m_no} order by gg_no desc
+	</select>
+	
+	<!--  마이페이지 모임참여내역 -->
+	<select id="meetHistory" resultType="hashmap">
+		SELECT * FROM GROUP_GATHERING WHERE gg_no in(select gg_no from group_enroll where m_no=#{m_no})
+	</select>
+	
+	<!-- 마이페이지 찜 목록 -->
+	<select id="zzimHistory" resultType="hashmap">
+	select * from Group_Gathering where gg_no in(select gg_no from LikeIt where m_no=#m_no#)	
+	</select>
+	
+	<!-- 마이페이지 장소 신청 내역 -->
+	<select id="placebookHistory" resultType="hashmap">
+	SELECT L.*,PB.PB_DATE FROM LENDPLACE L, PLACEBOOK PB WHERE L.L_NO = PB.L_NO AND PB.M_NO=1 ORDER BY L.L_NO DESC 
+	</select>
+	
+	<!-- 내가 신고한 모임 목록 -->
+	<select id="myReportList" resultType="hashmap">
+		select * from report where m_no=#m_no#
+	</select>
+	
+		<sql id="rp_where_gg_no">
+		where gg_no=#gg_no#
+	</sql>
+	
+	<!-- 모임 신고 -->
+	<!-- <insert id="report_insert" resultType="hashmap">
+   		insert into report values (report_seq.nextval,#m_no#,#gg_no#) 
+   </insert>
+   
+   	<update id="gg_update_penalty" parameterClass="int">
+		update group_gathering set gg_penalty = gg_penalty + 1 where gg_no = #gg_no#
+	</update>
+	
+	<update id="mb_update_penalty" parameterClass="int">
+		update members set m_penalty = m_penalty + 1 where m_no = #m_no#
+	</update> -->
+	
+	<!--신고취소-->
+	<!-- <delete id="report_cancel" parameterClass="int">
+		delete from report
+		<include refid="rp_where_gg_no" />
+	</delete>  -->
+
+</mapper>
