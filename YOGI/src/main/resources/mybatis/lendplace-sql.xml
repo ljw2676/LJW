@@ -17,13 +17,42 @@
 
 
 <!-- 장소목록 조회 -->
-<select id="selectLendplaceList" resultType="hashmap">
-	<![CDATA[
+<select id="selectLendplaceList" resultType="hashmap" parameterType="hashmap">
 		SELECT 
-			* 
+			L_NO, 
+			L_SUBJECT, 
+			L_ADDR, 
+			L_CONTENT, 
+			L_REP_IMG, 
+			L_ENABLE, 
+			L_PAYMENT,
+			TO_CHAR(L_SDATE,'YYYY-MM-DD') AS L_SDATE, 
+			TO_CHAR(L_EDATE,'YYYY-MM-DD') AS L_EDATE, 
+			L_RATE
 		FROM LENDPLACE
+		<where>
+			<if test="searchWord != null">
+				<![CDATA[
+				(L_SUBJECT like '%' || #{searchWord} || '%' or L_CONTENT like '%' || #{searchWord} || '%')
+				]]>
+			</if>
+			<if test="searchAddr != null">
+				<![CDATA[
+				AND REGEXP_LIKE(L_ADDR,#{searchAddr})
+				]]>
+			</if>
+			<if test="min_pay != null and max_pay != null">
+				<![CDATA[
+				AND ((L_PAYMENT >= #{min_pay} and #{max_pay} >= L_PAYMENT))
+				]]>
+			</if>
+			<if test="l_sdate != null and l_edate != null">
+				<![CDATA[
+				AND ((L_SDATE >= #{l_sdate} and #{l_edate} >= L_EDATE))
+				]]>
+			</if>
+		</where>
 		ORDER BY L_NO DESC
-	]]>
 </select> 
 
 <!-- 장소상세페이지 조회 -->
@@ -43,23 +72,20 @@
 			L_SUBJECT,
 			L_ADDR,
 			L_CONTENT,
-			L_REP_IMG,
 			L_ENABLE,
 			L_PAYMENT,
 			L_SDATE,
-			L_EDATE,
-			L_RATE )
+			L_EDATE
+			)
 		VALUES (
 			LENDPLACE_SEQ.NEXTVAL,
 			#{L_SUBJECT},
 			#{L_ADDR},
 			#{L_CONTENT},
-			'이미지',
 			#{L_ENABLE},
 			#{L_PAYMENT},
-			NULL,
-			NULL,
-			1
+			#{L_SDATE},
+			#{L_SDATE}
 			)
 </insert>
 
@@ -77,19 +103,6 @@
 	]]>
 </update>
 
-<!-- 장소검색 -->
-<!-- <select id="searchLendplaceList" resultType="lendplace" parameterType="hashmap">
-	<![CDATA[
-		SELECT 
-			*
-		FROM LENDPLACE
-		WHERE
-			<dynamic prepend="where">
-			$param$
-			</dynamic> 
-		ORDER BY L_NO DESC
-	]]>
-</select> -->
 
 <!-- 장소예약 신청 -->
 <insert id="insertPlacebook" parameterType="hashmap">

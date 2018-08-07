@@ -40,7 +40,14 @@
 		<td>비용</td>
 		<td><input type="number" name="L_PAYMENT"/></td>
 	</tr>
-	
+	<tr>
+		<td>대관시작날짜</td>
+		<td><input type="date" name="L_SDATE"/></td>
+	</tr>
+	<tr>
+		<td>대관끝날짜</td>
+		<td><input type="date" name="L_EDATE"/></td>
+	</tr>
 	<tr>
 		<!-- <td><input type="button" id="insert" name="insert" value="등록" onclick="#this" /></td> -->
 		<td><input type="submit" value="등록" ></td>

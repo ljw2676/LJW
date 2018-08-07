@@ -22,39 +22,14 @@ public class LendplaceDAO extends AbstractDAO{
 		return (Map<String, Object>) selectOne("lendplace.selectLendplaceDetail",map);
 	}
 	
-//	장소 등록
-	public void insertLendplace(Map<String, Object> map) throws Exception{
-		insert("lendplace.insertLendplace",map);
-	}
 
 //	장소 내용 수정 
 	public void updateLendplace(Map<String, Object> map) throws Exception{
 		update("lendplace.updateLendplace",map);
 	}
 	
-//	장소 검색
-//	@SuppressWarnings("unchecked")
-//	public List<Map<String, Object>> searchLendplaceList(Map<String, Object> map) throws Exception{
-//		return (List<Map<String, Object>>)selectList("lendplace.searchLendplaceList",map);
-//	}
-	
-//	장소예약 신청
-	public void insertPlacebook(Map<String, Object> map) throws Exception{
-		insert("lendplace.insertPlacebook",map);
-	}
-	
 //	날짜 중복 체크
 	
-	
-//	장소 삭제
-	public void deleteLendplace(Map<String, Object> map) throws Exception{
-		delete("lendplace.deleteLendplace",map);
-	}
-	
-//	장소예약 신청 취소
-	public void deletePlacebook(Map<String, Object> map) throws Exception{
-		delete("lendplace.deletePlacebook",map);
-	}
 	
 //	장소후기 입력 
 	public void insertReview(Map<String, Object> map) throws Exception{
