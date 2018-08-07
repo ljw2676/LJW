@@ -25,8 +25,8 @@ public class GroupServiceImpl implements GroupService {
 		if(map.get("searchMStart") == null || StringUtils.isBlank(map.get("searchMStart").toString())){
 			map.remove("searchMStart");
 		}
-		if(map.get("searchMEnd") == null || StringUtils.isBlank(map.get("searchMEnd").toString())){
-			map.remove("searchMEnd");
+		if(map.get("searchPay") == null || StringUtils.isBlank(map.get("searchPay").toString())){
+			map.remove("searchPay");
 		}
 		if(map.get("searchWord") == null || StringUtils.isBlank(map.get("searchWord").toString())){
 			map.remove("searchWord");
