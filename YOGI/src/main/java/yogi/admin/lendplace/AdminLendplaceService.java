@@ -19,5 +19,7 @@ public interface AdminLendplaceService {
 
 	public void applyPlace(Map<String, Object> map) throws Exception;
 
+	public void cancelPlace(Map<String, Object> map) throws Exception;
+
 }
 

@@ -75,8 +75,13 @@ public class AdminLendplaceController {
 	  
 	  @RequestMapping(value="/admin/lendplace/Apply")
 	    public ModelAndView placebookInsert(CommandMap commandMap) throws Exception{
-		   System.out.println("컨트롤러");
 		   lendplaceService.applyPlace(commandMap.getMap());
+		   return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트:관리자 장소 리스트 페이지
+	    }
+	  
+	  @RequestMapping(value="/admin/lendplace/Cancel")
+	    public ModelAndView placebookCancel(CommandMap commandMap) throws Exception{
+		   lendplaceService.cancelPlace(commandMap.getMap());
 		   return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트:관리자 장소 리스트 페이지
 	    }
 	

@@ -37,5 +37,10 @@ public class AdminLendplaceDAO extends AbstractDAO{
 		insert("lendplace.insertPlacebook", map);
 		
 	}
+
+	public void cancelPlace(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		delete("lendplace.deletePlacebook", map);
+	}
 	
 }

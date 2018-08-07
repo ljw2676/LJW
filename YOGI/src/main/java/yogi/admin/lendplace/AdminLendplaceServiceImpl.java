@@ -60,6 +60,14 @@ public class AdminLendplaceServiceImpl implements AdminLendplaceService {
 		lendplaceDAO.applyPlace(map);
 		
 	}
+
+	@Override
+	public void cancelPlace(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		lendplaceDAO.cancelPlace(map);
+	}
+	
+	
 }
 	
 	

@@ -135,7 +135,7 @@
 		DELETE
 		FROM PLACEBOOK
 		WHERE L_NO = #{L_NO}
-		AND M_NO = #{M_NO}
+		AND M_NO = 1
 	]]>
 </delete>
 
