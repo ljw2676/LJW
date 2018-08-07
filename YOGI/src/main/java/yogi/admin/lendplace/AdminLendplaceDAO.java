@@ -14,8 +14,8 @@ import yogi.lendplace.LendplaceModel;
 @Repository("adminLendplaceDAO")
 public class AdminLendplaceDAO extends AbstractDAO{
 
-	public void insertPlace(LendplaceModel lendplaceModel) {
-		insert("lendplace.insertLendplace", lendplaceModel);
+	public void insertPlace(Map<String, Object> map) {
+		insert("lendplace.insertLendplace", map);
 	}
 
 	public void deletePlace(Map<String, Object> map) {
@@ -30,6 +30,12 @@ public class AdminLendplaceDAO extends AbstractDAO{
 	
 	public List<Map<String, Object>> selectPlaceBookList(Map<String, Object> map) throws Exception{
 		return (List<Map<String, Object>>)selectList("admin.selectAdminPlaceBookList", map);
+	}
+	
+	public void applyPlace(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		insert("lendplace.insertPlacebook", map);
+		
 	}
 	
 }

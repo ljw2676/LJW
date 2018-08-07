@@ -98,12 +98,12 @@
 			PB_NO,
 			L_NO,
 			M_NO,
-			L_DATE )
+			L_SDATE )
 		VALUES (
 			PLACEBOOK_SEQ.NEXTVAL,
 			#{L_NO},
-			#{M_NO},
-			#{L_DATE} )
+			1,
+			sysdate)
 	]]>
 </insert>
 
