@@ -6,12 +6,14 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service("membersService")
 public class MembersServiceImpl implements MembersService{
+	Logger log = Logger.getLogger(this.getClass());
 	
 	@Resource(name="membersDAO")
 	private MembersDAO membersDAO;

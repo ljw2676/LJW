@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import yogi.config.CommandMap;
 
 @Controller
 public class AdminLendplaceController {
+	Logger log = Logger.getLogger(this.getClass());
 	
 	@Resource(name="adminLendplaceService")
 	private AdminLendplaceService lendplaceService;

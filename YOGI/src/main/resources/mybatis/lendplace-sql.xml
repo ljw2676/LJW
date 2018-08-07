@@ -85,7 +85,7 @@
 			#{L_ENABLE},
 			#{L_PAYMENT},
 			#{L_SDATE},
-			#{L_SDATE}
+			#{L_EDATE}
 			)
 </insert>
 
