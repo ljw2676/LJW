@@ -10,7 +10,6 @@ import yogi.common.dao.AbstractDAO;
 public class MembersDAO extends AbstractDAO{
 	
 	public void insertMember(MembersModel model){
-		System.out.println("DAO : " + model.getM_name());
 		insert("test.insertMember", model);
 	}
 	
@@ -19,6 +18,8 @@ public class MembersDAO extends AbstractDAO{
 	}
 	
 	public int idCheck(String id) {
+		System.out.println("DAO" + id);
+		System.out.println((Integer)selectOne("test.idCheck", id));
 		return (Integer)selectOne("test.idCheck", id);
 	}
 

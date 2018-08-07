@@ -2,6 +2,8 @@ package yogi.members;
 
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +12,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -47,50 +51,31 @@ public class MembersController {
 	}
 
 	@RequestMapping(value="/members/createForm", method=RequestMethod.POST)
-	public String join(@ModelAttribute("member") MembersModel member, MultipartFile file) throws Exception{
-		System.out.println("컨트롤러 : " + member.getM_name());
-		System.out.println("컨트롤러 : " + member.getM_fav_field());
-		System.out.println("파일이름 : "+ file.getName());
-		
+	//public String join(@ModelAttribute("member") MembersModel member, MultipartFile file) throws Exception{
+	public String join(@ModelAttribute("member") MembersModel member) throws Exception{
+		System.out.println("컨트롤러");
+		//System.out.println("파일이름 : "+ file.getName());
 		//member.setM_profile(multipartFile.getOriginalFilename());
 		//System.out.println("컨트롤러 : " + member.getM_profile());
-		//membersService.insertMember(member, request);//일반 회원가입	
+		membersService.insertMember(member);//일반 회원가입	
 		
 		return "redirect:/first";
 	}
 	
-	@RequestMapping(value="/members/membersIdChk")
-	public int IdChk(String m_id) {
-		System.out.println("id : " + m_id);
-		System.out.println(membersService.checkId(m_id));
-		return membersService.checkId(m_id);
+	@ResponseBody
+	@RequestMapping("/checkId")
+	public Map<Object, Object> idcheck(HttpServletRequest request){
+		System.out.println("컨트롤러");
+		String userId = request.getParameter("userId");
+		int count = 0;
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		System.out.println("Controller : " + userId);
+		count = membersService.checkId(userId);
+		map.put("cnt", count);
+		
+		return map;
 	}
 	
-//	@RequestMapping("/checkJoinId")//아이디 중복확인
-//	public String checkJoinId(Model model, @RequestParam(value="id", required=false, defaultValue="0") String id/*기본값 0*/){  
-//		if(!id.equals("0")) {//기본값이 아니라면
-//			int resultNumber = MemberService.checkJoinId(id);//해당아이디의 카운트를 구해옴
-//			//int의 기본값은 0
-//			model.addAttribute("resultNumber", resultNumber);//0을 넘기면 아이디 중복안되는것 //1이면 중복!
-//			model.addAttribute("id", id);
-//		}
-//		return "/join/checkJoinId";
-//	}
-	
-//	@RequestMapping(value="/loginForm", method=RequestMethod.GET)
-//	public String loginForm(HttpServletRequest request, Model model) throws IOException{
-//		
-//		CookieBox CookieBox = new CookieBox(request);
-//		
-//		String ID = CookieBox.getValue("ID");
-//		String PASSWORD = CookieBox.getValue("PW");
-//		
-//		model.addAttribute("cookieID", ID);
-//		model.addAttribute("cookiePW", PASSWORD);
-//		
-//		return "loginForm";
-//	}
-//	
 	
 	
 }
