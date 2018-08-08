@@ -25,15 +25,28 @@ public class MembersServiceImpl implements MembersService{
 	
 	@Override
 	public int checkId(String id) {
-		System.out.println("Service : "+id);
 		return membersDAO.idCheck(id);
 	}
-
 
 	@Override
 	public MembersModel loginCheck(MembersModel model, HttpServletRequest request) {
 		membersDAO.loginCheck(model);
 		return (MembersModel)membersDAO.loginCheck(model);
+	}
+
+	@Override
+	public MembersModel findId(MembersModel model, HttpServletRequest request) {
+		return (MembersModel)membersDAO.findId(model);
+	}
+	
+	@Override
+	public MembersModel findPW(MembersModel model, HttpServletRequest request) {
+		return (MembersModel)membersDAO.findPW(model);
+	}
+
+	@Override
+	public void resetPW(MembersModel model) {
+		membersDAO.resetPW(model);
 	}
 	
 }

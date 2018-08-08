@@ -28,10 +28,11 @@ function insert() {
 <body>
 	첫화면 <br>
 	<a href="http://localhost:8080/yogi/members/createForm">회원가입</a>
+	<a href="http://localhost:8080/yogi/members/find">ID/PW찾기</a>
 	<br>로그인<br>
 	<form:form commandName="member" name="userinput" method="post">
 		<input type="text" name="m_id"/>
-		<input type="text" name="m_password"/>
+		<input type="password" name="m_password"/>
 		<input type="button" value="제출!" onclick="insert()"/>
 	</form:form>
 </body>

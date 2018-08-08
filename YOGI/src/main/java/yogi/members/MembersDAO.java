@@ -18,9 +18,19 @@ public class MembersDAO extends AbstractDAO{
 	}
 	
 	public int idCheck(String id) {
-		System.out.println("DAO" + id);
-		System.out.println((Integer)selectOne("test.idCheck", id));
 		return (Integer)selectOne("test.idCheck", id);
+	}
+	
+	public MembersModel findId(MembersModel model) {
+		return (MembersModel)selectOne("test.findId", model);
+	}
+	
+	public MembersModel findPW(MembersModel model) {
+		return (MembersModel)selectOne("test.findPW", model);
+	}
+	
+	public void resetPW(MembersModel model) {
+		update("test.resetPW", model);
 	}
 
 }

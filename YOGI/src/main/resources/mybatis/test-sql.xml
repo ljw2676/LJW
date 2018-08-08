@@ -17,4 +17,15 @@
 		SELECT * FROM MEMBERS WHERE m_id = #{m_id} and m_password=#{m_password}
 	</select>
 	
+	<select id="findId" resultType="MembersModel" parameterType="MembersModel">
+		select * from members where m_name=#{m_name, jdbcType=VARCHAR} and m_phone=#{m_phone, jdbcType=VARCHAR}
+	</select>
+	<!-- 비밀번호 재설정 -->
+	<select id="findPW" resultType="MembersModel" parameterType="MembersModel">
+		select * from members where m_id=#{m_id, jdbcType=VARCHAR} and m_name=#{m_name, jdbcType=VARCHAR} and m_phone=#{m_phone, jdbcType=VARCHAR}
+	</select>
+	<update id="resetPW" parameterType="MembersModel">
+		update members set m_password=#{m_password} where m_id=#{m_id}
+	</update>
+	
 </mapper>   

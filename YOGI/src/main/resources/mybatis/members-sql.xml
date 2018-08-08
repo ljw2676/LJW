@@ -42,9 +42,9 @@
 		SELECT COUNT(*) FROM MEMBERS WHERE m_id=#{m_id}
 	</select>
 	
-	<!-- id 찾기 -->
-	<select id="findId" resultMap="membersRes" parameterType="MembersModel">
-		select m_id from members where m_name=#{m_name} and m_phone=#{m_phone}
+	<!-- id 찾기 V -->
+	<select id="findId" resultType="MembersModel" parameterType="MembersModel">
+		select * from members where m_name=#{m_name, jdbcType=VARCHAR} and m_phone=#{m_phone, jdbcType=VARCHAR}
 	</select>
 	
 	<!-- 비밀번호 초기화 -->

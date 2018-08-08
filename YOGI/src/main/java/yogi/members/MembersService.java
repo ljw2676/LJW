@@ -9,5 +9,8 @@ public interface MembersService {
 	public void insertMember(MembersModel model);
 	public int checkId(String id);
 	public MembersModel loginCheck(MembersModel model, HttpServletRequest request);
+	public MembersModel findId(MembersModel model, HttpServletRequest request);
+	public MembersModel findPW(MembersModel model, HttpServletRequest request);
+	public void resetPW(MembersModel model);
 
 }

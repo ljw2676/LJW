@@ -7,6 +7,8 @@
 	<definition name="firstPage" template="/WEB-INF/views/firstPage/firstPage.jsp" />
 	<definition name="createForm" template="/WEB-INF/views/members/createForm.jsp" />
 	<definition name="mainPage" template="/WEB-INF/views/main/main.jsp" />
-	<definition name="checkId" template="/WEB-INF/views/members/IdChk.jsp" />
-	
+	<definition name="findPage" template="/WEB-INF/views/members/findPage.jsp" />
+	<definition name="findId" template="/WEB-INF/views/members/findId.jsp" />
+	<definition name="findPW" template="/WEB-INF/views/members/findPW.jsp" />
+	<definition name="result" template="/WEB-INF/views/members/result.jsp" />
 </tiles-definitions>

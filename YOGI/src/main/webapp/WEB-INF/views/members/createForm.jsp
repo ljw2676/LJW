@@ -5,6 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<style>
+#checkPwd{
+  color : red;
+  font-size: 12px;
+}
+
+</style>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
@@ -14,25 +21,23 @@
 	var phone_check1 = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 	var phone_check2 = /^\d{2,3}-\d{3,4}-\d{4}$/;
 	var id_check = 0;
+	var pw_check = 0;
 
 	function insert() {
 		var join = document.userinput
 		if (join.m_id.value == "") {
-			/* alertify.error("아이디를 입력해주세요"); */
 			alert("아이디를 입력해주세요");
 			join.m_id.focus();
 			return false;
 		}
 
 		if (join.m_password.value == "") {
-			/* alertify.error("비밀번호를 입력해주세요"); */
 			alert("비밀번호를 입력해주세요");
 			join.m_password.focus();
 			return false;
 		}
 
 		if (userinput.m_password.value.length < 4) {
-			/* alertify.error("최소 4자리 이상 입력해주세요!"); */
 			alert("최소 4자리 이상 입력해주세요!");
 			userinput.m_password.focus();
 			return false;
@@ -40,20 +45,17 @@
 
 		if (join.m_password_check.value == "") {
 			alert("비밀번호를 한번 더 입력해주세요!");
-			/* alertify.error("비밀번호를 한번 더 입력해주세요!"); */
 			join.m_password.focus();
 			return false;
 		}
-
+		
 		if (join.m_password_check.value != join.m_password.value) {
-			/* alertify.error("비밀번호를 틀리게 입력하셨습니다..."); */
-			alert("비밀번호를 틀리게 입력하셨습니다...");
+			alertify.error("비밀번호를 틀리게 입력하셨습니다...");
 			join.m_password.focus();
 			return false;
-		}
+		} 
 
 		if (join.m_name.value == "") {
-			/* alertify.error("이름을 입력해주세요"); */
 			alert("이름을 입력해주세요");
 			join.m_name.focus();
 			return false;
@@ -61,24 +63,20 @@
 
 		if (join.m_name.value.match(num_check)) {
 			alert("이름을 입력해주세요");
-			/* alertify.error("이름에는 숫자가 포함될수 없습니다."); */
 			join.m_name.focus();
 			return false;
 		}
 
 		if (join.m_phone.value == "") {
-			/* alertify.error("전화번호를 입력해주세요"); */
 			alert("전화번호를 입력해주세요");
 			join.m_phone.focus();
 			return false;
 		}
 
-		if (!join.m_phone.value.match(phone_check1)
-				&& !join.m_phone.value.match(phone_check2)) {
+		if (!join.m_phone.value.match(phone_check1) && !join.m_phone.value.match(phone_check2)) {
 			alert("전화번호 형식이 잘못되었습니다. 다시 입력해주세요.");
-			/* alertify.error("전화번호 형식이 잘못되었습니다. 다시 입력해주세요.");
-			alertify.log("예) 010-1234-1234<br> 또는 02-123-1234");
-			 */join.m_phone.focus();
+			/* alertify.log("예) 010-1234-1234<br> 또는 02-123-1234"); */
+			 join.m_phone.focus();
 			return false;
 		}
 		if(id_check != 1){
@@ -86,6 +84,11 @@
 			join.m_id.focus();
 			return false;
 		}
+		/* if(pw_check != 1){
+			alert("비밀번호를 확인해 주세요.");
+			join.m_password.focus();
+			return false;
+		} */
 		alert("회원가입 완료! 환영합니다 >__<");
 		join.submit();
 	}
@@ -121,10 +124,49 @@
 		})
 	})
 	
+	/* function checkPwd() {
+		$('#m_password_check').on('keydown',function(e){ 
+			var userId = $("#m_id").val();
+			var pw1 = $("#m_password").val();
+			var pw2 = $("#m_password_check").val();
+			alert("ss");
+			if(pw1!=pw2){
+				document.getElementById('checkPwd').style.color = "red";
+				document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요."; 
+			}else{
+				document.getElementById('checkPwd').style.color = "black";
+				document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다."; 
+			}
+	} */
+		
+	function checkPwd(){
+		var pw1 = m_password.value;
+		var pw2 = m_password_check.value;
+		if(pw1!=pw2){
+			document.getElementById('checkPwd').style.color = "red";
+			document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요."; 
+		}else{
+			document.getElementById('checkPwd').style.color = "black";
+			document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다."; 
+		}
+	}
+
+
 	
-	
-	
-	
+	/* $(document).ready(function () {
+		$('#m_password_check').on('keydown',function(e){ 
+			var userId = $("#m_id").val();
+			var pw1 = $("#m_password").val();
+			var pw2 = $("#m_password_check").val();
+			if(pw1!=pw2){
+				document.getElementById('checkPwd').style.color = "red";
+				document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요."; 
+			}else{
+				document.getElementById('checkPwd').style.color = "black";
+				document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다."; 
+			}
+		});
+	}); */
 	
 </script>
 </head>
@@ -138,11 +180,12 @@
  
 	<form:form commandName="member" name="userinput" method="post" enctype="multipart/form-data">
 		아이디 : <input type="text" name="m_id" id="m_id"/>
-		<input type="button" value="중복확인" id="checkId" />
-		비밀번호 : <input type="password" name="m_password"/> <br>
-		비밀번호 : <input type="password" name="m_password_check"/> <br>
+		<input type="button" value="중복확인" id="checkId" /><br>
+		비밀번호 : <input type="password" name="m_password" /> <br>
+		비밀번호 : <input type="password" name="m_password_check" onkeyup="checkPwd()"/> <br>
+		<div id="checkPwd">동일한 암호를 입력하세요.</div>
 		이름 : <input type="text" name="m_name"/> <br>
-		핸드폰 번호 : <input type="text" name="m_phone"/> <br>
+		핸드폰 번호 : <input type="text" name="m_phone" placeholder="010-0000-0000"/> <br>
 			
 		<!-- 프로필 사진을 넣어주세용 : <input type="file" name="m_profile"/> -->
 		
