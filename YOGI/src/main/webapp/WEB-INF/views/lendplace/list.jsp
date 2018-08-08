@@ -23,7 +23,7 @@
 </form> --%>
 		
 <form name="search_form" action="<c:url value='/lendplace/list' />" role="search" method="post" method="post" onsubmit="searchSubmit()">
-
+<input id="currentPageNo" type="hidden" name="currentPageNo" value="${currentPageNo }">
 <input id="searchAddr" type="hidden" name="searchAddr">
 키워드 검색 
 <input autocomplete="off" class="searchbox" id="searchWord" type="text" name="searchWord" maxlength="10" placeholder="예)역삼동,음향,주차 등" style="background-color:transparent;" />
@@ -114,7 +114,11 @@
 
 <a href="<c:url value='/admin/lendplace/Form'/>">글쓰기</a>
 
-<form id="commonForm" name="commonForm"></form>
+
+${pagingHtml}
+
+
+<%@ include file="/WEB-INF/include/common-body.jspf"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
 <script type="text/javascript">

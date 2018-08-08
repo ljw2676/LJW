@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import yogi.common.util.PagingCalculator;
+import yogi.common.util.YogiUtils;
 import yogi.config.CommandMap;
 
 @Controller
@@ -21,13 +23,19 @@ public class LendplaceController {
 	private LendplaceService lendplaceService;
 	
 	@RequestMapping(value="/lendplace/list")
-    public ModelAndView selectLendplaceList(CommandMap commandMap) throws Exception{
-    	ModelAndView mv = new ModelAndView("/lendplace/list");
+    public ModelAndView selectLendplaceList(CommandMap commandMap,HttpServletRequest request) throws Exception{
+		YogiUtils.savePageURI(request);
+		ModelAndView mv = new ModelAndView("/lendplace/list");
     	List<Map<String, Object>> list = lendplaceService.selectLendplaceList(commandMap.getMap());
-    	mv.addObject("list",list);
+    	PagingCalculator paging = new PagingCalculator("lendplace/list", commandMap.getCurrentPageNo(), list, 6 ,3);
+    	Map<String, Object> result = paging.getPagingList();
+    	mv.addObject("list",result.get("list"));
+    	mv.addObject("pagingHtml", result.get("pagingHtml"));
+    	mv.addObject("currentPageNo", commandMap.getCurrentPageNo());
     	
 		return mv;
-    }
+		
+	}
 	
 	@RequestMapping(value="/lendplace/detail")
 	public ModelAndView selectLendplaceDetail(CommandMap commandMap) throws Exception{
