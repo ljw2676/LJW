@@ -10,6 +10,7 @@
 <head>
 <title>그룹 리스트</title>
 <%@ include file="/WEB-INF/include/common-header.jspf" %>
+<%@ include file="/WEB-INF/include/common-body.jspf" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
 <script src="<c:url value='/resources/dtpicker/jquery-1.7.1.js'/>" charset="utf-8"></script>
@@ -78,17 +79,27 @@ $(function() {
 				$('#searchMStart').val($('#startdt').val());
 			}
 	}
+
+function fn_groupDetailLink(gg_no){
+	var cs = new ComSubmit();
+	cs.setUrl("<c:url value='/group/groupDetail' />");
+	cs.addParam("gg_no", gg_no);
+	cs.addParam("currentPageNo", "${currentPageNo}");
+	cs.submit();
+}
+		    
 </script>
 
 </head>
 <body>
+	
 	<c:choose>
 		<c:when test="${fn:length(list) > 0 }">
 		<table>
 		<tr>
 		<c:forEach items="${list }" var="row">		
 		<td>
-			${row.GG_NAME}<br />
+			<a href="#this" onclick="fn_groupDetailLink('${row.GG_NO}')">${row.GG_NAME }</a><br/>
 			${row.GG_PLACE}<br />
 			${row.GG_CATEGORY}<br />
 			${row.GG_COST}<br />
