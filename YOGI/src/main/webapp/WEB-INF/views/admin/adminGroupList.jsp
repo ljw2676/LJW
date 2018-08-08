@@ -26,6 +26,7 @@
 			<td>총 인원(명)</td>
 			<td>penalty</td>
 			<td>날짜</td>
+			<td>활성화 여부</td>
 		</tr>
 		<c:forEach items="${list}" var="row">
 		<tr>
@@ -38,6 +39,12 @@
 			<td>${row.GG_TOTAL}</td>
 			<td>${row.GG_PENALTY}</td>
 			<td>${row.GG_DATE}</td>
+			<c:if test="${row.GG_ACTIVE == 0}">
+			<td><a href="#this" name="inactivateGroup">O</a><input type="hidden" id="GG_NO" value="${row.GG_NO}"></td>
+			</c:if>
+			<c:if test="${row.GG_ACTIVE == 1 }">
+			<td><a href="#this" name="activateGroup">X</a><input type="hidden" id="GG_NO" value="${row.GG_NO}"></td>
+			</c:if>
 		</tr>
 		</c:forEach>
 </table>
@@ -47,5 +54,35 @@
 		생성된 그룹이 없습니다.
 </c:otherwise>
 </c:choose>
+
+<form id="commonForm" name="commonForm"></form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
+<script type="text/javascript">
+		$(document).ready(function() {
+			$("a[name='inactivateGroup']").on("click", function(e) { //비활성화
+				e.preventDefault();
+				fn_inactivateGroup($(this));
+			});
+			$("a[name='activateGroup']").on("click", function(e) { //비활성화
+				e.preventDefault();
+				fn_activateGroup($(this));
+			});
+		});
+		
+		function fn_inactivateGroup(obj) {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/admin/group/inactivateGroup' />");
+			comSubmit.addParam("GG_NO", obj.parent().find("#GG_NO").val());
+			comSubmit.submit();
+		}
+		
+		function fn_activateGroup(obj) {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/admin/group/activateGroup' />");
+			comSubmit.addParam("GG_NO", obj.parent().find("#GG_NO").val());
+			comSubmit.submit();
+		}
+</script>
 </body>
 </html>

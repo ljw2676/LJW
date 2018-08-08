@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -19,6 +20,7 @@ import yogi.lendplace.LendplaceModel;
 
 @Service("adminLendplaceService")
 public class AdminLendplaceServiceImpl implements AdminLendplaceService {
+	Logger log = Logger.getLogger(this.getClass());
 	
 	@Resource(name="adminLendplaceDAO")
 	private AdminLendplaceDAO lendplaceDAO;

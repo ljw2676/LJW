@@ -8,9 +8,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import yogi.group.GroupDAO;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 @Service
 public class GroupServiceImpl implements GroupService {
+	Logger log = Logger.getLogger(this.getClass());
 	
 	@Resource
 	private GroupDAO groupDAO;

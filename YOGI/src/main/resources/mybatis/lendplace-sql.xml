@@ -85,7 +85,7 @@
 			#{L_ENABLE},
 			#{L_PAYMENT},
 			#{L_SDATE},
-			#{L_SDATE}
+			#{L_EDATE}
 			)
 </insert>
 
@@ -111,11 +111,11 @@
 			PB_NO,
 			L_NO,
 			M_NO,
-			L_SDATE )
+			PB_DATE )
 		VALUES (
 			PLACEBOOK_SEQ.NEXTVAL,
 			#{L_NO},
-			1,
+			#{M_NO},
 			sysdate)
 	]]>
 </insert>
@@ -148,7 +148,7 @@
 		DELETE
 		FROM PLACEBOOK
 		WHERE L_NO = #{L_NO}
-		AND M_NO = 1
+		AND M_NO = #{M_NO}
 	]]>
 </delete>
 

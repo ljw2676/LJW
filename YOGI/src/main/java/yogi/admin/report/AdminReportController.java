@@ -14,8 +14,6 @@ import yogi.config.CommandMap;
 
 @Controller
 public class AdminReportController {
-
-
 	Logger log = Logger.getLogger(this.getClass());
 
 	@Resource(name="adminReportService")

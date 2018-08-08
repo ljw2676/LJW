@@ -22,14 +22,20 @@
 			<td>주최자no.</td>
 			<td>신고자no.</td>
 			<td>사유</td>
+			<td>비활성화</td>
 		</tr>
 		<c:forEach items="${list}" var="row">
+
 		<tr>
 			<td>${row.R_NO}</td>
 			<td>${row.GG_NO}</td>
 			<td>${row.M_NO}</td>
 			<td>${row.M_PNO}</td>
 			<td>${row.R_COMMENT}</td>
+			<td>
+				<a href="#this" name="inactivateMember">멤버</a><input type="hidden" id="M_NO" value="${row.M_NO}">			
+				<a href="#this" name="inactivateGroup">모임</a><input type="hidden" id="GG_NO" value="${row.GG_NO}">
+			</td>
 		</tr>
 		</c:forEach>
 </table>
@@ -39,5 +45,36 @@
 		신고가 없습니다.
 </c:otherwise>
 </c:choose>
+
+<form id="commonForm" name="commonForm"></form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
+<script type="text/javascript">
+		$(document).ready(function() {
+			$("a[name='inactivateMember']").on("click", function(e) { //비활성화
+				e.preventDefault();
+				fn_inactivateMember($(this));
+			});
+			$("a[name='inactivateGroup']").on("click", function(e) { //비활성화
+				e.preventDefault();
+				fn_inactivateGroup($(this));
+			});
+		});
+		
+		function fn_inactivateMember(obj) {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/admin/member/inactivateMember' />");
+			comSubmit.addParam("M_NO", obj.parent().find("#M_NO").val());
+			comSubmit.submit();
+		}
+		
+		function fn_inactivateGroup(obj) {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/admin/group/inactivateGroup' />");
+			comSubmit.addParam("GG_NO", obj.parent().find("#GG_NO").val());
+			comSubmit.submit();
+		}
+		
+</script>
 </body>
 </html>

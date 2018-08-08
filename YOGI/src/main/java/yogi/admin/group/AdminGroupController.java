@@ -28,5 +28,21 @@ public class AdminGroupController {
 		
 		return mv;
 	}
+	
+	@RequestMapping(value="/admin/group/inactivateGroup")
+	public ModelAndView inactivateMember(CommandMap commandMap) throws Exception{
+		ModelAndView mv = new ModelAndView("redirect:/admin/group/list");
+		adminGroupService.inactivateGroup(commandMap.getMap());
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/admin/group/activateGroup")
+	public ModelAndView activateMember(CommandMap commandMap) throws Exception{
+		ModelAndView mv = new ModelAndView("redirect:/admin/group/list");
+		adminGroupService.activateGroup(commandMap.getMap());
+		
+		return mv;
+	}
 
 }

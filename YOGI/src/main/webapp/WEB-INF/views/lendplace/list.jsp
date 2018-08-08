@@ -23,7 +23,7 @@
 </form> --%>
 		
 <form name="search_form" action="<c:url value='/lendplace/list' />" role="search" method="post" method="post" onsubmit="searchSubmit()">
-
+<input id="currentPageNo" type="hidden" name="currentPageNo" value="${currentPageNo }">
 <input id="searchAddr" type="hidden" name="searchAddr">
 키워드 검색 
 <input autocomplete="off" class="searchbox" id="searchWord" type="text" name="searchWord" maxlength="10" placeholder="예)역삼동,음향,주차 등" style="background-color:transparent;" />
@@ -84,6 +84,7 @@
 						<td>인원</td>
 						<td>비용</td>
 						<td>기간</td>
+						<td>평점</td>
 						<td>신청</td>
 						<td>취소</td>
 					</tr>
@@ -95,9 +96,21 @@
 						<td>${row.L_ENABLE}명</td>
 						<td>${row.L_PAYMENT}원</td>
 						<td>${row.L_SDATE} ~ ${row.L_EDATE}</td>
+						<td>${row.L_RATE}</td>
 						<!-- 장소 신청 버튼 -->
 						<td><a href="#this" name="apply">신청</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
 						<td><a href="#this" name="cancel">취소</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
+						
+						<%-- <c:forEach items="${list2 }" var="row2">
+							<c:if test="${row2.L_NO == row.L_NO}">
+								<c:if test="${row2.m_no} == 1">
+								<td><a href="#this" name="apply">신청</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
+							</c:if>
+							</c:if>
+						</c:forEach>
+						<c:otherwise>
+							<td><a href="#this" name="cancel">취소</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
+						</c:otherwise>	 --%>					
 					</tr>
 			</c:forEach>
 			
@@ -112,7 +125,11 @@
 
 <a href="<c:url value='/admin/lendplace/Form'/>">글쓰기</a>
 
-<form id="commonForm" name="commonForm"></form>
+
+${pagingHtml}
+
+
+<%@ include file="/WEB-INF/include/common-body.jspf"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
 <script type="text/javascript">
@@ -123,11 +140,17 @@
 			});
 			
 			$("a[name='apply']").on("click", function(e) { //신청
+				/* 태그의 기본 기능을 제거 */
 				e.preventDefault();
 				fn_applyLendplace($(this));
+		
+				
+			/* 	$(this).html('취소');
+				$(this).attr('name', 'cancel'); */
+			
 			});
 			
-			$("a[name='cancel']").on("click", function(e) { //신청
+			$("a[name='cancel']").on("click", function(e) { //취소
 				e.preventDefault();
 				fn_cancelLendplace($(this));
 			});

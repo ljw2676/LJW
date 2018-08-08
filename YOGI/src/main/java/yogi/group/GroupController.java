@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -25,7 +26,8 @@ import yogi.config.CommandMap;
 
 @Controller
 public class GroupController {
-
+	Logger log = Logger.getLogger(this.getClass());
+	
 	@Autowired
 	private GroupService groupService;
 	

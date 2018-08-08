@@ -6,12 +6,14 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 
 @Service("lendplaceService")
 public class LendplaceServiceImpl implements LendplaceService {
-
+	Logger log = Logger.getLogger(this.getClass());
+	
 	@Resource(name="lendplaceDAO")
 	private LendplaceDAO lendplaceDAO;
 	

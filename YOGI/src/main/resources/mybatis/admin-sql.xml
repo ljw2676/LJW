@@ -12,12 +12,49 @@
 			m_grade,
 			m_lv,
 			m_penalty,
-			to_char(m_date,'yyyy/MM/dd') as m_date
+			to_char(m_date,'yyyy/MM/dd') as m_date,
+			m_active
 		FROM 
 			Members 
 		ORDER BY 
 			m_no DESC 
 	</select>
+	
+	<select id="selectAdminMemberOne" resultType="hashmap">
+		SELECT 
+			m_no,
+			m_id,
+			m_phone,
+			m_grade,
+			m_lv,
+			m_penalty,
+			to_char(m_date,'yyyy/MM/dd') as m_date,
+			m_active
+		FROM 
+			Members 
+		WHERE
+			m_no=#{m_no}
+		ORDER BY 
+			m_no DESC 
+	</select>
+	
+	<update id="inactivateMember" parameterType="hashmap">
+		UPDATE 
+			Members 
+		SET
+			m_active=1
+		WHERE
+			m_no=#{M_NO}
+	</update>
+	
+	<update id="activateMember" parameterType="hashmap">
+		UPDATE 
+			Members 
+		SET
+			m_active=0
+		WHERE
+			m_no=#{M_NO}
+	</update>
 
 	<!-- 회원목록에서 검색하기 -->
 	<select id="MemberList_search_m_name_select_all"> 
@@ -52,6 +89,23 @@
 			gg_no DESC
 	</select>
 
+	<update id="inactivateGroup" parameterType="hashmap">
+		UPDATE 
+			Group_Gathering
+		SET
+			gg_active=1
+		WHERE
+			gg_no=#{GG_NO}
+	</update>
+	
+	<update id="activateGroup" parameterType="hashmap">
+		UPDATE 
+			Group_Gathering
+		SET
+			gg_active=0
+		WHERE
+			gg_no=#{GG_NO}
+	</update>
 <!-- 모임 관리 끝-->
 
 <!-- 신고 관리 -->

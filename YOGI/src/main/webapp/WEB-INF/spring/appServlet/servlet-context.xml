@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+<beans:beans xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -9,15 +9,23 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
-
+		
+			<!-- 인터셉터설정 (로그설정) -->
+	<mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <beans:bean id="loggerInterceptor" class="yogi.common.logger.LoggerInterceptor"></beans:bean>
+        </mvc:interceptor>
+    </mvc:interceptors>     
+ 
 	<!-- annotation-driven + 커맨드맵을 쓰기위한 설정 -->
-	<annotation-driven>
-		<argument-resolvers>
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
 			<beans:bean class="yogi.config.CustomMapArgumentResolver"></beans:bean>
-		</argument-resolvers>
+		</mvc:argument-resolvers>
 		
 		<!-- messageConvertert -->
-		<message-converters>
+		<mvc:message-converters>
 			<beans:bean class="org.springframework.http.converter.StringHttpMessageConverter">
 				<beans:property name="supportedMediaTypes">
 					<beans:list>
@@ -33,15 +41,15 @@
 				</beans:property>
 			</beans:bean>
 
-         </message-converters>
-	</annotation-driven>
+         </mvc:message-converters>
+	</mvc:annotation-driven>
 
 	<!-- 빈자동설정 범위 -->
 	<context:component-scan base-package="yogi" />
 	<!-- Enables the Spring MVC @Controller programming model -->
 	
 	<!-- 정적자원처리를 위한 리소스경로 -->
-	<resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 	
 	<!-- 뷰리졸버 order 2 (JSP 포워딩) -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -49,7 +57,7 @@
 		<beans:property name="suffix" value=".jsp" />
 		<beans:property name="order" value="2"></beans:property>
 	</beans:bean>
-
+	
 	<!-- 뷰리졸버 order 1 (타일즈 이름) -->
 	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
