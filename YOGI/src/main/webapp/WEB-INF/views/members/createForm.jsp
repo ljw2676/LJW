@@ -84,11 +84,11 @@
 			join.m_id.focus();
 			return false;
 		}
-		/* if(pw_check != 1){
+		if(pw_check != 1){
 			alert("비밀번호를 확인해 주세요.");
 			join.m_password.focus();
 			return false;
-		} */
+		}
 		alert("회원가입 완료! 환영합니다 >__<");
 		join.submit();
 	}
@@ -123,50 +123,20 @@
 			})
 		})
 	})
-	
-	/* function checkPwd() {
-		$('#m_password_check').on('keydown',function(e){ 
-			var userId = $("#m_id").val();
-			var pw1 = $("#m_password").val();
-			var pw2 = $("#m_password_check").val();
-			alert("ss");
-			if(pw1!=pw2){
-				document.getElementById('checkPwd').style.color = "red";
-				document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요."; 
-			}else{
-				document.getElementById('checkPwd').style.color = "black";
-				document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다."; 
-			}
-	} */
-		
+			
 	function checkPwd(){
-		var pw1 = m_password.value;
-		var pw2 = m_password_check.value;
+		var pw1 = document.userinput.m_password.value;
+		var pw2 = document.userinput.m_password_check.value;
 		if(pw1!=pw2){
 			document.getElementById('checkPwd').style.color = "red";
 			document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요."; 
+			pw_check=0;
 		}else{
 			document.getElementById('checkPwd').style.color = "black";
 			document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다."; 
+			pw_check=1;
 		}
 	}
-
-
-	
-	/* $(document).ready(function () {
-		$('#m_password_check').on('keydown',function(e){ 
-			var userId = $("#m_id").val();
-			var pw1 = $("#m_password").val();
-			var pw2 = $("#m_password_check").val();
-			if(pw1!=pw2){
-				document.getElementById('checkPwd').style.color = "red";
-				document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요."; 
-			}else{
-				document.getElementById('checkPwd').style.color = "black";
-				document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다."; 
-			}
-		});
-	}); */
 	
 </script>
 </head>
@@ -181,7 +151,7 @@
 	<form:form commandName="member" name="userinput" method="post" enctype="multipart/form-data">
 		아이디 : <input type="text" name="m_id" id="m_id"/>
 		<input type="button" value="중복확인" id="checkId" /><br>
-		비밀번호 : <input type="password" name="m_password" /> <br>
+		비밀번호 : <input type="password" name="m_password" onkeyup="checkPwd()"/> <br>
 		비밀번호 : <input type="password" name="m_password_check" onkeyup="checkPwd()"/> <br>
 		<div id="checkPwd">동일한 암호를 입력하세요.</div>
 		이름 : <input type="text" name="m_name"/> <br>
