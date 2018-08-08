@@ -10,8 +10,7 @@ import yogi.common.dao.AbstractDAO;
 @Repository("mypageDAO")
 public class MypageDAO extends AbstractDAO{
 
-	public List<Map<String, Object>> selectPlacebookHistory(Map<String, Object> map) {
-		// TODO Auto-generated method stub
+	public List<Map<String, Object>> selectPlacebookHistory(Map<String, Object> map) throws Exception{
 		return (List<Map<String, Object>>)selectList("mypage.placebookHistory", map);
 	}
 

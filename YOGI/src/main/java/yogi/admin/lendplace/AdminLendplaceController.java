@@ -36,7 +36,7 @@ public class AdminLendplaceController {
 	    public ModelAndView lendplaceInsert(CommandMap commandMap) throws Exception{
 		   System.out.println("컨트롤러");
 		   lendplaceService.insertPlace(commandMap.getMap());
-		   return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트:관리자 장소 리스트 페이지
+		   return new ModelAndView("redirect:/lendplace/list"); //리다이렉트:관리자 장소 리스트 페이지
 	    }
 	//테스트용 success화면
 	@RequestMapping(value= "/admin/lendplaceSuccess")

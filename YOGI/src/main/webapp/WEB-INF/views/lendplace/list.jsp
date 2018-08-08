@@ -100,6 +100,17 @@
 						<!-- 장소 신청 버튼 -->
 						<td><a href="#this" name="apply">신청</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
 						<td><a href="#this" name="cancel">취소</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
+						
+						<%-- <c:forEach items="${list2 }" var="row2">
+							<c:if test="${row2.L_NO == row.L_NO}">
+								<c:if test="${row2.m_no} == 1">
+								<td><a href="#this" name="apply">신청</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
+							</c:if>
+							</c:if>
+						</c:forEach>
+						<c:otherwise>
+							<td><a href="#this" name="cancel">취소</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
+						</c:otherwise>	 --%>					
 					</tr>
 			</c:forEach>
 			
@@ -125,11 +136,17 @@
 			});
 			
 			$("a[name='apply']").on("click", function(e) { //신청
+				/* 태그의 기본 기능을 제거 */
 				e.preventDefault();
 				fn_applyLendplace($(this));
+		
+				
+			/* 	$(this).html('취소');
+				$(this).attr('name', 'cancel'); */
+			
 			});
 			
-			$("a[name='cancel']").on("click", function(e) { //신청
+			$("a[name='cancel']").on("click", function(e) { //취소
 				e.preventDefault();
 				fn_cancelLendplace($(this));
 			});

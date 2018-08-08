@@ -13,6 +13,7 @@
       <h1>마이 페이지</h1>
    </tr>
 </table>
+${session_m_id }님 <br />
 
 <a href="<c:url value='/mypage/writeHistory'/>">내가 개설한 모임</a>
 <a href="<c:url value='/mypage/meetHistory'/>">내가 참여한 모임</a>

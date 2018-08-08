@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -27,10 +28,10 @@ public class MypageController {
 	
 	
 	@RequestMapping(value="/mypage/placebookHistory")
-	public ModelAndView placebookHistory(CommandMap commandMap) throws Exception{
+	public ModelAndView placebookHistory(CommandMap commandMap, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView("/mypage/mypagePlacebookHistory");
 		List<Map<String, Object>> list = mypageService.selectPlacebookHistory(commandMap.getMap());
-		
+		commandMap.put("m_no", session.getAttribute("session_m_no"));
 		mv.addObject("list", list);
 		
 		return mv;

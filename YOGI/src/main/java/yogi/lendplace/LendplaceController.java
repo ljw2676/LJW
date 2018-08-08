@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import yogi.config.CommandMap;
+import yogi.mypage.MypageService;
 
 @Controller
 public class LendplaceController {
@@ -20,9 +20,14 @@ public class LendplaceController {
 	@Resource(name="lendplaceService")
 	private LendplaceService lendplaceService;
 	
+	@Resource(name="mypageService")
+	private MypageService mypageService;
+	
+	
 	@RequestMapping(value="/lendplace/list")
     public ModelAndView selectLendplaceList(CommandMap commandMap) throws Exception{
     	ModelAndView mv = new ModelAndView("/lendplace/list");
+    	
     	List<Map<String, Object>> list = lendplaceService.selectLendplaceList(commandMap.getMap());
     	mv.addObject("list",list);
     	
