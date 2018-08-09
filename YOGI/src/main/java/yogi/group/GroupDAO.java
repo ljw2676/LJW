@@ -52,9 +52,20 @@ public class GroupDAO extends AbstractDAO{
 		delete("group.deleteGroupEnroll", map);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public Map<String, Object> getHost(Map<String, Object> map) {
-		return (Map<String, Object>) selectOne("group.get_host",map);
+	public void plusGrade(Map<String, Object> map) {
+		update("group.plusGrade", map);
 	}
 	
+	public void minusGrade(Map<String, Object> map) {
+		update("group.minusGrade", map);
+	}
+	
+	public void plusCrp(Map<String, Object> map) {
+		update("group.plusCrp", map);
+	}
+	
+	public void minusCrp(Map<String, Object> map) {
+		update("group.minusCrp", map);
+	}
+
 }

@@ -22,7 +22,7 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Resource
 	private GroupDAO groupDAO;
-	
+
 	@Override
 	public List<Map<String, Object>> selectGroupList(Map<String, Object> map) throws Exception {
 		if(map.get("searchCategory") == null || StringUtils.isBlank(map.get("searchCategory").toString())){
@@ -50,21 +50,27 @@ public class GroupServiceImpl implements GroupService {
 	public Map<String, Object> selectGroupDetail(Map<String, Object> map) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Map<String, Object> detail = groupDAO.selectGroupDetail(map);
-		Map<String, Object> host = groupDAO.getHost(map);
 		detail.put("GG_DATE", YogiUtils.dateFormat((Date)detail.get("GG_DATE")));
 		if(map.get("m_no") != null && !StringUtils.isEmpty(map.get("m_no").toString())) {
 			Map<String, Object> likeit = groupDAO.selectLikeitExist(map);
-			Map<String, Object> enroll = groupDAO.selectGroupEnrollExist(map);
+			Map<String, Object> enroll = groupDAO.selectGroupEnrollExist(map);		
 			if(likeit != null) {
-			detail.put("GG_LIKEIT", likeit.get("LI_NO"));
+				detail.put("GG_LIKEIT", likeit.get("LI_NO"));
 			} else { 
-			detail.put("GG_LIKEIT", null); 
-			} 
+				detail.put("GG_LIKEIT", null); 
+			}
+		
+			if(enroll != null) {
+				detail.put("GG_ENROLL", enroll.get("GE_NO"));
+			} else {
+				detail.put("GG_ENROLL", null);
+			}
+			
 		} else {
 			detail.put("GG_LIKEIT", null);
+			detail.put("GG_ENROLL", null);
 		}
-			
-		resultMap.put("host",host);
+
 		resultMap.put("detail", detail);
 		return resultMap;
 	}
@@ -76,7 +82,7 @@ public class GroupServiceImpl implements GroupService {
 		if(resultMap == null){
 			groupDAO.insertLikeit(map);
 		} else {
-			groupDAO.deleteLikeit(map);
+			groupDAO.deleteLikeit(map);		
 		}
 	}
 	@Override
@@ -85,8 +91,12 @@ public class GroupServiceImpl implements GroupService {
 		Map<String, Object> resultMap = groupDAO.selectGroupEnrollExist(map);
 		if(resultMap == null){
 			groupDAO.insertGroupEnroll(map);
+			groupDAO.plusGrade(map);
+			groupDAO.plusCrp(map);
 		} else {
 			groupDAO.deleteGroupEnroll(map);
+			groupDAO.minusGrade(map);
+			groupDAO.minusCrp(map);
 		}
 	}
 	

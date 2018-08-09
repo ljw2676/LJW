@@ -37,33 +37,46 @@
 </head>
 <body>
 	<div>
+		<a onclick="history.go(-1)">뒤로</a>
 		<table>
 			<tr>
 				<td>
 					${gModel.GG_CATEGORY}<br/>
 					${gModel.GG_NAME}<br/>
-					<%-- ${host.M_NAME}<br/> --%>
+					${gModel.WT_NAME}<br/>
 				</td>
 			</tr>
 		</table>
 	</div>
 	
 	<div>
-	<%-- <form action="/yogi/group/likeit" method="post">
+	<form action="/yogi/group/likeit" method="post">
 			<input type="hidden" name="gg_no" value="${gModel.GG_NO}">
-			<input type="hidden" name="m_no" value="${gModel.M_NO}">		
+			<input type="hidden" name="m_no" value="${gModel.M_NO}">
 	 <c:choose>
-		<c:when test="${gModel.GG_LIKEIT } == null">	
+		<c:when test="${gModel.GG_LIKEIT==null }">	
 			<input type="submit" value="찜">
-		</c:when>
+		</c:when> 
 		<c:otherwise>
 			<input type="submit" value="찜취소">
-		</c:otherwise>	 
+		</c:otherwise>	  
 	</c:choose>
-	 </form> --%>
-	<%--  <button type="button" class="btn ${gModel.GG_LIKEIT == null ? 'btn-default':(gModel.GG_LIKEIT == sessionScope.session_m_no ? 'btn-template-primary':'btn-default')}" onclick="fn_meetingsLikeit();" data-toggle="tooltip" data-placement="top" title="" data-original-title="찜">
-										<i class="fa fa-thumbs-o-up"></i>
-	</button> --%>
+	 </form>
+	 </div>
+	 
+	 <div>
+	<form action="/yogi/group/enroll" method="post">
+			<input type="hidden" name="gg_no" value="${gModel.GG_NO}">
+			<input type="hidden" name="m_no" value="${gModel.M_NO}">
+	 <c:choose>
+		<c:when test="${gModel.GG_ENROLL==null }">	
+			<input type="submit" value="모임신청">
+		</c:when> 
+		<c:otherwise>
+			<input type="submit" value="모임취소">
+		</c:otherwise>	  
+	</c:choose>
+	 </form>
 	 </div>
 </body>
 </html>
