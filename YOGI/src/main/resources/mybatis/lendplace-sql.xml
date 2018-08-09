@@ -104,6 +104,7 @@
 </update>
 
 
+
 <!-- 장소예약 신청 -->
 <insert id="insertPlacebook" parameterType="hashmap">
 	<![CDATA[
@@ -115,7 +116,7 @@
 		VALUES (
 			PLACEBOOK_SEQ.NEXTVAL,
 			#{L_NO},
-			#{M_NO},
+			3,
 			sysdate)
 	]]>
 </insert>
@@ -148,7 +149,7 @@
 		DELETE
 		FROM PLACEBOOK
 		WHERE L_NO = #{L_NO}
-		AND M_NO = #{M_NO}
+		AND M_NO = 3
 	]]>
 </delete>
 

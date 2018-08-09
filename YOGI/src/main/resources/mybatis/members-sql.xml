@@ -79,7 +79,7 @@
 	
 	<!-- member query -->
 	<select id="members_select_one_where_m_no" resultType="MembersModel" parameterType="int">
-		select * from members where m_no=#{m_no}
+		select * from members where m_no=26
 	</select>
    
 </mapper>   

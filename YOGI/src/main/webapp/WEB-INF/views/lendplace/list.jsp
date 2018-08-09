@@ -86,7 +86,6 @@
 						<td>기간</td>
 						<td>평점</td>
 						<td>신청</td>
-						<td>취소</td>
 					</tr>
 			<c:forEach items="${list }" var="row">
 					<tr>
@@ -97,25 +96,25 @@
 						<td>${row.L_PAYMENT}원</td>
 						<td>${row.L_SDATE} ~ ${row.L_EDATE}</td>
 						<td>${row.L_RATE}</td>
-						<!-- 장소 신청 버튼 -->
-						<td><a href="#this" name="apply">신청</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
-						<td><a href="#this" name="cancel">취소</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
-						
-						<%-- <c:forEach items="${list2 }" var="row2">
-							<c:if test="${row2.L_NO == row.L_NO}">
-								<c:if test="${row2.m_no} == 1">
-								<td><a href="#this" name="apply">신청</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
-							</c:if>
-							</c:if>
-						</c:forEach>
-						<c:otherwise>
-							<td><a href="#this" name="cancel">취소</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
-						</c:otherwise>	 --%>					
+						<c:set var="check_yn" value="false" /> <!-- 조건 true 가 되면 break 같은거-->
+						<c:forEach items="${plist}" var="row2">
+							<c:if test="${not check_yn }"> <!-- check_yn이 false일때만 반복 ( true되면 포문에서 동작x) -->
+                 				<c:if test="${row2.L_NO == row.L_NO}">
+                 			 		<c:set var="check_yn" value="true" />
+                   			  		<td><a href="#this" name="cancel">취소</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
+                    		 	</c:if>
+                    		 </c:if>
+                    	</c:forEach>
+						<c:if test="${not check_yn}"><!-- check_yn 이 false때 실행 false이면 신청된게 없다는것이므로 
+						  -->
+                    		 <td><a href="#this" name="apply">신청</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
+                    	</c:if>
+                		    
 					</tr>
-			</c:forEach>
-			
+				</c:forEach>						
 		</table>
 	</c:when>
+	
 	<c:otherwise>
 		등록된 장소가 없습니다.
 	</c:otherwise>
@@ -174,6 +173,7 @@ ${pagingHtml}
 	          var comSubmit = new ComSubmit();
 	      	  comSubmit.setUrl("<c:url value='/admin/lendplace/Apply' />");
 			  comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
+			  comSubmit.addParam("M_NO", obj.parent().find("#M_NO").val());
 	          comSubmit.submit();
 	      }
 	      

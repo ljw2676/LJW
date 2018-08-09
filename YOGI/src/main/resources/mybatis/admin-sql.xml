@@ -191,7 +191,7 @@
 			pb_no,
 			l_no,
 			m_no,
-			to_char(l_sdate,'yyyy/MM/dd') as l_sdate
+			TO_CHAR(PB_DATE,'YYYY-MM-DD') AS PB_DATE
 		FROM
 			placebook
 		ORDER BY

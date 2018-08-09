@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import yogi.lendplace.LendplaceModel;
 import yogi.config.CommandMap;
@@ -36,6 +38,7 @@ public class AdminLendplaceController {
 	    public ModelAndView lendplaceInsert(CommandMap commandMap) throws Exception{
 		   System.out.println("컨트롤러");
 		   lendplaceService.insertPlace(commandMap.getMap());
+		   lendplaceService.updatePoint(commandMap.getMap());
 		   return new ModelAndView("redirect:/lendplace/list"); //리다이렉트:관리자 장소 리스트 페이지
 	    }
 	//테스트용 success화면
@@ -75,16 +78,18 @@ public class AdminLendplaceController {
 	
 	  //장소 신청
 	  @RequestMapping(value="/admin/lendplace/Apply")
-	    public ModelAndView placebookInsert(CommandMap commandMap) throws Exception{
+	    public ModelAndView placebookInsert(CommandMap commandMap, HttpSession session, HttpServletRequest request) throws Exception{
+//			commandMap.getMap().put("m_no", session.getAttribute("m_no").toString());
+//			commandMap.put("m_no", request.getSession().getAttribute("session_m_no"));
 		   lendplaceService.applyPlace(commandMap.getMap());
-		   return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트 : 장소 리스트 페이지
+		   return new ModelAndView("redirect:/lendplace/list"); //리다이렉트 : 장소 리스트 페이지
 	    }
 	  
 	  //장소 신청 취소
 	  @RequestMapping(value="/admin/lendplace/Cancel")
 	    public ModelAndView placebookCancel(CommandMap commandMap) throws Exception{
 		   lendplaceService.cancelPlace(commandMap.getMap());
-		   return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트:장소 리스트 페이지
+		   return new ModelAndView("redirect:/lendplace/list"); //리다이렉트:장소 리스트 페이지
 	    }
 	
 	

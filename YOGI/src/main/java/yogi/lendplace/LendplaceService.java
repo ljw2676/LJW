@@ -11,6 +11,8 @@ public interface LendplaceService {
 
 	Map<String, Object> selectLendplaceDetail(Map<String, Object> map) throws Exception;
 
+	List<Map<String, Object>> selectPlacebookList(Map<String, Object> map) throws Exception;
+
 //	public void updateLendplace(Map<String, Object> map) throws Exception;
 	
 //	void insertReview(Map<String, Object> map) throws Exception;
