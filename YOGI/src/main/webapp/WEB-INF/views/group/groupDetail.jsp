@@ -67,7 +67,7 @@
 </head>
 <body>
 	<div>
-		<a onclick="history.go(-1)">뒤로</a>
+		<a href="javascript:history.back()">←</a>
 		<table>
 			<tr>
 				<td>
@@ -110,21 +110,23 @@
 	 </div>
 	 
 	 <div>
-	 	<h4>${fn:length(cmtList)} COMMENTS</h4>
+	 	<h4> COMMENTS(${fn:length(cmtList)})</h4>
 	 	<c:forEach items="${cmtList }" var="cmt">
-		<h5>${cmt.C_NAME }
+		<ul>
+		<li>${cmt.C_NAME }</li>
 		<c:if test="${sessionScope.session_m_no != null && sessionScope.session_m_no == cmt.M_NO }">
-		<a href="#this" onclick="fn_deleteCmt('${cmt.C_NO}');"><i class="fa fa-trash-o"></i></a>
+		<a href="#this" onclick="fn_deleteCmt('${cmt.C_NO}');"></a>
 		</c:if>
-		</h5>
+		<li>
 		${cmt.C_CONTENT }
+		</li>
+		</ul>
 		</c:forEach>	 	
 	 </div>
 	 <br/>
 	 <div>
 	 <form action="<c:url value="/group/comments"/>" onsubmit="return cmt_check();" method="post">
 						<input type="hidden" name="gg_no" value="${gModel.GG_NO }">
-						<input type="hidden" name="m_no" value="${sessionScope.session_m_no}">
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="form-group">
@@ -132,7 +134,7 @@
 										<textarea class="form-control" id="comment" rows="4" name="c_content"></textarea>
 									</div>
 								</div>
-							</div>
+							</div>0
 
 							<div class="row">
 								<div class="col-sm-12 text-right">
