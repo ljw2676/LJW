@@ -21,5 +21,7 @@ public interface AdminLendplaceService {
 
 	public void cancelPlace(Map<String, Object> map) throws Exception;
 
+	public void updatePoint(Map<String, Object> map) throws Exception;
+
 }
 

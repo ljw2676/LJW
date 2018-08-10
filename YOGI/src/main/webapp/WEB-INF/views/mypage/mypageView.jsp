@@ -9,17 +9,60 @@
 </head>
 <body>
 <table border="0" width=1000px align=center>
-   <tr>
-      <h1>마이 페이지</h1>
-   </tr>
+      <h1 align="center">마이 페이지</h1>
 </table>
-${session_m_id }님 <br />
 
-<a href="<c:url value='/mypage/writeHistory'/>">내가 개설한 모임</a>
-<a href="<c:url value='/mypage/meetHistory'/>">내가 참여한 모임</a>
-<a href="<c:url value='/mypage/zzimHistory'/>">나의 찜 목록</a>
-<a href="<c:url value='/mypage/placebookHistory'/>">장소 신청 내역</a>
 
+<div align="center">
+<!-- 프로필 사진 띄우기 -->
+<table>
+<tr>
+	<td>${session_m_id }님  
+	<c:if test="${map.M_GRADE lt 50 }">
+	<img src="/yogi/resources/image/lv-b.png">
+	</c:if>
+		
+	<c:if test="${map.M_GRADE ge 50 && map.M_GRADE lt 100}">
+	<img src="/yogi/resources/image/lv-s.png">
+	</c:if>
+	
+	<c:if test="${map.M_GRADE ge 100 && map.M_GRADE lt 200}">
+	<img src="/yogi/resources/image/lv-g.png">
+	</c:if>
+	
+	<c:if test="${map.M_GRADE ge 200 && map.M_GRADE lt 300}">
+	<img src="/yogi/resources/image/lv-v.png">
+	</c:if>
+	
+	<c:if test="${map.M_GRADE ge 300 && map.M_GRADE le 400}">
+	<img src="/yogi/resources/image/lv-w.png">
+	</c:if>
+	</td>
+	
+</tr>
+
+<tr>
+<td>회원님은 "${map.M_LV }" 이십니다 !</td>
+</tr>
+
+<tr>
+	<td>
+		<input type="button" value="프로필 수정" /><br /><!-- 프로필 수정 링크 연결 추가 -->
+	</td>
+</tr>
+
+<tr>
+	<td>신고 횟수 : ${map.M_PENALTY }</td>
+</tr>
+</table>
+</div>
+<br />
+<div align="center">
+<a href="<c:url value='/mypage/writeHistory'/>">내가 개설한 모임</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="<c:url value='/mypage/meetHistory'/>">내가 참여한 모임</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="<c:url value='/mypage/zzimHistory'/>">나의 찜 목록</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="<c:url value='/mypage/placebookHistory'/>">장소 신청 내역</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
 
 </body>
 </html>

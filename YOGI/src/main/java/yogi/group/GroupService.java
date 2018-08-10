@@ -8,10 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import yogi.group.GroupModel;
-import yogi.group.GroupSearchModel;
 
 public interface GroupService {
 	
 	List<Map<String, Object>> selectGroupList(Map<String, Object> map) throws Exception;	
+	
+	Map<String, Object> selectGroupDetail(Map<String, Object> map) throws Exception;
+	
+	void insertLikeit(Map<String, Object> map, HttpServletRequest request) throws Exception;
+
+	void insertGroupEnroll(Map<String, Object> map, HttpServletRequest request) throws Exception;
 	
 }

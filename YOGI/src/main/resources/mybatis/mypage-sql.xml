@@ -4,23 +4,23 @@
 <mapper namespace="mypage">
 
 <!-- 회원정보 검색 -->
-	<select id="selectOneMember" resultType="hashmap">
-		SELECT * FROM MEMBERS WHERE m_id=#{m_id}
+	<select id="selectOneMember" parameterType="Integer" resultType="hashmap">
+		SELECT * FROM MEMBERS WHERE M_NO=26
 	</select>
 	
 	<!-- 마이페이지 내가 개설한 모임 -->
 	<select id="writeHistory" resultType="hashmap">
-		SELECT * FROM GROUP_GATHERING where m_no=#{m_no} order by gg_no desc
+		SELECT * FROM GROUP_GATHERING where m_no=1 order by gg_no desc
 	</select>
 	
 	<!--  마이페이지 모임참여내역 -->
 	<select id="meetHistory" resultType="hashmap">
-		SELECT * FROM GROUP_GATHERING WHERE gg_no in(select gg_no from group_enroll where m_no=#{m_no})
+		SELECT * FROM GROUP_GATHERING WHERE gg_no in(select gg_no from group_enroll where m_no=1)
 	</select>
 	
 	<!-- 마이페이지 찜 목록 -->
 	<select id="zzimHistory" resultType="hashmap">
-	select * from Group_Gathering where gg_no in(select gg_no from LikeIt where m_no=#m_no#)	
+	select * from Group_Gathering where gg_no in(select gg_no from LikeIt where m_no=#{m_no})	
 	</select>
 	
 	<!-- 마이페이지 장소 신청 내역 -->
@@ -28,14 +28,15 @@
 	SELECT L.*,PB.PB_DATE FROM LENDPLACE L, PLACEBOOK PB WHERE L.L_NO = PB.L_NO AND PB.M_NO=1 ORDER BY L.L_NO DESC 
 	</select>
 	
-	<!-- 내가 신고한 모임 목록 -->
-	<select id="myReportList" resultType="hashmap">
+
+<!-- 내가 신고한 모임 목록 -->
+	<!--<select id="myReportList" resultType="hashmap">
 		select * from report where m_no=#m_no#
 	</select>
 	
 		<sql id="rp_where_gg_no">
 		where gg_no=#gg_no#
-	</sql>
+	</sql> -->
 	
 	<!-- 모임 신고 -->
 	<!-- <insert id="report_insert" resultType="hashmap">

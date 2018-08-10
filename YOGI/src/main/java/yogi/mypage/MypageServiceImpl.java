@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
+
+import yogi.members.MembersModel;
 import yogi.mypage.MypageDAO;
 
 @Service("mypageService")
@@ -17,10 +19,35 @@ public class MypageServiceImpl implements MypageService {
 	private MypageDAO mypageDAO;
 
 	@Override
+	public List<Map<String, Object>> selectWriteHistory(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return mypageDAO.selectWriteHistory(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectMeetHistory(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return mypageDAO.selectMeetHistory(map);	}
+
+	@Override
+	public List<Map<String, Object>> selectZzimHistory(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return mypageDAO.selectZzimHistory(map);	}
+
+	@Override
 	public List<Map<String, Object>> selectPlacebookHistory(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
-		return mypageDAO.selectPlacebookHistory(map);
+		return mypageDAO.selectPlacebookHistory(map);	
+		}
+
+	@Override
+	public Map<String, Object> selectOneMember(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return mypageDAO.selectOneMember(map);
 	}
-	
+
+
+
+
 	
 }

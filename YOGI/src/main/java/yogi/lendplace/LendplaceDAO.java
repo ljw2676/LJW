@@ -41,4 +41,9 @@ public class LendplaceDAO extends AbstractDAO{
 		delete("lendplace.deleteReview",map);
 	}
 
+	public List<Map<String, Object>> selectPlacebookList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return (List<Map<String, Object>>)selectList("admin.selectAdminPlaceBookList",map);
+	}
+
 }

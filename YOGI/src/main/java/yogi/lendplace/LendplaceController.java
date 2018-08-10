@@ -27,6 +27,9 @@ public class LendplaceController {
 		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("/lendplace/list");
     	List<Map<String, Object>> list = lendplaceService.selectLendplaceList(commandMap.getMap());
+    	List<Map<String, Object>> plist = lendplaceService.selectPlacebookList(commandMap.getMap());
+    	mv.addObject("plist", plist);
+    	
     	PagingCalculator paging = new PagingCalculator("lendplace/list", commandMap.getCurrentPageNo(), list, 6 ,3);
     	Map<String, Object> result = paging.getPagingList();
     	mv.addObject("list",result.get("list"));

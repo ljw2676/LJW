@@ -42,5 +42,10 @@ public class AdminLendplaceDAO extends AbstractDAO{
 		// TODO Auto-generated method stub
 		delete("lendplace.deletePlacebook", map);
 	}
+
+	public void updatePoint(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		update("mypage.plustPoint", map);
+	}
 	
 }

@@ -27,6 +27,8 @@ PUBLIC " - //mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/test-sql.xml" />
 		<mapper resource="mybatis/group-sql.xml" />
 		<mapper resource="mybatis/lendplace-sql.xml"/>
+		<mapper resource="mybatis/admin-sql.xml"/>
+		<mapper resource="mybatis/mypage-sql.xml"/>
 	</mappers>
 	
 	</configuration>

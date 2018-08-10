@@ -49,6 +49,14 @@ public class LendplaceServiceImpl implements LendplaceService {
 		return resultMap;
 	}
 
+	@Override
+	public List<Map<String, Object>> selectPlacebookList(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return lendplaceDAO.selectPlacebookList(map);
+	}
+
+	
+	
 
 //	@Override
 //	public void updateLendplace(Map<String, Object> map, HttpServletRequest request) throws Exception {

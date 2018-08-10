@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>장소 신청 내역</title>
 
 <table border="0" width=1000px align=center>
    <tr>

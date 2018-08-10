@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import yogi.group.GroupService;
 import org.springframework.ui.Model;
-import yogi.group.GroupSearchModel;
+import yogi.common.common.YogiConstants;
 import yogi.common.util.PagingCalculator;
 import yogi.common.util.YogiUtils;
 import yogi.config.CommandMap;
@@ -31,7 +31,7 @@ public class GroupController {
 	@Autowired
 	private GroupService groupService;
 	
-	@RequestMapping(value="/group/groupList" ,method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/group/groupList", method={RequestMethod.GET, RequestMethod.POST})
     public ModelAndView groupList(CommandMap map, HttpServletRequest request) throws Exception{
 		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("/group/groupList");
@@ -41,12 +41,31 @@ public class GroupController {
 		mv.addObject("list", result.get("list"));
 		mv.addObject("pagingHtml", result.get("pagingHtml"));
 		mv.addObject("currentPageNo", map.getCurrentPageNo());
-		System.out.println(map.get("searchCategory"));
-		System.out.println(map.get("searchAddr"));		
-		System.out.println(map.get("searchPay"));
-		System.out.println(map.get("searchWord"));
         return mv;
     }	
+	
+	@RequestMapping(value="/group/groupDetail", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView groupDetail(CommandMap map, HttpServletRequest request) throws Exception{
+		YogiUtils.savePageURI(request);
+		ModelAndView mv = new ModelAndView("/group/groupDetail");
+		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
+		Map<String, Object> result = groupService.selectGroupDetail(map.getMap());
+		mv.addObject("gModel",result.get("detail"));
+		mv.addObject("currentPageNo", map.getCurrentPageNo());
+		return mv;
+	}
+	
+	@RequestMapping(value="/group/likeit", method=RequestMethod.POST)
+    public ModelAndView Likeit(CommandMap map, HttpServletRequest request) throws Exception{
+    	groupService.insertLikeit(map.getMap(),request);
+    	return new ModelAndView("redirect:/group/groupDetail?gg_no="+map.get("gg_no"));
+    }
+	
+	@RequestMapping(value="/group/enroll", method=RequestMethod.POST)
+    public ModelAndView Enroll(CommandMap map, HttpServletRequest request) throws Exception{
+    	groupService.insertGroupEnroll(map.getMap(),request);
+    	return new ModelAndView("redirect:/group/groupDetail?gg_no="+map.get("gg_no"));
+    }
 	
 	
 }
