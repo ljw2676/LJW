@@ -77,5 +77,10 @@ public class GroupDAO extends AbstractDAO{
 		return (List<Map<String, Object>>)selectList("group.selectCmtList",map);
 	}
 	
+	public void insertGroup(GroupModel group) {
+		System.out.println("GroupDAO : insertGroup 실행");
+		insert("group.insertGroup", group);
+	}
+	
 
 }

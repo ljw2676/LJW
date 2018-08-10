@@ -21,4 +21,6 @@ public interface GroupService {
 	
 	void insertComments(Map<String, Object> map) throws Exception;
 	
+	public void insertGroup(GroupModel group, HttpServletRequest request) throws Exception;
+	
 }

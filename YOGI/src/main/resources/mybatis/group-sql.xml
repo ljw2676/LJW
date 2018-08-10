@@ -164,5 +164,41 @@
 			c_no DESC
 	</select>
 	
+	<insert parameterType="GroupModel" id="insertGroup"> 
+		INSERT INTO Group_Gathering ( 
+			gg_no, 
+			gg_name, 
+			m_no, 
+			gg_category, 
+			gg_place, 
+			gg_date, 
+			gg_simple, 
+			gg_detail, 
+			gg_cost, 
+			gg_total, 
+			gg_enable, 
+			gg_ofn, 
+			gg_penalty, 
+			gg_active, 
+			gg_rfn) 
+		VALUES ( 
+			groupgathering_seq.nextval, 
+			#{gg_name}, 
+			#{m_no}, 
+			#{gg_category}, 
+			#{gg_place}, 
+			#{gg_date}, 
+			#{gg_simple}, 
+			#{gg_detail}, 
+			#{gg_cost}, 
+			#{gg_total}, 
+			#{gg_enable}, 
+			#{gg_ofn}, 
+			0, 
+			0, 
+			#{gg_rfn} 
+			) 
+	</insert>
+	
 	
 </mapper>

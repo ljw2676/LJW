@@ -110,5 +110,21 @@ public class GroupServiceImpl implements GroupService {
 	public void insertComments(Map<String, Object> map) throws Exception {
 		groupDAO.insertCmt(map);
 	}
+	
+	@Override
+	public void insertGroup(GroupModel group, HttpServletRequest request) throws Exception {
+		System.out.println("GroupServiceImpl : insertGroup 실행");
+		Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
+		
+		group.setM_no(1);
+		group.setGg_enable(group.getGg_total()-1);
+		group.setGg_ofn(fileMap.toString().valueOf(fileMap.get("ORIGINAL_FILE_NAME")));
+		group.setGg_rfn(fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
+		
+		System.out.println(fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
+		
+		groupDAO.insertGroup(group);
+		
+	}
 
 }

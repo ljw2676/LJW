@@ -100,4 +100,24 @@ public class GroupController {
 		return new ModelAndView("redirect:/group/groupDetail?gg_no="+map.get("gg_no"));
 	}
 	
+	//모임 폼 열기
+	@RequestMapping(value="/group/groupForm", method=RequestMethod.GET)
+	public String groupForm(Model model) {
+		return "groupForm";
+	}
+		
+	//모임 폼 넣기
+	@RequestMapping(value="/group/groupForm", method=RequestMethod.POST)
+	public String insert(@ModelAttribute("group") GroupModel group, HttpServletRequest request, BindingResult result) throws Exception{
+		System.out.println("GroupController : insertGroup 실행");
+		groupService.insertGroup(group, request);
+		return "redirect:/group/groupList";
+	}
+		
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
+	
 }
