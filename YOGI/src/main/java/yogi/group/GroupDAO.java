@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import yogi.common.dao.AbstractDAO;
 import yogi.group.GroupModel;
 
-@Repository
+@Repository("groupDAO")
 public class GroupDAO extends AbstractDAO{
 
 	@SuppressWarnings("unchecked")
@@ -66,6 +66,11 @@ public class GroupDAO extends AbstractDAO{
 	
 	public void minusCrp(Map<String, Object> map) {
 		update("group.minusCrp", map);
+	}
+	
+	public void insertGroup(GroupModel group) {
+		System.out.println("GroupDAO : insertGroup 실행");
+		insert("group.insertGroup", group);
 	}
 
 }

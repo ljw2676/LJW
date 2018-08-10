@@ -38,11 +38,11 @@ public class GroupModel {
 		// 신청 가능 인원
 		private int gg_enable;
 		
-		// 사진 첨부
-		private String gg_img;
-		
-		// 썸네일
-		private String gg_small_img;
+		// 사진 원본 이름
+		private String gg_ofn;
+				
+		// 사진 저장 이름
+		private String gg_rfn;
 		
 		// 누적 신고 횟수
 		private int gg_penalty;
@@ -94,12 +94,7 @@ public class GroupModel {
 		public void setGg_todt(String gg_todt) {
 			this.gg_todt = gg_todt;
 		}
-		public String getGg_small_img() {
-			return gg_small_img;
-		}
-		public void setGg_small_img(String gg_small_img) {
-			this.gg_small_img = gg_small_img;
-		}
+		
 		public int getGg_no() {
 			return gg_no;
 		}
@@ -166,12 +161,7 @@ public class GroupModel {
 		public void setGg_enable(int gg_enable) {
 			this.gg_enable = gg_enable;
 		}
-		public String getGg_img() {
-			return gg_img;
-		}
-		public void setGg_img(String gg_img) {
-			this.gg_img = gg_img;
-		}
+		
 		public int getGg_penalty() {
 			return gg_penalty;
 		}
@@ -203,8 +193,21 @@ public class GroupModel {
 		}
 		public void setGg_Ireport(String gg_Ireport) {
 			this.gg_Ireport = gg_Ireport;
+		}
+		public String getGg_ofn() {
+			return gg_ofn;
+		}
+		public void setGg_ofn(String gg_ofn) {
+			this.gg_ofn = gg_ofn;
+		}
+		public String getGg_rfn() {
+			return gg_rfn;
+		}
+		public void setGg_rfn(String gg_rfn) {
+			this.gg_rfn = gg_rfn;
 		} 
 			
+		
 		
 }
 

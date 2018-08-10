@@ -8,17 +8,24 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import yogi.group.GroupService;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+
 import yogi.common.common.YogiConstants;
 import yogi.common.util.PagingCalculator;
 import yogi.common.util.YogiUtils;
@@ -28,7 +35,7 @@ import yogi.config.CommandMap;
 public class GroupController {
 	Logger log = Logger.getLogger(this.getClass());
 	
-	@Autowired
+	@Resource(name="groupService")
 	private GroupService groupService;
 	
 	@RequestMapping(value="/group/groupList", method={RequestMethod.GET, RequestMethod.POST})
@@ -82,6 +89,26 @@ public class GroupController {
     	groupService.insertGroupEnroll(map.getMap(),request);
     	return new ModelAndView("redirect:/group/groupDetail?gg_no="+map.get("gg_no"));
     }
+	
+	//모임 폼 열기
+	@RequestMapping(value="/group/groupForm", method=RequestMethod.GET)
+	public String groupForm(Model model) {
+		return "groupForm";
+	}
+		
+	//모임 폼 넣기
+	@RequestMapping(value="/group/groupForm", method=RequestMethod.POST)
+	public String insert(@ModelAttribute("group") GroupModel group, HttpServletRequest request, BindingResult result) throws Exception{
+		System.out.println("GroupController : insertGroup 실행");
+		groupService.insertGroup(group, request);
+		return "redirect:/group/groupList";
+	}
+		
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
 	
 	
 }

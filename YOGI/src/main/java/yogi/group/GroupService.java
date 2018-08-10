@@ -19,4 +19,7 @@ public interface GroupService {
 
 	void insertGroupEnroll(Map<String, Object> map, HttpServletRequest request) throws Exception;
 	
+	public void insertGroup(GroupModel group, HttpServletRequest request) throws Exception;
+	
+	
 }
