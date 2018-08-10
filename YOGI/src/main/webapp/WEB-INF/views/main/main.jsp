@@ -26,7 +26,7 @@
 		</tr>
 		<c:forEach items="${list}" var="row" begin="1" end="4" step="1">
 		<tr>
-			<td><a href="http://localhost:8080/yogi/group/groupDetail?no=${row.GG_NO}">${row.GG_NO}</a></td>
+			<td><a href="http://localhost:8080/yogi/group/groupDetail2?no=${row.GG_NO}">${row.GG_NO}</a></td>
 			<td>${row.GG_NAME}</td>
 			<td>${row.M_NAME}</td>
 			<td>${row.GG_CATEGORY}</td>

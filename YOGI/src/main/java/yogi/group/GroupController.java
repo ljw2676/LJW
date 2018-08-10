@@ -44,7 +44,7 @@ public class GroupController {
         return mv;
     }	
 	
-	@RequestMapping(value="/group/groupDetail", method={RequestMethod.POST})
+	@RequestMapping(value="/group/groupDetail", method={RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView groupDetail(CommandMap map, HttpServletRequest request) throws Exception{
 		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("/group/groupDetail");
@@ -55,7 +55,7 @@ public class GroupController {
 		mv.addObject("currentPageNo", map.getCurrentPageNo());
 		return mv;
 	}
-	@RequestMapping(value="/group/groupDetail", method={RequestMethod.GET})
+	@RequestMapping(value="/group/groupDetail2", method={RequestMethod.GET})
 	public ModelAndView groupDetail_G(String no, HttpServletRequest request) throws Exception{
 		YogiUtils.savePageURI(request);
 		CommandMap map = new CommandMap();
