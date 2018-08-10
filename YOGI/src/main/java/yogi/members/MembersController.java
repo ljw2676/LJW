@@ -43,7 +43,8 @@ public class MembersController {
 			/* 세션값 더 필요한 거 있으면 요기다 저장하세용~! */
 			session.setAttribute("session_m_id", mm.getM_id());
 			session.setAttribute("session_m_no", mm.getM_no());
-			return "mainPage";
+			/*관심사가 이미 저장되어 있는 거 같은데...*/
+			return "redirect:/main";
 		}
 		else
 			return "firstPage";
@@ -57,12 +58,7 @@ public class MembersController {
 	@RequestMapping(value="/members/createForm", method=RequestMethod.POST)
 	//public String join(@ModelAttribute("member") MembersModel member, MultipartFile file) throws Exception{
 	public String join(@ModelAttribute("member") MembersModel member) throws Exception{
-		System.out.println("컨트롤러");
-		//System.out.println("파일이름 : "+ file.getName());
-		//member.setM_profile(multipartFile.getOriginalFilename());
-		//System.out.println("컨트롤러 : " + member.getM_profile());
-		membersService.insertMember(member);//일반 회원가입	
-		
+		membersService.insertMember(member);	
 		return "redirect:/first";
 	}
 	
@@ -99,9 +95,7 @@ public class MembersController {
 			return mav;
 		}
 		else {
-			System.out.println("시벌..");
-			//아이디가 존재하지 않습니다.
-			mav.setViewName("firstPage");
+			mav.setViewName("mError");
 			return mav;
 		}
 	}
@@ -124,9 +118,7 @@ public class MembersController {
 			return mav;
 		}
 		else {
-			System.out.println("시벌..");
-			//아이디가 존재하지 않습니다.
-			mav.setViewName("firstPage");
+			mav.setViewName("mError");
 			return mav;
 		}
 	}

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import yogi.admin.lendplace.AdminLendplaceDAO;
-import yogi.common.util.FileUploadComponent;
 import yogi.common.util.YogiUtils;
 import yogi.config.CommandMap;
 import yogi.lendplace.LendplaceModel;

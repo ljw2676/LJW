@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -188,5 +189,10 @@ public class YogiUtils {
 			}
 		}
 		return ret_url;
+	}
+	
+	//DB에 저장되는 파일의 이름 랜덤으로 저장
+	public static String getRandomString() {
+		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 }

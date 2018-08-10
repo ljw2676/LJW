@@ -8,17 +8,25 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import yogi.group.GroupService;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+
 import yogi.common.common.YogiConstants;
 import yogi.common.util.PagingCalculator;
 import yogi.common.util.YogiUtils;
@@ -29,6 +37,7 @@ public class GroupController {
 	Logger log = Logger.getLogger(this.getClass());
 	
 	@Autowired
+	@Resource(name="groupService")
 	private GroupService groupService;
 	
 	@RequestMapping(value="/group/groupList", method={RequestMethod.GET, RequestMethod.POST})
@@ -49,10 +58,26 @@ public class GroupController {
 		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("/group/groupDetail");
 		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
+		
 		Map<String, Object> result = groupService.selectGroupDetail(map.getMap());
+		mv.addObject("gModel",result.get("detail"));
+		mv.addObject("currentPageNo", map.getCurrentPageNo());
+		return mv;
+	}
+	@RequestMapping(value="/group/groupDetail2", method={RequestMethod.GET})
+	public ModelAndView groupDetail_G(String no, HttpServletRequest request) throws Exception{
+		YogiUtils.savePageURI(request);
+		CommandMap map = new CommandMap();
+		map.put("gg_no",  Integer.parseInt(no));
+		map.put("currentPageNo", 1);
+		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
+		Map<String, Object> result = groupService.selectGroupDetail(map.getMap());
+		
+		ModelAndView mv = new ModelAndView("/group/groupDetail");
 		mv.addObject("gModel",result.get("detail"));
 		mv.addObject("cmtList", result.get("cmtList"));
 		mv.addObject("currentPageNo", map.getCurrentPageNo());
+		
 		return mv;
 	}
 	

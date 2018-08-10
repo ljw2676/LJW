@@ -10,7 +10,7 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
 		
-			<!-- 인터셉터설정 (로그설정) -->
+	<!-- 인터셉터설정 (로그설정) -->
 	<mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
