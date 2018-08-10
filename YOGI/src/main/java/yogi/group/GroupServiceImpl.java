@@ -50,6 +50,7 @@ public class GroupServiceImpl implements GroupService {
 	public Map<String, Object> selectGroupDetail(Map<String, Object> map) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Map<String, Object> detail = groupDAO.selectGroupDetail(map);
+		List<Map<String, Object>> cmtList = groupDAO.selectCmtList(map);
 		detail.put("GG_DATE", YogiUtils.dateFormat((Date)detail.get("GG_DATE")));
 		if(map.get("m_no") != null && !StringUtils.isEmpty(map.get("m_no").toString())) {
 			Map<String, Object> likeit = groupDAO.selectLikeitExist(map);
@@ -72,6 +73,7 @@ public class GroupServiceImpl implements GroupService {
 		}
 
 		resultMap.put("detail", detail);
+		resultMap.put("cmtList", cmtList);
 		return resultMap;
 	}
 
@@ -100,4 +102,9 @@ public class GroupServiceImpl implements GroupService {
 		}
 	}
 	
+	@Override
+	public void insertComments(Map<String, Object> map) throws Exception {
+		groupDAO.insertCmt(map);
+	}
+
 }

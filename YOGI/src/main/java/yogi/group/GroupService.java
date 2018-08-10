@@ -19,4 +19,6 @@ public interface GroupService {
 
 	void insertGroupEnroll(Map<String, Object> map, HttpServletRequest request) throws Exception;
 	
+	void insertComments(Map<String, Object> map) throws Exception;
+	
 }

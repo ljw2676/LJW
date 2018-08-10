@@ -33,6 +33,36 @@
 		        cs.submit();
 	        }
 	    }
+		
+		function cmt_check() {
+				var area = document.getElementById('comment');
+				if (!isLoginCheck("${sessionScope.session_m_email}")) {
+					return false;
+				}
+				if (!area.value) {
+					alertify.error("댓글에 내용이 입력되지 않았습니다.");
+					area.focus();
+					return false;
+				}
+			}
+
+			function fn_deleteCmt(c_no) {
+				var cs = new ComSubmit();
+				cs.setUrl("<c:url value='/group/deletecmt' />");
+				cs.addParam("c_no", c_no);
+				cs.addParam("gg_no", '${gModel.GG_NO }');
+				cs.submit();
+			}
+
+			function fn_meetingsModify() {
+				var cs = new ComSubmit();
+				cs.setUrl("<c:url value='/group/groupModify' />");
+				cs.addParam("gg_no", '${gModel.GG_NO }');
+				cs.submit("GET");
+			}
+
+		 
+	
 	</script>
 </head>
 <body>
@@ -77,6 +107,39 @@
 		</c:otherwise>	  
 	</c:choose>
 	 </form>
+	 </div>
+	 
+	 <div>
+	 	<h4>${fn:length(cmtList)} COMMENTS</h4>
+	 	<c:forEach items="${cmtList }" var="cmt">
+		<h5>${cmt.C_NAME }
+		<c:if test="${sessionScope.session_m_no != null && sessionScope.session_m_no == cmt.M_NO }">
+		<a href="#this" onclick="fn_deleteCmt('${cmt.C_NO}');"><i class="fa fa-trash-o"></i></a>
+		</c:if>
+		</h5>
+		${cmt.C_CONTENT }
+		</c:forEach>	 	
+	 </div>
+	 <br/>
+	 <div>
+	 <form action="<c:url value="/group/comments"/>" onsubmit="return cmt_check();" method="post">
+						<input type="hidden" name="gg_no" value="${gModel.GG_NO }">
+						<input type="hidden" name="m_no" value="${sessionScope.session_m_no}">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label for="comment">Comment <span class="required">*</span></label>
+										<textarea class="form-control" id="comment" rows="4" name="c_content"></textarea>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12 text-right">
+									<input type="submit" value="입력"/>
+								</div>
+							</div>
+						</form>
 	 </div>
 </body>
 </html>

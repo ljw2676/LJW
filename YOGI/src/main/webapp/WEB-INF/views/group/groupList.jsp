@@ -99,11 +99,13 @@ function fn_groupDetailLink(gg_no){
 		<tr>
 		<c:forEach items="${list }" var="row">		
 		<td>
-			<a href="#this" onclick="fn_groupDetailLink('${row.GG_NO}')">${row.GG_NAME }</a><br/>
+			<a href="#this" onclick="fn_groupDetailLink('${row.GG_NO}')">
+			${row.GG_NAME }<br />
 			${row.GG_PLACE}<br />
 			${row.GG_CATEGORY}<br />
 			${row.GG_COST}<br />
 			${row.GG_DATE }<br />
+			</a>
 		<td/>
 		</c:forEach>
 		</tr>

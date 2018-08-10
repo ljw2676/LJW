@@ -67,5 +67,15 @@ public class GroupDAO extends AbstractDAO{
 	public void minusCrp(Map<String, Object> map) {
 		update("group.minusCrp", map);
 	}
+	
+	public void insertCmt(Map<String, Object> map) {
+		insert("group.insertCmt", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectCmtList(Map<String, Object> map) {
+		return (List<Map<String, Object>>)selectList("group.selectCmtList",map);
+	}
+	
 
 }

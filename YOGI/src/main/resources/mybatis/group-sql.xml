@@ -125,4 +125,44 @@
 		update group_gathering set gg_enable=gg_enable-1 where gg_no=#{gg_no}
 	</update>
 	
+	<!-- 댓글 삽입 -->
+	<insert id="insertCmt" parameterType="hashmap">
+		INSERT INTO comments
+		(
+			c_no,
+			c_content,
+			c_date,
+			gg_no,
+			m_no,
+			c_ref,
+			c_del
+		)
+		VALUES
+		(
+			comments_seq.nextval,
+			#{c_content},
+			sysdate,
+			#{gg_no},
+			#{m_no},
+			comments_seq.currval,
+			'N'
+		)
+	</insert>
+	
+	<select id="selectCmtList" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			c_no,
+			c_content,
+			c_date,
+			m_no,
+			m_name as c_name
+		FROM
+			comments natural join members
+		WHERE
+			gg_no=#{gg_no}
+		ORDER BY
+			c_no DESC
+	</select>
+	
+	
 </mapper>
