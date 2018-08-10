@@ -26,7 +26,9 @@
 		</tr>
 		<c:forEach items="${list}" var="row" begin="1" end="4" step="1">
 		<tr>
-			<td><a href="http://localhost:8080/yogi/group/groupDetail?gg_no=${row.GG_NO}">${row.GG_NO}</a></td>
+			<td><a href="http://localhost:8080/yogi/group/groupDetail?gg_no=${row.GG_NO}">
+			<img src="C:/java/git/YOGI/YOGI/src/main/webapp/resources/upload/${row.GG_RFN }" style="width: 340px; height: 300px;"/></a></td>
+			<td>${row.GG_NO}</td>
 			<td>${row.GG_NAME}</td>
 			<td>${row.M_NAME}</td>
 			<td>${row.GG_CATEGORY}</td>

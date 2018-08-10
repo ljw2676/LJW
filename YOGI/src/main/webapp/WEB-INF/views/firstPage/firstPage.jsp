@@ -31,8 +31,9 @@ function insert() {
 	<a href="http://localhost:8080/yogi/members/find">ID/PW찾기</a>
 	<br>로그인<br>
 	<form:form commandName="member" name="userinput" method="post">
-		<input type="text" name="m_id" placeholder="아이디"/>
-		<input type="password" name="m_password" placeholder="비밀번호"/>
+		<input type="text" name="m_id" placeholder="아이디" value="${cookieID}"/>
+		<input type="password" name="m_password" placeholder="비밀번호"  value="${cookiePW}"/>
+		<input type="checkbox" name="idSave" id="idSave" value="save" />아이디/비밀번호 유지
 		<input type="button" value="제출!" onclick="insert()"/>
 	</form:form>
 </body>

@@ -48,7 +48,6 @@ public class MainController {
 			hm.put("interest", interest);
 			
 			list = mainService.fav_field(hm);
-			System.out.println("출력.." +list.size());
 			mv.addObject("list",list);
 			
 		}
@@ -64,7 +63,6 @@ public class MainController {
 			
 			list = mainService.fav_area(hm);
 			mv.addObject("list",list);
-			System.out.println("출력.." +list.size());
 		}
 		if(list == null ||list.size()<3) {
 			list = mainService.all();

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import yogi.members.CookieBox;
+
 @Controller
 public class MembersController {
 	Logger log = Logger.getLogger(this.getClass());
@@ -29,17 +32,32 @@ public class MembersController {
 	private MembersService membersService;
 	
 	@RequestMapping(value= {"/", "/first"}, method=RequestMethod.GET)
-	 public String first(){
+	 public String first(HttpServletRequest request, Model model) throws IOException{
+		
+		CookieBox CookieBox = new CookieBox(request);
+		
+		String ID = CookieBox.getValue("m_id");
+		String PASSWORD = CookieBox.getValue("m_password");
+		
+		model.addAttribute("cookieID", ID);
+		model.addAttribute("cookiePW", PASSWORD);
     	return "firstPage";
 	}
 	
 	@RequestMapping(value= {"/", "/first"}, method=RequestMethod.POST)
-	 public String login(@ModelAttribute("member") MembersModel member, HttpServletRequest request){
+	 public String login(@ModelAttribute("member") MembersModel member, HttpServletRequest request, HttpServletResponse response) throws IOException{
 		MembersModel mm;
 		System.out.println(member.getM_id());
 		mm = membersService.loginCheck(member, request);
 		if(mm!=null) {
 			HttpSession session = request.getSession();  
+			if((request.getParameter("idSave")) != null) {
+				if(((String)request.getParameter("idSave")).equals("save")) {
+					System.out.println("느으으윾힘표!!!");
+					response.addCookie(CookieBox.createCookie("m_id",mm.getM_id()));//ID 쿠키 생성
+					response.addCookie(CookieBox.createCookie("m_password",mm.getM_password()));//ID 쿠키 생성
+					}
+				}
 			/* 세션값 더 필요한 거 있으면 요기다 저장하세용~! */
 			session.setAttribute("session_m_id", mm.getM_id());
 			session.setAttribute("session_m_no", mm.getM_no());
