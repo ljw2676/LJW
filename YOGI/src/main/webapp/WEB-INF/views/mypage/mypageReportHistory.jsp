@@ -9,12 +9,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내가 개설한 모임</title>
+<title>나의 신고 내역</title>
 </head>
 <body>
 <table border="0" width=1000px align=center>
    <tr>
-      <h1>내가 개설한 모임</h1>
+      <h1>나의 신고 내역</h1>
    </tr>
 </table>
 
@@ -23,26 +23,24 @@
 <table border="1">
 		<tr background="gray">
 			<td>no</td>
-			<td>제목</td>
-			<td>등록일</td>
-	
+			<td>모임명</td>
+			<td>신고 사유</td>
 		</tr>
 		<c:forEach items="${list}" var="row">
 		<tr>
-			<td>${row.GG_NO}</td>
+			<td>${row.R_NO}</td>
 			<td>${row.GG_NAME}</td>
-			<td>${row.GG_DATE}</td>
-	
+			<td>${row.R_COMMENT}</td>
 		</tr>
 		</c:forEach>
 </table>
 </c:when>
 <c:otherwise>
 		<br>
-		신청 내역이 없습니다
+		신고 내역이 없습니다
 </c:otherwise>
 </c:choose>
-
-
+<br />
+<input type="button" value="닫기" onclick="self.close();" />
 </body>
 </html>

@@ -45,7 +45,14 @@ public class MypageServiceImpl implements MypageService {
 		// TODO Auto-generated method stub
 		return mypageDAO.selectOneMember(map);
 	}
+	
+	@Override
+	public List<Map<String, Object>> selectReportHistory(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return mypageDAO.selectReportHistory(map);	
+	}
 
+	
 
 
 

@@ -23,25 +23,21 @@
 <c:when test="${fn:length(list) > 0 }">
 <table border="1">
 		<tr background="gray">
-			<td>no</td>
 			<td>장소명</td>
-			<td>주소</td>
-			<td>수용인원</td>
-			<td>비용</td>
-			<td>대관 가능 기간</td>
-			<td>평점</td>
-			<td>신청날짜</td>
+			<td>사용 날짜</td>
+			<td>신청 날짜</td>
+			<td>취소</td>
 		</tr>
 		<c:forEach items="${list}" var="row">
 		<tr>
-			<td>${row.L_NO}</td>
 			<td>${row.L_SUBJECT}</td>
-			<td>${row.L_ADDR}</td>
-			<td>${row.L_ENABLE}</td>
-			<td>${row.L_PAYMENT}</td>
-			<td>${row.L_SDATE} ~ ${row.L_EDATE}</td>
-			<td>${row.L_RATE}</td>
+			<td>${row.U_DATE }
 			<td>${row.PB_DATE}</td>
+			<td>
+			<a href="#this" name="cancel">취소</a>
+			<input type="hidden" id="L_NO" value="${row.L_NO}">
+			<input type="hidden" id="U_DATE" value="${row.U_DATE}">
+			</td>
 		</tr>
 		</c:forEach>
 </table>
@@ -51,6 +47,28 @@
 		신청 내역이 없습니다
 </c:otherwise>
 </c:choose>
+
+<%@ include file="/WEB-INF/include/common-body.jspf"%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
+<script type="text/javascript">
+		$(document).ready(function() {
+			$("a[name='cancel']").on("click", function(e) { //취소
+				e.preventDefault();
+				fn_cancelLendplace($(this));
+			});
+		});
+		
+	      function fn_cancelLendplace(obj){
+	          var comSubmit = new ComSubmit();
+	      	  comSubmit.setUrl("<c:url value='/admin/lendplace/Cancel' />");
+			  comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
+			  comSubmit.addParam("U_DATE", obj.parent().find("#U_DATE").val());
+	          comSubmit.submit();
+	      }
+		
+
+</script>
 
 </body>
 </html>
