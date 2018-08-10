@@ -123,7 +123,7 @@
 			})
 		})
 	})
-			
+	
 	function checkPwd(){
 		var pw1 = document.userinput.m_password.value;
 		var pw2 = document.userinput.m_password_check.value;

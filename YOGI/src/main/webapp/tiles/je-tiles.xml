@@ -11,4 +11,5 @@
 	<definition name="findId" template="/WEB-INF/views/members/findId.jsp" />
 	<definition name="findPW" template="/WEB-INF/views/members/findPW.jsp" />
 	<definition name="result" template="/WEB-INF/views/members/result.jsp" />
+	<definition name="mError" template="/WEB-INF/views/members/error.jsp" />
 </tiles-definitions>

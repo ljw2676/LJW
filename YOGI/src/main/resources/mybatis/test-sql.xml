@@ -27,5 +27,34 @@
 	<update id="resetPW" parameterType="MembersModel">
 		update members set m_password=#{m_password} where m_id=#{m_id}
 	</update>
+	<!-- 추천추천 -->
+	<select id="check" resultType="MembersModel" parameterType="String">
+		select * from members where m_id=#{m_id}
+	</select>
+	
+	<select id = "test" resultType="hashmap" parameterType="hashmap">
+		select * from group_gathering where
+		<foreach collection="interest" item="item" index="index" open="(" separator="or" close=")">
+			gg_category like #{item} 
+		</foreach>
+	</select>
+	
+	<select id="recommend" resultType="groupModel" parameterType="MembersModel">
+		select * from group_gathering where 
+	</select>
+	<select id="fav_area" resultType="String" parameterType="String">
+		select M_FAV_AREA from members where m_id =#{m_id}
+	</select>
+	<select id="fav_field" resultType="String" parameterType="String">
+		select M_FAV_FIELD from members where m_id =#{m_id}
+	</select>
+	
+	<select id="no_recommend" resultType="GroupModel">
+		select * from Group_Gathering  order by  gg_no desc
+	</select>
+	
+	<select id="recomment" resultType="GroupModel" parameterType="String">
+		select * from Group_Gathering where ${param} order by  gg_no desc
+	</select>
 	
 </mapper>   
