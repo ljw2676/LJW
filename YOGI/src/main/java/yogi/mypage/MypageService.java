@@ -17,5 +17,7 @@ public interface MypageService {
 
 	public Map<String, Object> selectOneMember(Map<String, Object> map) throws Exception;
 
+	public List<Map<String, Object>> selectReportHistory(Map<String, Object> map) throws Exception;
+
 	
 }

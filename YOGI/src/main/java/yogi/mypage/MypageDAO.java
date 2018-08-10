@@ -32,6 +32,11 @@ public class MypageDAO extends AbstractDAO{
 		return (Map<String, Object>) selectOne("mypage.selectOneMember", map);
 		}
 
+	public List<Map<String, Object>> selectReportHistory(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return (List<Map<String, Object>>)selectList("mypage.reportHistory", map);
+	}
+
 	
 }
 

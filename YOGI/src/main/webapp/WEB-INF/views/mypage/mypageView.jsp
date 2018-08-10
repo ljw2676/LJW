@@ -6,6 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지 메인</title>
+<script>
+	function myReportList() {
+		window.open('/yogi/mypage/reportHistory','report',"width=500, height=400, left=450, top=100" );
+		
+	}
+</script>
 </head>
 <body>
 <table border="0" width=1000px align=center>
@@ -53,6 +59,11 @@
 
 <tr>
 	<td>신고 횟수 : ${map.M_PENALTY }</td>
+</tr>
+
+<tr>
+	<td><input type="button" onclick="myReportList();" value="신고내역 확인하기" />
+	</td>
 </tr>
 </table>
 </div>

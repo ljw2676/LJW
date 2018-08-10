@@ -84,5 +84,21 @@ public class MypageController {
 		
 		return mv;
 	}
+	
+//	@RequestMapping(value= "/mypage/reportHistory")
+//	public String reportHistory(){
+//		return "/mypage/mypageReportHistory";
+//	}
+	
+	//  신고 내역
+	@RequestMapping(value="/mypage/reportHistory")
+	public ModelAndView reportHistory(CommandMap commandMap) throws Exception{
+		ModelAndView mv = new ModelAndView("/mypage/mypageReportHistory");
+		List<Map<String, Object>> list = mypageService.selectReportHistory(commandMap.getMap());
+		mv.addObject("list", list);
+		
+		return mv;
+	}
+	
 
 }
