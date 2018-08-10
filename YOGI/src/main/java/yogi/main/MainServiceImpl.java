@@ -24,10 +24,20 @@ public class MainServiceImpl implements MainService{
 
 
 	@Override
-	public  List<Map<String, Object>> test(Map<String, Object> map) throws Exception {
-		return mainDAO.test(map);
+	public  List<Map<String, Object>> fav_field(Map<String, Object> map)throws Exception{
+		return mainDAO.fav_field(map);
 	}
 	
+	@Override
+	public List<Map<String, Object>> fav_area(Map<String, Object> map)throws Exception{
+		return mainDAO.fav_area(map);
+	}
+
+
+	@Override
+	public List<Map<String, Object>> all() {
+		return mainDAO.all();
+	}
 	
 
 }

@@ -33,16 +33,12 @@ public class MainController {
 	public ModelAndView main(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("mainPage");
+		List<Map<String, Object>> list = null;
 		
 		HttpSession session = request.getSession();
-		System.out.println("main Controller : "+session.getAttribute("session_m_id"));
-		/*로그인 한 친구의 관심사 뽑아오기*/
 		MembersModel mm;
-		//mm = mainService.getInterest( (String) session.getAttribute("session_m_id") );
-		mm = mainService.getInterest( "test" );
+		mm = mainService.getInterest( (String) session.getAttribute("session_m_id") );
 		
-		
-		/*관심사 배열로 만들기*/
 		if(mm.getM_fav_field() != null) {
 			String interest_tmp = mm.getM_fav_field();
 			String[] interest ;
@@ -50,18 +46,29 @@ public class MainController {
 			Map<String, Object> hm = new HashMap<String, Object>();
 
 			hm.put("interest", interest);
-			System.out.println("*******************" + interest[0] + "*******************");
-			System.out.println("*******************" + hm.get("interest") + "*******************");
 			
-			List<Map<String, Object>>  list = mainService.test(hm);
+			list = mainService.fav_field(hm);
 			System.out.println("출력.." +list.size());
 			mv.addObject("list",list);
 			
 		}
-		if(mm.getM_fav_area() != null) {
+		if( (list == null || list.size()<3 ) && mm.getM_fav_area() != null) {
 			String area_tmp = mm.getM_fav_area();
 			String[] area ;
 			area = area_tmp.split(",");
+			for(int i=0; i<area.length; i++) 
+				area[i] = "%"+area[i]+"%";
+			
+			Map<String, Object> hm = new HashMap<String, Object>();
+			hm.put("area", area);
+			
+			list = mainService.fav_area(hm);
+			mv.addObject("list",list);
+			System.out.println("출력.." +list.size());
+		}
+		if(list == null ||list.size()<3) {
+			list = mainService.all();
+			mv.addObject("list",list);
 		}
 		
 		return mv;

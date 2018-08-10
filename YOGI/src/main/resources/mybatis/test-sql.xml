@@ -32,29 +32,23 @@
 		select * from members where m_id=#{m_id}
 	</select>
 	
-	<select id = "test" resultType="hashmap" parameterType="hashmap">
+	<select id = "fav_field" resultType="hashmap" parameterType="hashmap">
 		select * from group_gathering where
 		<foreach collection="interest" item="item" index="index" open="(" separator="or" close=")">
-			gg_category like #{item} 
+			gg_category = #{item} 
 		</foreach>
 	</select>
 	
-	<select id="recommend" resultType="groupModel" parameterType="MembersModel">
-		select * from group_gathering where 
-	</select>
-	<select id="fav_area" resultType="String" parameterType="String">
-		select M_FAV_AREA from members where m_id =#{m_id}
-	</select>
-	<select id="fav_field" resultType="String" parameterType="String">
-		select M_FAV_FIELD from members where m_id =#{m_id}
+	<select id = "fav_area" resultType="hashmap" parameterType="hashmap">
+		select * from group_gathering where
+		<foreach collection="area" item="item" index="index" open="(" separator="or" close=")">
+			gg_place like #{item}
+		</foreach>
 	</select>
 	
-	<select id="no_recommend" resultType="GroupModel">
-		select * from Group_Gathering  order by  gg_no desc
+	<select id = "all" resultType="hashmap" >
+		select * from group_gathering order by gg_no desc
 	</select>
 	
-	<select id="recomment" resultType="GroupModel" parameterType="String">
-		select * from Group_Gathering where ${param} order by  gg_no desc
-	</select>
 	
 </mapper>   

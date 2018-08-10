@@ -15,9 +15,19 @@ public class MainDAO extends AbstractDAO{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> test(Map<String, Object> map) throws Exception{
-		return (List<Map<String, Object>>)selectList("test.test", map);
+	public List<Map<String, Object>> fav_field(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>)selectList("test.fav_field", map);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> fav_area(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>)selectList("test.fav_area", map);
+	}
+	
+	public List<Map<String, Object>> all(){
+		return (List<Map<String, Object>>)selectList("test.all");
+	}
+	
 	
 
 }
