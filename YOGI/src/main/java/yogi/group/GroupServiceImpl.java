@@ -17,12 +17,10 @@ import yogi.group.GroupDAO;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-@Service
 @Service("groupService")
 public class GroupServiceImpl implements GroupService {
 	Logger log = Logger.getLogger(this.getClass());
 	
-	@Resource
 	@Resource(name="fileUtils")
 	private FileUtils fileUtils;
 	
@@ -108,30 +106,9 @@ public class GroupServiceImpl implements GroupService {
 		}
 	}
 	
-<<<<<<< HEAD
 	@Override
 	public void insertComments(Map<String, Object> map) throws Exception {
 		groupDAO.insertCmt(map);
 	}
 
-=======
-
-
-	@Override
-	public void insertGroup(GroupModel group, HttpServletRequest request) throws Exception {
-		System.out.println("GroupServiceImpl : insertGroup 실행");
-		Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
-		
-		group.setM_no(1);
-		group.setGg_enable(group.getGg_total()-1);
-		group.setGg_ofn(fileMap.toString().valueOf(fileMap.get("ORIGINAL_FILE_NAME")));
-		group.setGg_rfn(fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
-		
-		System.out.println(fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
-		
-		groupDAO.insertGroup(group);
-		
-	}
-	
->>>>>>> 823cb54e74b39f6ece2923537f3c4e2a57c884b5
 }

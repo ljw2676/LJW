@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import yogi.common.dao.AbstractDAO;
 import yogi.group.GroupModel;
 
-@Repository
 @Repository("groupDAO")
 public class GroupDAO extends AbstractDAO{
 
