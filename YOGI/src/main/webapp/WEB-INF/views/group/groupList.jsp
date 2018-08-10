@@ -100,6 +100,7 @@ function fn_groupDetailLink(gg_no){
 		<c:forEach items="${list }" var="row">		
 		<td>
 			<a href="#this" onclick="fn_groupDetailLink('${row.GG_NO}')">
+			<img src="C:/java/git/YOGI/YOGI/src/main/webapp/resources/upload/${row.GG_RFN }" style="width: 340px; height: 300px;"/>
 			${row.GG_NAME }<br />
 			${row.GG_PLACE}<br />
 			${row.GG_CATEGORY}<br />
