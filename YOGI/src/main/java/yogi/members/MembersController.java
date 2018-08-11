@@ -53,11 +53,13 @@ public class MembersController {
 			HttpSession session = request.getSession();  
 			if((request.getParameter("idSave")) != null) {
 				if(((String)request.getParameter("idSave")).equals("save")) {
-					System.out.println("느으으윾힘표!!!");
 					response.addCookie(CookieBox.createCookie("m_id",mm.getM_id()));//ID 쿠키 생성
 					response.addCookie(CookieBox.createCookie("m_password",mm.getM_password()));//ID 쿠키 생성
 					}
 				}
+			else {
+				response.addCookie(CookieBox.createCookie("m_id","none"));//ID 쿠키 생성
+			}
 			/* 세션값 더 필요한 거 있으면 요기다 저장하세용~! */
 			session.setAttribute("session_m_id", mm.getM_id());
 			session.setAttribute("session_m_no", mm.getM_no());
