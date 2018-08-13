@@ -23,4 +23,5 @@ public interface GroupService {
 	
 	public void insertGroup(GroupModel group, HttpServletRequest request) throws Exception;
 	
+	public Map<String, Object> modifyGroup(Map<String, Object> map, HttpServletRequest request) throws Exception;
 }

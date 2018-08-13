@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import yogi.common.common.YogiConstants;
 import yogi.common.util.FileUtils;
@@ -53,6 +54,7 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public Map<String, Object> selectGroupDetail(Map<String, Object> map) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		System.out.println(map);
 		Map<String, Object> detail = groupDAO.selectGroupDetail(map);
 		List<Map<String, Object>> cmtList = groupDAO.selectCmtList(map);
 		detail.put("GG_DATE", YogiUtils.dateFormat((Date)detail.get("GG_DATE")));
@@ -121,9 +123,21 @@ public class GroupServiceImpl implements GroupService {
 		group.setGg_ofn(fileMap.toString().valueOf(fileMap.get("ORIGINAL_FILE_NAME")));
 		group.setGg_rfn(fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
 		
-		System.out.println(fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
-		
 		groupDAO.insertGroup(group);
+		
+	}
+
+	@Override
+	public Map<String, Object> modifyGroup(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		System.out.println("groupModify:Sevice 실행");
+		Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
+		
+		map.put("gg_ofn", fileMap.toString().valueOf(fileMap.get("ORIGINAL_FILE_NAME")));
+		map.put("gg_rfn", fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
+		System.out.println(map);
+		groupDAO.ModifyGroup(map);
+		map.put("gg_no", map.get("gg_no"));
+		return map;
 		
 	}
 

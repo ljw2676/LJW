@@ -71,9 +71,16 @@
 		<table>
 			<tr>
 				<td>
+					<img src="/yogi/resources/upload/${gModel.GG_RFN }" style="width: 340px; height: 300px;"/><br/>
 					${gModel.GG_CATEGORY}<br/>
 					${gModel.GG_NAME}<br/>
 					${gModel.WT_NAME}<br/>
+					${gModel.GG_ADDR }<br>
+					${gModel.GG_PLACE }<br>
+					${gModel.GG_DATE }<br>
+					${gModel.GG_TOTAL }<br>
+					${gModel.GG_ENABLE }<br>
+					${gModel.GG_COST }<br>
 				</td>
 			</tr>
 		</table>
@@ -107,6 +114,16 @@
 		</c:otherwise>	  
 	</c:choose>
 	 </form>
+	 </div>
+	 
+	 <div>
+	 <c:if test="${gModel.M_NO==session_m_no }">
+	 <form action="/yogi/group/modifyForm" method="post">
+	 	<input type="hidden" name="gg_no" value="${gModel.GG_NO }">
+	 	<input type="hidden" name="m_no" value="${session_m_no}">
+	 	<input type="submit" value="수정하기">
+	 </form>
+	 </c:if>
 	 </div>
 	 
 	 <div>

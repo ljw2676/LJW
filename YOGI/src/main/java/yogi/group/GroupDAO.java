@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import yogi.common.dao.AbstractDAO;
 import yogi.group.GroupModel;
@@ -78,8 +79,12 @@ public class GroupDAO extends AbstractDAO{
 	}
 	
 	public void insertGroup(GroupModel group) {
-		System.out.println("GroupDAO : insertGroup 실행");
 		insert("group.insertGroup", group);
+	}
+	
+	public void ModifyGroup(Map<String, Object> map) {
+		System.out.println("groupModify:dao 실행");
+		update("group.modifyGroup", map);
 	}
 	
 

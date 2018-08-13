@@ -119,4 +119,27 @@ public class GroupController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 	
+	//모임 수정 폼 열기
+	@RequestMapping(value="/group/modifyForm")
+	public ModelAndView groupModifyForm(CommandMap map, HttpServletRequest request) throws Exception{
+		ModelAndView mv = new ModelAndView("groupModifyForm");
+		
+		Map<String, Object> group = groupService.selectGroupDetail(map.getMap());
+		mv.addObject("gModel", group.get("detail"));
+
+		System.out.println(mv.getModel());
+		return mv;
+	}
+	
+	@RequestMapping(value="group/groupModify")
+	public ModelAndView modify(CommandMap map, HttpServletRequest request) throws Exception{
+		System.out.println("groupModify:controller 실행");
+		ModelAndView mv = new ModelAndView("redirect:/group/groupDetail?gg_no="+map.get("gg_no"));
+		
+		Map<String, Object> group = groupService.modifyGroup(map.getMap(), request);
+		
+		mv.addObject("group", group);
+		
+		return mv;
+	}
 }

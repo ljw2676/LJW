@@ -102,10 +102,10 @@ function fn_groupDetailLink(gg_no){
 			<a href="#this" onclick="fn_groupDetailLink('${row.GG_NO}')">
 			<img src="/yogi/resources/upload/${row.GG_RFN }" style="width: 340px; height: 300px;"/>
 			${row.GG_NAME }<br />
-			${row.GG_PLACE}<br />
 			${row.GG_CATEGORY}<br />
-			${row.GG_COST}<br />
+			${row.GG_ADDR}<br />
 			${row.GG_DATE }<br />
+			${row.GG_COST}<br />
 			</a>
 		<td/>
 		</c:forEach>

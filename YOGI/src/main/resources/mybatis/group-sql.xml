@@ -13,7 +13,7 @@
 				AND REGEXP_LIKE(gg_category,#{searchCategory})
 			</if>
 			<if test="searchAddr != null">
-				AND REGEXP_LIKE(gg_place,#{searchAddr})
+				AND REGEXP_LIKE(gg_addr,#{searchAddr})
 			</if>
 			<if test="searchMStart != null">
 				AND REGEXP_LIKE(gg_date,#{searchMStart})
@@ -37,12 +37,15 @@
 			gg_name,
 			m_no,
 			gg_category,
-			gg_place,
+			gg_addr,
 			gg_date,
+			gg_place,
 			gg_detail,
 			gg_cost,
 			gg_total,
 			gg_enable,
+			gg_ofn,
+			gg_rfn,
 			(gg_total - gg_enable) as gg_permit_pnum,
 			m_name as wt_name
 		FROM
@@ -170,9 +173,9 @@
 			gg_name, 
 			m_no, 
 			gg_category, 
-			gg_place, 
+			gg_addr, 
 			gg_date, 
-			gg_simple, 
+			gg_place, 
 			gg_detail, 
 			gg_cost, 
 			gg_total, 
@@ -186,9 +189,9 @@
 			#{gg_name}, 
 			#{m_no}, 
 			#{gg_category}, 
-			#{gg_place}, 
+			#{gg_addr}, 
 			#{gg_date}, 
-			#{gg_simple}, 
+			#{gg_place}, 
 			#{gg_detail}, 
 			#{gg_cost}, 
 			#{gg_total}, 
@@ -200,5 +203,17 @@
 			) 
 	</insert>
 	
+	<update id="modifyGroup" parameterType="hashmap">
+		UPDATE 
+			group_gathering 
+		SET 
+			gg_addr=#{gg_addr},
+			gg_place=#{gg_place},
+			gg_detail=#{gg_detail},
+			gg_ofn=#{gg_ofn},
+			gg_rfn=#{gg_rfn}
+		WHERE 
+			gg_no=#{gg_no}
+	</update>
 	
 </mapper>
