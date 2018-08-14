@@ -54,6 +54,16 @@ public class LendplaceServiceImpl implements LendplaceService {
 		return lendplaceDAO.dateCheck(map);
 	}
 
+	@Override
+	public void insertPlacebook(Map<String, Object> map) throws Exception {
+		lendplaceDAO.insertPlacebook(map);
+	}
+
+	@Override
+	public void upCountUdate(Map<String, Object> map) throws Exception {
+		lendplaceDAO.upCountUdate(map);
+	}
+
 //	@Override
 //	public void updateLendplace(Map<String, Object> map, HttpServletRequest request) throws Exception {
 //	}

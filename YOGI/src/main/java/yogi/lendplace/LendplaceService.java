@@ -12,7 +12,11 @@ public interface LendplaceService {
 
 	List<Map<String, Object>> dateCheck(Map<String, Object> map) throws Exception;
 	
-//	public void updateLendplace(Map<String, Object> map) throws Exception;
+	void insertPlacebook(Map<String, Object> map) throws Exception;
+	
+	public void upCountUdate(Map<String, Object> map) throws Exception;
+	
+//  void updateLendplace(Map<String, Object> map) throws Exception;
 	
 //	void insertReview(Map<String, Object> map) throws Exception;
 //	

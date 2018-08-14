@@ -22,6 +22,7 @@ public class LendplaceController {
 	@Resource(name="lendplaceService")
 	private LendplaceService lendplaceService;
 	
+	//장소 목록
 	@RequestMapping(value="/lendplace/list")
     public ModelAndView selectLendplaceList(CommandMap commandMap,HttpServletRequest request) throws Exception{
 		YogiUtils.savePageURI(request);
@@ -37,13 +38,13 @@ public class LendplaceController {
 		
 	}
 	
+	//장소 상세
 	@RequestMapping(value="/lendplace/detail")
 	public ModelAndView selectLendplaceDetail(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/lendplace/detail");
 		Map<String,Object> map = lendplaceService.selectLendplaceDetail(commandMap.getMap());
 		mv.addObject("map", map);
 		int Udate = (Integer.parseInt(map.get("L_UDATE").toString()));
-		System.out.println("Udate : "+Udate);
 		if (Udate != 0 && Udate >= 1) {
 			List<Map<String, Object>> date = lendplaceService.dateCheck(commandMap.getMap());
 			mv.addObject("date",date);
@@ -52,5 +53,13 @@ public class LendplaceController {
 		
 		return mv;
 	}
+	
+	  //장소 신청
+	@RequestMapping(value="/lendplace/apply")
+    public ModelAndView placebookInsert(CommandMap commandMap) throws Exception{
+		lendplaceService.insertPlacebook(commandMap.getMap());
+		lendplaceService.upCountUdate(commandMap.getMap());
+		return new ModelAndView("redirect:/lendplace/detail?L_NO="+commandMap.getMap().get("L_NO")+""); //리다이렉트 : 장소 상세 페이지
+	    }
 
 }

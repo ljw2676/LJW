@@ -13,6 +13,7 @@
 <link  href="<c:url value='/resources/datepicker/datepicker.css' />" rel="stylesheet">
 </head>
 <body>
+<form name="apply_form" action="<c:url value='/lendplace/apply' />"  method="post">
 <table border="1">
 					<tr>
 						<td>번호</td>
@@ -36,35 +37,32 @@
 						<td>${map.L_SDATE} ~ ${map.L_EDATE}</td>
 						<td>${map.L_RATE}</td>
 					</tr>
+					
 					<tr>
-						<td><a href="#this" name="apply">신청</a><input type="hidden" id="L_NO" value="${map.L_NO}"></td>
+						<td><a href="#this" name="apply">신청</a></td>
+						<td><a href="<c:url value='/lendplace/list'/>">목록</a></td>
 					</tr>
 </table>
-
-<input type="hidden" data-toggle="datepicker" id="U_DATE"></input> 
+<input type="hidden" name="L_NO" value="${map.L_NO}"><input type="hidden" name="M_NO" value="${session_m_no}">
+<input type="hidden" data-toggle="datepicker" name="U_DATE"></input> 
 <div id="datepicker-container"></div>
-
-<%@ include file="/WEB-INF/include/common-body.jspf"%>
+</form>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="<c:url value='/resources/datepicker/datepicker.js'/> "></script>
 <script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
-<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 		$("a[name='apply']").on("click", function(e) { //신청
 		/* 태그의 기본 기능을 제거 */
 		e.preventDefault();
-		fn_applyLendplace($(this));
+		fn_applyLendplace();
 		
 		});
 });
 
-function fn_applyLendplace(obj){
-    var comSubmit = new ComSubmit();
-	  comSubmit.setUrl("<c:url value='/admin/lendplace/Apply' />");
-	  comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
-	  comSubmit.addParam("U_DATE", obj.parent().find("#U_DATE").val());
-      comSubmit.submit();
+function fn_applyLendplace(){
+		
+		document.apply_form.submit();
 }
 
 

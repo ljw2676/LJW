@@ -137,7 +137,7 @@
 		VALUES (
 			PLACEBOOK_SEQ.NEXTVAL,
 			#{L_NO},
-			1,
+			#{M_NO},
 			TO_DATE(sysdate,'YYYY-MM-DD'),
 			TO_DATE(#{U_DATE},'YYYY-MM-DD')
 			)
@@ -151,6 +151,17 @@
  	SET L_UDATE = L_UDATE + 1 
  	WHERE L_NO = #{L_NO}
 </update>
+
+<!-- 장소예약 신청 취소 -->
+<delete id="deletePlacebook" parameterType="hashmap">
+	<![CDATA[
+		DELETE
+		FROM PLACEBOOK
+		WHERE L_NO = #{L_NO}
+		AND U_DATE = TO_DATE(#{U_DATE},'YYYY-MM-DD') 
+		AND M_NO = #{M_NO}
+	]]>
+</delete>
 
 <!-- 예약현황 감소 -->
 <update id="dwCountUdate" parameterType="hashmap">
@@ -169,16 +180,6 @@
 	]]>
 </delete>
 
-<!-- 장소예약 신청 취소 -->
-<delete id="deletePlacebook" parameterType="hashmap">
-	<![CDATA[
-		DELETE
-		FROM PLACEBOOK
-		WHERE L_NO = #{L_NO}
-		AND U_DATE = TO_DATE(#{U_DATE},'YYYY-MM-DD') 
-		AND M_NO = 1
-	]]>
-</delete>
 
 <!-- 장소후기 입력 -->
 <insert id="insertReview">

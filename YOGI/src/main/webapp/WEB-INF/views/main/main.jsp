@@ -45,5 +45,6 @@
 </c:otherwise>
 </c:choose>
 <a href="http://localhost:8080/yogi/group/groupList">더보기</a>
+<a href="http://localhost:8080/yogi/lendplace/list">장소</a>
 </body>
 </html>

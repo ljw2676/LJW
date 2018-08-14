@@ -33,6 +33,15 @@ public class LendplaceDAO extends AbstractDAO{
 		update("lendplace.updateLendplace",map);
 	}
 	
+//  장소 신청
+	public void insertPlacebook(Map<String, Object> map) throws Exception{
+		insert("lendplace.insertPlacebook",map);
+	}
+
+//  장소 예약현황 증가
+	public void upCountUdate(Map<String, Object> map) throws Exception{
+		update("lendplace.upCountUdate",map);
+	}
 	
 //	장소후기 입력 
 	public void insertReview(Map<String, Object> map) throws Exception{
