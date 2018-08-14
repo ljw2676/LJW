@@ -61,8 +61,13 @@
 				cs.submit("GET");
 			}
 
-		 
-	
+			 function List()
+			    {
+			       var tmpHtml = "";
+			       tmpHtml = tmpHtml + '<textarea name="c_content"/>';
+			 
+			       $("#div_List").append(tmpHtml);
+			    }
 	</script>
 </head>
 <body>
@@ -139,7 +144,7 @@
 	 	<h4> COMMENTS(${fn:length(cmtList)})</h4>
 	 	<c:forEach items="${cmtList }" var="row">
 		<ul>
-		<li>${row.C_NAME }</li>
+		<li>${row.C_NAME } <div class="div_list"><a onclick="List()">답글달기</a></div> </li>
 		<li>
 		${row.C_CONTENT }
 		</li>
@@ -166,5 +171,13 @@
 							</div>
 						</form>
 	 </div>
+	 
+	 <c:if test="reply">
+	 <form action="replyAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
+			<input type="hidden" name="ref" value="${cmtList.C_REF }" />
+			<input type="hidden" name="re_level" value="${cmtList.C_LV }" />
+			<input type="hidden" name="re_step" value="${cmtList.C_RE }" />
+	 </form>
+	 </c:if>
 </body>
 </html>
