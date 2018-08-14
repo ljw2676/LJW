@@ -1,6 +1,7 @@
 package yogi.group;
 
 import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,13 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Resource(name="groupDAO")
 	private GroupDAO groupDAO;
+	
+	Calendar today = Calendar.getInstance();
+	
+	private int c_ref;
+	private int c_re;
+	private int c_lv;
+	boolean reply = false;
 
 	@Override
 	public List<Map<String, Object>> selectGroupList(Map<String, Object> map) throws Exception {
@@ -56,7 +64,8 @@ public class GroupServiceImpl implements GroupService {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		System.out.println(map);
 		Map<String, Object> detail = groupDAO.selectGroupDetail(map);
-		List<Map<String, Object>> cmtList = groupDAO.selectCmtList(map);
+		List<Map<String,Object>> geList = groupDAO.groupEnrollList(map);	
+		List<Map<String,Object>> cmtList = groupDAO.selectCmtList(map);
 		detail.put("GG_DATE", YogiUtils.dateFormat((Date)detail.get("GG_DATE")));
 		if(map.get("m_no") != null && !StringUtils.isEmpty(map.get("m_no").toString())) {
 			Map<String, Object> likeit = groupDAO.selectLikeitExist(map);
@@ -80,6 +89,7 @@ public class GroupServiceImpl implements GroupService {
 
 		resultMap.put("detail", detail);
 		resultMap.put("cmtList", cmtList);
+		resultMap.put("geList", geList);
 		return resultMap;
 	}
 
@@ -109,11 +119,6 @@ public class GroupServiceImpl implements GroupService {
 	}
 	
 	@Override
-	public void insertComments(Map<String, Object> map) throws Exception {
-		groupDAO.insertCmt(map);
-	}
-	
-	@Override
 	public void insertGroup(GroupModel group, HttpServletRequest request) throws Exception {
 		System.out.println("GroupServiceImpl : insertGroup 실행");
 		Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
@@ -140,5 +145,35 @@ public class GroupServiceImpl implements GroupService {
 		return map;
 		
 	}
-
+	
+	@Override
+	public void insertComments(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		
+	if(c_ref == 0)
+	{
+		map.put("c_re",0);
+		map.put("c_lv",0);
+	}
+	else {
+		groupDAO.updateReplyStep(map);
+		
+		map.put("c_re", (Integer) map.get("c_re")+1);
+		//cModel.setC_re(cModel.getC_re() + 1);
+		map.put("c_lv", (Integer) map.get("c_lv")+1);
+		//cModel.setC_lv(cModel.getC_lv() + 1);
+	}
+	
+	if(c_ref == 0)
+		groupDAO.insertCmt(map);
+	else 
+		groupDAO.insertCmtRep(map);
+	}
+	
+	@Override
+	public void cmtReply(Map<String, Object> map) throws Exception {
+		reply = true;
+		
+		map.put("c_content", "→"+map.get("c_content"));
+	
+	}
 }

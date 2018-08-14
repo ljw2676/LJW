@@ -69,7 +69,7 @@ public class GroupDAO extends AbstractDAO{
 		update("group.minusCrp", map);
 	}
 	
-	public void insertCmt(Map<String, Object> map) {
+	public void insertCmt(Map<String,Object> map) {
 		insert("group.insertCmt", map);
 	}
 	
@@ -85,6 +85,19 @@ public class GroupDAO extends AbstractDAO{
 	public void ModifyGroup(Map<String, Object> map) {
 		System.out.println("groupModify:dao 실행");
 		update("group.modifyGroup", map);
+	}
+	
+	public void insertCmtRep(Map<String, Object> map) {
+		insert("group.insertCmtRep", map);
+	}
+	
+	public void updateReplyStep(Map<String, Object> map) {
+		update("group.updateReplyStep", map);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> groupEnrollList(Map<String, Object> map) {
+		return (List<Map<String, Object>>) selectList("group.groupEnrollList",map);
 	}
 	
 

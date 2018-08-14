@@ -120,22 +120,28 @@
 	 <c:if test="${gModel.M_NO==session_m_no }">
 	 <form action="/yogi/group/modifyForm" method="post">
 	 	<input type="hidden" name="gg_no" value="${gModel.GG_NO }">
-	 	<input type="hidden" name="m_no" value="${session_m_no}">
+	 	<input type="hidden" name="m_no" value="${gModel.M_NO}">
 	 	<input type="submit" value="수정하기">
 	 </form>
 	 </c:if>
 	 </div>
 	 
 	 <div>
-	 	<h4> COMMENTS(${fn:length(cmtList)})</h4>
-	 	<c:forEach items="${cmtList }" var="cmt">
+		<h4>신청자(${geList.size()})</h4>
+		<c:forEach items="${geList }" var="gl">
 		<ul>
-		<li>${cmt.C_NAME }</li>
-		<c:if test="${sessionScope.session_m_no != null && sessionScope.session_m_no == cmt.M_NO }">
-		<a href="#this" onclick="fn_deleteCmt('${cmt.C_NO}');"></a>
-		</c:if>
+		<li>${gl.GE_NAME }</li>
+		</ul>
+		</c:forEach>	
+	</div>
+	 
+		 <div>
+	 	<h4> COMMENTS(${fn:length(cmtList)})</h4>
+	 	<c:forEach items="${cmtList }" var="row">
+		<ul>
+		<li>${row.C_NAME }</li>
 		<li>
-		${cmt.C_CONTENT }
+		${row.C_CONTENT }
 		</li>
 		</ul>
 		</c:forEach>	 	
@@ -151,7 +157,7 @@
 										<textarea class="form-control" id="comment" rows="4" name="c_content"></textarea>
 									</div>
 								</div>
-							</div>0
+							</div>
 
 							<div class="row">
 								<div class="col-sm-12 text-right">

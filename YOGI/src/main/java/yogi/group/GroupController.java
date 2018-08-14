@@ -61,6 +61,7 @@ public class GroupController {
 		Map<String, Object> result = groupService.selectGroupDetail(map.getMap());
 		mv.addObject("gModel",result.get("detail"));
 		mv.addObject("cmtList", result.get("cmtList"));
+		mv.addObject("geList", result.get("geList"));
 		mv.addObject("currentPageNo", map.getCurrentPageNo());
 		return mv;
 	}
@@ -95,7 +96,7 @@ public class GroupController {
 	@RequestMapping(value="/group/comments", method=RequestMethod.POST)
 	public ModelAndView insetCmt(CommandMap map, HttpServletRequest request) throws Exception{
 		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
-		groupService.insertComments(map.getMap());
+		groupService.insertComments(map.getMap(),request);
 		return new ModelAndView("redirect:/group/groupDetail?gg_no="+map.get("gg_no"));
 	}
 	
