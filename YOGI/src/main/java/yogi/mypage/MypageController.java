@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import yogi.common.util.PagingCalculator;
 
 import yogi.admin.lendplace.AdminLendplaceService;
+import yogi.common.util.YogiUtils;
 import yogi.config.CommandMap;
 import yogi.members.MembersModel;
 
@@ -41,33 +43,49 @@ public class MypageController {
 	
 	//내가 개설한 모임
 	@RequestMapping(value="/mypage/writeHistory")
-	public ModelAndView writeHistory(CommandMap commandMap) throws Exception{
+	public ModelAndView writeHistory(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("/mypage/mypageWriteHistory");
 		List<Map<String, Object>> list = mypageService.selectWriteHistory(commandMap.getMap());
+		PagingCalculator paging = new PagingCalculator("/mypage/writeHistory", commandMap.getCurrentPageNo(), list, 10, 3);
 //		commandMap.put("m_no", session.getAttribute("session_m_no"));
-		mv.addObject("list", list);
 		
+		 Map<String, Object> page = paging.getPagingList();
+	     mv.addObject("list", page.get("list"));
+	     mv.addObject("pagingHtml",page.get("pagingHtml"));
+	     mv.addObject("currentPageNo", commandMap.getCurrentPageNo());
 		return mv;
 	}
 	
 	//내가 참여한 모임
 	@RequestMapping(value="/mypage/meetHistory")
-	public ModelAndView meetHistory(CommandMap commandMap) throws Exception{
+	public ModelAndView meetHistory(CommandMap commandMap, HttpServletRequest request)  throws Exception{
+		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("/mypage/mypageMeetHistory");
 		List<Map<String, Object>> list = mypageService.selectMeetHistory(commandMap.getMap());
+		PagingCalculator paging = new PagingCalculator("/mypage/meetHistory", commandMap.getCurrentPageNo(), list, 10, 3);
 //		commandMap.put("m_no", session.getAttribute("session_m_no"));
-		mv.addObject("list", list);
+
+		 Map<String, Object> page = paging.getPagingList();
+	     mv.addObject("list", page.get("list"));
+	     mv.addObject("pagingHtml",page.get("pagingHtml"));
+	     mv.addObject("currentPageNo", commandMap.getCurrentPageNo());
 		
 		return mv;
 	}
 	
 	//내가 찜한 모임
 	@RequestMapping(value="/mypage/zzimHistory")
-	public ModelAndView zzimHistory(CommandMap commandMap) throws Exception{
+	public ModelAndView zzimHistory(CommandMap commandMap, HttpServletRequest request ) throws Exception{
+		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("/mypage/mypageZzimHistory");
 		List<Map<String, Object>> list = mypageService.selectZzimHistory(commandMap.getMap());
+		PagingCalculator paging = new PagingCalculator("/mypage/zzimHistory", commandMap.getCurrentPageNo(), list, 10, 3);
 //		commandMap.put("m_no", session.getAttribute("session_m_no"));
-		mv.addObject("list", list);
+		Map<String, Object> page = paging.getPagingList();
+	    mv.addObject("list", page.get("list"));
+	    mv.addObject("pagingHtml",page.get("pagingHtml"));
+	    mv.addObject("currentPageNo", commandMap.getCurrentPageNo());
 		
 		return mv;
 	}
@@ -76,11 +94,16 @@ public class MypageController {
 	
 	//장소 신청 내역
 	@RequestMapping(value="/mypage/placebookHistory")
-	public ModelAndView placebookHistory(CommandMap commandMap) throws Exception{
+	public ModelAndView placebookHistory(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("/mypage/mypagePlacebookHistory");
 		List<Map<String, Object>> list = mypageService.selectPlacebookHistory(commandMap.getMap());
+		PagingCalculator paging = new PagingCalculator("/mypage/placebookHistory", commandMap.getCurrentPageNo(), list, 10, 3);
 //		commandMap.put("m_no", session.getAttribute("session_m_no"));
-		mv.addObject("list", list);
+		Map<String, Object> page = paging.getPagingList();
+	    mv.addObject("list", page.get("list"));
+	    mv.addObject("pagingHtml",page.get("pagingHtml"));
+	    mv.addObject("currentPageNo", commandMap.getCurrentPageNo());
 		
 		return mv;
 	}
@@ -92,10 +115,16 @@ public class MypageController {
 	
 	//  신고 내역
 	@RequestMapping(value="/mypage/reportHistory")
-	public ModelAndView reportHistory(CommandMap commandMap) throws Exception{
+	public ModelAndView reportHistory(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("/mypage/mypageReportHistory");
 		List<Map<String, Object>> list = mypageService.selectReportHistory(commandMap.getMap());
-		mv.addObject("list", list);
+		PagingCalculator paging = new PagingCalculator("/mypage/reportHistory", commandMap.getCurrentPageNo(), list, 10, 3);
+		
+		Map<String, Object> page = paging.getPagingList();
+	    mv.addObject("list", page.get("list"));
+	    mv.addObject("pagingHtml",page.get("pagingHtml"));
+	    mv.addObject("currentPageNo", commandMap.getCurrentPageNo());
 		
 		return mv;
 	}

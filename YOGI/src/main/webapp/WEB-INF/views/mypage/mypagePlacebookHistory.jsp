@@ -48,6 +48,8 @@
 </c:otherwise>
 </c:choose>
 
+${pagingHtml}
+
 <%@ include file="/WEB-INF/include/common-body.jspf"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>

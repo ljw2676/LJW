@@ -40,6 +40,7 @@
 		신고 내역이 없습니다
 </c:otherwise>
 </c:choose>
+${pagingHtml}
 <br />
 <input type="button" value="닫기" onclick="self.close();" />
 </body>

@@ -43,5 +43,7 @@
 </c:otherwise>
 </c:choose>
 
+${pagingHtml}
+
 </body>
 </html>
