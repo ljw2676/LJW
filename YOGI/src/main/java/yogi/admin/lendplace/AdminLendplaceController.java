@@ -76,20 +76,14 @@ public class AdminLendplaceController {
 		return mv;
 	}
 	
-	  //장소 신청
-	  @RequestMapping(value="/admin/lendplace/Apply")
-	    public ModelAndView placebookInsert(CommandMap commandMap, HttpSession session, HttpServletRequest request) throws Exception{
-//			commandMap.getMap().put("m_no", session.getAttribute("m_no").toString());
-//			commandMap.put("m_no", request.getSession().getAttribute("session_m_no"));
-		   lendplaceService.applyPlace(commandMap.getMap());
-		   return new ModelAndView("redirect:/mypage/mypageReportHistory"); //리다이렉트 : 장소 리스트 페이지
-	    }
 	  
 	  //장소 신청 취소
 	  @RequestMapping(value="/admin/lendplace/Cancel")
-	    public ModelAndView placebookCancel(CommandMap commandMap) throws Exception{
+	    public ModelAndView placebookCancel(CommandMap commandMap, HttpSession session) throws Exception{
 		   lendplaceService.cancelPlace(commandMap.getMap());
-		   return new ModelAndView("redirect:/lendplace/list"); //리다이렉트:장소 리스트 페이지
+		   lendplaceService.dwCountUdate(commandMap.getMap());
+		   commandMap.put("m_no", session.getAttribute("session_m_no"));
+		   return new ModelAndView("redirect:/mypage/placebookHistory"); //리다이렉트:장소 리스트 페이지
 	    }
 	
 	

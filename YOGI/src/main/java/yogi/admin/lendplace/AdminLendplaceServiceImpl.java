@@ -73,8 +73,12 @@ public class AdminLendplaceServiceImpl implements AdminLendplaceService {
 		// TODO Auto-generated method stub
 		lendplaceDAO.updatePoint(map);
 	}
-	
-	
+
+	@Override
+	public void dwCountUdate(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		lendplaceDAO.dwCountUdate(map);
+	}
 	
 	
 }

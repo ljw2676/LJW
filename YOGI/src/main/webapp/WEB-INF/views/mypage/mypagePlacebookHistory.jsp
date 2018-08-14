@@ -37,6 +37,7 @@
 			<a href="#this" name="cancel">취소</a>
 			<input type="hidden" id="L_NO" value="${row.L_NO}">
 			<input type="hidden" id="U_DATE" value="${row.U_DATE}">
+			<input type="hidden" id="M_NO" value="${row.M_NO}">
 			</td>
 		</tr>
 		</c:forEach>
@@ -65,6 +66,7 @@ ${pagingHtml}
 	          var comSubmit = new ComSubmit();
 	      	  comSubmit.setUrl("<c:url value='/admin/lendplace/Cancel' />");
 			  comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
+			  comSubmit.addParam("M_NO", obj.parent().find("#M_NO").val());
 			  comSubmit.addParam("U_DATE", obj.parent().find("#U_DATE").val());
 	          comSubmit.submit();
 	      }

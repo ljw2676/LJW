@@ -27,10 +27,11 @@
 	<select id="placebookHistory" resultType="hashmap">
  	SELECT L.L_NO , 
 		   L.L_SUBJECT , 
+		   PB.M_NO ,
 		   TO_CHAR(PB.U_DATE,'YYYY-MM-DD') AS U_DATE ,
 		   TO_CHAR(PB.PB_DATE,'YYYY-MM-DD') AS PB_DATE 
 	FROM LENDPLACE L , PLACEBOOK PB 
-	WHERE L.L_NO = PB.L_NO AND PB.M_NO=1 ORDER BY L.L_NO DESC
+	WHERE L.L_NO = PB.L_NO AND PB.M_NO=#{m_no} ORDER BY L.L_NO DESC
 	</select>
 
 	<!-- 마이페이지 신고목록-->

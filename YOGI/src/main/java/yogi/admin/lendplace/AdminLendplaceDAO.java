@@ -47,5 +47,11 @@ public class AdminLendplaceDAO extends AbstractDAO{
 		// TODO Auto-generated method stub
 		update("mypage.plustPoint", map);
 	}
+
+	public void dwCountUdate(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		update("lendplace.dwCountUdate", map);
+		
+	}
 	
 }

@@ -105,7 +105,6 @@ public class MypageController {
 		commandMap.put("m_no", session.getAttribute("session_m_no"));
 		List<Map<String, Object>> list = mypageService.selectPlacebookHistory(commandMap.getMap());
 		PagingCalculator paging = new PagingCalculator("/mypage/placebookHistory", commandMap.getCurrentPageNo(), list, 10, 3);
-//		commandMap.put("m_no", session.getAttribute("session_m_no"));
 		Map<String, Object> page = paging.getPagingList();
 	    mv.addObject("list", page.get("list"));
 	    mv.addObject("pagingHtml",page.get("pagingHtml"));
@@ -114,10 +113,6 @@ public class MypageController {
 		return mv;
 	}
 	
-//	@RequestMapping(value= "/mypage/reportHistory")
-//	public String reportHistory(){
-//		return "/mypage/mypageReportHistory";
-//	}
 	
 	//  신고 내역
 	@RequestMapping(value="/mypage/reportHistory")
