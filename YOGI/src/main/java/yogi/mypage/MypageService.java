@@ -15,9 +15,10 @@ public interface MypageService {
 	
 	public List<Map<String, Object>> selectPlacebookHistory(Map<String, Object> map) throws Exception;
 
-	public Map<String, Object> selectOneMember(Map<String, Object> map) throws Exception;
+	public Map<String, Object> selectOneMember(Object object) throws Exception;
 
 	public List<Map<String, Object>> selectReportHistory(Map<String, Object> map) throws Exception;
+
 
 	
 }

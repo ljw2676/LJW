@@ -41,9 +41,9 @@ public class MypageServiceImpl implements MypageService {
 		}
 
 	@Override
-	public Map<String, Object> selectOneMember(Map<String, Object> map) throws Exception {
+	public Map<String, Object> selectOneMember(Object object) throws Exception {
 		// TODO Auto-generated method stub
-		return mypageDAO.selectOneMember(map);
+		return mypageDAO.selectOneMember(object);
 	}
 	
 	@Override

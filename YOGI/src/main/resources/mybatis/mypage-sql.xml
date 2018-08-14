@@ -5,17 +5,17 @@
 
 <!-- 회원정보 검색 -->
 	<select id="selectOneMember" parameterType="Integer" resultType="hashmap">
-		SELECT * FROM MEMBERS WHERE M_NO=26
+		SELECT * FROM MEMBERS WHERE M_NO=#{M_NO}
 	</select>
 	
 	<!-- 마이페이지 내가 개설한 모임 -->
 	<select id="writeHistory" resultType="hashmap">
-		SELECT * FROM GROUP_GATHERING where m_no=1 order by gg_no desc
+		SELECT * FROM GROUP_GATHERING where m_no=#{m_no} order by gg_no desc
 	</select>
 	
 	<!--  마이페이지 모임참여내역 -->
 	<select id="meetHistory" resultType="hashmap">
-		SELECT * FROM GROUP_GATHERING WHERE gg_no in(select gg_no from group_enroll where m_no=1)
+		SELECT * FROM GROUP_GATHERING WHERE gg_no in(select gg_no from group_enroll where m_no=#{m_no})
 	</select>
 	
 	<!-- 마이페이지 찜 목록 -->
@@ -35,7 +35,7 @@
 
 	<!-- 마이페이지 신고목록-->
 	<select id="reportHistory" resultType="hashmap">
-		SELECT R.R_NO , R.R_COMMENT , G.GG_NAME FROM REPORT R, GROUP_GATHERING G WHERE R.GG_NO = G.GG_NO AND R.M_NO= 2
+		SELECT R.R_NO , R.R_COMMENT , G.GG_NAME FROM REPORT R, GROUP_GATHERING G WHERE R.GG_NO = G.GG_NO AND R.M_NO= #{M_NO}
 	</select>
 	
 	<!-- 모임 신고 -->

@@ -33,7 +33,7 @@ div.map_title{
 	</tr>
 	
 	<tr>
-		<input class = "addrSearch" id="search_keyword_addr" type="text" name="" size="53%" onkeypress="searchAddrEnterKey();" maxlength="25">
+		주소 <input class = "addrSearch" id="search_keyword_addr" type="text" name="" size="53%" onkeypress="searchAddrEnterKey();" maxlength="25">
 		<input type="button" value="검색" onclick="searchAddrEnterKey('13');">
   		<div class="map_title">
   		<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>

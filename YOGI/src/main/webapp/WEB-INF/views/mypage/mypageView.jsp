@@ -24,23 +24,23 @@
 <table>
 <tr>
 	<td>${session_m_id }님  
-	<c:if test="${map.M_GRADE lt 50 }">
+	<c:if test="${member.M_GRADE lt 50 }">
 	<img src="/yogi/resources/image/lv-b.png">
 	</c:if>
 		
-	<c:if test="${map.M_GRADE ge 50 && map.M_GRADE lt 100}">
+	<c:if test="${member.M_GRADE ge 50 && member.M_GRADE lt 100}">
 	<img src="/yogi/resources/image/lv-s.png">
 	</c:if>
 	
-	<c:if test="${map.M_GRADE ge 100 && map.M_GRADE lt 200}">
+	<c:if test="${member.M_GRADE ge 100 && member.M_GRADE lt 200}">
 	<img src="/yogi/resources/image/lv-g.png">
 	</c:if>
 	
-	<c:if test="${map.M_GRADE ge 200 && map.M_GRADE lt 300}">
+	<c:if test="${member.M_GRADE ge 200 && member.M_GRADE lt 300}">
 	<img src="/yogi/resources/image/lv-v.png">
 	</c:if>
 	
-	<c:if test="${map.M_GRADE ge 300 && map.M_GRADE le 400}">
+	<c:if test="${member.M_GRADE ge 300 && member.M_GRADE le 400}">
 	<img src="/yogi/resources/image/lv-w.png">
 	</c:if>
 	</td>
@@ -48,7 +48,11 @@
 </tr>
 
 <tr>
-<td>회원님은 "${map.M_LV }" 이십니다 !</td>
+<td>회원님은 "${member.M_LV }" 이십니다 !</td>
+</tr>
+
+<tr>
+<td>보유 포인트 :  ${member.M_GRADE }
 </tr>
 
 <tr>
@@ -58,7 +62,7 @@
 </tr>
 
 <tr>
-	<td>신고 횟수 : ${map.M_PENALTY }</td>
+	<td>신고 횟수 : ${member.M_PENALTY }</td>
 </tr>
 
 <tr>
