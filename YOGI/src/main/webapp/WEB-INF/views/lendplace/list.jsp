@@ -10,19 +10,11 @@
 <head>
 <meta charset="UTF-8">
 <title>장소 목록</title>
+<link  href="<c:url value='/resources/datepicker/datepicker.css' />" rel="stylesheet">
 </head>
 <body>
 
-
-<%-- <form name="search_form" action="<c:url value="/meetings"/>" method="post" role="search" onsubmit="searchSubmit();">
-	<input id="searchAddr" type="hidden" name="searchAddr" value="${searchAddr }">
-	<input id="searchL_s_date" type="hidden" name="searchL_s_date" value="${searchL_s_date }">
-	<input id="searchL_e_date" type="hidden" name="searchL_e_date" value="${searchL_e_date }">
-	<input type="text" class="form-control" id="searchbox" name="searchWord" value="${searchWord }" placeholder="키워드 검색">
-	<button type="submit" value="검색"></button>
-</form> --%>
-		
-<form name="search_form" action="<c:url value='/lendplace/list' />" role="search" method="post" method="post" onsubmit="searchSubmit()">
+<form name="search_form" action="<c:url value='/lendplace/list' />" role="search" method="post"  onsubmit="searchSubmit()">
 <input id="currentPageNo" type="hidden" name="currentPageNo" value="${currentPageNo }">
 <input id="searchAddr" type="hidden" name="searchAddr">
 키워드 검색 
@@ -67,8 +59,13 @@
 	<br>
 	<input type="checkbox" style="margin-top:15px; margin-left:90px;" name="area" value="송파구">송파구
 <br><br>
-<font color="white" size="5">날짜</font><input autocomplete="off" type="date" class="date" name="l_sdate" id="l_sdate" size="13" style="background-color:transparent;"> - 
-<input autocomplete="off" type="date" class="date" name="l_edate" id="l_edate" size="13" style="background-color:transparent;">
+날짜검색 : 
+
+시작 <input type="hidden" data-toggle="datepicker1" name="l_sdate"></input>
+<div id="datepicker-container1"></div>
+종료 <input type="hidden" data-toggle="datepicker2" name="l_edate"></input>
+<div id="datepicker-container2"></div>
+
 <input type="submit" value="검색">
 </form>
 
@@ -85,7 +82,6 @@
 						<td>비용</td>
 						<td>기간</td>
 						<td>평점</td>
-						<td>신청</td>
 					</tr>
 			<c:forEach items="${list }" var="row">
 					<tr>
@@ -96,21 +92,6 @@
 						<td>${row.L_PAYMENT}원</td>
 						<td>${row.L_SDATE} ~ ${row.L_EDATE}</td>
 						<td>${row.L_RATE}</td>
-						<c:set var="check_yn" value="false" /> <!-- 조건 true 가 되면 break 같은거-->
-						<c:forEach items="${plist}" var="row2">
-							<c:if test="${not check_yn }"> <!-- check_yn이 false일때만 반복 ( true되면 포문에서 동작x) -->
-                 				<c:if test="${row2.L_NO == row.L_NO}">
-                 			 		<c:set var="check_yn" value="true" />
-                   			  		<td><a href="#this" name="cancel">취소</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
-                    		 	</c:if>
-                    		 </c:if>
-                    	</c:forEach>
-						<c:if test="${not check_yn}"><!-- check_yn 이 false때 실행 false이면 신청된게 없다는것이므로 
-						  -->
-                    		 <td><a href="#this" name="apply">신청</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
-                    	</c:if>
-                		    
-					</tr>
 				</c:forEach>						
 		</table>
 	</c:when>
@@ -129,62 +110,51 @@ ${pagingHtml}
 
 
 <%@ include file="/WEB-INF/include/common-body.jspf"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="<c:url value='/resources/datepicker/datepicker.js'/> "></script>
+<script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
 <script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
-<script type="text/javascript">
+<script>
 		$(document).ready(function() {
-			$("a[name='title']").on("click", function(e) { //제목 
-				e.preventDefault();
-				fn_selectLendplaceDetail($(this));
-			});
-			
-			$("a[name='apply']").on("click", function(e) { //신청
+			$("a[name='title']").on("click", function(e) { //신청
 				/* 태그의 기본 기능을 제거 */
 				e.preventDefault();
-				fn_applyLendplace($(this));
-		
+				fn_selectLendplaceDetail($(this));
 				
-			/* 	$(this).html('취소');
-				$(this).attr('name', 'cancel'); */
-			
-			});
-			
-			$("a[name='cancel']").on("click", function(e) { //취소
-				e.preventDefault();
-				fn_cancelLendplace($(this));
-			});
-			
+				});
 			$('#searchbox').keypress(function(event) {
 				if (event.keyCode == 13) { //여기서 keyCode 13은 엔터키를 의미한다.
 					searchSubmit();
 				}
 			});
+					
+			var l_sdate = $('[data-toggle="datepicker1"]').datepicker({
+		 		  language: 'ko-KR',
+		 		  inline: true,
+		 		  container: '#datepicker-container1',
+		 		  format: 'yyyy-mm-dd'
+		 	      	}).on('pick.datepicker', function (e) {
+		 	    		l_edate.datepicker('setStartDate', e.date);
+		 			}),
+		 		l_edate = $('[data-toggle="datepicker2"]').datepicker({
+			 		  language: 'ko-KR',
+			 		  inline: true,
+			 		  container: '#datepicker-container2',
+			 		  format: 'yyyy-mm-dd'
+			 	 });	
 		});
 		
 		
 		function fn_selectLendplaceDetail(obj) {
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/lendplace/detail' />");
-			comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
+			comSubmit.addParam("L_NO",obj.parent().find("#L_NO").val());
+			comSubmit.addParam("currentPageNo", "${currentPageNo}");
 			comSubmit.submit();
 		}
-	
-	      function fn_applyLendplace(obj){
-	          var comSubmit = new ComSubmit();
-	      	  comSubmit.setUrl("<c:url value='/admin/lendplace/Apply' />");
-			  comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
-			  comSubmit.addParam("M_NO", obj.parent().find("#M_NO").val());
-	          comSubmit.submit();
-	      }
-	      
-	      function fn_cancelLendplace(obj){
-	          var comSubmit = new ComSubmit();
-	      	  comSubmit.setUrl("<c:url value='/admin/lendplace/Cancel' />");
-			  comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
-	          comSubmit.submit();
-	      }
-	    
-		  function searchSubmit(){
+			
+	    	    
+		function searchSubmit(){
 		 	  var areaSize = "";
 		 	  $("input[name=area]:checked").each(function() {
 		 	  	if(areaSize == ""){
@@ -198,8 +168,8 @@ ${pagingHtml}
 		 		$('#searchAddr').val(areaSize);
 		 	  }
 		 	  document.search_form.submit();
-		 } 
-
+		} 
+			 
 </script>
 </body>
 </html>

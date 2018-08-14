@@ -22,13 +22,16 @@ public class LendplaceDAO extends AbstractDAO{
 		return (Map<String, Object>) selectOne("lendplace.selectLendplaceDetail",map);
 	}
 	
+//	날짜 중복체크
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> dateCheck(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>) selectList("lendplace.dateCheck",map);
+	}
 
 //	장소 내용 수정 
 	public void updateLendplace(Map<String, Object> map) throws Exception{
 		update("lendplace.updateLendplace",map);
 	}
-	
-//	날짜 중복 체크
 	
 	
 //	장소후기 입력 
@@ -39,11 +42,6 @@ public class LendplaceDAO extends AbstractDAO{
 //	장소후기 삭제
 	public void deleteReview(Map<String, Object> map) throws Exception{
 		delete("lendplace.deleteReview",map);
-	}
-
-	public List<Map<String, Object>> selectPlacebookList(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return (List<Map<String, Object>>)selectList("admin.selectAdminPlaceBookList",map);
 	}
 
 }

@@ -59,12 +59,32 @@
 <select id="selectLendplaceDetail" resultType="hashmap" parameterType="hashmap">
 	<![CDATA[
 		SELECT 
-			*
-		FROM LENDPLACE
+			L_NO, 
+			L_SUBJECT, 
+			L_ADDR, 
+			L_CONTENT, 
+			L_REP_IMG, 
+			L_ENABLE, 
+			L_PAYMENT,
+			TO_CHAR(L_SDATE,'YYYY-MM-DD') AS L_SDATE, 
+			TO_CHAR(L_EDATE,'YYYY-MM-DD') AS L_EDATE, 
+			L_RATE,
+			L_UDATE
+		FROM LENDPLACE 
 		WHERE L_NO = #{L_NO}
 	]]>
 </select>
 
+<!-- 날짜 중복확인 -->
+<select id="dateCheck" resultType="hashmap" parameterType="hashmap">
+	<![CDATA[
+		SELECT 
+			TO_CHAR(U_DATE,'YYYY-MM-DD') AS U_DATE
+		FROM PLACEBOOK
+		WHERE L_NO = #{L_NO}
+	]]>
+</select>
+	
 <!-- 장소 등록 -->
 <insert id="insertLendplace" parameterType="LendplaceModel">
    		INSERT INTO LENDPLACE (
@@ -84,8 +104,8 @@
 			#{L_CONTENT},
 			#{L_ENABLE},
 			#{L_PAYMENT},
-			#{L_SDATE},
-			#{L_EDATE}
+			TO_DATE(#{L_SDATE},'YYYY-MM-DD'),
+			TO_DATE(#{L_EDATE},'YYYY-MM-DD')
 			)
 </insert>
 
@@ -112,28 +132,34 @@
 			PB_NO,
 			L_NO,
 			M_NO,
-			PB_DATE )
+			PB_DATE,
+			U_DATE )
 		VALUES (
 			PLACEBOOK_SEQ.NEXTVAL,
 			#{L_NO},
-			3,
-			sysdate)
+			1,
+			TO_DATE(sysdate,'YYYY-MM-DD'),
+			TO_DATE(#{U_DATE},'YYYY-MM-DD')
+			)
 	]]>
 </insert>
 
-<!-- 날짜 중복 체크 -->
-<!--  
-<select id="dateCheck" resultType="hashmap" parameterType="hashmap">
-	<![CDATA[
-		SELECT
-			*
-		FROM PLACEBOOK
-		WHERE L_NO = #{L_NO} 
-		AND L_DATE = #{L_DATE}
-	]]>
-</select>
- -->
- 
+<!-- 예약현황 증가 -->
+<update id="upCountUdate" parameterType="hashmap">
+ 	UPDATE 
+ 		LENDPLACE 
+ 	SET L_UDATE = L_UDATE + 1 
+ 	WHERE L_NO = #{L_NO}
+</update>
+
+<!-- 예약현황 감소 -->
+<update id="dwCountUdate" parameterType="hashmap">
+ 	UPDATE 
+ 		LENDPLACE 
+ 	SET L_UDATE = L_UDATE - 1 
+ 	WHERE L_NO = #{L_NO} 
+</update>
+
 <!-- 장소 삭제 -->
 <delete id="deleteLendplace" parameterType="hashmap">
 	<![CDATA[
@@ -168,7 +194,7 @@
 			REVIEW_SEQ.NEXTVAL,
 			#{R_CONTENT},
 			#{R_RATING},
-			#{R_DATE},
+			sysdate,
 			#{L_NO},
 			#{M_NO} )
 	]]>

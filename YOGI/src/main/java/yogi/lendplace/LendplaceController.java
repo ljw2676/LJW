@@ -27,9 +27,6 @@ public class LendplaceController {
 		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("/lendplace/list");
     	List<Map<String, Object>> list = lendplaceService.selectLendplaceList(commandMap.getMap());
-    	List<Map<String, Object>> plist = lendplaceService.selectPlacebookList(commandMap.getMap());
-    	mv.addObject("plist", plist);
-    	
     	PagingCalculator paging = new PagingCalculator("lendplace/list", commandMap.getCurrentPageNo(), list, 6 ,3);
     	Map<String, Object> result = paging.getPagingList();
     	mv.addObject("list",result.get("list"));
@@ -43,26 +40,17 @@ public class LendplaceController {
 	@RequestMapping(value="/lendplace/detail")
 	public ModelAndView selectLendplaceDetail(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/lendplace/detail");
-		
 		Map<String,Object> map = lendplaceService.selectLendplaceDetail(commandMap.getMap());
 		mv.addObject("map", map);
+		int Udate = (Integer.parseInt(map.get("L_UDATE").toString()));
+		System.out.println("Udate : "+Udate);
+		if (Udate != 0 && Udate >= 1) {
+			List<Map<String, Object>> date = lendplaceService.dateCheck(commandMap.getMap());
+			mv.addObject("date",date);
+		}
+		
 		
 		return mv;
 	}
-	
-//	@RequestMapping(value="/lendplace/insertForm")
-//	public ModelAndView insertLendplaceForm(CommandMap commandMap) throws Exception{
-//		ModelAndView mv = new ModelAndView("/lendplace/insertForm");
-//		
-//		return mv;
-//	}
-//	
-//	@RequestMapping(value="/lendplace/insert")
-//	public ModelAndView insertLendplace(CommandMap commandMap, HttpServletRequest request) throws Exception{
-//		ModelAndView mv = new ModelAndView("redirect:/lendplace/openBoardList.do");
-//		
-//		lendplaceService.insertLendplace(commandMap.getMap(), request);
-//		
-//		return mv;
-//	}
+
 }

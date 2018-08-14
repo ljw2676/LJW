@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>장소 상세보기</title>
+<link  href="<c:url value='/resources/datepicker/datepicker.css' />" rel="stylesheet">
 </head>
 <body>
 <table border="1">
@@ -30,6 +36,63 @@
 						<td>${map.L_SDATE} ~ ${map.L_EDATE}</td>
 						<td>${map.L_RATE}</td>
 					</tr>
+					<tr>
+						<td><a href="#this" name="apply">신청</a><input type="hidden" id="L_NO" value="${map.L_NO}"></td>
+					</tr>
 </table>
+
+<input type="hidden" data-toggle="datepicker" id="U_DATE"></input> 
+<div id="datepicker-container"></div>
+
+<%@ include file="/WEB-INF/include/common-body.jspf"%>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="<c:url value='/resources/datepicker/datepicker.js'/> "></script>
+<script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
+<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+		$("a[name='apply']").on("click", function(e) { //신청
+		/* 태그의 기본 기능을 제거 */
+		e.preventDefault();
+		fn_applyLendplace($(this));
+		
+		});
+});
+
+function fn_applyLendplace(obj){
+    var comSubmit = new ComSubmit();
+	  comSubmit.setUrl("<c:url value='/admin/lendplace/Apply' />");
+	  comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
+	  comSubmit.addParam("U_DATE", obj.parent().find("#U_DATE").val());
+      comSubmit.submit();
+}
+
+
+$( function() {/* 달력 */
+	 
+	 $('[data-toggle="datepicker"]').datepicker({
+		  language: 'ko-KR',
+		  inline: true,
+		  container: '#datepicker-container',
+		  format: 'yyyy-mm-dd',
+		  startDate: '${map.L_SDATE}',
+		  endDate: '${map.L_EDATE}',
+		  filter: function(date){
+			 <c:forEach items="${date}" var="date"> 
+			  var Udate = new Date("${date.U_DATE}");
+			  if (date.getFullYear() === Udate.getFullYear()) {
+					if (date.getMonth()	=== Udate.getMonth()) {
+						if (date.getDate() === Udate.getDate()) {
+						       return false; 
+						}
+					}
+				 }
+			 </c:forEach>
+	  		}
+	 });
+});
+
+
+</script>
 </body>
 </html>
