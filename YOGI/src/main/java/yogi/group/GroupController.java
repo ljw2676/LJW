@@ -65,21 +65,6 @@ public class GroupController {
 		mv.addObject("currentPageNo", map.getCurrentPageNo());
 		return mv;
 	}
-/*	@RequestMapping(value="/group/groupDetail2", method={RequestMethod.GET})
-	public ModelAndView groupDetail_G(String no, HttpServletRequest request) throws Exception{
-		YogiUtils.savePageURI(request);
-		CommandMap map = new CommandMap();
-		map.put("gg_no",  Integer.parseInt(no));
-		map.put("currentPageNo", 1);
-		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
-		Map<String, Object> result = groupService.selectGroupDetail(map.getMap());
-		ModelAndView mv = new ModelAndView("/group/groupDetail");
-		mv.addObject("gModel",result.get("detail"));
-	
-		mv.addObject("currentPageNo", map.getCurrentPageNo());
-		
-		return mv;
-	}*/
 	
 	@RequestMapping(value="/group/likeit", method=RequestMethod.POST)
     public ModelAndView likeit(CommandMap map, HttpServletRequest request) throws Exception{
@@ -100,6 +85,13 @@ public class GroupController {
 		return new ModelAndView("redirect:/group/groupDetail?gg_no="+map.get("gg_no"));
 	}
 	
+	@RequestMapping(value="/group/commentsRep", method=RequestMethod.POST)
+	public ModelAndView insertCmtRep(CommandMap map, HttpServletRequest request) throws Exception{
+		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
+		groupService.insertComments(map.getMap(),request);
+
+		return new ModelAndView("redirect:/group/groupDetail?gg_no="+map.get("gg_no"));
+	}
 	//모임 폼 열기
 	@RequestMapping(value="/group/groupForm", method=RequestMethod.GET)
 	public String groupForm(Model model) {
