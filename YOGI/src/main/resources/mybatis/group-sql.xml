@@ -137,9 +137,9 @@
          c_date,
          gg_no,
          m_no,
-         ref,
-         re_step,
-         re_level,
+         c_ref,
+         c_re,
+         c_lv,
          c_del
       )
       VALUES
@@ -150,8 +150,8 @@
          #{gg_no},
          #{m_no},
          comments_seq.currval,
-         #{re_step},
-         #{re_level},
+         #{c_re},
+         #{c_lv},
          'N'
       )
     </insert>
@@ -164,9 +164,9 @@
          c_date,
          gg_no,
          m_no,
-         ref,
-         re_step,
-         re_level,
+         c_ref,
+         c_re,
+         c_lv,
          c_del
       )
       VALUES
@@ -176,9 +176,9 @@
          sysdate,
          #{gg_no},
          #{m_no},
-         #{ref},
-         #{re_step},
-         #{re_level},
+         #{c_ref},
+         #{c_re},
+         #{c_lv},
          'N'
       )
     </insert>
@@ -190,22 +190,18 @@
          c_content,
          c_date,
          m_no,
-         ref,
-         re_step,
-         re_level,
-         c_del,
          m_name as c_name
       FROM
          comments natural join members
       WHERE
          gg_no=#{gg_no}
       ORDER BY
-      	 ref DESC, re_step ASC
+         c_no DESC
     </select>
 
 
 	<update id="updateReplyStep" parameterType="hashmap">
-      UPDATE comments set re_step=re_step+1 where ref=#{ref} AND re_step>#{re_step}
+      UPDATE comments set c_re=c_re+1 where c_ref=#{c_ref} AND c_re>#{c_re}
     </update>
    
     <select id="groupEnrollList" parameterType="hashmap" resultType="hashmap">
@@ -269,22 +265,4 @@
 			gg_no=#{gg_no}
 	</update>
 	
-	<select id="selectRepList" parameterType="hashmap" resultType="hashmap">
-		select
-			c_no,
-         	c_content,
-        	c_date,
-         	m_no,
-        	ref,
-        	re_step,
-         	re_level,
-         	c_del
-         FROM
-         	comments
-         WHERE
-         	gg_no=#{gg_no}
-         ORDER BY gg_no DESC
-		
-	
-	</select>
 </mapper>

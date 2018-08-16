@@ -99,5 +99,6 @@ public class GroupDAO extends AbstractDAO{
 	public List<Map<String, Object>> groupEnrollList(Map<String, Object> map) {
 		return (List<Map<String, Object>>) selectList("group.groupEnrollList",map);
 	}
+	
 
 }

@@ -13,16 +13,18 @@
 <script src="<c:url value='/resources/dtpicker/jquery.simple-dtpicker.css'/>" charset="utf-8"></script>
 <script src="<c:url value='/resources/dtpicker/jquery.simple-dtpicker.js'/>" charset="utf-8"></script>
 <script type="text/javascript">
-
-	function doDisplay(C_NO){
-    var con = document.getElementById("repDiv"+C_NO);
-    if(con.style.display=='block'){
-        con.style.display = 'none';
-    }else{
-        con.style.display = 'block';
-    }
-	}	
-	   
+	   function fn_meetingsApplyforDisable(){
+	    	alertify.error("신청 마감된 모임입니다.");
+	    }
+		
+		function fn_meetingsApplyfor(mt_no) {
+			if (isLoginCheck("${sessionScope.session_m_email}")) {
+				var cs = new ComSubmit();
+				cs.setUrl("<c:url value='/meetings/applyform' />");
+				cs.addParam("mt_no", mt_no);
+				cs.submit();
+			}
+		}
 		function fn_meetingsLikeit(){
 	        if(isLoginCheck("${sessionScope.session_m_id}")){
 		        var cs = new ComSubmit();
@@ -59,31 +61,13 @@
 				cs.submit("GET");
 			}
 
-			    $(document).ready(function(){
-		            $("#addFile").on("click", function(e){ //파일 추가 버튼
-		                e.preventDefault();
-		                fn_addFile();
-		            });
-		             
-		            $("a[name='delete']").on("click", function(e){ //삭제 버튼
-		                e.preventDefault();
-		                fn_deleteFile($(this));
-		            });
-		        });
-
-		    function fn_addFile(){
-		            var str = "	<c:forEach items='${cmtList }' var='row'><form action='<c:url value='/group/commentsRep?c_no=${row.C_NO}&ref=${row.REF}'/>' method='post'><input type='hidden' name='re_step' value='${row.RE_STEP}'/><input type='hidden' name='re_level' value='${row.RE_LEVEL}'/><input type='hidden' name='gg_no' value='${gModel.GG_NO}'></c:forEach><textarea name='c_content'></textarea><input type='submit' value='입력'><a href='#this' class='btn' name='delete'>삭제</a></form>";
-		            $("#repDiv").append(str);
-		            $("a[name='delete']").on("click", function(e){ //삭제 버튼
-		                e.preventDefault();
-		                fn_deleteFile($(this));
-		            });
-		        }
-		         
-		        function fn_deleteFile(obj){
-		            obj.parent().remove();
-		        }
-		        
+			 function List()
+			    {
+			       var tmpHtml = "";
+			       tmpHtml = tmpHtml + '<textarea name="c_content"/>';
+			 
+			       $("#div_List").append(tmpHtml);
+			    }
 	</script>
 </head>
 <body>
@@ -157,30 +141,20 @@
 	</div>
 	 
 		 <div>
-	 	<h4> COMMENTS(${fn:length(cmtList)})</h4>	
-	 	
-	 	<c:forEach items="${cmtList }" var="row" varStatus="status">
-		<form action='<c:url value='/group/commentsRep?c_no=${row.C_NO}&ref=${row.REF}'/>' method='post'>
-		<input type='hidden' name='re_step' value='${row.RE_STEP}'/>
-		<input type='hidden' name='re_level' value='${row.RE_LEVEL}'/>
-		<input type="hidden" name="gg_no" value="${gModel.GG_NO}">	
-		<c:if test='${row.re_level != 0}'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</c:if><ul>
-		<li>${row.C_NAME } <fmt:formatDate value="${row.C_DATE}" pattern="yy/MM/dd hh:mm:ss"/> <a href="#" onclick="doDisplay('<c:out value='${row.C_NO}'/>')">답변</a></li>		
-		<li>${row.C_CONTENT }</li>
-		<div id="repDiv<c:out value='${row.C_NO}'/>" style="display:none">	
-		<textarea name="c_content"></textarea><input type="submit" value="답변전용">		
-		</div>
+	 	<h4> COMMENTS(${fn:length(cmtList)})</h4>
+	 	<c:forEach items="${cmtList }" var="row">
+		<ul>
+		<li>${row.C_NAME } <div class="div_list"><a onclick="List()">답글달기</a></div> </li>
+		<li>
+		${row.C_CONTENT }
+		</li>
 		</ul>
-		</form>
-		</c:forEach>	 
-		
+		</c:forEach>	 	
 	 </div>
 	 <br/>
 	 <div>
-	 <form action="<c:url value='/group/comments'/>" onsubmit="return cmt_check();" method="post">
+	 <form action="<c:url value="/group/comments"/>" onsubmit="return cmt_check();" method="post">
 						<input type="hidden" name="gg_no" value="${gModel.GG_NO }">
-						<input type="hidden" name="ref" value='0'>
-						
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="form-group">
@@ -195,7 +169,15 @@
 									<input type="submit" value="입력"/>
 								</div>
 							</div>
-					</form>
-			 </div>
-	 </body>
+						</form>
+	 </div>
+	 
+	 <c:if test="reply">
+	 <form action="replyAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
+			<input type="hidden" name="ref" value="${cmtList.C_REF }" />
+			<input type="hidden" name="re_level" value="${cmtList.C_LV }" />
+			<input type="hidden" name="re_step" value="${cmtList.C_RE }" />
+	 </form>
+	 </c:if>
+</body>
 </html>

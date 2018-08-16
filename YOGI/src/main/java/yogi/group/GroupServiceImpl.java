@@ -31,11 +31,11 @@ public class GroupServiceImpl implements GroupService {
 	
 	Calendar today = Calendar.getInstance();
 	
+	private int c_ref;
+	private int c_re;
+	private int c_lv;
 	boolean reply = false;
-	private int ref;
-	private int re_step;
-	private int re_level;
-	
+
 	@Override
 	public List<Map<String, Object>> selectGroupList(Map<String, Object> map) throws Exception {
 		if(map.get("searchCategory") == null || StringUtils.isBlank(map.get("searchCategory").toString())){
@@ -148,24 +148,22 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Override
 	public void insertComments(Map<String, Object> map, HttpServletRequest request) throws Exception {
-	reply = true;
-	System.out.println(map);
-	/*Integer.parseInt(map.get("ref").toString()) == 0*/
-	System.out.println(ref);
-	if(Integer.parseInt(map.get("ref").toString()) == 0)
+		
+	if(c_ref == 0)
 	{
-		map.put("re_step",0);
-		map.put("re_level",0);
+		map.put("c_re",0);
+		map.put("c_lv",0);
 	}
 	else {
 		groupDAO.updateReplyStep(map);
-		map.put("re_step", Integer.parseInt(map.get("re_step").toString())+1);
+		
+		map.put("c_re", (Integer) map.get("c_re")+1);
 		//cModel.setC_re(cModel.getC_re() + 1);
-		map.put("re_level", Integer.parseInt(map.get("re_level").toString())+1);
+		map.put("c_lv", (Integer) map.get("c_lv")+1);
 		//cModel.setC_lv(cModel.getC_lv() + 1);
 	}
 	
-	if(Integer.parseInt(map.get("ref").toString()) == 0)
+	if(c_ref == 0)
 		groupDAO.insertCmt(map);
 	else 
 		groupDAO.insertCmtRep(map);
@@ -173,5 +171,9 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Override
 	public void cmtReply(Map<String, Object> map) throws Exception {
+		reply = true;
+		
+		map.put("c_content", "→"+map.get("c_content"));
+	
 	}
 }
