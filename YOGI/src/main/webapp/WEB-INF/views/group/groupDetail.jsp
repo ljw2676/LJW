@@ -92,6 +92,7 @@
 	</div>
 	
 	<div>
+	<c:if test="${gModel.M_NO!=session_m_no }">
 	<form action="/yogi/group/likeit" method="post">
 			<input type="hidden" name="gg_no" value="${gModel.GG_NO}">
 			<input type="hidden" name="m_no" value="${gModel.M_NO}">
@@ -104,9 +105,11 @@
 		</c:otherwise>	  
 	</c:choose>
 	 </form>
+	 </c:if>
 	 </div>
 	 
 	 <div>
+	 <c:if test="${gModel.M_NO!=session_m_no }">
 	<form action="/yogi/group/enroll" method="post">
 			<input type="hidden" name="gg_no" value="${gModel.GG_NO}">
 			<input type="hidden" name="m_no" value="${gModel.M_NO}">
@@ -119,6 +122,7 @@
 		</c:otherwise>	  
 	</c:choose>
 	 </form>
+	 </c:if>
 	 </div>
 	 
 	 <div>
@@ -128,6 +132,7 @@
 	 	<input type="hidden" name="m_no" value="${gModel.M_NO}">
 	 	<input type="submit" value="수정하기">
 	 </form>
+	 <a href="#this" name="inactivateGroup">삭제하기</a><input type="hidden" id="GG_NO" value="${gModel.GG_NO}">
 	 </c:if>
 	 </div>
 	 
@@ -179,5 +184,24 @@
 			<input type="hidden" name="re_step" value="${cmtList.C_RE }" />
 	 </form>
 	 </c:if>
+	 
+	 <form id="commonForm" name="commonForm"></form>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	 <script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
+	 <script type="text/javascript">
+		$(document).ready(function() {
+			$("a[name='inactivateGroup']").on("click", function(e) { //비활성화
+				e.preventDefault();
+				fn_inactivateGroup($(this));
+			});
+		});
+		
+		function fn_inactivateGroup(obj) {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/group/inactivateGroup' />");
+			comSubmit.addParam("GG_NO", obj.parent().find("#GG_NO").val());
+			comSubmit.submit();
+		}
+</script>
 </body>
 </html>

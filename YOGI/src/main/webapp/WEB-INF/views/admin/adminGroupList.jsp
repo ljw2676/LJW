@@ -12,10 +12,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-그룹 리스트
+
+<div align="center">
+	그룹 리스트
+</div>
+
+<br>
+
+<div align="center">
 <c:choose>
 <c:when test="${fn:length(list) > 0 }">
-<table border="1">
+	<table border="1">
 		<tr background="gray">
 			<td>no.</td>
 			<td>그룹명</td>
@@ -47,13 +54,20 @@
 			</c:if>
 		</tr>
 		</c:forEach>
-</table>
+	</table>
 </c:when>
 <c:otherwise>
 		<br>
 		생성된 그룹이 없습니다.
 </c:otherwise>
 </c:choose>
+</div>
+
+<br><br>
+
+<div align="center">
+	${pagingHtml}
+</div>
 
 <form id="commonForm" name="commonForm"></form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -64,7 +78,7 @@
 				e.preventDefault();
 				fn_inactivateGroup($(this));
 			});
-			$("a[name='activateGroup']").on("click", function(e) { //비활성화
+			$("a[name='activateGroup']").on("click", function(e) { //활성화
 				e.preventDefault();
 				fn_activateGroup($(this));
 			});

@@ -12,10 +12,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-장소 리스트
+
+<div align="center">
+	장소 리스트
+</div>
+
+<br>
+
+<div align="center">
 <c:choose>
 <c:when test="${fn:length(list) > 0 }">
-<table border="1">
+	<table border="1">
 		<tr background="gray">
 			<td>no.</td>
 			<td>장소명</td>
@@ -38,15 +45,24 @@
 			<td><a href="#this" name="delete">삭제</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
 		</tr>
 		</c:forEach>
-</table>
+	</table>
 </c:when>
 <c:otherwise>
 		<br>
 		등록한 장소가 없습니다.
 </c:otherwise>
 </c:choose>
+</div>
 
-<a href="<c:url value='/admin/lendplace/Form'/>">장소 등록</a>
+<div>
+	<a href="<c:url value='/admin/lendplace/Form'/>">장소 등록</a>
+</div>
+
+<br><br>
+
+<div align="center">
+	${pagingHtml}
+</div>
 
 <form id="commonForm" name="commonForm"></form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

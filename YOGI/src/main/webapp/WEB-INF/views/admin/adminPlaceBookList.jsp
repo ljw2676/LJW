@@ -12,7 +12,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-장소 예약 현황 리스트
+
+<div align="center">
+	장소 예약 현황
+</div>
+
+<br>
+
+<div align="center">
 <c:choose>
 <c:when test="${fn:length(list) > 0 }">
 <table border="1">
@@ -37,5 +44,13 @@
 		예약된 장소가 없습니다.
 </c:otherwise>
 </c:choose>
+</div>
+
+<br><br>
+
+<div align="center">
+	${pagingHtml}
+</div>
+
 </body>
 </html>

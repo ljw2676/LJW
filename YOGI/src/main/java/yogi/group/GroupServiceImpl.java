@@ -1,8 +1,11 @@
 package yogi.group;
 
 import java.util.Date;
+import java.util.Enumeration;
+import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +13,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import yogi.common.common.YogiConstants;
@@ -35,6 +39,7 @@ public class GroupServiceImpl implements GroupService {
 	private int c_re;
 	private int c_lv;
 	boolean reply = false;
+	private static final String filePath = "C:\\java\\git\\YOGI\\YOGI\\src\\main\\webapp\\resources\\upload\\";
 
 	@Override
 	public List<Map<String, Object>> selectGroupList(Map<String, Object> map) throws Exception {
@@ -135,13 +140,50 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public Map<String, Object> modifyGroup(Map<String, Object> map, HttpServletRequest request) throws Exception {
 		System.out.println("groupModify:Sevice 실행");
-		Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
 		
-		map.put("gg_ofn", fileMap.toString().valueOf(fileMap.get("ORIGINAL_FILE_NAME")));
-		map.put("gg_rfn", fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
-		System.out.println(map);
-		groupDAO.ModifyGroup(map);
-		map.put("gg_no", map.get("gg_no"));
+		//request파일 객체 구체화
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
+		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+		
+		//넘어오는 파일객체가 있으면
+		if(iterator.hasNext()) {
+			
+			//기존 파일 가져오기
+			String deleteFileName = groupDAO.deleteFileName(map.get("gg_no").toString());
+			//기존 파일이 존재하면 삭제
+			if(deleteFileName!=null) {
+				File deleteFile = new File(filePath+deleteFileName);
+				deleteFile.delete();
+			}
+			
+			//새로 넘어온 파일 처리
+			Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
+			map.put("gg_ofn", fileMap.toString().valueOf(fileMap.get("ORIGINAL_FILE_NAME")));
+			map.put("gg_rfn", fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
+			System.out.println("그룹 이미지 변경 : "+map.get("gg_ofn")+" & "+map.get("gg_rfn"));
+			
+			groupDAO.modifyGroup(map);
+			
+		}
+		//넘어오는 파일객체가 없으면
+		else{
+			/*Map<String, Object> FileName = groupDAO.selectGroupDetail(map);
+			
+			//원래 저장한 사진이 없을때
+			if(FileName.get("gg_ofn")==null) {
+				System.out.println("기존 그룹 이미지 : "+map.get("gg_ofn")+" & "+map.get("gg_rfn"));
+			}
+			//원래 저장한 사진이 있을때
+			else {
+				map.put("gg_ofn", FileName.get("gg_ofn"));
+				map.put("gg_rfn", FileName.get("gg_rfn"));
+				System.out.println("기존 그룹 이미지 : "+map.get("gg_ofn")+" & "+map.get("gg_rfn"));
+			}*/
+			groupDAO.modifyGroupExceptFile(map);
+			
+		}
+		
+		System.out.println("그룹 수정 내용 : "+map);
 		return map;
 		
 	}
@@ -175,5 +217,11 @@ public class GroupServiceImpl implements GroupService {
 		
 		map.put("c_content", "→"+map.get("c_content"));
 	
+	}
+
+	@Override
+	public void inactivateGroup(Map<String, Object> map){
+		groupDAO.inactivateGroup(map);
+		
 	}
 }

@@ -38,6 +38,7 @@ public class MypageController {
 		}
 		ModelAndView mv = new ModelAndView("/mypage/mypageView");
 		Map<String, Object> member = mypageService.selectOneMember(session.getAttribute("session_m_no"));
+		
 		mv.addObject("member", member);
 		
 		return mv;

@@ -12,39 +12,65 @@
 <title>Insert title here</title>
 </head>
 <body>
-신고 리스트
+
+<div align="center">
+	신고 리스트
+</div>
+
+<br>
+
+<div align="center">
 <c:choose>
 <c:when test="${fn:length(list) > 0 }">
-<table border="1">
+	<table border="1">
 		<tr background="gray">
 			<td>no.</td>
-			<td>모임no.</td>
-			<td>주최자no.</td>
+			<td>모임 이름</td>
+			<td>주최자ID</td>
 			<td>신고자no.</td>
 			<td>사유</td>
-			<td>비활성화</td>
+			<td colspan="2">비활성화(페널티포인트)</td>
 		</tr>
 		<c:forEach items="${list}" var="row">
 
 		<tr>
 			<td>${row.R_NO}</td>
-			<td>${row.GG_NO}</td>
+			<td>${row.GG_NAME}</td>
+			<td>${row.M_ID}</td>
 			<td>${row.M_NO}</td>
-			<td>${row.M_PNO}</td>
 			<td>${row.R_COMMENT}</td>
 			<td>
-				<a href="#this" name="inactivateMember">멤버</a><input type="hidden" id="M_NO" value="${row.M_NO}">			
-				<a href="#this" name="inactivateGroup">모임</a><input type="hidden" id="GG_NO" value="${row.GG_NO}">
+			<c:if test="${row.M_ACTIVE == 0}">
+				<a href="#this" name="inactivateMember">멤버(${row.M_PENALTY})</a><input type="hidden" id="M_NO" value="${row.M_NO}">
+			</c:if>	
+			<c:if test="${row.M_ACTIVE == 1 }">
+				<font color="red">X(${row.M_PENALTY})</font>
+			</c:if>
+			</td>
+			<td>
+			<c:if test="${row.GG_ACTIVE == 0}">	
+				<a href="#this" name="inactivateGroup">모임(${row.GG_PENALTY})</a><input type="hidden" id="GG_NO" value="${row.GG_NO}">
+			</c:if>
+			<c:if test="${row.GG_ACTIVE == 1}">
+				<font color="red">X(${row.GG_PENALTY})</font>
+			</c:if>
 			</td>
 		</tr>
 		</c:forEach>
-</table>
+	</table>
 </c:when>
 <c:otherwise>
 		<br>
 		신고가 없습니다.
 </c:otherwise>
 </c:choose>
+</div>
+
+<br><br>
+
+<div align="center">
+	${pagingHtml}
+</div>
 
 <form id="commonForm" name="commonForm"></form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

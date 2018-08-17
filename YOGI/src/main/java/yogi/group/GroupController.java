@@ -143,4 +143,12 @@ public class GroupController {
 		
 		return mv;
 	}
+	
+	@RequestMapping(value="group/inactivateGroup")
+	public ModelAndView inactivateGroup(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		ModelAndView mv = new ModelAndView("redirect:/group/groupList");
+		groupService.inactivateGroup(commandMap.getMap());
+		
+		return mv;
+	}
 }

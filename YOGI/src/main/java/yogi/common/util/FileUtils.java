@@ -35,9 +35,6 @@ public class FileUtils {
 		/*String boardIdx = (String)map.get("IDX");*/
 		
 		File file = new File(filePath);
-		if(file.exists() == false) {
-			file.mkdirs();
-		}
 		
 		while(iterator.hasNext()) {
 			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
@@ -60,5 +57,6 @@ public class FileUtils {
 		}
 		return fileMap;
 	}
+	
 
 }

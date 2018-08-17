@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import yogi.lendplace.LendplaceModel;
+import yogi.common.util.PagingCalculator;
+import yogi.common.util.YogiUtils;
 import yogi.config.CommandMap;
 
 @Controller
@@ -56,22 +58,30 @@ public class AdminLendplaceController {
 	
 	//장소 리스트
 	@RequestMapping(value="/admin/lendplace/list")
-	public ModelAndView lendplaceList(CommandMap commandMap) throws Exception{
+	public ModelAndView lendplaceList(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("adminLendplaceList");
 		List<Map<String, Object>> list = lendplaceService.selectLendplaceList(commandMap.getMap());
-		
-		mv.addObject("list", list);
+		PagingCalculator paging = new PagingCalculator("/admin/lendplace/list", commandMap.getCurrentPageNo(), list, 20 ,3);
+		Map<String, Object> result = paging.getPagingList();
+		mv.addObject("list",result.get("list"));
+		mv.addObject("pagingHtml", result.get("pagingHtml"));
+    	mv.addObject("currentPageNo", commandMap.getCurrentPageNo());
 		
 		return mv;
 	}
 	
-	//장소 신청 리스트
+	//장소 예약 리스트
 	@RequestMapping(value="/admin/placeBook/list")
-	public ModelAndView placeBookList(CommandMap commandMap) throws Exception{
+	public ModelAndView placeBookList(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("adminPlaceBookList");
 		List<Map<String, Object>> list = lendplaceService.selectPlaceBookList(commandMap.getMap());
-		
-		mv.addObject("list", list);
+		PagingCalculator paging = new PagingCalculator("/admin/placeBook/list", commandMap.getCurrentPageNo(), list, 20 ,3);
+		Map<String, Object> result = paging.getPagingList();
+		mv.addObject("list",result.get("list"));
+		mv.addObject("pagingHtml", result.get("pagingHtml"));
+    	mv.addObject("currentPageNo", commandMap.getCurrentPageNo());
 		
 		return mv;
 	}

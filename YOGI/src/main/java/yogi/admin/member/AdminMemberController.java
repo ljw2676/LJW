@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import yogi.common.util.PagingCalculator;
+import yogi.common.util.YogiUtils;
 import yogi.config.CommandMap;
 
 
@@ -25,12 +27,15 @@ public class AdminMemberController {
 	private AdminMemberService adminMemberService;
 
 	@RequestMapping(value="/admin/member/list")
-	public ModelAndView memberList(CommandMap commandMap) throws Exception{
-		
+	public ModelAndView memberList(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("adminMemberList");
 		List<Map<String, Object>> list = adminMemberService.selectAdminMemberList(commandMap.getMap());
-		
-		mv.addObject("list",list);
+		PagingCalculator paging = new PagingCalculator("/admin/member/list", commandMap.getCurrentPageNo(), list, 20 ,3);
+		Map<String, Object> result = paging.getPagingList();
+		mv.addObject("list",result.get("list"));
+		mv.addObject("pagingHtml", result.get("pagingHtml"));
+    	mv.addObject("currentPageNo", commandMap.getCurrentPageNo());
 		
 		return mv;
 	}

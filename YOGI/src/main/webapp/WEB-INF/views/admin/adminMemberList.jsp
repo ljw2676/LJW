@@ -12,10 +12,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-멤버 리스트
+
+<div align="center">
+	회원 리스트
+</div>
+
+<br>
+
+<div align="center">
 <c:choose>
 <c:when test="${fn:length(list) > 0 }">
-<table border="1">
+	<table border="1">
 		<tr background="gray">
 			<td>no.</td>
 			<td>ID</td>
@@ -43,13 +50,20 @@
 			</c:if>
 		</tr>
 		</c:forEach>
-</table>
+	</table>
 </c:when>
 <c:otherwise>
 		<br>
 		가입한 멤버가 없습니다.
 </c:otherwise>
 </c:choose>
+</div>
+
+<br><br>
+
+<div align="center">
+	${pagingHtml}
+</div>
 
 <form id="commonForm" name="commonForm"></form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

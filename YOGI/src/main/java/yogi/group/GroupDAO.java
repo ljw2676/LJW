@@ -82,7 +82,7 @@ public class GroupDAO extends AbstractDAO{
 		insert("group.insertGroup", group);
 	}
 	
-	public void ModifyGroup(Map<String, Object> map) {
+	public void modifyGroup(Map<String, Object> map) {
 		System.out.println("groupModify:dao 실행");
 		update("group.modifyGroup", map);
 	}
@@ -98,6 +98,19 @@ public class GroupDAO extends AbstractDAO{
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> groupEnrollList(Map<String, Object> map) {
 		return (List<Map<String, Object>>) selectList("group.groupEnrollList",map);
+	}
+	
+	public String deleteFileName(String str) {
+		return (String) selectOne("selectFileName", str);
+	}
+	
+	public void modifyGroupExceptFile(Map<String, Object> map) {
+		update("group.modifyGroupExceptFile", map);
+	}
+
+	public void inactivateGroup(Map<String, Object> map) {
+		update("group.inactivateGroup", map);
+		
 	}
 	
 

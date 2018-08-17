@@ -6,7 +6,7 @@
 	<select id="group_select_all" resultType="hashmap" parameterType="hashmap">														  	
 		select * from group_gathering	
 		<where>		
-		<if test="searchWord != null">
+			<if test="searchWord != null">
 				(gg_name like '%' || #{searchWord} || '%'  or gg_detail like '%' || #{searchWord} || '%')
 			</if>
 			<if test="searchCategory != null">
@@ -265,4 +265,33 @@
 			gg_no=#{gg_no}
 	</update>
 	
+	<update id="modifyGroupExceptFile" parameterType="hashmap">
+		UPDATE 
+			group_gathering 
+		SET 
+			gg_addr=#{gg_addr},
+			gg_place=#{gg_place},
+			gg_detail=#{gg_detail}
+		WHERE 
+			gg_no=#{gg_no}
+	</update>
+	
+	<select id="selectFileName" resultType="String">
+		SELECT
+			gg_rfn
+		FROM
+			group_gathering
+		WHERE
+			gg_no=#{gg_no}
+		
+	</select>
+	
+	<update id="inactivateGroup" parameterType="hashmap">
+		UPDATE 
+			Group_Gathering
+		SET
+			gg_active=1
+		WHERE
+			gg_no=#{GG_NO}
+	</update>
 </mapper>

@@ -113,13 +113,19 @@
 	<select id="selectAdminReportList" resultType="hashmap">
 		<![CDATA[
 				SELECT 
-					r_no,
-					m_no,
-					m_pno,
-					gg_no,
-					r_comment
+					r.r_no,
+                    g.gg_name,
+					m.m_id,
+					r.m_no,
+					r.r_comment,
+					m.m_active,
+					m.m_penalty,
+					g.gg_active,
+					g.gg_penalty
 				FROM
-					Report
+					Report r, Members m, Group_Gathering g
+				WHERE
+					r.m_pno=m.m_no AND r.gg_no=g.gg_no
 				ORDER BY
 					r_no DESC
 		]]>
