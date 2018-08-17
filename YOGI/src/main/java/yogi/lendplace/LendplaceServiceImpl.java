@@ -67,13 +67,33 @@ public class LendplaceServiceImpl implements LendplaceService {
 //	@Override
 //	public void updateLendplace(Map<String, Object> map, HttpServletRequest request) throws Exception {
 //	}
-//
-//	@Override
-//	public void insertReview(Map<String, Object> map) throws Exception {
-//	}
-//
-//	@Override
-//	public void deleteReview(Map<String, Object> map) throws Exception {
-//	}
 
+	@Override
+	public void insertReview(Map<String, Object> map) throws Exception {
+		lendplaceDAO.insertReview(map);
+	}
+	
+	@Override
+	public void updateReview(Map<String, Object> map) throws Exception {
+		lendplaceDAO.updateReview(map);
+	}
+	
+	@Override
+	public List<Map<String, Object>> selectReview(Map<String, Object> map) throws Exception {
+		return lendplaceDAO.selectReview(map);
+	}
+	
+	@Override
+	public void deleteReview(Map<String, Object> map) throws Exception {
+		lendplaceDAO.deleteReview(map);
+	}
+
+	@Override
+	public void updateReviewOrder(Map<String, Object> map) throws Exception {
+		lendplaceDAO.updateReviewOrder(map);
+	}
+
+
+
+	
 }

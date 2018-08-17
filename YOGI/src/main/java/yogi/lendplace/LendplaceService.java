@@ -3,6 +3,8 @@ package yogi.lendplace;
 import java.util.List;
 import java.util.Map;
 
+import yogi.config.CommandMap;
+
 
 public interface LendplaceService {
 
@@ -14,11 +16,18 @@ public interface LendplaceService {
 	
 	void insertPlacebook(Map<String, Object> map) throws Exception;
 	
-	public void upCountUdate(Map<String, Object> map) throws Exception;
-	
+	void upCountUdate(Map<String, Object> map) throws Exception;
+
 //  void updateLendplace(Map<String, Object> map) throws Exception;
 	
-//	void insertReview(Map<String, Object> map) throws Exception;
-//	
-//	void deleteReview(Map<String, Object> map) throws Exception;
+	void insertReview(Map<String, Object> map) throws Exception;
+
+	void updateReview(Map<String, Object> map) throws Exception;
+
+	List<Map<String, Object>> selectReview(Map<String, Object> map) throws Exception;
+
+	void deleteReview(Map<String, Object> map) throws Exception;
+
+	void updateReviewOrder(Map<String, Object> map) throws Exception;
+
 }
