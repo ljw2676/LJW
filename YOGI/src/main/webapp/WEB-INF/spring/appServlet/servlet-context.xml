@@ -16,7 +16,7 @@
             <mvc:mapping path="/**"/>
             <beans:bean id="loggerInterceptor" class="yogi.common.logger.LoggerInterceptor"></beans:bean>
         </mvc:interceptor>
-    </mvc:interceptors>     
+    </mvc:interceptors>    
  
 	<!-- annotation-driven + 커맨드맵을 쓰기위한 설정 -->
 	<mvc:annotation-driven>
@@ -33,6 +33,7 @@
 				</beans:list>
 				</beans:property>
 			</beans:bean>
+			<!-- Ajax 설정 -->
 			<beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 				<beans:property name="supportedMediaTypes">
 					<beans:list>
@@ -64,7 +65,7 @@
 		<beans:property name="order" value="1"></beans:property>
 	</beans:bean>
 	
-	<!-- 뷰리졸버 order 0 (다운로드용) -->
+	<!-- 뷰리졸버 order 0 (다운로드용) --> <!-- Ajax설정에도 필요함! -->
    <beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
       <beans:property name="order" value="0"></beans:property> 
    </beans:bean>
@@ -83,4 +84,6 @@
 		<beans:property name="definitions" value="/tiles/*-tiles.xml"/>
 		<beans:property name="preparerFactoryClass" value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory"/>
 	</beans:bean>
+	
+	
 </beans:beans>
