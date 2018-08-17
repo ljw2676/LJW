@@ -180,8 +180,85 @@
 	]]>
 </delete>
 
+<insert id="insertReview" parameterType="hashmap" >
+    
+		INSERT INTO REVIEW (
+			L_NO,
+			R_NO,
+			M_NO,
+			R_CONTENT,
+			R_DATE,
+			R_DELETEFLAG,
+            R_PARENT,
+            R_DEPTH,
+            R_ORDER)
+		VALUES (
+			#{L_NO},
+			(SELECT NVL(MAX(R_NO),0)+1 from REVIEW),
+			#{M_NO},
+		<![CDATA[
+			#{R_CONTENT},
+		]]>
+			sysdate,
+			'N',
+			<choose>
+            	<when test="R_PARENT==null">
+            		(SELECT NVL(MAX(R_NO),0)+1 from REVIEW),
+            		0,
+            		(SELECT NVL(MAX(R_ORDER),0)+1 from REVIEW WHERE L_NO=#{L_NO})
+            	</when>
+                <otherwise>
+                	#{R_PARENT},
+                	(SELECT R_DEPTH+1 R_DEPTH FROM REVIEW WHERE R_NO=#{R_PARENT}),
+                	(SELECT R_ORDER+1 R_ORDER FROM REVIEW WHERE R_NO=#{R_PARENT})
+                </otherwise>
+            </choose>
+            )
+</insert>
 
-<!-- 장소후기 입력 -->
+<update id="updateReview" parameterType="hashmap">
+    <![CDATA[
+    	UPDATE REVIEW
+       		SET R_CONTENT=#{R_CONTENT} 
+     	WHERE R_NO=#{R_NO}
+    ]]>
+</update> 
+
+<select id="selectReview" parameterType="hashmap" resultType="hashmap">
+	<![CDATA[
+    	SELECT 
+   			M.M_ID,
+    		R.L_NO,
+    		R.R_NO,
+    		R.M_NO,
+    		R.R_CONTENT,
+    		R.R_DATE,
+    		R.R_DELETEFLAG,
+    		R.R_PARENT,
+			R.R_DEPTH,
+			R.R_ORDER
+		FROM MEMBERS M, REVIEW R
+		WHERE M.M_NO=R.M_NO AND R.L_NO=#{L_NO}
+		ORDER BY R.R_ORDER ASC
+    ]]>
+</select>
+
+<delete id="deleteReview" parameterType="hashmap">
+	<![CDATA[
+		DELETE
+		FROM REVIEW
+		WHERE R_NO = #{R_NO}
+	]]>
+</delete>
+
+
+<update id="updateReviewOrder" parameterType="hashmap"> 
+        UPDATE REVIEW
+        SET R_ORDER = R_ORDER + 1 
+        WHERE L_NO=#{L_NO} AND R_ORDER > (SELECT R_ORDER FROM REVIEW WHERE R_NO = #{R_PARENT})  
+</update>
+
+<!-- 
 <insert id="insertReview">
 	<![CDATA[
 		INSERT INTO REVIEW (
@@ -199,17 +276,9 @@
 			#{L_NO},
 			#{M_NO} )
 	]]>
-</insert>
+</insert>-->
 
 
-<!-- 장소후기 삭제 -->
-<delete id="deleteReview">
-	<![CDATA[
-		DELETE
-		FROM REVIEW
-		WHERE R_NO = #{R_NO}
-	]]>
-</delete>
 
 
 </mapper>

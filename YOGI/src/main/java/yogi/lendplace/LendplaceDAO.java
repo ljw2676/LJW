@@ -53,4 +53,21 @@ public class LendplaceDAO extends AbstractDAO{
 		delete("lendplace.deleteReview",map);
 	}
 
+//  장소후기 수정
+	public void updateReview(Map<String, Object> map) {
+		update("lendplace.updateReview",map);
+	}
+
+//	장소후기 출력
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectReview(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>) selectList("lendplace.selectReview",map);
+	}
+
+	public void updateReviewOrder(Map<String, Object> map) {
+		update("lendplace.updateReviewOrder",map);
+	}
+
+
+
 }

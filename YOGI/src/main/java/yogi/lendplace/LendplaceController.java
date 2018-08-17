@@ -1,15 +1,21 @@
 package yogi.lendplace;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import yogi.common.util.PagingCalculator;
 import yogi.common.util.YogiUtils;
@@ -49,17 +55,43 @@ public class LendplaceController {
 			List<Map<String, Object>> date = lendplaceService.dateCheck(commandMap.getMap());
 			mv.addObject("date",date);
 		}
-		
+		List<Map<String, Object>> list = lendplaceService.selectReview(commandMap.getMap());
+		mv.addObject("list",list);
 		
 		return mv;
 	}
 	
-	  //장소 신청
+	//장소 신청
 	@RequestMapping(value="/lendplace/apply")
     public ModelAndView placebookInsert(CommandMap commandMap) throws Exception{
 		lendplaceService.insertPlacebook(commandMap.getMap());
 		lendplaceService.upCountUdate(commandMap.getMap());
-		return new ModelAndView("redirect:/lendplace/detail?L_NO="+commandMap.getMap().get("L_NO")+""); //리다이렉트 : 장소 상세 페이지
+		return new ModelAndView("redirect:/lendplace/detail?L_NO="+commandMap.getMap().get("L_NO")); //리다이렉트 : 장소 상세 페이지
 	    }
+	
+	
+    //후기 저장 & 수정
+    @RequestMapping(value="/lendplace/insertReview")
+    public ModelAndView insertReview(CommandMap commandMap) throws Exception{
+    	if (commandMap.get("R_NO") == null || "".equals(commandMap.get("R_NO"))) {
+    		if (commandMap.get("R_PARENT") != null) {
+    			lendplaceService.updateReviewOrder(commandMap.getMap());
+    		} 
+    		lendplaceService.insertReview(commandMap.getMap());
+    	}else {
+    		lendplaceService.updateReview(commandMap.getMap());
+    	}
+        return new ModelAndView("redirect:/lendplace/detail?L_NO=" + commandMap.getMap().get("L_NO"));
+    }
+
+    //후기 삭제
+    @RequestMapping(value="/lendplace/deleteReview")
+    public ModelAndView deleteReview(CommandMap commandMap) throws Exception{
+    	lendplaceService.deleteReview(commandMap.getMap());
+    	return new ModelAndView("redirect:/lendplace/detail?L_NO=" + commandMap.getMap().get("L_NO"));
+    }
+
+   
+
 
 }

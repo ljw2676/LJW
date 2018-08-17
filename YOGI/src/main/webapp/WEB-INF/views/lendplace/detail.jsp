@@ -47,6 +47,53 @@
 <input type="hidden" data-toggle="datepicker" name="U_DATE"></input> 
 <div id="datepicker-container"></div>
 </form>
+
+<p>&nbsp;</p>
+
+후기 
+<div style="border: 1px solid; width: 600px; padding: 5px">
+    <form name="review_form" action="<c:url value='/lendplace/insertReview' />" method="post">
+        <input type="hidden" name="L_NO" value="<c:out value="${map.L_NO}"/>"> 
+        <input type="hidden" name="M_NO" value="<c:out value="${session_m_no}"/>">
+        <textarea name="R_CONTENT" rows="3" cols="60" maxlength="500" placeholder="후기를 달아주세요."></textarea>
+        <a href="#" onclick="fn_insertReview()">저장</a>
+    </form>
+</div>
+
+<c:forEach var="reviewlist" items="${list}" varStatus="status">
+	<fmt:parseNumber var = "blank" type = "number" value = "${reviewlist.R_DEPTH}" />
+    <div style="border: 1px solid gray; width: 600px; padding: 5px; margin-top: 5px; margin-left: <c:out value="${20*blank}"/>px; display: inline-block">
+        <c:out value="${reviewlist.M_ID}"/> <c:out value="${reviewlist.R_DATE}"/>
+        <a href="#" onclick="fn_deleteReview('<c:out value="${reviewlist.R_NO}"/>')">삭제</a>
+        <a href="#" onclick="fn_reviewUpdate('<c:out value="${reviewlist.R_NO}"/>')">수정</a>
+        <a href="#" onclick="fn_reviewReply('<c:out value="${reviewlist.R_NO}"/>')">댓글</a>
+        <br/>
+        <div id="review<c:out value="${reviewlist.R_NO}"/>"><c:out value="${reviewlist.R_CONTENT}"/></div>
+    </div>
+</c:forEach>
+
+<div id="reviewDiv" style="width: 99%; display:none">
+    <form name="form2" action="<c:url value='/lendplace/insertReview' />" method="post">
+        <input type="hidden" name="L_NO" value="<c:out value="${map.L_NO}"/>"> 
+        <input type="hidden" name="R_NO"> 
+        <textarea name="R_CONTENT" rows="3" cols="60" maxlength="500"></textarea>
+        <a href="#" onclick="fn_reviewUpdateSave()">저장</a>
+        <a href="#" onclick="fn_reviewUpdateCancel()">취소</a>
+    </form>
+</div>
+
+<div id="replyDialog" style="width: 99%; display:none">
+    <form name="form3" action="<c:url value='/lendplace/insertReview' />" method="post">
+        <input type="hidden" name="L_NO" value="<c:out value="${map.L_NO}"/>"> 
+        <input type="hidden" name="R_NO"> 
+        <input type="hidden" name="R_PARENT">
+       	<input type="hidden" name="M_NO" value="<c:out value="${session_m_no}"/>"> <br/>
+        <textarea name="R_CONTENT" rows="3" cols="60" maxlength="500"></textarea>
+        <a href="#" onclick="fn_replyReviewSave()">저장</a>
+        <a href="#" onclick="fn_replyReviewCancel()">취소</a>
+    </form>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="<c:url value='/resources/datepicker/datepicker.js'/> "></script>
 <script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
@@ -61,10 +108,106 @@ $(document).ready(function() {
 });
 
 function fn_applyLendplace(){
-		
 		document.apply_form.submit();
 }
 
+function fn_insertReview() {
+		document.review_form.submit();
+}
+function fn_deleteReview(R_NO){
+    if (!confirm("삭제하시겠습니까?")) {
+        return;
+    }
+    var form = document.form2;
+
+    form.action="<c:url value='/lendplace/deleteReview'/>";
+    form.R_NO.value=R_NO;
+    form.submit();    
+}
+
+var updateR_NO = updateR_CONTENT = null;
+function fn_reviewUpdate(R_NO){
+    var form = document.form2;
+    var review = document.getElementById("review"+R_NO);
+    var reviewDiv = document.getElementById("reviewDiv");
+    reviewDiv.style.display = "";
+    
+    if (updateR_NO) {
+        document.body.appendChild(reviewDiv);
+        var oldR_NO = document.getElementById("review"+updateR_NO);
+        oldR_NO.innerText = updateR_CONTENT;
+    } 
+    
+    form.R_NO.value=R_NO;
+    form.R_CONTENT.value = review.innerText;
+    review.innerText ="";
+    review.appendChild(reviewDiv);
+    updateR_NO = R_NO;
+    updateR_CONTENT = form.R_CONTENT.value;
+    form.R_CONTENT.focus();
+} 
+
+function fn_reviewUpdateSave(){
+    var form = document.form2;
+    if (form.R_CONTENT.value=="") {
+        alert("글 내용을 입력해주세요.");
+        form.R_CONTENT.focus();
+        return;
+    }
+    
+    form.action="<c:url value='/lendplace/insertReview' />";
+    form.submit();    
+} 
+
+function fn_reviewUpdateCancel(){
+    var form = document.form2;
+    var reviewDiv = document.getElementById("reviewDiv");
+    document.body.appendChild(reviewDiv);
+    reviewDiv.style.display = "none";
+    
+    var oldReno = document.getElementById("review"+updateR_NO);
+    oldReno.innerText = updateR_CONTENT;
+    updateR_NO = updateR_CONTENT = null;
+} 
+
+
+function hideDiv(id){
+    var div = document.getElementById(id);
+    div.style.display = "none";
+    document.body.appendChild(div);
+}
+
+function fn_reviewReply(R_NO){
+    var form = document.form3;
+    var reply = document.getElementById("review"+R_NO);
+    var replyDia = document.getElementById("replyDialog");
+    replyDia.style.display = "";
+    
+    if (updateR_NO) {
+    	fn_reviewUpdateCancel();
+    } 
+    
+    form.R_CONTENT.value = "";
+    form.R_PARENT.value=R_NO;
+    reply.appendChild(replyDia);
+    form.R_CONTENT.focus();
+} 
+function fn_replyReviewCancel(){
+    hideDiv("replyDialog");
+} 
+
+function fn_replyReviewSave(){
+    var form = document.form3;
+    
+    if (form.R_CONTENT.value=="") {
+        alert("글 내용을 입력해주세요.");
+        form.R_CONTENT.focus();
+        return;
+    }
+    
+    form.action="<c:url value='/lendplace/insertReview' />";
+    form.submit();    
+}
 
 $( function() {/* 달력 */
 	 
@@ -89,6 +232,7 @@ $( function() {/* 달력 */
 	  		}
 	 });
 });
+
 
 
 </script>
