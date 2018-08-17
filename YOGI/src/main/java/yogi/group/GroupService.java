@@ -23,8 +23,6 @@ public interface GroupService {
 	
 	public Map<String, Object> modifyGroup(Map<String, Object> map, HttpServletRequest request) throws Exception;
 	
-	void cmtReply(Map<String, Object> map) throws Exception;
-
 	void insertComments(Map<String, Object> map , HttpServletRequest request) throws Exception;
 
 	void inactivateGroup(Map<String, Object> map);
