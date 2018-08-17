@@ -11,16 +11,26 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import yogi.common.util.FileUtils;
+
 @Service("membersService")
 public class MembersServiceImpl implements MembersService{
 	Logger log = Logger.getLogger(this.getClass());
 	
+	@Resource(name="fileUtils")
+	private FileUtils fileUtils;
+	
 	@Resource(name="membersDAO")
 	private MembersDAO membersDAO;
 	
+	private static final String filePath = "/Users/jungeunee/git/YOGI/YOGI/src/main/webapp/resources/upload/";
 	
 	@Override
-	public void insertMember(MembersModel model){
+	public void insertMember(MembersModel model, HttpServletRequest request) throws Exception{
+		Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
+		
+		model.setM_profile(fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
+		System.out.println(model.getM_profile());
 		model.setM_date(Calendar.getInstance().getTime());
 		membersDAO.insertMember(model);
 	}

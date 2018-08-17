@@ -142,23 +142,16 @@
 </head>
 <body>
 	회원가입
-	<%-- <form:form commandName="member" name="userinput" method="post" enctype="multipart/form-data">
-		프로필 사진을 넣어주세용 : <input type="file" name="m_profile"/>
-		<input type="submit"/>
-	</form:form>
- --%>
- 
 	<form:form commandName="member" name="userinput" method="post" enctype="multipart/form-data">
 		아이디 : <input type="text" name="m_id" id="m_id"/>
 		<input type="button" value="중복확인" id="checkId" /><br>
+		프로필 사진 : <input type="file" name="file"><br>
 		비밀번호 : <input type="password" name="m_password" onkeyup="checkPwd()"/> <br>
 		비밀번호 : <input type="password" name="m_password_check" onkeyup="checkPwd()"/> <br>
 		<div id="checkPwd">동일한 암호를 입력하세요.</div>
 		이름 : <input type="text" name="m_name"/> <br>
 		핸드폰 번호 : <input type="text" name="m_phone" placeholder="010-0000-0000"/> <br>
 			
-		<!-- 프로필 사진을 넣어주세용 : <input type="file" name="m_profile"/> -->
-		
 		<br><br>	
 		<div class="category">
 			<input type="checkbox" name="m_fav_field" value="실외활동">실외활동

@@ -63,7 +63,6 @@ public class MembersController {
 			/* 세션값 더 필요한 거 있으면 요기다 저장하세용~! */
 			session.setAttribute("session_m_id", mm.getM_id());
 			session.setAttribute("session_m_no", mm.getM_no());
-			/*관심사가 이미 저장되어 있는 거 같은데...*/
 			return "redirect:/main";
 		}
 		else
@@ -77,12 +76,12 @@ public class MembersController {
 
 	@RequestMapping(value="/members/createForm", method=RequestMethod.POST)
 	//public String join(@ModelAttribute("member") MembersModel member, MultipartFile file) throws Exception{
-	public String join(@ModelAttribute("member") MembersModel member) throws Exception{
-		membersService.insertMember(member);	
+	public String join(@ModelAttribute("member") MembersModel member, HttpServletRequest request) throws Exception{
+		membersService.insertMember(member, request);	
 		return "redirect:/first";
 	}
 	
-	@ResponseBody
+	@ResponseBody//자바 객체를 HTTP 요청의 body 내용으로 매핑하는 역할을 합니다.
 	@RequestMapping("/checkId")
 	public Map<Object, Object> idcheck(HttpServletRequest request){
 		String userId = request.getParameter("userId");
