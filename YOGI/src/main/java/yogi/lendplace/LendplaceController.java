@@ -87,11 +87,23 @@ public class LendplaceController {
     //후기 삭제
     @RequestMapping(value="/lendplace/deleteReview")
     public ModelAndView deleteReview(CommandMap commandMap) throws Exception{
-    	lendplaceService.deleteReview(commandMap.getMap());
-    	return new ModelAndView("redirect:/lendplace/detail?L_NO=" + commandMap.getMap().get("L_NO"));
+    	ModelAndView mv = new ModelAndView("redirect:/lendplace/detail?L_NO=" + commandMap.getMap().get("L_NO"));
+    	Map<String,Object> map = lendplaceService.selectReviewChild(commandMap.getMap());
+    	Integer cnt = Integer.parseInt(map.get("CNT").toString());
+    	if ( cnt == 0) {
+    		Map<String,Object> del = lendplaceService.selectDeletedParent(commandMap.getMap());
+    		Map<String,Object> par = lendplaceService.selectParent(commandMap.getMap());
+    		Integer DEL = Integer.parseInt(del.get("DEL").toString());
+    		Integer PAR = Integer.parseInt(par.get("PAR").toString());
+    		
+    		lendplaceService.deleteReview(commandMap.getMap());
+    		if ( DEL == (PAR-1)) {
+				lendplaceService.deleteGroupReview(commandMap.getMap());
+			}
+        	return mv;	
+        }else {
+        	lendplaceService.updateDeleteFlag(commandMap.getMap());
+    		return mv;
+        }
     }
-
-   
-
-
 }

@@ -191,7 +191,8 @@
 			R_DELETEFLAG,
             R_PARENT,
             R_DEPTH,
-            R_ORDER)
+            R_ORDER,
+            R_GROUP)
 		VALUES (
 			#{L_NO},
 			(SELECT NVL(MAX(R_NO),0)+1 from REVIEW),
@@ -203,14 +204,16 @@
 			'N',
 			<choose>
             	<when test="R_PARENT==null">
-            		(SELECT NVL(MAX(R_NO),0)+1 from REVIEW),
             		0,
-            		(SELECT NVL(MAX(R_ORDER),0)+1 from REVIEW WHERE L_NO=#{L_NO})
+            		0,
+            		(SELECT NVL(MAX(R_ORDER),0)+1 from REVIEW WHERE L_NO=#{L_NO}),
+            		(SELECT NVL(MAX(R_NO),0)+1 from REVIEW)
             	</when>
                 <otherwise>
                 	#{R_PARENT},
                 	(SELECT R_DEPTH+1 R_DEPTH FROM REVIEW WHERE R_NO=#{R_PARENT}),
-                	(SELECT R_ORDER+1 R_ORDER FROM REVIEW WHERE R_NO=#{R_PARENT})
+                	(SELECT R_ORDER+1 R_ORDER FROM REVIEW WHERE R_NO=#{R_PARENT}),
+                	(SELECT R_GROUP FROM REVIEW WHERE R_NO=#{R_PARENT})
                 </otherwise>
             </choose>
             )
@@ -236,7 +239,8 @@
     		R.R_DELETEFLAG,
     		R.R_PARENT,
 			R.R_DEPTH,
-			R.R_ORDER
+			R.R_ORDER,
+			R.R_GROUP
 		FROM MEMBERS M, REVIEW R
 		WHERE M.M_NO=R.M_NO AND R.L_NO=#{L_NO}
 		ORDER BY R.R_ORDER ASC
@@ -247,15 +251,46 @@
 	<![CDATA[
 		DELETE
 		FROM REVIEW
-		WHERE R_NO = #{R_NO}
+		WHERE R_NO = #{R_NO} 
 	]]>
 </delete>
 
+<delete id="deleteGroupReview" parameterType="hashmap">
+	<![CDATA[
+		DELETE
+		FROM REVIEW
+		WHERE R_GROUP=#{R_GROUP}
+	]]>
+</delete>
 
 <update id="updateReviewOrder" parameterType="hashmap"> 
         UPDATE REVIEW
         SET R_ORDER = R_ORDER + 1 
         WHERE L_NO=#{L_NO} AND R_ORDER > (SELECT R_ORDER FROM REVIEW WHERE R_NO = #{R_PARENT})  
+</update>
+
+<select id="selectReviewChild" resultType="hashmap" parameterType="hashmap">
+        SELECT COUNT(*) AS CNT
+		FROM REVIEW
+		WHERE R_PARENT=#{R_NO} 
+</select>
+
+<select id="selectDeletedParent" resultType="hashmap" parameterType="hashmap">
+        SELECT COUNT(*) AS DEL
+		FROM REVIEW
+		WHERE R_GROUP=#{R_GROUP} AND R_DELETEFLAG='Y'
+</select>
+
+<select id="selectParent" resultType="hashmap" parameterType="hashmap">
+        SELECT COUNT(*) AS PAR
+		FROM REVIEW
+		WHERE R_GROUP=#{R_GROUP}
+</select>
+
+<update id="updateDeleteFlag" parameterType="hashmap">
+		UPDATE REVIEW
+		SET R_DELETEFLAG = 'Y'
+		WHERE R_NO=#{R_NO}
 </update>
 
 <!-- 

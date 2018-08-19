@@ -27,7 +27,18 @@ public interface LendplaceService {
 	List<Map<String, Object>> selectReview(Map<String, Object> map) throws Exception;
 
 	void deleteReview(Map<String, Object> map) throws Exception;
-
+	
+	void deleteGroupReview(Map<String, Object> map) throws Exception;
+	
 	void updateReviewOrder(Map<String, Object> map) throws Exception;
 
+	void updateReviewOrderDelete(Map<String, Object> map) throws Exception;
+	
+	Map<String, Object> selectReviewChild(Map<String, Object> map) throws Exception;
+	
+	Map<String, Object> selectDeletedParent(Map<String, Object> map) throws Exception;
+	
+	Map<String, Object> selectParent(Map<String, Object> map) throws Exception;
+	
+	void updateDeleteFlag(Map<String, Object> map) throws Exception;
 }
