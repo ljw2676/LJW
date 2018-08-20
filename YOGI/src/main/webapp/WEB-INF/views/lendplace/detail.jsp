@@ -52,10 +52,10 @@
 
 후기 
 <div style="border: 1px solid; width: 600px; padding: 5px">
-    <form name="review_form" action="<c:url value='/lendplace/insertReview' />" method="post">
+    <form name="review_form" id="review_form" action="<c:url value='/lendplace/insertReview' />" method="post">
         <input type="hidden" name="L_NO" value="<c:out value="${map.L_NO}"/>"> 
         <input type="hidden" name="M_NO" value="<c:out value="${session_m_no}"/>">
-        <textarea name="R_CONTENT" rows="3" cols="60" maxlength="500" placeholder="후기를 달아주세요."></textarea>
+        <textarea name="R_CONTENT" id="R_CONTENT" rows="3" cols="60" maxlength="500" placeholder="후기를 달아주세요."></textarea>
         <a href="#" onclick="fn_insertReview()">저장</a>
     </form>
 </div>
@@ -87,10 +87,10 @@
 </c:forEach>
 
 <div id="reviewDiv" style="width: 99%; display:none">
-    <form name="form2" action="<c:url value='/lendplace/insertReview' />" method="post">
+    <form name="form2" id="form2" action="<c:url value='/lendplace/insertReview' />" method="post">
         <input type="hidden" name="L_NO" value="<c:out value="${map.L_NO}"/>">
-        <input type="hidden" name="R_GROUP">
-        <input type="hidden" name="R_NO"> 
+        <input type="hidden" name="R_GROUP" id="R_GROUP">
+        <input type="hidden" name="R_NO" id="R_NO"> 
         <textarea name="R_CONTENT" rows="3" cols="60" maxlength="500"></textarea>
         <a href="#" onclick="fn_reviewUpdateSave()">저장</a>
         <a href="#" onclick="fn_reviewUpdateCancel()">취소</a>
@@ -123,23 +123,36 @@ $(document).ready(function() {
 });
 
 function fn_applyLendplace(){
+	alert("장소 대여 신청이 완료되었습니다 :3");
 		document.apply_form.submit();
 }
 
 function fn_insertReview() {
-		document.review_form.submit();
+	if ($.trim($("#R_CONTENT").val()) == "") {
+        alert("내용을 입력해주세요.");
+        $("#R_CONTENT").focus();
+        return;
+    }
+    $("#review_form").submit();  
 }
 function fn_deleteReview(R_NO, R_GROUP){
     if (!confirm("삭제하시겠습니까?")) {
         return;
     }
-    var form = document.form2;
+    $("#form2").attr("action", "<c:url value='/lendplace/deleteReview'/>");
+    $("#R_NO").val(R_NO);
+    $("#R_GROUP").val(R_GROUP);
+    $("#form2").submit();
+
+    /* var form = document.form2;
 
     form.action="<c:url value='/lendplace/deleteReview'/>";
     form.R_NO.value=R_NO;
     form.R_GROUP.value=R_GROUP;
-    form.submit();    
+    form.submit();     */
 }
+
+
 
 var updateR_NO = updateR_CONTENT = null;
 function fn_reviewUpdate(R_NO){

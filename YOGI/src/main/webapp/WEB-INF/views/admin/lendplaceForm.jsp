@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>장소 등록 </title>
+<link  href="<c:url value='/resources/datepicker/datepicker.css' />" rel="stylesheet">
 <style>
 .map_title { position: relative; width: 730px;   height:350px; margin-left: 2px;}
 
@@ -57,13 +58,12 @@ div.map_title{
 		<td><input type="number" name="L_PAYMENT"/></td>
 	</tr>
 	<tr>
-		<td>대관시작날짜</td>
-		<td><input type="date" name="L_SDATE"/></td>
-	</tr>
+		<td>대관 시작날짜 <input type="hidden" data-toggle="datepicker1" name="L_SDATE"></input>
+			<div id="datepicker-container1"></div></td></tr>
 	<tr>
-		<td>대관끝날짜</td>
-		<td><input type="date" name="L_EDATE"/></td>
-	</tr>
+		<td>대관 종료날짜 <input type="hidden" data-toggle="datepicker2" name="L_EDATE"></input>
+		<div id="datepicker-container2"></div></td></tr>
+	<tr>
 	
 	<tr>
 	<td>대표 이미지</td>
@@ -89,9 +89,10 @@ div.map_title{
 </table>
 </form>
  <script src="//apis.daum.net/maps/maps3.js?apikey=a18085cad4f8315645fc4a233bdb2875&libraries=services"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="<c:url value='/resources/datepicker/datepicker.js'/> "></script>
+<script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -122,9 +123,25 @@ $(document).ready(function() {
 			alert("대표이미지를 선택해주세요.");
 			    return false;
 		 }  else {
+			 alert("장소 등록이 완료되었습니다 :3");
        fn_insertLendplace();
 		 }
     });
+    
+    var l_sdate = $('[data-toggle="datepicker1"]').datepicker({
+		  language: 'ko-KR',
+		  inline: true,
+		  container: '#datepicker-container1',
+		  format: 'yyyy-mm-dd'
+	      	}).on('pick.datepicker', function (e) {
+	    		l_edate.datepicker('setStartDate', e.date);
+			}),
+		l_edate = $('[data-toggle="datepicker2"]').datepicker({
+	 		  language: 'ko-KR',
+	 		  inline: true,
+	 		  container: '#datepicker-container2',
+	 		  format: 'yyyy-mm-dd'
+	 	 });
 });
 
  
