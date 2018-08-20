@@ -34,15 +34,16 @@
 			<td>삭제</td>
 		</tr>
 		<c:forEach items="${list}" var="row">
+		<input type="hidden" id="L_UDATE" value="${row.L_UDATE}">
 		<tr>
 			<td>${row.L_NO}</td>
-			<td>${row.L_SUBJECT}</td>
+			<td><a href="#this" name="detail">${row.L_SUBJECT}</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
 			<td>${row.L_ADDR}</td>
 			<td>${row.L_ENABLE}</td>
 			<td>${row.L_PAYMENT}</td>
 			<td>${row.L_SDATE} ~ ${row.L_EDATE}</td>
 			<td>${row.L_RATE}</td>
-			<td><a href="#this" name="update">수정</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
+			<td><a href="#this" name="update">수정</a><input type="hidden" id="L_NO" value="${row.L_NO}"><input type="hidden" id="L_UDATE" value="${row.L_UDATE}"></td>
 			<td><a href="#this" name="delete">삭제</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
 		</tr>
 		</c:forEach>
@@ -66,30 +67,56 @@
 </div>
 
 <form id="commonForm" name="commonForm"></form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
 <script type="text/javascript">
 		$(document).ready(function() {
-			$("a[name='update']").on("click", function(e) { //수정
+			 $("a[name='update']").on("click", function(e) { //수정
 				e.preventDefault();
-				fn_updateLendplace($(this));
-			});
+			 	var L_UDATE = parseInt($(this).parent().find("#L_UDATE").val());
+				if ( L_UDATE > 0) {
+					alert("현재 이 장소로 신청한 회원이 있어 수정이 불가능합니다!");
+					return false;
+				}else{
+					fn_updateLendplace($(this));	
+				}
+			}); 
 			
 			$("a[name='delete']").on("click", function(e) { //삭제
 				e.preventDefault();
 				fn_deleteLendplace($(this));
 			});
+			
+			$("a[name='detail']").on("click", function(e) { //상세보기
+				e.preventDefault();
+				fn_detailLendplace($(this));
+			});
 		});
+		/* function fn_Update(L_UDATE){
+			var l_udate = parseInt(L_UDATE);
+			if (l_udate > 0) {
+				alert("현재 이 장소로 신청한 회원이 있어 수정이 불가능합니다!");
+				return false;
+			}else{
+				fn_updateLendplace($(this));
+			}
+		} */
 		
-		function fn_updateLendplace(obj) {
+		 function fn_updateLendplace(obj) {
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/lendplace/updateForm' />");
 			comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
 			comSubmit.submit();
-		}
+		} 
 		function fn_deleteLendplace(obj) {
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/admin/lendplace/Delete' />");
+			comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
+			comSubmit.submit();
+		}
+		function fn_detailLendplace(obj) {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/lendplace/detail' />");
 			comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
 			comSubmit.submit();
 		}

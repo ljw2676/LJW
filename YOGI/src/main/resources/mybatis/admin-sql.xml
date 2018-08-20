@@ -168,7 +168,8 @@
 			l_payment,
 			TO_CHAR(L_SDATE,'YYYY-MM-DD') AS l_sdate, 
 			TO_CHAR(L_EDATE,'YYYY-MM-DD') AS l_edate, 
-			l_rate
+			l_rate,
+			l_udate
 		FROM 
 			lendplace 
 		ORDER BY 
