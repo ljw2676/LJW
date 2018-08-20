@@ -82,6 +82,7 @@
 						<td>비용</td>
 						<td>기간</td>
 						<td>평점</td>
+						
 					</tr>
 			<c:forEach items="${list }" var="row">
 					<tr>
@@ -92,6 +93,7 @@
 						<td>${row.L_PAYMENT}원</td>
 						<td>${row.L_SDATE} ~ ${row.L_EDATE}</td>
 						<td>${row.L_RATE}</td>
+					</tr>
 				</c:forEach>						
 		</table>
 	</c:when>

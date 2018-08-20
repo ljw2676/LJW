@@ -25,7 +25,7 @@ div.map_title{
    </tr>
 </table>
 
-<form action="/yogi/admin/lendplace/Insert" id="lp_form" name="lp_form" method="post" >
+<form action="Insert" id="lp_form" name="lp_form" method="post" enctype="multipart/form-data" >
 <table>
 	<tr>
 		<td>장소명</td>
@@ -38,7 +38,7 @@ div.map_title{
   		<div class="map_title">
   		<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
    		</div>
-		<input class = "addrForm" id="detail_addr" type="text" name="l_addr" size="73%" placeholder="지도를 클릭하면 주소가 자동으로 입력됩니다." maxlength="30">
+		<input id="detail_addr" type="text" name="L_ADDR" size="73%" placeholder="지도를 클릭하면 주소가 자동으로 입력됩니다." maxlength="30">
 		
 	</tr>
 	
@@ -64,29 +64,96 @@ div.map_title{
 		<td>대관끝날짜</td>
 		<td><input type="date" name="L_EDATE"/></td>
 	</tr>
+	
 	<tr>
-		<!-- <td><input type="button" id="insert" name="insert" value="등록" onclick="#this" /></td> -->
-		<td><input type="submit" value="등록" ></td>
+	<td>대표 이미지</td>
+	<td><input type="file" id="L_REP_IMG" name="L_REP_IMG"></td>
+	</tr>
+
+<!-- 	<tr>
+		<td>
+		<a href="#this" class="btn" id="addFile">이미지 추가</a>
+		<div id="fileDiv">
+			<p>
+			<input type="file" id="IMAGE" name="IMAGE">
+			<a href="#this" class="btn" id="delete" name="delete">삭제</a>
+			</p>
+			</div>
+			</td>
+	</tr> -->
+				
+	<tr>
+		<td><input type="button" id="insert" name="insert" value="등록" onclick="#this" /></td>
+		<!-- <td><input type="submit" value="등록" ></td> -->
 	</tr>
 </table>
 </form>
  <script src="//apis.daum.net/maps/maps3.js?apikey=a18085cad4f8315645fc4a233bdb2875&libraries=services"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
-      $(document).ready(function() {
-         $("#insert").on("click", function(e) { //등록
-            e.preventDefault();
-            fn_insertLendplace();
-         });
-      });
-      
-      
-      function fn_insertLendplace(){
-         var comSubmit = new ComSubmit("lp_form");
-         comSubmit.setUrl("<c:url value='/admin/lendplace/Insert' />");
-         comSubmit.submit();
-      }
+
+$(document).ready(function() {
+    $("#insert").on("click", function(e) { //등록
+       e.preventDefault();
+       if($('#L_SUBJECT').val()==""){
+			alert("장소명을 입력해주세요.");
+			return false;
+		 } else if($('#L_ADDR').val()==""){
+			 alert("주소를 입력해주세요.");
+				return false;
+		 } else if($('#L_CONTENT').val()==""){
+			 alert("내용을 입력해주세요.");
+				return false;
+		 } else if($('#L_ENABLE').val()==""){
+			 alert("수용인원을 입력해주세요.");
+				return false;
+		 } else if($('#L_PAYMENT').val()==""){
+			 alert("비용을 입력해주세요.");
+				return false;
+		 } else if($('#L_SDATE').val()==""){
+			 alert("대관 시작 날짜를 입력해주세요.");
+				return false;
+		 } else if($('#L_EDATE').val()==""){
+			 alert("대관 종료 날짜를 입력해주세요.");
+				return false;
+		 } else if($('#L_REP_IMG').val()==""){
+			alert("대표이미지를 선택해주세요.");
+			    return false;
+		 }  else {
+       fn_insertLendplace();
+		 }
+    });
+});
+
+ 
+ 
+ function fn_insertLendplace(){
+    var comSubmit = new ComSubmit("lp_form");
+    comSubmit.setUrl("<c:url value='/admin/lendplace/Insert' />");
+    comSubmit.submit();
+ } 
+ 
+/*  $("#addFile").on("click", function(e){ //파일 추가 버튼
+		e.preventDefault();
+		fn_addFile();
+	});
+ 
+ function fn_addFile(){
+		var str = "<p><input type='file' name='IMAGE'> <a href='#this' class='btn' name='delete'>삭제</a></p>";
+		$("#fileDiv").append(str);
+		$("a[name='delete']").on("click", function(e){ //삭제 버튼
+			e.preventDefault();
+			fn_deleteFile($(this));
+		});
+	}
+ 
+ function fn_deleteFile(obj){
+		obj.parent().remove();
+	} */
+	
+
      
       //지도
      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
