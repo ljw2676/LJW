@@ -64,9 +64,10 @@ public class LendplaceServiceImpl implements LendplaceService {
 		lendplaceDAO.upCountUdate(map);
 	}
 
-//	@Override
-//	public void updateLendplace(Map<String, Object> map, HttpServletRequest request) throws Exception {
-//	}
+	@Override
+	public void updateLendplace(Map<String, Object> map) throws Exception {
+		lendplaceDAO.updateLendplace(map);
+	}
 
 	@Override
 	public void insertReview(Map<String, Object> map) throws Exception {

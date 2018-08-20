@@ -48,7 +48,7 @@
 			</if>
 			<if test="l_sdate != null and l_edate != null">
 				<![CDATA[
-				AND ((L_SDATE >= #{l_sdate} and #{l_edate} >= L_EDATE))
+				AND ((L_SDATE >= TO_DATE(#{l_sdate},'YYYY-MM-DD') and TO_DATE(#{l_edate},'YYYY-MM-DD') >= L_EDATE))
 				]]>
 			</if>
 		</where>
@@ -116,11 +116,11 @@
 	<![CDATA[
 		UPDATE LENDPLACE 
 		SET
-			L_SUBJECT = #{L_SUBJECT},
 			L_CONTENT = #{L_CONTENT},
-			L_REP_IMG = #{L_REP_IMG},
 			L_ENABLE = #{L_ENABLE},
-			L_PAYMENT = #{L_PAYMENT}
+			L_PAYMENT = #{L_PAYMENT},
+			L_SDATE = TO_DATE(#{L_SDATE},'YYYY-MM-DD'),
+			L_EDATE = TO_DATE(#{L_EDATE},'YYYY-MM-DD')
 		WHERE L_NO = #{L_NO}
 	]]>
 </update>
@@ -294,29 +294,6 @@
 		SET R_DELETEFLAG = 'Y'
 		WHERE R_NO=#{R_NO}
 </update>
-
-<!-- 
-<insert id="insertReview">
-	<![CDATA[
-		INSERT INTO REVIEW (
-			R_NO,
-			R_CONTENT,
-			R_RATING,
-			R_DATE,
-			L_NO,
-			M_NO )
-		VALUES (
-			REVIEW_SEQ.NEXTVAL,
-			#{R_CONTENT},
-			#{R_RATING},
-			sysdate,
-			#{L_NO},
-			#{M_NO} )
-	]]>
-</insert>-->
-
-
-
 
 </mapper>
 

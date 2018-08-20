@@ -42,6 +42,7 @@
 			<td>${row.L_PAYMENT}</td>
 			<td>${row.L_SDATE} ~ ${row.L_EDATE}</td>
 			<td>${row.L_RATE}</td>
+			<td><a href="#this" name="update">수정</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
 			<td><a href="#this" name="delete">삭제</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
 		</tr>
 		</c:forEach>
@@ -69,12 +70,23 @@
 <script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
 <script type="text/javascript">
 		$(document).ready(function() {
+			$("a[name='update']").on("click", function(e) { //수정
+				e.preventDefault();
+				fn_updateLendplace($(this));
+			});
+			
 			$("a[name='delete']").on("click", function(e) { //삭제
 				e.preventDefault();
 				fn_deleteLendplace($(this));
 			});
 		});
 		
+		function fn_updateLendplace(obj) {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/lendplace/updateForm' />");
+			comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
+			comSubmit.submit();
+		}
 		function fn_deleteLendplace(obj) {
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/admin/lendplace/Delete' />");

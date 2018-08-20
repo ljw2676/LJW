@@ -166,8 +166,8 @@
 			l_addr,
 			l_enable,
 			l_payment,
-			l_sdate, 
-			l_edate,
+			TO_CHAR(L_SDATE,'YYYY-MM-DD') AS l_sdate, 
+			TO_CHAR(L_EDATE,'YYYY-MM-DD') AS l_edate, 
 			l_rate
 		FROM 
 			lendplace 

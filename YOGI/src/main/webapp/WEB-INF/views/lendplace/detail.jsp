@@ -29,7 +29,7 @@
 					<tr>
 						<td>${map.L_NO}번</td>
 						<td>${map.L_SUBJECT}</td>
-						<td>${map.L_ADDR}</td>
+						<td><a href="javascript:map();">${map.L_ADDR}&nbsp;(${map.L_SUBJECT})</a></td>
 						<td>${map.L_CONTENT}</td>
 						<td>${map.L_REP_IMAGE}</td>
 						<td>${map.L_ENABLE}명</td>
@@ -249,7 +249,18 @@ $( function() {/* 달력 */
 	 });
 });
 
-
+//지도
+function map(){
+	var popupX=(window.screen.width/2)-(700/2);
+	
+	var popupY=(window.screen.height/2)-(500/2);
+	
+	var uri="http://localhost:8080/yogi/map/map.jsp?l_addr=${map.L_ADDR}&l_subject=${map.L_SUBJECT}";
+	var res = encodeURI(uri);
+	
+	
+	window.open(res,"post","toolbar=no ,width=700 ,height=500 ,directories=no,status=yes,scrollbars=no,menubar=no,left="+ popupX +",top="+ popupY +", screenX="+ popupX +", screenY= "+ popupY);
+	}
 
 </script>
 </body>

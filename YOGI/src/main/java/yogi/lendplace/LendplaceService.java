@@ -18,7 +18,7 @@ public interface LendplaceService {
 	
 	void upCountUdate(Map<String, Object> map) throws Exception;
 
-//  void updateLendplace(Map<String, Object> map) throws Exception;
+	void updateLendplace(Map<String, Object> map) throws Exception;
 	
 	void insertReview(Map<String, Object> map) throws Exception;
 

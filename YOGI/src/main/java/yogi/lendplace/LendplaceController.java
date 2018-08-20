@@ -1,5 +1,6 @@
 package yogi.lendplace;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,10 @@ import org.apache.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -59,6 +63,22 @@ public class LendplaceController {
 		mv.addObject("list",list);
 		
 		return mv;
+	}
+	
+	//장소 수정폼
+		@RequestMapping(value="/lendplace/updateForm")
+		public ModelAndView updateLendplaceForm(CommandMap commandMap) throws Exception{
+			ModelAndView mv = new ModelAndView("/admin/lendplaceUpdateForm");
+			Map<String,Object> map = lendplaceService.selectLendplaceDetail(commandMap.getMap());
+			mv.addObject("map", map);
+			return mv;  
+		}
+	
+	//장소 수정
+	@RequestMapping(value="/lendplace/update")
+	public ModelAndView updateLendplace(CommandMap commandMap) throws Exception{
+	         lendplaceService.updateLendplace(commandMap.getMap());
+	         return new ModelAndView("redirect:/admin/lendplace/list"); 
 	}
 	
 	//장소 신청
