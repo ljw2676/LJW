@@ -103,6 +103,7 @@ public class GroupController {
 	@RequestMapping(value="/group/groupForm", method=RequestMethod.POST)
 	public String insert(@ModelAttribute("group") GroupModel group, HttpServletRequest request, BindingResult result) throws Exception{
 		System.out.println("GroupController : insertGroup 실행");
+		group.setM_no((Integer) request.getSession().getAttribute("session_m_no"));
 		groupService.insertGroup(group, request);
 		return "redirect:/group/groupList";
 	}
@@ -116,6 +117,7 @@ public class GroupController {
 	//모임 수정 폼 열기
 	@RequestMapping(value="/group/modifyForm")
 	public ModelAndView groupModifyForm(CommandMap map, HttpServletRequest request) throws Exception{
+		
 		ModelAndView mv = new ModelAndView("groupModifyForm");
 		
 		Map<String, Object> group = groupService.selectGroupDetail(map.getMap());

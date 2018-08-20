@@ -157,6 +157,8 @@ function fn_groupDetailLink(gg_no){
 			</form>
 		</div>
 		${pagingHtml}
+		
+		<br><a href="http://localhost:8080/yogi/group/groupForm">모임 개설</a>
 
 </body>
 </html>

@@ -264,6 +264,7 @@
 			gg_addr=#{gg_addr},
 			gg_place=#{gg_place},
 			gg_detail=#{gg_detail},
+			gg_cost=#{gg_cost},
 			gg_ofn=#{gg_ofn},
 			gg_rfn=#{gg_rfn}
 		WHERE 
@@ -276,6 +277,7 @@
 		SET 
 			gg_addr=#{gg_addr},
 			gg_place=#{gg_place},
+			gg_cost=#{gg_cost},
 			gg_detail=#{gg_detail}
 		WHERE 
 			gg_no=#{gg_no}
@@ -299,4 +301,57 @@
 		WHERE
 			gg_no=#{GG_NO}
 	</update>
+	
+	<insert parameterType="GroupModel" id="insertGroupExceptFile"> 
+		INSERT INTO Group_Gathering ( 
+			gg_no, 
+			gg_name, 
+			m_no, 
+			gg_category, 
+			gg_addr, 
+			gg_date, 
+			gg_place, 
+			gg_detail, 
+			gg_cost, 
+			gg_total, 
+			gg_enable, 
+			gg_penalty, 
+			gg_active
+			) 
+		VALUES ( 
+			groupgathering_seq.nextval, 
+			#{gg_name}, 
+			#{m_no}, 
+			#{gg_category}, 
+			#{gg_addr}, 
+			#{gg_date}, 
+			#{gg_place}, 
+			#{gg_detail}, 
+			#{gg_cost}, 
+			#{gg_total}, 
+			#{gg_enable}, 
+			0, 
+			0
+			) 
+	</insert>
+	
+	<select id="selectGroupAddr" resultType="String">
+		SELECT
+			gg_addr
+		FROM
+			group_gathering
+		WHERE
+			gg_no=#{gg_no}
+		
+	</select>
+	
+	<select id="selectGroupPlace" resultType="String">
+		SELECT
+			gg_place
+		FROM
+			group_gathering
+		WHERE
+			gg_no=#{gg_no}
+		
+	</select>
 </mapper>

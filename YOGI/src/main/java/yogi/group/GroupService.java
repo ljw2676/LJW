@@ -27,4 +27,5 @@ public interface GroupService {
 
 	void inactivateGroup(Map<String, Object> map);
 	
+	
 }

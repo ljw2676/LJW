@@ -125,28 +125,41 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Override
 	public void insertGroup(GroupModel group, HttpServletRequest request) throws Exception {
-		System.out.println("GroupServiceImpl : insertGroup 실행");
+		
+		group.setGg_enable(group.getGg_total()-1);
 		Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
 		
-		group.setM_no(1);
-		group.setGg_enable(group.getGg_total()-1);
-		group.setGg_ofn(fileMap.toString().valueOf(fileMap.get("ORIGINAL_FILE_NAME")));
-		group.setGg_rfn(fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
+		//넘어오는 파일객체가 있으면
+		if(fileMap!=null) {
+			
+			group.setGg_ofn((String) fileMap.get("ORIGINAL_FILE_NAME"));
+			group.setGg_rfn((String) fileMap.get("STORED_FILE_NAME"));
+			
+			groupDAO.insertGroup(group);
+		}
+		else {
+			groupDAO.insertGroupExceptFile(group);
+		}
 		
-		groupDAO.insertGroup(group);
+		
 		
 	}
 
 	@Override
 	public Map<String, Object> modifyGroup(Map<String, Object> map, HttpServletRequest request) throws Exception {
 		System.out.println("groupModify:Sevice 실행");
-		
-		//request파일 객체 구체화
-		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
-		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
-		
-		//넘어오는 파일객체가 있으면
-		if(iterator.hasNext()) {
+/*
+		//주소 재등록
+		if(map.get("gg_addr")==null) {
+			map.put("gg_addr", groupDAO.selectGroupAddr(map.get("gg_no").toString()));
+		}
+		if(map.get("gg_place")==null) {
+			map.put("gg_place", groupDAO.selectGroupPlace(map.get("gg_no").toString()));
+		}
+		*/
+		//새로 넘어온 파일 처리
+		Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
+		if(fileMap!=null) {
 			
 			//기존 파일 가져오기
 			String deleteFileName = groupDAO.deleteFileName(map.get("gg_no").toString());
@@ -156,31 +169,16 @@ public class GroupServiceImpl implements GroupService {
 				deleteFile.delete();
 			}
 			
-			//새로 넘어온 파일 처리
-			Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
-			map.put("gg_ofn", fileMap.toString().valueOf(fileMap.get("ORIGINAL_FILE_NAME")));
-			map.put("gg_rfn", fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
+			
+			map.put("gg_ofn", fileMap.get("ORIGINAL_FILE_NAME"));
+			map.put("gg_rfn", fileMap.get("STORED_FILE_NAME"));
 			System.out.println("그룹 이미지 변경 : "+map.get("gg_ofn")+" & "+map.get("gg_rfn"));
 			
 			groupDAO.modifyGroup(map);
-			
 		}
-		//넘어오는 파일객체가 없으면
-		else{
-			/*Map<String, Object> FileName = groupDAO.selectGroupDetail(map);
+		else {
 			
-			//원래 저장한 사진이 없을때
-			if(FileName.get("gg_ofn")==null) {
-				System.out.println("기존 그룹 이미지 : "+map.get("gg_ofn")+" & "+map.get("gg_rfn"));
-			}
-			//원래 저장한 사진이 있을때
-			else {
-				map.put("gg_ofn", FileName.get("gg_ofn"));
-				map.put("gg_rfn", FileName.get("gg_rfn"));
-				System.out.println("기존 그룹 이미지 : "+map.get("gg_ofn")+" & "+map.get("gg_rfn"));
-			}*/
 			groupDAO.modifyGroupExceptFile(map);
-			
 		}
 		
 		System.out.println("그룹 수정 내용 : "+map);

@@ -18,13 +18,13 @@ public class GroupModel {
 		private String gg_category;
 
 		// 주최 장소
-		private String gg_place;
+		private String gg_addr;
 
 		// 주최 날짜
 		private Date gg_date;
 
 		// 간단 사항
-		private String gg_simple;
+		private String gg_place;
 		
 		// 세부 사항
 		private String gg_detail;
@@ -131,12 +131,7 @@ public class GroupModel {
 		public void setGg_date(Date gg_date) {
 			this.gg_date = gg_date;
 		}
-		public String getGg_simple() {
-			return gg_simple;
-		}
-		public void setGg_simple(String gg_simple) {
-			this.gg_simple = gg_simple;
-		}
+	
 		public String getGg_detail() {
 			return gg_detail;
 		}
@@ -205,6 +200,12 @@ public class GroupModel {
 		}
 		public void setGg_rfn(String gg_rfn) {
 			this.gg_rfn = gg_rfn;
+		}
+		public String getGg_addr() {
+			return gg_addr;
+		}
+		public void setGg_addr(String gg_addr) {
+			this.gg_addr = gg_addr;
 		} 
 			
 		
