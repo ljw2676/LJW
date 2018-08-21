@@ -117,7 +117,11 @@ $(document).ready(function() {
 		$("a[name='apply']").on("click", function(e) { //신청
 		/* 태그의 기본 기능을 제거 */
 		e.preventDefault();
+		if(confirm("신청 하시겠습니까?")==true){
 		fn_applyLendplace();
+		} else {
+			return;
+		}
 		
 		});
 });

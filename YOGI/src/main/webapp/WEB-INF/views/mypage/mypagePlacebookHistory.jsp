@@ -58,11 +58,17 @@ ${pagingHtml}
 		$(document).ready(function() {
 			$("a[name='cancel']").on("click", function(e) { //취소
 				e.preventDefault();
+			if(confirm("취소 하시겠습니까?")==true){
 				fn_cancelLendplace($(this));
+			}
+			else {
+				return;
+			}
 			});
 		});
 		
 	      function fn_cancelLendplace(obj){
+	    	  alert("신청이 취소되었습니다 :3");
 	          var comSubmit = new ComSubmit();
 	      	  comSubmit.setUrl("<c:url value='/admin/lendplace/Cancel' />");
 			  comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
