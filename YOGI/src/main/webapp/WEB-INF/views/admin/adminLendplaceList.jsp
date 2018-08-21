@@ -44,7 +44,7 @@
 			<td>${row.L_SDATE} ~ ${row.L_EDATE}</td>
 			<td>${row.L_RATE}</td>
 			<td><a href="#this" name="update">수정</a><input type="hidden" id="L_NO" value="${row.L_NO}"><input type="hidden" id="L_UDATE" value="${row.L_UDATE}"></td>
-			<td><a href="#this" name="delete">삭제</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>
+			<td><a href="#this" name="delete">삭제</a><input type="hidden" id="L_NO" value="${row.L_NO}"><input type="hidden" id="L_UDATE" value="${row.L_UDATE}"></td>
 		</tr>
 		</c:forEach>
 	</table>
@@ -84,7 +84,18 @@
 			
 			$("a[name='delete']").on("click", function(e) { //삭제
 				e.preventDefault();
+				if(confirm("삭제 하시겠습니까?") == true) {
+					var L_UDATE = parseInt($(this).parent().find("#L_UDATE").val());
+					if ( L_UDATE > 0) {
+						alert("현재 이 장소로 신청한 회원이 있어 삭제가 불가능합니다!");
+						return false;
+					} else {
 				fn_deleteLendplace($(this));
+					}
+				}
+				else {
+					return;
+				}
 			});
 			
 			$("a[name='detail']").on("click", function(e) { //상세보기

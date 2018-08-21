@@ -73,8 +73,18 @@ public class AdminLendplaceController {
 	//장소 삭제
 	@RequestMapping(value="/admin/lendplace/Delete")
 	public ModelAndView lendplaceDelete(CommandMap commandMap) throws Exception {
+		
+		String filePath = "C:\\git\\YOGI\\YOGI\\src\\main\\webapp\\resources\\upload\\";
+		
+		Map<String, Object> lmap = new HashMap<String, Object>();
+		lmap = lendplaceService.selectOneLend(commandMap.getMap());
+		if(lmap.get("L_REP_IMG") != null) {
+			File imagefile = new File(filePath + lmap.get("L_REP_IMG"));
+			imagefile.delete();
+			
+		}
 		lendplaceService.deletePlace(commandMap.getMap());
-		return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트 : 관리자 장소 리스트 페이지
+		return new ModelAndView("redirect:/admin/lendplace/list"); //리다이렉트 : 관리자 장소 리스트 페이지
 	}
 	
 	//장소 리스트

@@ -23,5 +23,9 @@ public interface AdminLendplaceService {
 
 	public void dwCountUdate(Map<String, Object> map) throws Exception;
 
+	public Map<String, Object> selectOneLend(Map<String, Object> map) throws Exception;
+
+
+
 }
 

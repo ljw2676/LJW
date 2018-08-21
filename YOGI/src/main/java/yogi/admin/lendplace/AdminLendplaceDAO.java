@@ -49,20 +49,9 @@ public class AdminLendplaceDAO extends AbstractDAO{
 		
 	}
 
-	public void lendThumbnailInsert(Map<String, Object> map) throws Exception {
+	public Map<String, Object> selectOneLend(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
-		update("lendplace.insertLendThumbnail" , map);
-	}
-
-	public void lendImageInsert(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
-		insert("lendplace.insertLendImage" , map);
-	}
-
-	public void ImgInsert(Map<String, Object> listMap) {
-		// TODO Auto-generated method stub
-		update("lendplace.ImgInsert", listMap);
-		
+		return (Map<String, Object>) selectOne("lendplace.selectLendplaceDetail", map);
 		
 	}
 	

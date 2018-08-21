@@ -30,7 +30,7 @@ div.map_title{
 <table>
 	<tr>
 		<td>장소명</td>
-		<td><input type="text" name="L_SUBJECT"/></td>
+		<td><input type="text" name="L_SUBJECT" id="L_SUBJECT" /></td>
 	</tr>
 	
 	<tr>
@@ -39,29 +39,29 @@ div.map_title{
   		<div class="map_title">
   		<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
    		</div>
-		<input id="detail_addr" type="text" name="L_ADDR" size="73%" placeholder="지도를 클릭하면 주소가 자동으로 입력됩니다." maxlength="30">
+		<input id="L_ADDR" type="text" name="L_ADDR" size="73%" placeholder="지도를 클릭하면 주소가 자동으로 입력됩니다." maxlength="30">
 		
 	</tr>
 	
 	<tr>
 		<td>내용</td>
-		<td><textarea name="L_CONTENT" ></textarea></td>
+		<td><textarea name="L_CONTENT" id="L_CONTENT" ></textarea></td>
 	</tr>
 	
 	<tr>
 		<td>수용인원</td>
-		<td><input type="number" name="L_ENABLE"/></td>
+		<td><input type="number" name="L_ENABLE" id="L_ENABLE" /></td>
 	</tr>
 	
 	<tr>
 		<td>비용</td>
-		<td><input type="number" name="L_PAYMENT"/></td>
+		<td><input type="number" name="L_PAYMENT" id="L_PAYMENT" /></td>
 	</tr>
 	<tr>
-		<td>대관 시작날짜 <input type="hidden" data-toggle="datepicker1" name="L_SDATE"></input>
+		<td>대관 시작날짜 <input type="hidden" data-toggle="datepicker1" name="L_SDATE" id="L_SDATE" ></input>
 			<div id="datepicker-container1"></div></td></tr>
 	<tr>
-		<td>대관 종료날짜 <input type="hidden" data-toggle="datepicker2" name="L_EDATE"></input>
+		<td>대관 종료날짜 <input type="hidden" data-toggle="datepicker2" name="L_EDATE" id="L_EDATE" ></input>
 		<div id="datepicker-container2"></div></td></tr>
 	<tr>
 	
@@ -221,7 +221,7 @@ $(document).ready(function() {
                 searchDetailAddrFromCoords(new daum.maps.LatLng(place.latitude, place.longitude), function(status, result) {
                   if (status === daum.maps.services.Status.OK) {
                      var detailAddr = !!result[0].roadAddress.name ? result[0].roadAddress.name : result[0].jibunAddress.name;
-                     document.getElementById('detail_addr').value=detailAddr;
+                     document.getElementById('L_ADDR').value=detailAddr;
                      document.getElementById('o_title').value=place.title;
                      // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
                        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.title + '</div>');

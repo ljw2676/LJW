@@ -99,6 +99,13 @@ public class AdminLendplaceServiceImpl implements AdminLendplaceService {
 		lendplaceDAO.dwCountUdate(map);
 	}
 
+
+	@Override
+	public Map<String, Object> selectOneLend(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return lendplaceDAO.selectOneLend(map);
+	}
+	
 	
 }
 	
