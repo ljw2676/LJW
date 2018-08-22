@@ -46,5 +46,7 @@
 </c:choose>
 <a href="http://localhost:8080/yogi/group/groupList">더보기</a>
 <a href="http://localhost:8080/yogi/lendplace/list">장소</a>
+<a href="http://localhost:8080/yogi/lendplace/chat"> 채팅 테스트 </a>
+<a href="http://localhost:8080/yogi/members/modifyForm">회원 정보 수정</a>
 </body>
 </html>

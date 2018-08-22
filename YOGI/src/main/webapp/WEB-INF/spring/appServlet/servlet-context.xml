@@ -44,7 +44,7 @@
 
          </mvc:message-converters>
 	</mvc:annotation-driven>
-
+	
 	<!-- 빈자동설정 범위 -->
 	<context:component-scan base-package="yogi" />
 	<!-- Enables the Spring MVC @Controller programming model -->
