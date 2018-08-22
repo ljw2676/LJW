@@ -32,5 +32,16 @@ public class MembersDAO extends AbstractDAO{
 	public void resetPW(MembersModel model) {
 		update("test.resetPW", model);
 	}
+	
+	public MembersModel mInfo(int no) {
+		return (MembersModel) selectOne("test.membersInfo", no);
+	}
+	
+	public void updateMember(MembersModel model){
+		update("test.updateMembers", model);
+	}
+	public void deleteMember(String name) {
+		update("test.deleteMembers", name);
+	}
 
 }

@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import yogi.common.common.YogiConstants;
+import yogi.common.util.YogiUtils;
+import yogi.config.CommandMap;
 import yogi.members.CookieBox;
 
 @Controller
@@ -148,5 +151,127 @@ public class MembersController {
 		return "result";		
 	}
 	
+	@RequestMapping(value="/members/modifyForm", method=RequestMethod.GET)
+	public ModelAndView modifyForm(CommandMap map, HttpServletRequest request) throws Exception{
+		YogiUtils.savePageURI(request);
+		ModelAndView mv = new ModelAndView("/members/modifyForm");
+		MembersModel result = membersService.mInfo((Integer)request.getSession().getAttribute(YogiConstants.M_NO));
+		if(result.getM_fav_field() != null) {
+			String[] interest = result.getM_fav_field().split(",");
+			String[] gogo = new String[15];
+			for(int j=0; j<interest.length; j++) {
+				if(interest[j].equals("실외활동"))
+					gogo[0]="check";
+				else if(interest[j].equals("패션"))
+					gogo[1]="check";
+				else if(interest[j].equals("맛집"))
+					gogo[2]="check";
+				else if(interest[j].equals("게임"))
+					gogo[3]="check";
+				else if(interest[j].equals("동물"))
+					gogo[4]="check";
+				else if(interest[j].equals("보드게임"))
+					gogo[5]="check";
+				else if(interest[j].equals("전시/공연"))
+					gogo[6]="check";
+				else if(interest[j].equals("취업/스터디"))
+					gogo[7]="check";
+				else if(interest[j].equals("춤"))
+					gogo[8]="check";
+				else if(interest[j].equals("독서토론"))
+					gogo[9]="check";
+				else if(interest[j].equals("음악"))
+					gogo[10]="check";
+				else if(interest[j].equals("언어교환"))
+					gogo[11]="check";
+				else if(interest[j].equals("여행"))
+					gogo[12]="check";
+				else if(interest[j].equals("웰빙"))
+					gogo[13]="check";
+				else if(interest[j].equals("공예"))
+					gogo[14]="check";
+			}
+			mv.addObject("interest", gogo);
+		}
+		if(result.getM_fav_area() != null) {
+			String[] area = result.getM_fav_area().split(",");
+			String[] gogo = new String[25];
+			
+			for(int j=0; j<area.length; j++) {
+				if(area[j].equals("종로구"))
+					gogo[0]="check";
+				else if(area[j].equals("중구"))
+					gogo[1]="check";
+				else if(area[j].equals("용산구"))
+					gogo[2]="check";
+				else if(area[j].equals("성동구"))
+					gogo[3]="check";
+				else if(area[j].equals("광진구"))
+					gogo[4]="check";
+				else if(area[j].equals("동대문구"))
+					gogo[5]="check";
+				else if(area[j].equals("중랑구"))
+					gogo[6]="check";
+				else if(area[j].equals("성북구"))
+					gogo[7]="check";
+				else if(area[j].equals("강북구"))
+					gogo[8]="check";
+				else if(area[j].equals("도봉구"))
+					gogo[9]="check";
+				else if(area[j].equals("노원구"))
+					gogo[10]="check";
+				else if(area[j].equals("은평구"))
+					gogo[11]="check";
+				else if(area[j].equals("서대문구"))
+					gogo[12]="check";
+				else if(area[j].equals("마포구"))
+					gogo[13]="check";
+				else if(area[j].equals("양천구"))
+					gogo[14]="check";
+				else if(area[j].equals("강서구"))
+					gogo[15]="check";
+				else if(area[j].equals("구로구"))
+					gogo[16]="check";
+				else if(area[j].equals("금천구"))
+					gogo[17]="check";
+				else if(area[j].equals("영등포구"))
+					gogo[18]="check";
+				else if(area[j].equals("동작구"))
+					gogo[19]="check";
+				else if(area[j].equals("관악구"))
+					gogo[20]="check";
+				else if(area[j].equals("서초구"))
+					gogo[21]="check";
+				else if(area[j].equals("강남구"))
+					gogo[22]="check";
+				else if(area[j].equals("송파구"))
+					gogo[23]="check";
+				else if(area[j].equals("강동구"))
+					gogo[24]="check";
+				
+			}
+			mv.addObject("area", gogo);
+		}
+		
+		mv.addObject("members",result);
+		return mv;
+	}
+
+	@RequestMapping(value="/members/modifyForm", method=RequestMethod.POST)
+	public String modify(@ModelAttribute("member") MembersModel member, HttpServletRequest request) throws Exception{
+		membersService.updateMember(member, request);	
+		return "redirect:/main";
+	}
+	
+//	@RequestMapping(value= {"/members/delMem"}, method=RequestMethod.GET)
+//	 public String deleteMember(){
+//		return "delMem";
+//	}
+	
+	@RequestMapping(value= "/members/delMem", method=RequestMethod.GET)
+	 public String deleteMember(String id){
+		membersService.deleteMember(id);
+		return "/members/delMem";
+	}
 	
 }

@@ -11,7 +11,7 @@
 	}
 </script>
 <body>
-	${member.m_name}의 아이디눈!!!! "${member.m_id}"
-	<input type="button" onclick="end()" value="안뇨오오오오오옹~!"/>
+	감사합니다.
+	<input type="button" onclick="end()" value="안뇨오오오오오오오오오오오오옹~!"/>
 </body>
 </html>
