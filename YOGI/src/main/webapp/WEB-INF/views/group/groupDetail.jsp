@@ -21,15 +21,6 @@
    		     con.style.display = 'block';
  		   }
 	}	
-	  
-		function fn_meetingsLikeit(){
-	        if(isLoginCheck("${sessionScope.session_m_id}")){
-		        var cs = new ComSubmit();
-		        cs.setUrl("<c:url value='/group/likeit' />");
-		        cs.addParam("GG_no", '${gModel.GG_NO }');
-		        cs.submit();
-	        }
-	    }
 		
 		function cmt_check() {
 				var area = document.getElementById('comment');
@@ -45,7 +36,7 @@
 
 			function fn_deleteCmt(c_no) {
 				var cs = new ComSubmit();
-				cs.setUrl("<c:url value='/group/deletecmt' />");
+				cs.setUrl("<c:url value='/commentsDelete' />");
 				cs.addParam("c_no", c_no);
 				cs.addParam("gg_no", '${gModel.GG_NO }');
 				cs.submit();
@@ -53,16 +44,28 @@
 
 			function fn_meetingsModify() {
 				var cs = new ComSubmit();
-				cs.setUrl("<c:url value='/group/groupModify' />");
+				cs.setUrl("<c:url value='/groupModify' />");
 				cs.addParam("gg_no", '${gModel.GG_NO }');
 				cs.submit("GET");
 			}
+			
+			function commentsInsert(){	
+				var cs = new ComSubmit();	
+				cs.setUrl("<c:url value='/comments' />");
+				cs.addParam("c_name",$(document).find("#c_name").val());
+				cs.addParam("ref",0);
+				cs.addParam("m_no1",'${gModel.M_NO}');
+				cs.addParam("gg_no",'${gModel.GG_NO}');
+				cs.addParam("c_content",$(document).find("#comment").val());
+				cs.submit();
+			}
 
+			
 	</script>
 </head>
 <body>
 	<div>
-		<a href="javascript:history.back()">←</a>
+		<a href="http://localhost:8080/yogi/groupList">목록으로!</a>
 		<table>
 			<tr>
 				<td>
@@ -83,7 +86,7 @@
 	
 	<div>
 	<c:if test="${gModel.M_NO!=session_m_no }">
-	<form action="/yogi/group/likeit" method="post">
+	<form action="/yogi/likeit" method="post">
 			<input type="hidden" name="gg_no" value="${gModel.GG_NO}">
 			<input type="hidden" name="m_no" value="${gModel.M_NO}">
 	 <c:choose>
@@ -100,7 +103,7 @@
 	 
 	 <div>
 	 <c:if test="${gModel.M_NO!=session_m_no }">
-	<form action="/yogi/group/enroll" method="post">
+	<form action="/yogi/enroll" method="post">
 			<input type="hidden" name="gg_no" value="${gModel.GG_NO}">
 			<input type="hidden" name="m_no" value="${gModel.M_NO}">
 	 <c:choose>
@@ -117,7 +120,7 @@
 	 
 	 <div>
 	 <c:if test="${gModel.M_NO==session_m_no }">
-	 <form action="/yogi/group/modifyForm" method="post">
+	 <form action="/yogi/modifyForm" method="post">
 	 	<input type="hidden" name="gg_no" value="${gModel.GG_NO }">
 	 	<input type="hidden" name="m_no" value="${gModel.M_NO}">
 	 	<input type="submit" value="수정하기">
@@ -127,6 +130,7 @@
 	 </div>
 	 
 	 <div>
+	 	글작성한 사람의 M_NO = ${gModel.M_NO}
 		<h4>신청자(${geList.size()})</h4>
 		<c:forEach items="${geList }" var="gl">
 		<ul>
@@ -136,36 +140,35 @@
 	</div>
 	 
 		 <div>
-	 	<h4> COMMENTS(${fn:length(cmtList)})</h4>	
-	 	
-	 	<c:forEach items="${cmtList }" var="row" varStatus="status">
-		<form action='<c:url value='/group/commentsRep?c_no=${row.C_NO}&ref=${row.REF}'/>' method='post'>
+	 	<h4> COMMENTS(${fn:length(cmtList)})</h4>
+	 	<c:forEach items="${cmtList }" var="row" varStatus="status">	
+		<form action='<c:url value='/commentsRep?c_no=${row.C_NO}&ref=${row.REF}'/>' method='post'>
 		<input type='hidden' name='re_step' value='${row.RE_STEP}'/>
 		<input type='hidden' name='re_level' value='${row.RE_LEVEL}'/>
-		<input type="hidden" name="gg_no" value="${gModel.GG_NO}">	
-		
-		
-	<table>	
-			<c:if test='${row.RE_STEP != 0 }'>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:if><tr>	
-		<td>${row.C_NAME } <fmt:formatDate value="${row.C_DATE}" pattern="yy/MM/dd hh:mm:ss"/> <a href="#" onclick="doDisplay('<c:out value='${row.C_NO}'/>')">답변</a><br/>	
+		<input type="hidden" name="gg_no" value="${gModel.GG_NO}"/>
+		<input type="hidden" name="m_no1" value="${gModel.M_NO}"/>
+		<input type="hidden" name="c_name" value="${row.C_NAME}" />		
+		<fmt:parseNumber var = "blank" type = "number" value = "${row.RE_LEVEL}" />
+		<div style="border: 1px solid gray; width: 600px; padding: 5px; margin-top: 5px; margin-left: <c:out value="${20*blank}"/>px; display: inline-block">	
+		${row.C_NAME } <fmt:formatDate value="${row.C_DATE}" pattern="yy/MM/dd hh:mm:ss"/> <a href="#" onclick="doDisplay('<c:out value='${row.C_NO}'/>')">답변</a> <c:if test="${row.M_NO == session_m_no }"><a href="#" onclick="fn_deleteCmt('<c:out value='${row.C_NO}'/>')">삭제</a></c:if><br/>	
 			${row.C_CONTENT }	
 		<div id="repDiv<c:out value='${row.C_NO}'/>" style="display:none">	
 		<textarea name="c_content"></textarea><input type="submit" value="답변전용">		
 		</div>
-			</td>
-		</tr>
-		</table>
+		</div>
 		</form>
-		</c:forEach>	 
-		
+		<input type="hidden" name="c_name" id="c_name" value="${row.C_NAME }" />
+	</c:forEach>
 	 </div>
 	 <br/>
+	  
 	 <div>
-	 <form action="<c:url value='/group/comments'/>" onsubmit="return cmt_check();" method="post">
-						<input type="hidden" name="gg_no" value="${gModel.GG_NO }">
-						<input type="hidden" name="ref" value='0'>
-						
+	 <form action="<c:url value='/comments'/>" id="cmtist" onsubmit="return cmt_check();" method="post">				
+						<input type="hidden" name="ref" value='0'>			
+						<input type="hidden" name="m_no1" value="${gModel.M_NO}"/> 
+						<input type="hidden" name="gg_no" value="${gModel.GG_NO }"/>
+						===================${gModel.GG_NO }
+	
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="form-group">
@@ -176,9 +179,8 @@
 							</div>
 
 							<div class="row">
-								<div class="col-sm-12 text-right">
-									<input type="submit" value="입력"/>
-								</div>
+							<div class="col-sm-12 text-right">
+									<a href="#" onclick="commentsInsert()">입력</a> <!-- <input type="submit" value="입력"/> -->
 							</div>
 					</form>
 			 </div>
@@ -196,7 +198,7 @@
 		
 		function fn_inactivateGroup(obj) {
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/group/inactivateGroup' />");
+			comSubmit.setUrl("<c:url value='/inactivateGroup' />");
 			comSubmit.addParam("GG_NO", obj.parent().find("#GG_NO").val());
 			comSubmit.submit();
 		}
