@@ -52,9 +52,13 @@ public class LendplaceDAO extends AbstractDAO{
 	public void deleteReview(Map<String, Object> map) throws Exception{
 		delete("lendplace.deleteReview",map);
 	}
-
+	
+	public void deleteGroupReview(Map<String, Object> map) throws Exception{
+		delete("lendplace.deleteGroupReview",map);
+	}
+	
 //  장소후기 수정
-	public void updateReview(Map<String, Object> map) {
+	public void updateReview(Map<String, Object> map) throws Exception{
 		update("lendplace.updateReview",map);
 	}
 
@@ -64,10 +68,31 @@ public class LendplaceDAO extends AbstractDAO{
 		return (List<Map<String, Object>>) selectList("lendplace.selectReview",map);
 	}
 
-	public void updateReviewOrder(Map<String, Object> map) {
+	public void updateReviewOrder(Map<String, Object> map) throws Exception{
 		update("lendplace.updateReviewOrder",map);
 	}
 
-
+	public void updateReviewOrderDelete(Map<String, Object> map) throws Exception{
+		update("lendplace.updateReviewOrderDelete",map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectReviewChild(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>) selectOne("lendplace.selectReviewChild",map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectDeletedParent(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>) selectOne("lendplace.selectDeletedParent",map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectParent(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>) selectOne("lendplace.selectParent",map);
+	}
+	
+	public void updateDeleteFlag(Map<String, Object> map) throws Exception{
+		update("lendplace.updateDeleteFlag",map);
+	}
 
 }

@@ -64,9 +64,10 @@ public class LendplaceServiceImpl implements LendplaceService {
 		lendplaceDAO.upCountUdate(map);
 	}
 
-//	@Override
-//	public void updateLendplace(Map<String, Object> map, HttpServletRequest request) throws Exception {
-//	}
+	@Override
+	public void updateLendplace(Map<String, Object> map) throws Exception {
+		lendplaceDAO.updateLendplace(map);
+	}
 
 	@Override
 	public void insertReview(Map<String, Object> map) throws Exception {
@@ -93,7 +94,34 @@ public class LendplaceServiceImpl implements LendplaceService {
 		lendplaceDAO.updateReviewOrder(map);
 	}
 
+	@Override
+	public void updateReviewOrderDelete(Map<String, Object> map) throws Exception {
+		lendplaceDAO.updateReviewOrderDelete(map);
+	}
 
+	@Override
+	public Map<String, Object> selectReviewChild(Map<String, Object> map) throws Exception {
+		return lendplaceDAO.selectReviewChild(map);
+	}
 
-	
+	@Override
+	public void updateDeleteFlag(Map<String, Object> map) throws Exception {
+		lendplaceDAO.updateDeleteFlag(map);
+	}
+
+	@Override
+	public void deleteGroupReview(Map<String, Object> map) throws Exception {
+		lendplaceDAO.deleteGroupReview(map);
+	}
+
+	@Override
+	public Map<String, Object> selectDeletedParent(Map<String, Object> map) throws Exception {
+		return lendplaceDAO.selectDeletedParent(map);
+	}
+
+	@Override
+	public Map<String, Object> selectParent(Map<String, Object> map) throws Exception {
+		return lendplaceDAO.selectParent(map);
+	}
+
 }

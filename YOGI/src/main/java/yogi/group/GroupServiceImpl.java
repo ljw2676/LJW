@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import yogi.alram.AlramService;
 import yogi.common.common.YogiConstants;
 import yogi.common.util.FileUtils;
 import yogi.common.util.YogiUtils;
@@ -33,11 +34,14 @@ public class GroupServiceImpl implements GroupService {
 	@Resource(name="groupDAO")
 	private GroupDAO groupDAO;
 	
+	@Resource(name="alramService")
+	private AlramService alramService;
+	
 	Calendar today = Calendar.getInstance();
 	
-	private int c_ref;
-	private int c_re;
-	private int c_lv;
+	private int ref;
+	private int re_step;
+	private int re_level;
 	boolean reply = false;
 	private static final String filePath = "C:\\java\\git\\YOGI\\YOGI\\src\\main\\webapp\\resources\\upload\\";
 
@@ -128,28 +132,41 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Override
 	public void insertGroup(GroupModel group, HttpServletRequest request) throws Exception {
-		System.out.println("GroupServiceImpl : insertGroup 실행");
+		
+		group.setGg_enable(group.getGg_total()-1);
 		Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
 		
-		group.setM_no(1);
-		group.setGg_enable(group.getGg_total()-1);
-		group.setGg_ofn(fileMap.toString().valueOf(fileMap.get("ORIGINAL_FILE_NAME")));
-		group.setGg_rfn(fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
+		//넘어오는 파일객체가 있으면
+		if(fileMap!=null) {
+			
+			group.setGg_ofn((String) fileMap.get("ORIGINAL_FILE_NAME"));
+			group.setGg_rfn((String) fileMap.get("STORED_FILE_NAME"));
+			
+			groupDAO.insertGroup(group);
+		}
+		else {
+			groupDAO.insertGroupExceptFile(group);
+		}
 		
-		groupDAO.insertGroup(group);
+		
 		
 	}
 
 	@Override
 	public Map<String, Object> modifyGroup(Map<String, Object> map, HttpServletRequest request) throws Exception {
 		System.out.println("groupModify:Sevice 실행");
-		
-		//request파일 객체 구체화
-		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
-		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
-		
-		//넘어오는 파일객체가 있으면
-		if(iterator.hasNext()) {
+/*
+		//주소 재등록
+		if(map.get("gg_addr")==null) {
+			map.put("gg_addr", groupDAO.selectGroupAddr(map.get("gg_no").toString()));
+		}
+		if(map.get("gg_place")==null) {
+			map.put("gg_place", groupDAO.selectGroupPlace(map.get("gg_no").toString()));
+		}
+		*/
+		//새로 넘어온 파일 처리
+		Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
+		if(fileMap!=null) {
 			
 			//기존 파일 가져오기
 			String deleteFileName = groupDAO.deleteFileName(map.get("gg_no").toString());
@@ -158,32 +175,27 @@ public class GroupServiceImpl implements GroupService {
 				File deleteFile = new File(filePath+deleteFileName);
 				deleteFile.delete();
 			}
-			
-			//새로 넘어온 파일 처리
-			Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
-			map.put("gg_ofn", fileMap.toString().valueOf(fileMap.get("ORIGINAL_FILE_NAME")));
-			map.put("gg_rfn", fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
+			map.put("gg_ofn", fileMap.get("ORIGINAL_FILE_NAME"));
+			map.put("gg_rfn", fileMap.get("STORED_FILE_NAME"));
 			System.out.println("그룹 이미지 변경 : "+map.get("gg_ofn")+" & "+map.get("gg_rfn"));
+			List<Map<String,Object>> geList = groupDAO.groupEnrollList(map);
+			if(geList.size()!=0) { 
 			
-			groupDAO.modifyGroup(map);
-			
-		}
-		//넘어오는 파일객체가 없으면
-		else{
-			/*Map<String, Object> FileName = groupDAO.selectGroupDetail(map);
-			
-			//원래 저장한 사진이 없을때
-			if(FileName.get("gg_ofn")==null) {
-				System.out.println("기존 그룹 이미지 : "+map.get("gg_ofn")+" & "+map.get("gg_rfn"));
+				for(int i=0; i<geList.size(); i++) {
+					alramService.regAlram(Integer.parseInt(geList.get(i).get("M_NO").toString()),(String)map.get("wt_name"), 2, Integer.parseInt(map.get("gg_no").toString()));
+				}
 			}
-			//원래 저장한 사진이 있을때
-			else {
-				map.put("gg_ofn", FileName.get("gg_ofn"));
-				map.put("gg_rfn", FileName.get("gg_rfn"));
-				System.out.println("기존 그룹 이미지 : "+map.get("gg_ofn")+" & "+map.get("gg_rfn"));
-			}*/
-			groupDAO.modifyGroupExceptFile(map);
+				groupDAO.modifyGroup(map);
+		}
+		else {
+			List<Map<String,Object>> geList = groupDAO.groupEnrollList(map);
+			if(geList.size()!=0) { 
 			
+				for(int i=0; i<geList.size(); i++) {
+					alramService.regAlram(Integer.parseInt(geList.get(i).get("M_NO").toString()),(String)map.get("wt_name"), 2, Integer.parseInt(map.get("gg_no").toString()));
+				}
+			}
+			groupDAO.modifyGroupExceptFile(map);
 		}
 		
 		System.out.println("그룹 수정 내용 : "+map);
@@ -193,33 +205,40 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Override
 	public void insertComments(Map<String, Object> map, HttpServletRequest request) throws Exception {
-		
-	if(c_ref == 0)
+	reply = true;
+	System.out.println(map);
+	/*Integer.parseInt(map.get("ref").toString()) == 0*/
+	System.out.println(ref);
+	if(Integer.parseInt(map.get("ref").toString()) == 0)
 	{
-		map.put("c_re",0);
-		map.put("c_lv",0);
+		map.put("re_step",0);
+		map.put("re_level",0);
+		System.out.println(map.get("m_no1"));
+		System.out.println(map.get("c_name"));
+		System.out.println(map.get("gg_no"));
+		
+		alramService.regAlram(Integer.parseInt(map.get("m_no1").toString()),(String)map.get("c_name"), 1, Integer.parseInt(map.get("gg_no").toString()));
 	}
 	else {
 		groupDAO.updateReplyStep(map);
-		
-		map.put("c_re", (Integer) map.get("c_re")+1);
+		alramService.regAlram(Integer.parseInt(map.get("m_no1").toString()),(String)map.get("c_name"), 1, Integer.parseInt(map.get("gg_no").toString()));
+		map.put("re_step", Integer.parseInt(map.get("re_step").toString())+1);
 		//cModel.setC_re(cModel.getC_re() + 1);
-		map.put("c_lv", (Integer) map.get("c_lv")+1);
+		map.put("re_level", Integer.parseInt(map.get("re_level").toString())+1);
 		//cModel.setC_lv(cModel.getC_lv() + 1);
 	}
 	
-	if(c_ref == 0)
+	if(Integer.parseInt(map.get("ref").toString()) == 0)
 		groupDAO.insertCmt(map);
 	else 
 		groupDAO.insertCmtRep(map);
+	
+		
 	}
 	
 	@Override
-	public void cmtReply(Map<String, Object> map) throws Exception {
-		reply = true;
-		
-		map.put("c_content", "→"+map.get("c_content"));
-	
+	public void deleteComments(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		groupDAO.cmtDelete(map);
 	}
 
 	@Override

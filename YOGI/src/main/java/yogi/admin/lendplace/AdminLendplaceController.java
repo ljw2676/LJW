@@ -1,5 +1,6 @@
 package yogi.admin.lendplace;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,13 +38,32 @@ public class AdminLendplaceController {
 	}
 
 	//장소등록
-	 @RequestMapping(value="/admin/lendplace/Insert")
-	    public ModelAndView lendplaceInsert(CommandMap commandMap) throws Exception{
-		   System.out.println("컨트롤러");
-		   lendplaceService.insertPlace(commandMap.getMap());
-		   lendplaceService.updatePoint(commandMap.getMap());
-		   return new ModelAndView("redirect:/lendplace/list"); //리다이렉트:관리자 장소 리스트 페이지
-	    }
+    @RequestMapping(value="/admin/lendplace/Insert", method=RequestMethod.POST)
+       public ModelAndView lendplaceInsert(CommandMap commandMap, HttpServletRequest request) throws Exception{
+   
+       
+       MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+       MultipartFile L_REP_IMG = multipartRequest.getFile("L_REP_IMG");
+         
+         String filePath = "C:\\git\\YOGI\\YOGI\\src\\main\\webapp\\resources\\upload\\";
+         String fileName = L_REP_IMG.getOriginalFilename();
+         String IMAGEExtension = fileName.substring(fileName.lastIndexOf("."));
+         String fileName2="L_REP_IMG"+System.currentTimeMillis()+IMAGEExtension;
+         
+         commandMap.put("L_REP_IMG", fileName2);
+         lendplaceService.insertPlace(commandMap.getMap(), request);
+         
+         File file = new File(filePath + fileName2);
+
+      /*   if (file.exists() == false) {
+            file.mkdirs();
+         }*/
+
+         L_REP_IMG.transferTo(file);
+
+         return new ModelAndView("redirect:/lendplace/list"); //리다이렉트:관리자 장소 리스트 페이지
+       }
+         
 	//테스트용 success화면
 	@RequestMapping(value= "/admin/lendplaceSuccess")
 	public String lendplaceSuccess(){
@@ -52,8 +73,18 @@ public class AdminLendplaceController {
 	//장소 삭제
 	@RequestMapping(value="/admin/lendplace/Delete")
 	public ModelAndView lendplaceDelete(CommandMap commandMap) throws Exception {
+		
+		String filePath = "C:\\git\\YOGI\\YOGI\\src\\main\\webapp\\resources\\upload\\";
+		
+		Map<String, Object> lmap = new HashMap<String, Object>();
+		lmap = lendplaceService.selectOneLend(commandMap.getMap());
+		if(lmap.get("L_REP_IMG") != null) {
+			File imagefile = new File(filePath + lmap.get("L_REP_IMG"));
+			imagefile.delete();
+			
+		}
 		lendplaceService.deletePlace(commandMap.getMap());
-		return new ModelAndView("redirect:/admin/lendplaceSuccess"); //리다이렉트 : 관리자 장소 리스트 페이지
+		return new ModelAndView("redirect:/admin/lendplace/list"); //리다이렉트 : 관리자 장소 리스트 페이지
 	}
 	
 	//장소 리스트

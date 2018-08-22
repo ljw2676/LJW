@@ -1,5 +1,6 @@
 package yogi.lendplace;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,10 @@ import org.apache.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,6 +65,22 @@ public class LendplaceController {
 		return mv;
 	}
 	
+	//장소 수정폼
+		@RequestMapping(value="/lendplace/updateForm")
+		public ModelAndView updateLendplaceForm(CommandMap commandMap) throws Exception{
+			ModelAndView mv = new ModelAndView("/admin/lendplaceUpdateForm");
+			Map<String,Object> map = lendplaceService.selectLendplaceDetail(commandMap.getMap());
+			mv.addObject("map", map);
+			return mv;  
+		}
+	
+	//장소 수정
+	@RequestMapping(value="/lendplace/update")
+	public ModelAndView updateLendplace(CommandMap commandMap) throws Exception{
+	         lendplaceService.updateLendplace(commandMap.getMap());
+	         return new ModelAndView("redirect:/admin/lendplace/list"); 
+	}
+	
 	//장소 신청
 	@RequestMapping(value="/lendplace/apply")
     public ModelAndView placebookInsert(CommandMap commandMap) throws Exception{
@@ -87,11 +107,23 @@ public class LendplaceController {
     //후기 삭제
     @RequestMapping(value="/lendplace/deleteReview")
     public ModelAndView deleteReview(CommandMap commandMap) throws Exception{
-    	lendplaceService.deleteReview(commandMap.getMap());
-    	return new ModelAndView("redirect:/lendplace/detail?L_NO=" + commandMap.getMap().get("L_NO"));
+    	ModelAndView mv = new ModelAndView("redirect:/lendplace/detail?L_NO=" + commandMap.getMap().get("L_NO"));
+    	Map<String,Object> map = lendplaceService.selectReviewChild(commandMap.getMap());
+    	Integer cnt = Integer.parseInt(map.get("CNT").toString());
+    	if ( cnt == 0) {
+    		Map<String,Object> del = lendplaceService.selectDeletedParent(commandMap.getMap());
+    		Map<String,Object> par = lendplaceService.selectParent(commandMap.getMap());
+    		Integer DEL = Integer.parseInt(del.get("DEL").toString());
+    		Integer PAR = Integer.parseInt(par.get("PAR").toString());
+    		
+    		lendplaceService.deleteReview(commandMap.getMap());
+    		if ( DEL == (PAR-1)) {
+				lendplaceService.deleteGroupReview(commandMap.getMap());
+			}
+        	return mv;	
+        }else {
+        	lendplaceService.updateDeleteFlag(commandMap.getMap());
+    		return mv;
+        }
     }
-
-   
-
-
 }

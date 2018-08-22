@@ -3,6 +3,7 @@ package yogi.members;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import yogi.common.common.YogiConstants;
 import yogi.common.util.YogiUtils;
 import yogi.config.CommandMap;
+import yogi.alram.AlramServiceImpl;
 import yogi.members.CookieBox;
 
 @Controller
@@ -33,6 +35,9 @@ public class MembersController {
 
 	@Resource(name="membersService")
 	private MembersService membersService;
+	
+	@Resource(name = "alramService")
+	private AlramServiceImpl alramService;
 	
 	@RequestMapping(value= {"/", "/first"}, method=RequestMethod.GET)
 	 public String first(HttpServletRequest request, Model model) throws IOException{
@@ -49,6 +54,7 @@ public class MembersController {
 	
 	@RequestMapping(value= {"/", "/first"}, method=RequestMethod.POST)
 	 public String login(@ModelAttribute("member") MembersModel member, HttpServletRequest request, HttpServletResponse response) throws IOException{
+	 public String login(@ModelAttribute("member") MembersModel member, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		MembersModel mm;
 		System.out.println(member.getM_id());
 		mm = membersService.loginCheck(member, request);
@@ -63,9 +69,16 @@ public class MembersController {
 			else {
 				response.addCookie(CookieBox.createCookie("m_id","none"));//ID 쿠키 생성
 			}
+			System.out.println("member_no"+mm.getM_no());
+			List<Map<String, Object>> mem_alram = null;
+			if(alramService.alramExist(mm.getM_no()) != 0){
+				mem_alram = alramService.alramLoad(mm.getM_no());
+			}
+			
 			/* 세션값 더 필요한 거 있으면 요기다 저장하세용~! */
 			session.setAttribute("session_m_id", mm.getM_id());
 			session.setAttribute("session_m_no", mm.getM_no());
+			session.setAttribute("session_mem_alram", mem_alram);
 			return "redirect:/main";
 		}
 		else

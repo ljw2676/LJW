@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>장소 등록 </title>
+<link  href="<c:url value='/resources/datepicker/datepicker.css' />" rel="stylesheet">
 <style>
 .map_title { position: relative; width: 730px;   height:350px; margin-left: 2px;}
 
@@ -25,11 +26,11 @@ div.map_title{
    </tr>
 </table>
 
-<form action="/yogi/admin/lendplace/Insert" id="lp_form" name="lp_form" method="post" >
+<form action="Insert" id="lp_form" name="lp_form" method="post" enctype="multipart/form-data" >
 <table>
 	<tr>
 		<td>장소명</td>
-		<td><input type="text" name="L_SUBJECT"/></td>
+		<td><input type="text" name="L_SUBJECT" id="L_SUBJECT" /></td>
 	</tr>
 	
 	<tr>
@@ -38,55 +39,138 @@ div.map_title{
   		<div class="map_title">
   		<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
    		</div>
-		<input class = "addrForm" id="detail_addr" type="text" name="l_addr" size="73%" placeholder="지도를 클릭하면 주소가 자동으로 입력됩니다." maxlength="30">
+		<input id="L_ADDR" type="text" name="L_ADDR" size="73%" placeholder="지도를 클릭하면 주소가 자동으로 입력됩니다." maxlength="30">
 		
 	</tr>
 	
 	<tr>
 		<td>내용</td>
-		<td><textarea name="L_CONTENT" ></textarea></td>
+		<td><textarea name="L_CONTENT" id="L_CONTENT" ></textarea></td>
 	</tr>
 	
 	<tr>
 		<td>수용인원</td>
-		<td><input type="number" name="L_ENABLE"/></td>
+		<td><input type="number" name="L_ENABLE" id="L_ENABLE" /></td>
 	</tr>
 	
 	<tr>
 		<td>비용</td>
-		<td><input type="number" name="L_PAYMENT"/></td>
+		<td><input type="number" name="L_PAYMENT" id="L_PAYMENT" /></td>
 	</tr>
 	<tr>
-		<td>대관시작날짜</td>
-		<td><input type="date" name="L_SDATE"/></td>
-	</tr>
+		<td>대관 시작날짜 <input type="hidden" data-toggle="datepicker1" name="L_SDATE" id="L_SDATE" ></input>
+			<div id="datepicker-container1"></div></td></tr>
 	<tr>
-		<td>대관끝날짜</td>
-		<td><input type="date" name="L_EDATE"/></td>
-	</tr>
+		<td>대관 종료날짜 <input type="hidden" data-toggle="datepicker2" name="L_EDATE" id="L_EDATE" ></input>
+		<div id="datepicker-container2"></div></td></tr>
 	<tr>
-		<!-- <td><input type="button" id="insert" name="insert" value="등록" onclick="#this" /></td> -->
-		<td><input type="submit" value="등록" ></td>
+	
+	<tr>
+	<td>대표 이미지</td>
+	<td><input type="file" id="L_REP_IMG" name="L_REP_IMG"></td>
+	</tr>
+
+<!-- 	<tr>
+		<td>
+		<a href="#this" class="btn" id="addFile">이미지 추가</a>
+		<div id="fileDiv">
+			<p>
+			<input type="file" id="IMAGE" name="IMAGE">
+			<a href="#this" class="btn" id="delete" name="delete">삭제</a>
+			</p>
+			</div>
+			</td>
+	</tr> -->
+				
+	<tr>
+		<td><input type="button" id="insert" name="insert" value="등록" onclick="#this" /></td>
+		<!-- <td><input type="submit" value="등록" ></td> -->
 	</tr>
 </table>
 </form>
  <script src="//apis.daum.net/maps/maps3.js?apikey=a18085cad4f8315645fc4a233bdb2875&libraries=services"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="<c:url value='/resources/datepicker/datepicker.js'/> "></script>
+<script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
 <script type="text/javascript">
-      $(document).ready(function() {
-         $("#insert").on("click", function(e) { //등록
-            e.preventDefault();
-            fn_insertLendplace();
-         });
-      });
-      
-      
-      function fn_insertLendplace(){
-         var comSubmit = new ComSubmit("lp_form");
-         comSubmit.setUrl("<c:url value='/admin/lendplace/Insert' />");
-         comSubmit.submit();
-      }
+
+$(document).ready(function() {
+    $("#insert").on("click", function(e) { //등록
+       e.preventDefault();
+       if($('#L_SUBJECT').val()==""){
+			alert("장소명을 입력해주세요.");
+			return false;
+		 } else if($('#L_ADDR').val()==""){
+			 alert("주소를 입력해주세요.");
+				return false;
+		 } else if($('#L_CONTENT').val()==""){
+			 alert("내용을 입력해주세요.");
+				return false;
+		 } else if($('#L_ENABLE').val()==""){
+			 alert("수용인원을 입력해주세요.");
+				return false;
+		 } else if($('#L_PAYMENT').val()==""){
+			 alert("비용을 입력해주세요.");
+				return false;
+		 } else if($('#L_SDATE').val()==""){
+			 alert("대관 시작 날짜를 입력해주세요.");
+				return false;
+		 } else if($('#L_EDATE').val()==""){
+			 alert("대관 종료 날짜를 입력해주세요.");
+				return false;
+		 } else if($('#L_REP_IMG').val()==""){
+			alert("대표이미지를 선택해주세요.");
+			    return false;
+		 }  else {
+			 alert("장소 등록이 완료되었습니다 :3");
+       fn_insertLendplace();
+		 }
+    });
+    
+    var l_sdate = $('[data-toggle="datepicker1"]').datepicker({
+		  language: 'ko-KR',
+		  inline: true,
+		  container: '#datepicker-container1',
+		  format: 'yyyy-mm-dd'
+	      	}).on('pick.datepicker', function (e) {
+	    		l_edate.datepicker('setStartDate', e.date);
+			}),
+		l_edate = $('[data-toggle="datepicker2"]').datepicker({
+	 		  language: 'ko-KR',
+	 		  inline: true,
+	 		  container: '#datepicker-container2',
+	 		  format: 'yyyy-mm-dd'
+	 	 });
+});
+
+ 
+ 
+ function fn_insertLendplace(){
+    var comSubmit = new ComSubmit("lp_form");
+    comSubmit.setUrl("<c:url value='/admin/lendplace/Insert' />");
+    comSubmit.submit();
+ } 
+ 
+/*  $("#addFile").on("click", function(e){ //파일 추가 버튼
+		e.preventDefault();
+		fn_addFile();
+	});
+ 
+ function fn_addFile(){
+		var str = "<p><input type='file' name='IMAGE'> <a href='#this' class='btn' name='delete'>삭제</a></p>";
+		$("#fileDiv").append(str);
+		$("a[name='delete']").on("click", function(e){ //삭제 버튼
+			e.preventDefault();
+			fn_deleteFile($(this));
+		});
+	}
+ 
+ function fn_deleteFile(obj){
+		obj.parent().remove();
+	} */
+	
+
      
       //지도
      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -137,7 +221,7 @@ div.map_title{
                 searchDetailAddrFromCoords(new daum.maps.LatLng(place.latitude, place.longitude), function(status, result) {
                   if (status === daum.maps.services.Status.OK) {
                      var detailAddr = !!result[0].roadAddress.name ? result[0].roadAddress.name : result[0].jibunAddress.name;
-                     document.getElementById('detail_addr').value=detailAddr;
+                     document.getElementById('L_ADDR').value=detailAddr;
                      document.getElementById('o_title').value=place.title;
                      // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
                        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.title + '</div>');

@@ -113,5 +113,20 @@ public class GroupDAO extends AbstractDAO{
 		
 	}
 	
+	public void insertGroupExceptFile(GroupModel group) {
+		insert("group.insertGroupExceptFile", group);
+	}
+	
+	public String selectGroupAddr(String str) {
+		return (String) selectOne("selectGroupAddr", str);
+	}
+	
+	public String selectGroupPlace(String str) {
+		return (String) selectOne("selectGroupPlace", str);
+	}
+
+	public void cmtDelete(Map<String, Object> map) {
+		delete("group.cmtDelete", map);
+	}
 
 }

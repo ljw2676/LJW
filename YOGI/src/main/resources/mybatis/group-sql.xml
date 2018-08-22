@@ -6,8 +6,9 @@
 	<select id="group_select_all" resultType="hashmap" parameterType="hashmap">														  	
 		select * from group_gathering	
 		<where>		
+			gg_active=0
 			<if test="searchWord != null">
-				(gg_name like '%' || #{searchWord} || '%'  or gg_detail like '%' || #{searchWord} || '%')
+				AND (gg_name like '%' || #{searchWord} || '%'  or gg_detail like '%' || #{searchWord} || '%')
 			</if>
 			<if test="searchCategory != null">
 				AND REGEXP_LIKE(gg_category,#{searchCategory})
@@ -137,9 +138,9 @@
          c_date,
          gg_no,
          m_no,
-         c_ref,
-         c_re,
-         c_lv,
+         ref,
+         re_step,
+         re_level,
          c_del
       )
       VALUES
@@ -150,13 +151,13 @@
          #{gg_no},
          #{m_no},
          comments_seq.currval,
-         #{c_re},
-         #{c_lv},
+         #{re_step},
+         #{re_level},
          'N'
       )
     </insert>
    
-    <insert id="insertCmtRep" parameterType="hashmap">
+   <insert id="insertCmtRep" parameterType="hashmap">
       INSERT INTO comments
       (
          c_no,
@@ -164,9 +165,9 @@
          c_date,
          gg_no,
          m_no,
-         c_ref,
-         c_re,
-         c_lv,
+         ref,
+         re_step,
+         re_level,
          c_del
       )
       VALUES
@@ -176,9 +177,9 @@
          sysdate,
          #{gg_no},
          #{m_no},
-         #{c_ref},
-         #{c_re},
-         #{c_lv},
+         #{ref},
+         #{re_step},
+         #{re_level},
          'N'
       )
     </insert>
@@ -190,18 +191,22 @@
          c_content,
          c_date,
          m_no,
+         ref,
+         re_step,
+         re_level,
+         c_del,
          m_name as c_name
       FROM
          comments natural join members
       WHERE
          gg_no=#{gg_no}
       ORDER BY
-         c_no DESC
+      	 ref DESC, re_step ASC
     </select>
 
 
 	<update id="updateReplyStep" parameterType="hashmap">
-      UPDATE comments set c_re=c_re+1 where c_ref=#{c_ref} AND c_re>#{c_re}
+      UPDATE comments set re_step=re_step+1 where ref=#{ref} AND re_step>#{re_step}
     </update>
    
     <select id="groupEnrollList" parameterType="hashmap" resultType="hashmap">
@@ -259,6 +264,7 @@
 			gg_addr=#{gg_addr},
 			gg_place=#{gg_place},
 			gg_detail=#{gg_detail},
+			gg_cost=#{gg_cost},
 			gg_ofn=#{gg_ofn},
 			gg_rfn=#{gg_rfn}
 		WHERE 
@@ -271,6 +277,7 @@
 		SET 
 			gg_addr=#{gg_addr},
 			gg_place=#{gg_place},
+			gg_cost=#{gg_cost},
 			gg_detail=#{gg_detail}
 		WHERE 
 			gg_no=#{gg_no}
@@ -294,4 +301,61 @@
 		WHERE
 			gg_no=#{GG_NO}
 	</update>
+	
+	<insert parameterType="GroupModel" id="insertGroupExceptFile"> 
+		INSERT INTO Group_Gathering ( 
+			gg_no, 
+			gg_name, 
+			m_no, 
+			gg_category, 
+			gg_addr, 
+			gg_date, 
+			gg_place, 
+			gg_detail, 
+			gg_cost, 
+			gg_total, 
+			gg_enable, 
+			gg_penalty, 
+			gg_active
+			) 
+		VALUES ( 
+			groupgathering_seq.nextval, 
+			#{gg_name}, 
+			#{m_no}, 
+			#{gg_category}, 
+			#{gg_addr}, 
+			#{gg_date}, 
+			#{gg_place}, 
+			#{gg_detail}, 
+			#{gg_cost}, 
+			#{gg_total}, 
+			#{gg_enable}, 
+			0, 
+			0
+			) 
+	</insert>
+	
+	<select id="selectGroupAddr" resultType="String">
+		SELECT
+			gg_addr
+		FROM
+			group_gathering
+		WHERE
+			gg_no=#{gg_no}
+		
+	</select>
+	
+	<select id="selectGroupPlace" resultType="String">
+		SELECT
+			gg_place
+		FROM
+			group_gathering
+		WHERE
+			gg_no=#{gg_no}
+		
+	</select>
+	
+	<delete parameterType="hashmap" id="cmtDelete">
+		delete from comments where c_no = #{c_no} 
+	</delete>
 </mapper>

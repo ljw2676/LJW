@@ -8,6 +8,7 @@
 		SELECT 
 			m_no,
 			m_id,
+			m_name,
 			m_phone,
 			m_grade,
 			m_lv,
@@ -16,6 +17,24 @@
 			m_active
 		FROM 
 			Members 
+		<where>
+			<if test="searchWord != null">
+				<if test="searchCategory.equals('id')">
+					REGEXP_LIKE(m_id,#{searchWord}) 
+				</if>
+				<if test="searchCategory.equals('grade')">
+					AND REGEXP_LIKE(m_lv,#{searchWord}) 
+				</if>
+			</if>
+			<if test="searchMemberActive != null">
+				<if test='searchMemberActive.equals("O")'>
+					<![CDATA[ AND m_active = 0  ]]>
+				</if>
+				<if test='searchMemberActive.equals("X")'>
+					<![CDATA[ AND m_active = 1   ]]>
+				</if>
+			</if>
+		</where>
 		ORDER BY 
 			m_no DESC 
 	</select>
@@ -166,9 +185,10 @@
 			l_addr,
 			l_enable,
 			l_payment,
-			l_sdate, 
-			l_edate,
-			l_rate
+			TO_CHAR(L_SDATE,'YYYY-MM-DD') AS l_sdate, 
+			TO_CHAR(L_EDATE,'YYYY-MM-DD') AS l_edate, 
+			l_rate,
+			l_udate
 		FROM 
 			lendplace 
 		ORDER BY 

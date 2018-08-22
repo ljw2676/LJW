@@ -26,7 +26,7 @@
 		</tr>
 		<c:forEach items="${list}" var="row" begin="1" end="4" step="1">
 		<tr>
-			<td><a href="http://localhost:8080/yogi/group/groupDetail?gg_no=${row.GG_NO}">
+			<td><a href="http://localhost:8080/yogi/groupDetail?gg_no=${row.GG_NO}">
 			<img src="C:/java/git/YOGI/YOGI/src/main/webapp/resources/upload/${row.GG_RFN }" style="width: 340px; height: 300px;"/></a></td>
 			<td>${row.GG_NO}</td>
 			<td>${row.GG_NAME}</td>
@@ -44,9 +44,10 @@
 		생성된 그룹이 없습니다.
 </c:otherwise>
 </c:choose>
-<a href="http://localhost:8080/yogi/group/groupList">더보기</a>
+<a href="http://localhost:8080/yogi/groupList">더보기</a>
 <a href="http://localhost:8080/yogi/lendplace/list">장소</a>
 <a href="http://localhost:8080/yogi/lendplace/chat"> 채팅 테스트 </a>
 <a href="http://localhost:8080/yogi/members/modifyForm">회원 정보 수정</a>
+<a href="http://localhost:8080/yogi/admin/adminpageView">관리자 페이지</a>
 </body>
 </html>

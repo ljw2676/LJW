@@ -23,7 +23,7 @@ public class MembersServiceImpl implements MembersService{
 	@Resource(name="membersDAO")
 	private MembersDAO membersDAO;
 	
-	private static final String filePath = "/Users/jungeunee/git/YOGI/YOGI/src/main/webapp/resources/upload/";
+	private static final String filePath = "C:\\java\\git\\YOGI\\YOGI\\src\\main\\webapp\\resources\\upload\\";
 	
 	@Override
 	public void insertMember(MembersModel model, HttpServletRequest request) throws Exception{
