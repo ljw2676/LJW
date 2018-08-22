@@ -27,14 +27,14 @@
 			g.gg_date.focus();
 			return false;
 		}
-		if(g.gg_place.value == ""){
+		if(g.gg_addr.value == ""){
 			alert("주소를 입력해주세요");
-			g.gg_place.focus();
+			g.gg_addr.focus();
 			return false;
 		}
-		if(g.gg_simple.value == ""){
+		if(g.gg_place.value == ""){
 			alert("장소 명을 입력해주세요");
-			g.gg_simple.focus();
+			g.gg_place.focus();
 			return false;
 		}
 		if(g.gg_total.value == ""){
@@ -53,17 +53,6 @@
 		
 	}
 	
-	/* $(document).ready(function() {
-		var l_sdate = $('[data-toggle="datepicker"]').datepicker({
-	 		  language: 'ko-KR',
-	 		  inline: true,
-	 		  container: '#datepicker-container',
-	 		  format: 'yyyy-mm-dd'
-	 	      	}).on('pick.datepicker', function (e) {
-	 	    		l_edate.datepicker('setStartDate', e.date);
-	 			});
-		 });
-	} */
 </script>
 <style>
 .map_title { position: relative; width: 730px;   height:350px; margin-left: 2px;}
@@ -100,8 +89,6 @@ div.map_title{
 			   <br>
 	모임 명 : <input type="text" name="gg_name"><br>
 	날짜 : 	<input type="text" name="gg_date"><br>
-			<!-- <input type="hidden" data-toggle="datepicker" name="gg_date"></input>
-			<div id="datepicker-container"></div><br> -->
 	주소 : <input class = "addrSearch" id="search_keyword_addr" type="text" name="" size="53%" onkeypress="searchAddrEnterKey();" maxlength="25">
 			<input type="button" value="검색" onclick="searchAddrEnterKey('13');">
   			<div class="map_title">

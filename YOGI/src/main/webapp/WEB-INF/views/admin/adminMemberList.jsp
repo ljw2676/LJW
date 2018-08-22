@@ -10,6 +10,68 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%@ include file="/WEB-INF/include/common-header.jspf" %>
+<%@ include file="/WEB-INF/include/common-body.jspf" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
+<script src="<c:url value='/resources/dtpicker/jquery-1.7.1.js'/>" charset="utf-8"></script>
+<script src="<c:url value='/resources/dtpicker/jquery.simple-dtpicker.css'/>" charset="utf-8"></script>
+<script src="<c:url value='/resources/dtpicker/jquery.simple-dtpicker.js'/>" charset="utf-8"></script>
+<script type="text/javascript">
+$(function() {
+	$('#searchbox').keypress(function(event) {
+		if (event.keyCode == 13) { //여기서 keyCode 13은 엔터키를 의미한다.
+			searchSubmit();
+		}
+	});
+	$('.btnEventSearch').click(function(event) {
+		searchSubmit();
+		});
+	
+	$('.date').appendDtpicker({
+	"futureOnly" : true,
+	"autodateOnStart" : false,
+	"locale" : "ko",
+	"dateFormat": "YY/MM/DD",
+	"dateOnly": true,
+	"closeOnSelected": true,
+	"calendarMouseScroll": false
+	});
+});		
+		    
+function searchSubmit(){
+		
+		var memberActiveSize = "";
+		$("input[name=MemberActive]:checked").each(function() {
+			if(memberActiveSize == ""){
+				memberActiveSize = $(this).val();
+			} else {
+				memberActiveSize = memberActiveSize + "|" + $(this).val();
+			}
+		});
+		/* var searchCategorySize = "";
+		$("input[name=searchCategory]:checked").each(function() {
+			if(searchCategorySize == ""){
+				searchCategorySize = $(this).val();
+			}
+		}); */
+		if(memberActiveSize.length > 0){
+			$('#searchMemberActive').val(memberActiveSize);
+		}/* 
+		if(searchCategorySize.length > 0){
+			$('#searchCategory').val(searchCategorySize);
+		} */
+}
+
+function fn_groupDetailLink(gg_no){
+	var cs = new ComSubmit();
+	cs.setUrl("<c:url value='/group/groupDetail' />");
+	cs.addParam("gg_no", gg_no);
+	cs.addParam("currentPageNo", "${currentPageNo}");
+	cs.submit();
+}
+		    
+</script>
 </head>
 <body>
 
@@ -18,6 +80,33 @@
 </div>
 
 <br>
+
+<%-- <div>
+<c:if test="${searchMemberActive != null || searchWord != null}">
+	[
+		<c:if test="${searchMemberActive != null }">
+			<c:if test="${searchMemberActive == 'O' }">
+				활성화된 멤버
+			</c:if>
+			<c:if test="${searchMemberActive == 'X' }">
+				비활성화된 멤버
+			</c:if>
+		</c:if>
+		<c:if test="${searchWord != null && searchMemberActive != null}">
+			&nbsp;중&nbsp;
+		</c:if>
+		<c:if test="${searchWord != null }">
+			<c:if test="${searchCategory == 'id' }">
+				${searchCategory } :
+			</c:if>
+			<c:if test="${searchCategory == 'grade' }">
+				${searchCategory } :
+			</c:if>
+			${searchWord }
+		</c:if>
+	]을(를) 검색한 결과입니다.
+</c:if>
+</div> --%>
 
 <div align="center">
 <c:choose>
@@ -63,6 +152,28 @@
 
 <div align="center">
 	${pagingHtml}
+</div>
+
+<div class="search">
+	<form name="search_form" action="<c:url value="/admin/member/list"/>" role="search" method="post" onsubmit="searchSubmit()">
+		<div class="MemberActive">
+			<input type="checkbox" name="MemberActive" value="O">활성 멤버<br>
+			<input type="checkbox" name="MemberActive" value="X">비활성 멤버<br>
+		</div>
+		<div class="searchCategory">
+			<select name="searchCategory" id="searchCategory">
+				<option value="id" selected="selected">ID</option>
+				<option value="grade">등급</option>
+			</select>
+		</div>
+		<div>
+			<input id="currentPageNo" type="hidden" name="currentPageNo" value="${currentPageNo }">
+			<input id="searchMemberActive" type="hidden" name="searchMemberActive" value="${searchMemberActive }">
+			<input class="Searchbox" autocomplete="off" id="searchbox" type="text" name="searchWord" value=${searchWord }>
+		
+			<input type="submit" value="검색">
+		</div>
+	</form>
 </div>
 
 <form id="commonForm" name="commonForm"></form>
