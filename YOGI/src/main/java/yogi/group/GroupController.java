@@ -40,7 +40,13 @@ public class GroupController {
 	@Resource(name="groupService")
 	private GroupService groupService;
 	
-	@RequestMapping(value="/group/groupList", method={RequestMethod.GET, RequestMethod.POST})
+	@Resource(name="alramService")
+	private AlramService alramService;
+	
+	@Resource(name="groupDAO")
+	private GroupDAO groupDAO;
+	
+	@RequestMapping(value="/groupList", method={RequestMethod.GET, RequestMethod.POST})
     public ModelAndView groupList(CommandMap map, HttpServletRequest request) throws Exception{
 		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("/group/groupList");
@@ -53,7 +59,7 @@ public class GroupController {
         return mv;
     }	
 	
-	@RequestMapping(value="/group/groupDetail", method={RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="/groupDetail", method={RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView groupDetail(CommandMap map, HttpServletRequest request) throws Exception{
 		YogiUtils.savePageURI(request);
 		ModelAndView mv = new ModelAndView("/group/groupDetail");
@@ -66,46 +72,53 @@ public class GroupController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/group/likeit", method=RequestMethod.POST)
+	@RequestMapping(value="/likeit", method=RequestMethod.POST)
     public ModelAndView likeit(CommandMap map, HttpServletRequest request) throws Exception{
     	groupService.insertLikeit(map.getMap(),request);
-    	return new ModelAndView("redirect:/group/groupDetail?gg_no="+map.get("gg_no"));
+    	return new ModelAndView("redirect:/groupDetail?gg_no="+map.get("gg_no"));
     }
 	
-	@RequestMapping(value="/group/enroll", method=RequestMethod.POST)
+	@RequestMapping(value="/enroll", method=RequestMethod.POST)
     public ModelAndView enroll(CommandMap map, HttpServletRequest request) throws Exception{
     	groupService.insertGroupEnroll(map.getMap(),request);
-    	return new ModelAndView("redirect:/group/groupDetail?gg_no="+map.get("gg_no"));
+    	return new ModelAndView("redirect:/groupDetail?gg_no="+map.get("gg_no"));
     }
 	
-	@RequestMapping(value="/group/comments", method=RequestMethod.POST)
-	public ModelAndView insetCmt(CommandMap map, HttpServletRequest request) throws Exception{
+	@RequestMapping(value="/comments", method=RequestMethod.POST)
+	public ModelAndView insertCmt(CommandMap map, HttpServletRequest request) throws Exception{
 		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
 		groupService.insertComments(map.getMap(),request);
-		return new ModelAndView("redirect:/group/groupDetail?gg_no="+map.get("gg_no"));
+		return new ModelAndView("redirect:/groupDetail?gg_no="+map.get("gg_no"));
 	}
 	
-	@RequestMapping(value="/group/commentsRep", method=RequestMethod.POST)
+	@RequestMapping(value="/commentsDelete", method=RequestMethod.POST)
+	public ModelAndView deleteCmt(CommandMap map, HttpServletRequest request) throws Exception{
+		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
+		groupService.deleteComments(map.getMap(), request);
+		return new ModelAndView("redirect:/groupDetail?gg_no="+map.get("gg_no"));
+	}
+	
+	@RequestMapping(value="/commentsRep", method=RequestMethod.POST)
 	public ModelAndView insertCmtRep(CommandMap map, HttpServletRequest request) throws Exception{
 		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
 		groupService.insertComments(map.getMap(),request);
 
-		return new ModelAndView("redirect:/group/groupDetail?gg_no="+map.get("gg_no"));
+		return new ModelAndView("redirect:/groupDetail?gg_no="+map.get("gg_no"));
 	}
 	
 	//모임 폼 열기
-	@RequestMapping(value="/group/groupForm", method=RequestMethod.GET)
+	@RequestMapping(value="/groupForm", method=RequestMethod.GET)
 	public String groupForm(Model model) {
 		return "groupForm";
 	}
 		
 	//모임 폼 넣기
-	@RequestMapping(value="/group/groupForm", method=RequestMethod.POST)
+	@RequestMapping(value="/groupForm", method=RequestMethod.POST)
 	public String insert(@ModelAttribute("group") GroupModel group, HttpServletRequest request, BindingResult result) throws Exception{
 		System.out.println("GroupController : insertGroup 실행");
 		group.setM_no((Integer) request.getSession().getAttribute("session_m_no"));
 		groupService.insertGroup(group, request);
-		return "redirect:/group/groupList";
+		return "redirect:/groupList";
 	}
 		
 	@InitBinder
@@ -115,10 +128,10 @@ public class GroupController {
 	}
 	
 	//모임 수정 폼 열기
-	@RequestMapping(value="/group/modifyForm")
+	@RequestMapping(value="/modifyForm")
 	public ModelAndView groupModifyForm(CommandMap map, HttpServletRequest request) throws Exception{
 		
-		ModelAndView mv = new ModelAndView("groupModifyForm");
+		ModelAndView mv = new ModelAndView("group/groupModifyForm");
 		
 		Map<String, Object> group = groupService.selectGroupDetail(map.getMap());
 		mv.addObject("gModel", group.get("detail"));
@@ -127,21 +140,29 @@ public class GroupController {
 		return mv;
 	}
 	
-	@RequestMapping(value="group/groupModify")
+	@RequestMapping(value="/groupModify")
 	public ModelAndView modify(CommandMap map, HttpServletRequest request) throws Exception{
 		System.out.println("groupModify:controller 실행");
-		ModelAndView mv = new ModelAndView("redirect:/group/groupDetail?gg_no="+map.get("gg_no"));
+		ModelAndView mv = new ModelAndView("redirect:/groupDetail?gg_no="+map.get("gg_no"));
 		
 		Map<String, Object> group = groupService.modifyGroup(map.getMap(), request);
+
+		List<Map<String,Object>> geList = groupDAO.groupEnrollList(map.getMap());
 		
+		if(geList.size()!=0) { 
+			for(int i=0; i<geList.size(); i++) {
+				alramService.regAlram(Integer.parseInt(geList.get(i).get("m_no1").toString()),null, 2, Integer.parseInt(map.get("gg_no").toString()));
+			}
+		}
 		mv.addObject("group", group);
+		mv.addObject("geList", geList);
 		
 		return mv;
 	}
 	
-	@RequestMapping(value="group/inactivateGroup")
+	@RequestMapping(value="/inactivateGroup")
 	public ModelAndView inactivateGroup(CommandMap commandMap, HttpServletRequest request) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/group/groupList");
+		ModelAndView mv = new ModelAndView("redirect:/groupList");
 		groupService.inactivateGroup(commandMap.getMap());
 		
 		return mv;

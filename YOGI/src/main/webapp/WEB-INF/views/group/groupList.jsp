@@ -82,7 +82,7 @@ $(function() {
 
 function fn_groupDetailLink(gg_no){
 	var cs = new ComSubmit();
-	cs.setUrl("<c:url value='/group/groupDetail' />");
+	cs.setUrl("<c:url value='/groupDetail' />");
 	cs.addParam("gg_no", gg_no);
 	cs.addParam("currentPageNo", "${currentPageNo}");
 	cs.submit();
@@ -92,7 +92,21 @@ function fn_groupDetailLink(gg_no){
 
 </head>
 <body>
-	
+	<ul>
+		<c:forEach items="${sessionScope.session_mem_alram}" var="alram">
+			<li>
+				<table style="width: 100%">
+					<tr>
+						<td><c:if test="${alram.ALRAM_INDEX_NO == 1 }">
+								<a href="alramRead?alram_seq=${alram.ALRAM_SEQ }">작성한 게시글에
+									<strong>${alram.REG_ID }</strong> 님이 댓글을 남겼습니다.
+								</a>
+							</c:if></td>
+					</tr>
+				</table>
+			</li>
+		</c:forEach>
+	</ul>
 	<c:choose>
 		<c:when test="${fn:length(list) > 0 }">
 		<table>
@@ -145,7 +159,7 @@ function fn_groupDetailLink(gg_no){
 			
 			
 			
-			<form name="search_form" action="<c:url value="/group/groupList"/>" role="search" method="post" onsubmit="searchSubmit()">
+			<form name="search_form" action="<c:url value="/groupList"/>" role="search" method="post" onsubmit="searchSubmit()">
 			<input id="currentPageNo" type="hidden" name="currentPageNo" value="${currentPageNo }">
 			<input id="searchCategory" type="hidden" name="searchCategory" value="${searchCategory} ">
 			<input id="searchAddr" type="hidden" name="searchAddr" value="${searchAddr }">
@@ -158,7 +172,7 @@ function fn_groupDetailLink(gg_no){
 		</div>
 		${pagingHtml}
 		
-		<br><a href="http://localhost:8080/yogi/group/groupForm">모임 개설</a>
+		<br><a href="http://localhost:8080/yogi/groupForm">모임 개설</a>
 
 </body>
 </html>

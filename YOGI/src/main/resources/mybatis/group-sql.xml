@@ -354,4 +354,8 @@
 			gg_no=#{gg_no}
 		
 	</select>
+	
+	<delete parameterType="hashmap" id="cmtDelete">
+		delete from comments where c_no = #{c_no} 
+	</delete>
 </mapper>

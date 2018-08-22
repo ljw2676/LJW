@@ -124,6 +124,9 @@ public class GroupDAO extends AbstractDAO{
 	public String selectGroupPlace(String str) {
 		return (String) selectOne("selectGroupPlace", str);
 	}
-	
+
+	public void cmtDelete(Map<String, Object> map) {
+		delete("group.cmtDelete", map);
+	}
 
 }

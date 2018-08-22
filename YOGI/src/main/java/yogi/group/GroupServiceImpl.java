@@ -33,6 +33,9 @@ public class GroupServiceImpl implements GroupService {
 	@Resource(name="groupDAO")
 	private GroupDAO groupDAO;
 	
+	@Resource(name="alramService")
+	private AlramService alramService;
+	
 	Calendar today = Calendar.getInstance();
 	
 	private int ref;
@@ -196,6 +199,11 @@ public class GroupServiceImpl implements GroupService {
 	{
 		map.put("re_step",0);
 		map.put("re_level",0);
+		System.out.println(map.get("m_no1"));
+		System.out.println(map.get("c_name"));
+		System.out.println(map.get("gg_no"));
+		
+		alramService.regAlram(Integer.parseInt(map.get("m_no1").toString()),(String)map.get("c_name"), 1, Integer.parseInt(map.get("gg_no").toString()));
 	}
 	else {
 		groupDAO.updateReplyStep(map);
@@ -209,6 +217,13 @@ public class GroupServiceImpl implements GroupService {
 		groupDAO.insertCmt(map);
 	else 
 		groupDAO.insertCmtRep(map);
+	alramService.regAlram(Integer.parseInt(map.get("m_no1").toString()),(String)map.get("c_name"), 1, Integer.parseInt(map.get("gg_no").toString()));
+		
+	}
+	
+	@Override
+	public void deleteComments(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		groupDAO.cmtDelete(map);
 	}
 
 	@Override

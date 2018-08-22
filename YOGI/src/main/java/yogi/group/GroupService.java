@@ -27,5 +27,5 @@ public interface GroupService {
 
 	void inactivateGroup(Map<String, Object> map);
 	
-	
+	void deleteComments(Map<String, Object> map, HttpServletRequest request) throws Exception;
 }
