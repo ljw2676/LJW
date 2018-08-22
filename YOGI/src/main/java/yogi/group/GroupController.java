@@ -88,11 +88,6 @@ public class GroupController {
     	result.put("likeIt", n);
     	return result;
 	}
-	@RequestMapping(value="/likeit", method=RequestMethod.POST)
-    public ModelAndView likeit(CommandMap map, HttpServletRequest request) throws Exception{
-    	groupService.insertLikeit(map.getMap(),request);
-    	return new ModelAndView("redirect:/groupDetail?gg_no="+map.get("gg_no"));
-    }
 	
 	@RequestMapping(value="/enroll", method=RequestMethod.POST)
     public ModelAndView enroll(CommandMap map, HttpServletRequest request) throws Exception{

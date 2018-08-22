@@ -53,7 +53,6 @@ public class MembersController {
 	}
 	
 	@RequestMapping(value= {"/", "/first"}, method=RequestMethod.POST)
-	 public String login(@ModelAttribute("member") MembersModel member, HttpServletRequest request, HttpServletResponse response) throws IOException{
 	 public String login(@ModelAttribute("member") MembersModel member, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		MembersModel mm;
 		System.out.println(member.getM_id());
