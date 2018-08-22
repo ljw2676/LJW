@@ -99,15 +99,18 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public void insertLikeit(Map<String, Object> map, HttpServletRequest request) throws Exception {
-		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
+	public int insertLikeit(Map<String, Object> map, HttpServletRequest request) throws Exception {
 		Map<String, Object> resultMap = groupDAO.selectLikeitExist(map);
 		if(resultMap == null){
 			groupDAO.insertLikeit(map);
+			return 1;
 		} else {
 			groupDAO.deleteLikeit(map);		
+			groupDAO.deleteLikeit(map);
+			return 0;
 		}
 	}
+	
 	@Override
 	public void insertGroupEnroll(Map<String, Object> map, HttpServletRequest request) throws Exception {
 		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));

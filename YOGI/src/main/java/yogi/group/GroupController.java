@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.DateFormat;
@@ -81,10 +82,19 @@ public class GroupController {
 		return mv;
 	}*/
 	
-	@RequestMapping(value="/group/likeit", method=RequestMethod.POST)
-    public ModelAndView likeit(CommandMap map, HttpServletRequest request) throws Exception{
-    	groupService.insertLikeit(map.getMap(),request);
-    	return new ModelAndView("redirect:/group/groupDetail?gg_no="+map.get("gg_no"));
+	@ResponseBody//자바 객체를 HTTP 요청의 body 내용으로 매핑하는 역할을 합니다.
+	@RequestMapping("/group/likeit")
+	public Map<Object, Object>  likeIt(HttpServletRequest request) throws Exception{
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<Object, Object> result = new HashMap<Object, Object>();
+		
+		map.put("gg_no", Integer.parseInt(request.getParameter("gg_no")));
+		map.put("m_no", (Integer)request.getSession().getAttribute(YogiConstants.M_NO));
+		
+    	int n = groupService.insertLikeit(map,request);
+    	result.put("likeIt", n);
+    	return result;
     }
 	
 	@RequestMapping(value="/group/enroll", method=RequestMethod.POST)

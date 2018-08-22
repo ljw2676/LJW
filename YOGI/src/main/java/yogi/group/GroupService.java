@@ -15,7 +15,7 @@ public interface GroupService {
 	
 	Map<String, Object> selectGroupDetail(Map<String, Object> map) throws Exception;
 	
-	void insertLikeit(Map<String, Object> map, HttpServletRequest request) throws Exception;
+	int insertLikeit(Map<String, Object> map, HttpServletRequest request) throws Exception;
 
 	void insertGroupEnroll(Map<String, Object> map, HttpServletRequest request) throws Exception;
 	

@@ -75,9 +75,8 @@
 			#{gg_no},
 			#{m_no}
 		)
-	</insert>
-	
-	<!-- 찜삭제 -->
+	</insert> 
+	 <!-- 찜삭제 --> 
 	<delete id="deleteLikeit" parameterType="hashmap">
 		DELETE FROM
 			likeit
@@ -90,6 +89,7 @@
 		WHERE
 			gg_no=#{gg_no} and m_no=#{m_no}
 	</select>
+	
 	
 	<!-- 모임 신청 -->
 	<insert id="insertGroupEnroll" parameterType="hashmap">

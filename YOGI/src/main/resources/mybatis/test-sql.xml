@@ -14,7 +14,7 @@
 	</select>
 	
 	<select id="loginCheck" resultType="MembersModel" parameterType="MembersModel">
-		SELECT * FROM MEMBERS WHERE m_id = #{m_id} and m_password=#{m_password}
+		SELECT * FROM MEMBERS WHERE m_id = #{m_id} and m_password=#{m_password} and m_active=0
 	</select>
 	
 	<select id="findId" resultType="MembersModel" parameterType="MembersModel">
@@ -49,6 +49,19 @@
 	<select id = "all" resultType="hashmap" >
 		select * from group_gathering order by gg_no desc
 	</select>
+	
+	<!-- 회원정보수정 -->
+	<select id = "membersInfo" resultType = "MembersModel" parameterType="String">
+		select * from members where m_no = #{no}
+	</select>
+	
+	<update id="updateMembers" parameterType="MembersModel">
+		update members set m_password=#{m_password}, m_phone=#{m_phone}, m_fav_area=#{m_fav_area}, m_fav_field=#{m_fav_field} where m_id=#{m_id}
+	</update>
+	
+	<update id="deleteMembers" parameterType="String">
+		update members set m_active=1 where m_id=#{m_id}
+	</update>
 	
 	
 </mapper>   
