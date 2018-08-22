@@ -148,15 +148,8 @@ public class GroupController {
 		
 		Map<String, Object> group = groupService.modifyGroup(map.getMap(), request);
 
-		List<Map<String,Object>> geList = groupDAO.groupEnrollList(map.getMap());
 		
-		if(geList.size()!=0) { 
-			for(int i=0; i<geList.size(); i++) {
-				alramService.regAlram(Integer.parseInt(geList.get(i).get("m_no1").toString()),null, 2, Integer.parseInt(map.get("gg_no").toString()));
-			}
-		}
 		mv.addObject("group", group);
-		mv.addObject("geList", geList);
 		
 		return mv;
 	}

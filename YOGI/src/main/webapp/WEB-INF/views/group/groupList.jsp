@@ -98,10 +98,15 @@ function fn_groupDetailLink(gg_no){
 				<table style="width: 100%">
 					<tr>
 						<td><c:if test="${alram.ALRAM_INDEX_NO == 1 }">
-								<a href="alramRead?alram_seq=${alram.ALRAM_SEQ }">작성한 게시글에
-									<strong>${alram.REG_ID }</strong> 님이 댓글을 남겼습니다.
+								<a href="alramRead?alram_seq=${alram.ALRAM_SEQ }">작성한 모임에
+									<strong>${alram.REG_ID }</strong> 님이 댓글을 남겼습니다!
 								</a>
-							</c:if></td>
+							</c:if>
+							<c:if test="${alram.ALRAM_INDEX_NO == 2 }">
+								<a href="alramRead?alram_seq=${alram.ALRAM_SEQ }">회원님이 신청한 모임이 수정되었습니다!
+								</a>
+							</c:if>
+						</td>
 					</tr>
 				</table>
 			</li>

@@ -172,16 +172,26 @@ public class GroupServiceImpl implements GroupService {
 				File deleteFile = new File(filePath+deleteFileName);
 				deleteFile.delete();
 			}
-			
-			
 			map.put("gg_ofn", fileMap.get("ORIGINAL_FILE_NAME"));
 			map.put("gg_rfn", fileMap.get("STORED_FILE_NAME"));
 			System.out.println("그룹 이미지 변경 : "+map.get("gg_ofn")+" & "+map.get("gg_rfn"));
+			List<Map<String,Object>> geList = groupDAO.groupEnrollList(map);
+			if(geList.size()!=0) { 
 			
-			groupDAO.modifyGroup(map);
+				for(int i=0; i<geList.size(); i++) {
+					alramService.regAlram(Integer.parseInt(geList.get(i).get("M_NO").toString()),(String)map.get("wt_name"), 2, Integer.parseInt(map.get("gg_no").toString()));
+				}
+			}
+				groupDAO.modifyGroup(map);
 		}
 		else {
+			List<Map<String,Object>> geList = groupDAO.groupEnrollList(map);
+			if(geList.size()!=0) { 
 			
+				for(int i=0; i<geList.size(); i++) {
+					alramService.regAlram(Integer.parseInt(geList.get(i).get("M_NO").toString()),(String)map.get("wt_name"), 2, Integer.parseInt(map.get("gg_no").toString()));
+				}
+			}
 			groupDAO.modifyGroupExceptFile(map);
 		}
 		
@@ -208,6 +218,7 @@ public class GroupServiceImpl implements GroupService {
 	}
 	else {
 		groupDAO.updateReplyStep(map);
+		alramService.regAlram(Integer.parseInt(map.get("m_no1").toString()),(String)map.get("c_name"), 1, Integer.parseInt(map.get("gg_no").toString()));
 		map.put("re_step", Integer.parseInt(map.get("re_step").toString())+1);
 		//cModel.setC_re(cModel.getC_re() + 1);
 		map.put("re_level", Integer.parseInt(map.get("re_level").toString())+1);
@@ -218,7 +229,7 @@ public class GroupServiceImpl implements GroupService {
 		groupDAO.insertCmt(map);
 	else 
 		groupDAO.insertCmtRep(map);
-	alramService.regAlram(Integer.parseInt(map.get("m_no1").toString()),(String)map.get("c_name"), 1, Integer.parseInt(map.get("gg_no").toString()));
+	
 		
 	}
 	

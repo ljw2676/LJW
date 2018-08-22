@@ -51,6 +51,7 @@ div.map_title{
 <form action="groupModify" name="groupinput" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="m_no" value="${gModel.M_NO }">
 	<input type="hidden" name="gg_no" value="${gModel.GG_NO }">
+	<input type="hidden" name="wt_name" value="${gModel.WT_NAME }">
 	카테고리 : <br>
 	모임 명 : ${gModel.GG_NAME}<br>
 	날짜 : ${gModel.GG_DATE}<br>
