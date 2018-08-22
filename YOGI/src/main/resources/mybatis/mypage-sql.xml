@@ -36,7 +36,7 @@
 
 	<!-- 마이페이지 신고목록-->
 	<select id="reportHistory" resultType="hashmap">
-		SELECT R.R_NO , R.R_COMMENT , G.GG_NAME FROM REPORT R, GROUP_GATHERING G WHERE R.GG_NO = G.GG_NO AND R.M_NO= #{M_NO}
+		SELECT R.R_NO , R.R_COMMENT , G.GG_NAME FROM REPORT R, GROUP_GATHERING G WHERE R.GG_NO = G.GG_NO AND R.M_NO=#{m_no}
 	</select>
 	
 	<!-- 모임 신고 -->
