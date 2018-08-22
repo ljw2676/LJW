@@ -87,6 +87,7 @@ public class GroupController {
     	int n = groupService.insertLikeit(map,request);
     	result.put("likeIt", n);
     	return result;
+	}
 	@RequestMapping(value="/likeit", method=RequestMethod.POST)
     public ModelAndView likeit(CommandMap map, HttpServletRequest request) throws Exception{
     	groupService.insertLikeit(map.getMap(),request);
