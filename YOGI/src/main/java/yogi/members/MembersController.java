@@ -77,7 +77,7 @@ public class MembersController {
 			/* 세션값 더 필요한 거 있으면 요기다 저장하세용~! */
 			session.setAttribute("session_m_id", mm.getM_id());
 			session.setAttribute("session_m_no", mm.getM_no());
-			session.setAttribute("session_m_no", mem_alram);
+			session.setAttribute("session_mem_alarm", mem_alram);
 			return "redirect:/main";
 		}
 		else
@@ -174,9 +174,9 @@ public class MembersController {
 	
 	@RequestMapping(value="/members/modifyForm", method=RequestMethod.GET)
 	public ModelAndView modifyForm(CommandMap map, HttpServletRequest request) throws Exception{
-		YogiUtils.savePageURI(request);
+		HttpSession session = request.getSession();
 		ModelAndView mv = new ModelAndView("/members/modifyForm");
-		MembersModel result = membersService.mInfo((Integer)request.getSession().getAttribute(YogiConstants.M_NO));
+		MembersModel result = membersService.mInfo((Integer)session.getAttribute("session_m_no"));
 		if(result.getM_fav_field() != null) {
 			String[] interest = result.getM_fav_field().split(",");
 			String[] gogo = new String[15];
@@ -284,10 +284,6 @@ public class MembersController {
 		return "redirect:/main";
 	}
 	
-//	@RequestMapping(value= {"/members/delMem"}, method=RequestMethod.GET)
-//	 public String deleteMember(){
-//		return "delMem";
-//	}
 	
 	@RequestMapping(value= "/members/delMem", method=RequestMethod.GET)
 	 public String deleteMember(String id){
