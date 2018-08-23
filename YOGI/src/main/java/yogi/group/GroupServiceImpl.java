@@ -74,7 +74,7 @@ public class GroupServiceImpl implements GroupService {
 		System.out.println(map);
 		System.out.println("뭐" + map.get("m_no"));
 		Map<String, Object> detail = groupDAO.selectGroupDetail(map);
-	/*	Map<String, Object> sWriter = groupDAO.sessionWriter(map);*/
+		Map<String, Object> sWriter = groupDAO.sessionWriter(map);
 		List<Map<String,Object>> geList = groupDAO.groupEnrollList(map);
 		List<Map<String,Object>> cmtList = groupDAO.selectCmtList(map);
 		detail.put("GG_DATE", YogiUtils.dateFormat((Date)detail.get("GG_DATE")));
@@ -101,7 +101,7 @@ public class GroupServiceImpl implements GroupService {
 		resultMap.put("detail", detail);
 		resultMap.put("cmtList", cmtList);
 		resultMap.put("geList", geList);
-	/*	resultMap.put("sWriter", sWriter);*/
+		resultMap.put("sWriter", sWriter);
 		return resultMap;
 	}
 
@@ -220,11 +220,11 @@ public class GroupServiceImpl implements GroupService {
 		System.out.println(map.get("c_name"));
 		System.out.println(map.get("gg_no"));
 		
-		alramService.regAlram(Integer.parseInt(map.get("m_no1").toString()),(String)map.get("c_name"), 1, Integer.parseInt(map.get("gg_no").toString()));
+		alramService.regAlram(Integer.parseInt(map.get("m_no1").toString()),(String)map.get("m_name"), 1, Integer.parseInt(map.get("gg_no").toString()));
 	}
 	else {
 		groupDAO.updateReplyStep(map);
-		alramService.regAlram(Integer.parseInt(map.get("m_no1").toString()),(String)map.get("c_name"), 1, Integer.parseInt(map.get("gg_no").toString()));
+		alramService.regAlram(Integer.parseInt(map.get("m_no1").toString()),(String)map.get("m_name"), 1, Integer.parseInt(map.get("gg_no").toString()));
 		map.put("re_step", Integer.parseInt(map.get("re_step").toString())+1);
 		//cModel.setC_re(cModel.getC_re() + 1);
 		map.put("re_level", Integer.parseInt(map.get("re_level").toString())+1);

@@ -52,7 +52,7 @@
 			function commentsInsert(){	
 				var cs = new ComSubmit();	
 				cs.setUrl("<c:url value='/comments' />");
-				cs.addParam("c_name",$(document).find("#c_name").val());
+				cs.addParam("m_name",'${sWriter.M_NAME}');
 				cs.addParam("ref",0);
 				cs.addParam("m_no1",'${gModel.M_NO}');
 				cs.addParam("gg_no",'${gModel.GG_NO}');
@@ -174,7 +174,6 @@
 		</div>
 		</div>
 		</form>
-		<input type="hidden" name="c_name" id="c_name" value="${row.C_NAME }" />
 	</c:forEach>
 	 </div>
 	 <br/>
@@ -184,6 +183,7 @@
 						<input type="hidden" name="ref" value='0'>			
 						<input type="hidden" name="m_no1" value="${gModel.M_NO}"/> 
 						<input type="hidden" name="gg_no" value="${gModel.GG_NO }"/>
+						 <input type="hidden" name="m_name" value='${sWriter.M_NAME}'> 
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="form-group">
@@ -199,7 +199,7 @@
 							</div>
 					</form>
 			 </div>
-	 	===${sWriter.M_NAME}====
+			
 	 <form id="commonForm" name="commonForm"></form>
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	 <script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
