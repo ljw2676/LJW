@@ -71,6 +71,7 @@ public class GroupController {
 		Map<String, Object> result = groupService.selectGroupDetail(map.getMap());
 		mv.addObject("gModel",result.get("detail"));
 		mv.addObject("cmtList", result.get("cmtList"));
+		mv.addObject("sWriter",result.get("sWriter"));
 		mv.addObject("geList", result.get("geList"));
 		mv.addObject("currentPageNo", map.getCurrentPageNo());
 		return mv;
