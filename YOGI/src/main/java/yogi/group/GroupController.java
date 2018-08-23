@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,9 +64,10 @@ public class GroupController {
 	
 	@RequestMapping(value="/groupDetail", method={RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView groupDetail(CommandMap map, HttpServletRequest request) throws Exception{
-		YogiUtils.savePageURI(request);
+		HttpSession session = request.getSession();
 		ModelAndView mv = new ModelAndView("/group/groupDetail");
-		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
+		map.put("m_no", (Integer)session.getAttribute("session_m_no"));
+		System.out.println(map.get("m_no"));
 		Map<String, Object> result = groupService.selectGroupDetail(map.getMap());
 		mv.addObject("gModel",result.get("detail"));
 		mv.addObject("cmtList", result.get("cmtList"));
