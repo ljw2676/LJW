@@ -358,4 +358,8 @@
 	<delete parameterType="hashmap" id="cmtDelete">
 		delete from comments where c_no = #{c_no} 
 	</delete>
+	
+	<select id="sessionWriter" parameterType="hashmap" resultType="hashmap">
+		select m_name from members where m_no = #{m_no}
+	</select>
 </mapper>

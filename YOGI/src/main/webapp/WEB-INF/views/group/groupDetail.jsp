@@ -119,7 +119,6 @@
 		</c:otherwise>	  
 	</c:choose>
 	</div>
-	 
 	 <div>
 	 <c:if test="${gModel.M_NO!=session_m_no }">
 	<form action="/yogi/enroll" method="post">
@@ -200,7 +199,7 @@
 							</div>
 					</form>
 			 </div>
-	 
+	 	===${sWriter.M_NAME}====
 	 <form id="commonForm" name="commonForm"></form>
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	 <script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>

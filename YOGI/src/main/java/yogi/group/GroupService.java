@@ -13,7 +13,7 @@ public interface GroupService {
 	
 	List<Map<String, Object>> selectGroupList(Map<String, Object> map) throws Exception;	
 	
-	Map<String, Object> selectGroupDetail(Map<String, Object> map) throws Exception;
+	Map<String, Object> selectGroupDetail(Map<String, Object> map ) throws Exception;
 	
 	int insertLikeit(Map<String, Object> map, HttpServletRequest request) throws Exception;
 

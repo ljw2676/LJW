@@ -128,5 +128,10 @@ public class GroupDAO extends AbstractDAO{
 	public void cmtDelete(Map<String, Object> map) {
 		delete("group.cmtDelete", map);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> sessionWriter(Map<String, Object> map){
+		return (Map<String, Object>) selectOne("group.sessionWriter", map);
+	}
 
 }

@@ -72,8 +72,10 @@ public class GroupServiceImpl implements GroupService {
 	public Map<String, Object> selectGroupDetail(Map<String, Object> map) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		System.out.println(map);
+		System.out.println("뭐" + map.get("m_no"));
 		Map<String, Object> detail = groupDAO.selectGroupDetail(map);
-		List<Map<String,Object>> geList = groupDAO.groupEnrollList(map);	
+	/*	Map<String, Object> sWriter = groupDAO.sessionWriter(map);*/
+		List<Map<String,Object>> geList = groupDAO.groupEnrollList(map);
 		List<Map<String,Object>> cmtList = groupDAO.selectCmtList(map);
 		detail.put("GG_DATE", YogiUtils.dateFormat((Date)detail.get("GG_DATE")));
 		if(map.get("m_no") != null && !StringUtils.isEmpty(map.get("m_no").toString())) {
@@ -99,6 +101,7 @@ public class GroupServiceImpl implements GroupService {
 		resultMap.put("detail", detail);
 		resultMap.put("cmtList", cmtList);
 		resultMap.put("geList", geList);
+	/*	resultMap.put("sWriter", sWriter);*/
 		return resultMap;
 	}
 
