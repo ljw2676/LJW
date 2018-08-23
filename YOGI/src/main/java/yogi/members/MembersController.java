@@ -77,14 +77,23 @@ public class MembersController {
 			/* 세션값 더 필요한 거 있으면 요기다 저장하세용~! */
 			session.setAttribute("session_m_id", mm.getM_id());
 			session.setAttribute("session_m_no", mm.getM_no());
-			session.setAttribute("session_mem_alram", mem_alram);
+			session.setAttribute("session_m_no", mem_alram);
 			return "redirect:/main";
 		}
 		else
 			return "firstPage";
 	}
+	@RequestMapping(value= "/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("session_m_id") != null){
+			session.removeAttribute("session_m_id");
+			session.removeAttribute("session_m_no");
+		}
+		return "redirect:first";
+	}
 	
-	@RequestMapping(value="/members/createForm", method=RequestMethod.GET)
+	@RequestMapping(value="/members/createForm")
 	public String createForm(Model model) {	
 		return "createForm";
 	}

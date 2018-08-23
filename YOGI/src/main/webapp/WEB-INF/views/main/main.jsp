@@ -1,11 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>메인화면</title>
+<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script>
+$(".chat").on({
+    "click" : function() {
+    	alert("asdf");
+        if ($(this).attr("src") == "./img/chat.png") {
+            $(".chat").attr("src", "./img/chathide.png");
+            $("#_chatbox").css("display", "block");
+            openSocket();
+        } else if ($(this).attr("src") == "./img/chathide.png") {
+            $(".chat").attr("src", "./img/chat.png");
+            $("#_chatbox").css("display", "none");
+            closeSocket();
+        }
+    }
+});
+
+</script>
 </head>
 <body>
 	요긔요긔 >__<
@@ -46,8 +64,93 @@
 </c:choose>
 <a href="http://localhost:8080/yogi/groupList">더보기</a>
 <a href="http://localhost:8080/yogi/lendplace/list">장소</a>
-<a href="http://localhost:8080/yogi/lendplace/chat"> 채팅 테스트 </a>
 <a href="http://localhost:8080/yogi/members/modifyForm">회원 정보 수정</a>
 <a href="http://localhost:8080/yogi/admin/adminpageView">관리자 페이지</a>
+<a href="http://localhost:8080/yogi/logout">로그아웃</a>
+
+<br><br><br>
+채팅... 해볼래...? 킼
+<input type="button" id="status" onclick="openChat();" value="open"/>
+<div id="_chatbox" style="display: none">
+<fieldset>
+	<div id="messageWindow">
+        <input type="hidden" id="sender" value="${session_m_id}">
+        <input id="messageinput" type="text" onkeyup="enterkey()"  />
+        <input type="button" onclick="send();" value="Send">
+	    <!-- Server responses get written here -->
+    	<div id="messages"></div>
+    </div>
+</fieldset>
+</div>
+    
+ <!-- <img class="chat" src="./img/chat.png" /> -->
+
+
+<script type="text/javascript">
+	var ws;
+	var messages=document.getElementById("messages");
+        
+	function openSocket(){
+		if(ws!==undefined && ws.readyState!==WebSocket.CLOSED){
+			writeResponse("WebSocket is already opened.");
+			return;
+		}
+		//웹소켓 객체 만드는 코드
+		ws=new WebSocket("ws://localhost:8080/yogi/echoecho");
+            
+		ws.onopen=function(event){
+			if(event.data===undefined) return;
+				writeResponse(event.data);
+		};
+		ws.onmessage=function(event){
+			writeResponse(event.data);
+		};
+		ws.onclose=function(event){
+			writeResponse("Connection closed");
+		}
+	}
+        
+	function send(){
+		var text=document.getElementById("sender").value + ":" + document.getElementById("messageinput").value;
+		ws.send(text);
+		text="";
+		document.getElementById("messageinput").value="";
+	}
+        
+	function closeSocket(){
+		ws.close();
+	}
+	function writeResponse(text){
+		messages.innerHTML+="<br/>"+text;
+	}
+	
+	function openChat(){
+		var stat = document.getElementById('status').value;
+		if(stat == 'Close'){
+			document.getElementById("status").value="open";
+			$("#_chatbox").css("display", "none");
+			closeSocket();
+		}
+		else{
+			openSocket();
+			document.getElementById("status").value="Close";
+			$("#_chatbox").css("display", "block");
+			
+		}
+	}
+	
+//  엔터키를 통해 send함
+	function enterkey() {
+		if (window.event.keyCode == 13) {
+			send();
+		}
+	}
+    //채팅이 많아져 스크롤바가 넘어가더라도 자동적으로 스크롤바가 내려가게함
+	window.setInterval(function() {
+		var elem = document.getElementById('messageWindow');
+		elem.scrollTop = elem.scrollHeight;
+	}, 0);
+</script>
+
 </body>
 </html>

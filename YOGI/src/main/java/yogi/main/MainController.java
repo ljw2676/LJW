@@ -31,11 +31,14 @@ public class MainController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping (value= "/main")
 	public ModelAndView main(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("session_m_id")!=null) {
+		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("mainPage");
 		List<Map<String, Object>> list = null;
 		
-		HttpSession session = request.getSession();
+		
 		MembersModel mm;
 		mm = mainService.getInterest( (String) session.getAttribute("session_m_id") );
 		
@@ -70,6 +73,12 @@ public class MainController {
 		}
 		
 		return mv;
+		}
+		else {
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("firstPage");
+			return mv;
+		}
 	}
 	
 	

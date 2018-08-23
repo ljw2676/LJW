@@ -8,12 +8,12 @@
 </head>
 <body>
     <div>
-        <input type="text" id="sender" value="${session_m_id}" style="display: none;">
+        <input type="hidden" id="sender" value="${session_m_id}">
         <input type="text" id="messageinput">
     </div>
     <div>
         <button type="button" onclick="openSocket();">Open</button>
-        <button type="button" onclick="send();">Send</button>
+        <input type="button" onclick="send();" value="Send">
         <button type="button" onclick="closeSocket();">Close</button>
     </div>
     <!-- Server responses get written here -->
