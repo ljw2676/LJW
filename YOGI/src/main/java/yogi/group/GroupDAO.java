@@ -78,8 +78,8 @@ public class GroupDAO extends AbstractDAO{
 		return (List<Map<String, Object>>)selectList("group.selectCmtList",map);
 	}
 	
-	public void insertGroup(GroupModel group) {
-		insert("group.insertGroup", group);
+	public void insertGroup(Map<String, Object> map) {
+		insert("group.insertGroup", map);
 	}
 	
 	public void modifyGroup(Map<String, Object> map) {
@@ -113,8 +113,8 @@ public class GroupDAO extends AbstractDAO{
 		
 	}
 	
-	public void insertGroupExceptFile(GroupModel group) {
-		insert("group.insertGroupExceptFile", group);
+	public void insertGroupExceptFile(Map<String, Object> map) {
+		insert("group.insertGroupExceptFile", map);
 	}
 	
 	public String selectGroupAddr(String str) {

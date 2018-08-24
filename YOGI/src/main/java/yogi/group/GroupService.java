@@ -13,13 +13,13 @@ public interface GroupService {
 	
 	List<Map<String, Object>> selectGroupList(Map<String, Object> map) throws Exception;	
 	
-	Map<String, Object> selectGroupDetail(Map<String, Object> map ) throws Exception;
+	Map<String, Object> selectGroupDetail(Map<String, Object> map) throws Exception;
 	
 	int insertLikeit(Map<String, Object> map, HttpServletRequest request) throws Exception;
 
 	void insertGroupEnroll(Map<String, Object> map, HttpServletRequest request) throws Exception;
 	
-	public void insertGroup(GroupModel group, HttpServletRequest request) throws Exception;
+	public void insertGroup(Map<String, Object> map, HttpServletRequest request) throws Exception;
 	
 	public Map<String, Object> modifyGroup(Map<String, Object> map, HttpServletRequest request) throws Exception;
 	

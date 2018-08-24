@@ -121,19 +121,19 @@ public class GroupController {
 	}
 	
 	//모임 폼 열기
-	@RequestMapping(value="/groupForm", method=RequestMethod.GET)
-	public String groupForm(Model model) {
-		return "groupForm";
-	}
-		
-	//모임 폼 넣기
-	@RequestMapping(value="/groupForm", method=RequestMethod.POST)
-	public String insert(@ModelAttribute("group") GroupModel group, HttpServletRequest request, BindingResult result) throws Exception{
-		System.out.println("GroupController : insertGroup 실행");
-		group.setM_no((Integer) request.getSession().getAttribute("session_m_no"));
-		groupService.insertGroup(group, request);
-		return "redirect:/groupList";
-	}
+		@RequestMapping(value="/groupForm")
+		public String groupForm() {
+			return "groupForm";
+		}
+			
+		//모임 폼 넣기
+		@RequestMapping(value="/groupInsert", method=RequestMethod.POST)
+		public String groupInsert(CommandMap commandMap, HttpServletRequest request) throws Exception{
+			System.out.println("GroupController : insertGroup 실행");
+			commandMap.put("m_no", request.getSession().getAttribute("session_m_no"));
+			groupService.insertGroup(commandMap.getMap(), request);
+			return "redirect:/groupList";
+		}
 		
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {

@@ -134,24 +134,20 @@ public class GroupServiceImpl implements GroupService {
 	}
 	
 	@Override
-	public void insertGroup(GroupModel group, HttpServletRequest request) throws Exception {
+	public void insertGroup(Map<String, Object> map, HttpServletRequest request) throws Exception {
 		
-		group.setGg_enable(group.getGg_total()-1);
 		Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
 		
 		//넘어오는 파일객체가 있으면
 		if(fileMap!=null) {
+			map.put("gg_ofn", fileMap.get("ORIGINAL_FILE_NAME"));
+			map.put("gg_rfn", fileMap.get("STORED_FILE_NAME"));
 			
-			group.setGg_ofn((String) fileMap.get("ORIGINAL_FILE_NAME"));
-			group.setGg_rfn((String) fileMap.get("STORED_FILE_NAME"));
-			
-			groupDAO.insertGroup(group);
+			groupDAO.insertGroup(map);
 		}
 		else {
-			groupDAO.insertGroupExceptFile(group);
+			groupDAO.insertGroupExceptFile(map);
 		}
-		
-		
 		
 	}
 
