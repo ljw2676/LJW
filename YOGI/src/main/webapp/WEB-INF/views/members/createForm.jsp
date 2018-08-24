@@ -4,15 +4,48 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>회원가입</title>
-<style>
-#checkPwd{
-  color : red;
-  font-size: 12px;
-}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
 
-</style>
+  <!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
 
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/animate.css">
+	<link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/checkBox.css">
+	<!-- Icomoon Icon Fonts-->
+	<!-- <link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/icomoon.css"> -->
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/bootstrap.css">
+	<!-- Flexslider  -->
+	<!-- <link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/flexslider.css"> -->
+	<!-- Flaticons  -->
+	<!-- <link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/fonts/flaticon/font/flaticon.css"> -->
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/owl.theme.default.min.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="http://localhost:8080/yogi/resources/bootstrap/js/modernizr-2.6.2.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 	var kor_check = /([^가-힣ㄱ-ㅎㅏ-ㅣ\x20])/i;
@@ -128,52 +161,94 @@
 		var pw1 = document.userinput.m_password.value;
 		var pw2 = document.userinput.m_password_check.value;
 		if(pw1!=pw2){
-			document.getElementById('checkPwd').style.color = "red";
-			document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요."; 
+			document.getElementById('checkcheck').className="alert alert-danger";
+			document.getElementById('checkcheck').innerHTML = "동일한 암호를 입력하세요.";
 			pw_check=0;
 		}else{
-			document.getElementById('checkPwd').style.color = "black";
-			document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다."; 
+			document.getElementById('checkcheck').className="alert alert-success";
+			document.getElementById('checkcheck').innerHTML = "암호가 확인되었습니다.";
 			pw_check=1;
 		}
 	}
 	
 </script>
+<style>
+.left-box {
+  position: absolute;
+  left: 0;
+}
+.right-box {
+  position: absolute;
+  right: 0;
+}
+</style>
+
 </head>
 <body>
-	회원가입
-	<form:form commandName="member" name="userinput" method="post" enctype="multipart/form-data">
-		아이디 : <input type="text" name="m_id" id="m_id"/>
-		<input type="button" value="중복확인" id="checkId" /><br>
-		프로필 사진 : <input type="file" name="file"><br>
-		비밀번호 : <input type="password" name="m_password" onkeyup="checkPwd()"/> <br>
-		비밀번호 : <input type="password" name="m_password_check" onkeyup="checkPwd()"/> <br>
-		<div id="checkPwd">동일한 암호를 입력하세요.</div>
-		이름 : <input type="text" name="m_name"/> <br>
-		핸드폰 번호 : <input type="text" name="m_phone" placeholder="010-0000-0000"/> <br>
-			
-		<br><br>	
-		<div class="category">
-			<input type="checkbox" name="m_fav_field" value="실외활동">실외활동
-			<input type="checkbox" name="m_fav_field" value="패션">패션
-			<input type="checkbox" name="m_fav_field" value="맛집">맛집<br>
-	
-			<input type="checkbox" name="m_fav_field" value="게임">게임
-			<input type="checkbox" name="m_fav_field" value="동물">동물
-			<input type="checkbox" name="m_fav_field" value="보드게임">보드게임<br>
-	
-			<input type="checkbox" name="m_fav_field" value="전시/공연">전시/공연
-			<input type="checkbox" name="m_fav_field" value="취업/스터디">취업/스터디
-			<input type="checkbox" name="m_fav_field" value="춤">춤<br>
-	
-			<input type="checkbox" name="m_fav_field" value="독서/토론">독서/토론
-			<input type="checkbox" name="m_fav_field" value="음악">음악
-			<input type="checkbox" name="m_fav_field" value="언어교환">언어교환<br>
-	
-			<input type="checkbox" name="m_fav_field" value="여행">여행
-			<input type="checkbox" name="m_fav_field" value="웰빙">웰빙
-			<input type="checkbox" name="m_fav_field" value="공예">공예
+<br><br>
+<div class="colorlib-narrow-content">
+	<div class="row">
+		<div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+			<span class="heading-meta">어서오세용 >__O</span>
+			<h2 class="colorlib-heading">회원가입</h2>
 		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-7 col-md-push-1">
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1 col-md-pull-1 animate-box" data-animate-effect="fadeInLeft">
+					<form:form commandName="member" name="userinput" method="post" enctype="multipart/form-data">
+					<div class='left-box'>
+						<div class="form-group">
+							<input type="text" name="m_id" id="m_id" class="form-control" placeholder="Id">
+							<input type="button" id="checkId" class="btn btn-primary btn-send-message" value="중복확인" >
+						</div>
+						<div class="form-group">
+							<input type="file" class="btn btn-primary btn-send-message" name="file">
+						</div>
+						<div class="form-group">
+							<input type="password" name="m_password" class="form-control" placeholder="password" onkeyup="checkPwd()"/>
+						</div>
+						<div class="form-group">
+							<input type="password" name="m_password_check" class="form-control" placeholder="passwordCheck!" onkeyup="checkPwd()"/>
+						</div>
+							
+						<div id="checkcheck" class="alert alert-danger" style="width:400px;">동일한 암호를 입력하세요.</div>	
+						<div class="form-group">
+							<input type="text" class="form-control" name="m_name" placeholder="Name">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control"  name="m_phone" placeholder="Phone ex) 010-0000-0000">
+						</div>
+						<div class="form-group">
+							<input type="button" value="제출!" onclick="insert()" class="btn btn-primary btn-send-message"/>
+						</div>
+					</div>
+					<div class='right-box'>
+					<div class="">
+					선호지역<br>
+    						<input type="checkbox" class="option-input checkbox" />
+    								Checkbox
+						<input type="checkbox" name="m_fav_field" value="실외활동">실외활동
+						<input type="checkbox" name="m_fav_field" value="패션">패션
+						<input type="checkbox" name="m_fav_field" value="맛집">맛집<br>
+	
+						<input type="checkbox" name="m_fav_field" value="게임">게임
+						<input type="checkbox" name="m_fav_field" value="동물">동물
+						<input type="checkbox" name="m_fav_field" value="보드게임">보드게임<br>
+	
+						<input type="checkbox" name="m_fav_field" value="전시/공연">전시/공연
+						<input type="checkbox" name="m_fav_field" value="취업/스터디">취업/스터디
+						<input type="checkbox" name="m_fav_field" value="춤">춤<br>
+	
+						<input type="checkbox" name="m_fav_field" value="독서/토론">독서/토론
+						<input type="checkbox" name="m_fav_field" value="음악">음악
+						<input type="checkbox" name="m_fav_field" value="언어교환">언어교환<br>
+	
+						<input type="checkbox" name="m_fav_field" value="여행">여행
+						<input type="checkbox" name="m_fav_field" value="웰빙">웰빙
+						<input type="checkbox" name="m_fav_field" value="공예">공예
+				</div>
 		<br><br>
 		<div class="area">
 			<input type="checkbox" name="m_fav_area" value="종로구">종로구
@@ -208,9 +283,34 @@
 	
 			<input type="checkbox" name="m_fav_area" value="강동구">강동구
 		</div>
-			
-		<input type="button" value="제출!" onclick="insert()"/>
-	</form:form>
+					</div>
+					</form:form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<!-- jQuery -->
+	<script src="http://localhost:8080/yogi/resources/bootstrap/js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="http://localhost:8080/yogi/resources/bootstrap/js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="http://localhost:8080/yogi/resources/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="http://localhost:8080/yogi/resources/bootstrap/js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="http://localhost:8080/yogi/resources/bootstrap/js/jquery.flexslider-min.js"></script>
+	<!-- Sticky Kit -->
+	<script src="http://localhost:8080/yogi/resources/bootstrap/js/sticky-kit.min.js"></script>
+	<!-- Owl carousel -->
+	<script src="http://localhost:8080/yogi/resources/bootstrap/js/owl.carousel.min.js"></script>
+	<!-- Counters -->
+	<script src="http://localhost:8080/yogi/resources/bootstrap/js/jquery.countTo.js"></script>
+	
+	<!-- MAIN JS -->
+	<script src="http://localhost:8080/yogi/resources/bootstrap/js/main.js"></script>
+	
 	
 </body>
 </html>
