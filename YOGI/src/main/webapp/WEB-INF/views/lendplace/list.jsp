@@ -84,7 +84,7 @@
 						<td>평점</td>
 						
 					</tr>
-			<c:forEach items="${list }" var="row">
+			<c:forEach items="${list }" var="row" >
 					<tr>
 						<td>${row.L_NO}번</td>
 						<td><a href="#this" name="title">${row.L_SUBJECT}</a><input type="hidden" id="L_NO" value="${row.L_NO}"></td>

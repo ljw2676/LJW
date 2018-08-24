@@ -1,25 +1,15 @@
 package yogi.lendplace;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import yogi.common.util.PagingCalculator;
 import yogi.common.util.YogiUtils;
@@ -36,7 +26,7 @@ public class LendplaceController {
 	@RequestMapping(value="/lendplace/list")
     public ModelAndView selectLendplaceList(CommandMap commandMap,HttpServletRequest request) throws Exception{
 		YogiUtils.savePageURI(request);
-		ModelAndView mv = new ModelAndView("/lendplace/list");
+		ModelAndView mv = new ModelAndView("/lendplace/list2");
     	List<Map<String, Object>> list = lendplaceService.selectLendplaceList(commandMap.getMap());
     	PagingCalculator paging = new PagingCalculator("lendplace/list", commandMap.getCurrentPageNo(), list, 6 ,3);
     	Map<String, Object> result = paging.getPagingList();
@@ -45,7 +35,6 @@ public class LendplaceController {
     	mv.addObject("currentPageNo", commandMap.getCurrentPageNo());
     	
 		return mv;
-		
 	}
 	
 	//장소 상세
