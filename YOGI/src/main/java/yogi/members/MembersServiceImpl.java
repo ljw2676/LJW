@@ -1,6 +1,8 @@
 package yogi.members;
 
+import java.io.File;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -70,7 +72,26 @@ public class MembersServiceImpl implements MembersService{
 
 	@Override
 	public void updateMember(MembersModel model, HttpServletRequest request) throws Exception {
-		membersDAO.updateMember(model);
+		
+		Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
+		
+		if(fileMap!=null) {
+			
+			//기존 파일 가져오기
+			String deleteFileName = membersDAO.deleteFileName(model.getM_no());
+			//기존 파일이 존재하면 삭제
+			if(deleteFileName!=null) {
+				File deleteFile = new File(filePath+deleteFileName);
+				deleteFile.delete();
+			}
+			model.setM_profile(fileMap.get("STORED_FILE_NAME").toString());
+			System.out.println("이미지 변경 : "+model.getM_profile());
+			membersDAO.updateMember(model);
+		}
+		else {
+			membersDAO.updateMemberExceptFile(model);
+		}
+		
 	}
 
 	//회원 탈퇴
