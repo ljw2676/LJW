@@ -40,7 +40,7 @@ public class LendplaceController {
 	//장소 상세
 	@RequestMapping(value="/lendplace/detail")
 	public ModelAndView selectLendplaceDetail(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/lendplace/detail");
+		ModelAndView mv = new ModelAndView("/lendplace/detail2");
 		Map<String,Object> map = lendplaceService.selectLendplaceDetail(commandMap.getMap());
 		mv.addObject("map", map);
 		int Udate = (Integer.parseInt(map.get("L_UDATE").toString()));
