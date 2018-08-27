@@ -30,7 +30,8 @@
 		<c:forEach items="${list}" var="row">
 		<tr>
 			<td>${row.GG_NO}</td>
-			<td>${row.GG_NAME}</td>
+			<td><a href="#this"  onclick="fn_selectLendplaceDetail'${row.GG_NO}')">${row.GG_NAME}</a>
+		
 			<td>${row.GG_DATE}</td>
 	
 		</tr>
@@ -46,4 +47,26 @@
 ${pagingHtml}
 
 </body>
+
+<%@ include file="/WEB-INF/include/common-body.jspf"%>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+/* 		$(document).ready(function() {
+			$("a[name='title']").on("click", function(e) { //신청
+				/* 태그의 기본 기능을 제거 */
+				e.preventDefault();
+				fn_selectLendplaceDetail($(this));
+			});
+				});
+			 */
+			function fn_selectLendplaceDetail(gg_no) {
+				var comSubmit = new ComSubmit();
+				comSubmit.setUrl("<c:url value='/groupDetail' />");
+				comSubmit.addParam("gg_no", gg_no);
+				comSubmit.addParam("currentPageNo", "${currentPageNo}");
+				comSubmit.submit();
+			}
+</script>			
 </html>

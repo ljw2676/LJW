@@ -36,6 +36,12 @@ public class AdminLendplaceController {
 	public String lendplaceForm(){
 		return "/admin/lendplaceForm";
 	}
+	
+	@RequestMapping(value= "/test")
+	public String test(){
+		return "/admin/test";
+	}
+	
 
 	//장소등록
     @RequestMapping(value="/admin/lendplace/Insert", method=RequestMethod.POST)

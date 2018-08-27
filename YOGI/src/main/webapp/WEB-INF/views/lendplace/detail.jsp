@@ -114,21 +114,21 @@
 <script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
 <script type="text/javascript">
 $(document).ready(function() {
-		$("a[name='apply']").on("click", function(e) { //신청
-		/* 태그의 기본 기능을 제거 */
-		e.preventDefault();
-		if(confirm("신청 하시겠습니까?")==true){
-		fn_applyLendplace();
-		} else {
-			return;
-		}
-		
-		});
+    $("a[name='apply']").on("click", function(e) { //신청
+    /* 태그의 기본 기능을 제거 */
+    e.preventDefault();
+    if(confirm("신청 하시겠습니까?")==true){
+    fn_applyLendplace();
+    } else {
+       return;
+    }
+    
+    });
 });
 
 function fn_applyLendplace(){
-	alert("장소 대여 신청이 완료되었습니다 :3");
-		document.apply_form.submit();
+ alert("장소 대여 신청이 완료되었습니다 :3");
+    document.apply_form.submit();
 }
 
 function fn_insertReview() {
