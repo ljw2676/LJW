@@ -72,10 +72,6 @@ public class LendplaceDAO extends AbstractDAO{
 		update("lendplace.updateReviewOrder",map);
 	}
 
-	public void updateReviewOrderDelete(Map<String, Object> map) throws Exception{
-		update("lendplace.updateReviewOrderDelete",map);
-	}
-	
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> selectReviewChild(Map<String, Object> map) throws Exception{
 		return (Map<String, Object>) selectOne("lendplace.selectReviewChild",map);

@@ -32,8 +32,6 @@ public interface LendplaceService {
 	
 	void updateReviewOrder(Map<String, Object> map) throws Exception;
 
-	void updateReviewOrderDelete(Map<String, Object> map) throws Exception;
-	
 	Map<String, Object> selectReviewChild(Map<String, Object> map) throws Exception;
 	
 	Map<String, Object> selectDeletedParent(Map<String, Object> map) throws Exception;

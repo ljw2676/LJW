@@ -57,34 +57,29 @@
 	<link  href="<c:url value='/resources/datepicker/datepicker.css' />" rel="stylesheet">
 	</head>
 	<body>
-	<div id="colorlib-page">
-		<!-- 왼쪽 사이드바 -->
-		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
-		<aside id="colorlib-aside" role="complementary" class="border js-fullheight">
-			<h1 id="colorlib-logo"><a href="index.html">YOGI</a></h1>
-			<nav id="colorlib-main-menu" role="navigation">
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="work.html">Project</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="services.html">Services</a></li>
-					<li class="colorlib-active"><a href="blog.html">Blog</a></li>
-					<li><a href="contact.html">Contact</a></li>
-				</ul>
-			</nav>
-
-			<div class="colorlib-footer">
-				<p><small>&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+	
+	<!-- 사이드 바 -->
+<aside id="colorlib-aside" role="complementary" class="border js-fullheight">
+	<h1 id="colorlib-logo"><a href="http://localhost:8080/yogi/main">YOGI</a></h1>
+	<nav id="colorlib-main-menu" role="navigation">
+	<ul>
+		<li><a href="http://localhost:8080/yogi/main">Home</a></li>
+		<li><a href="http://localhost:8080/yogi/groupList">Group</a></li>
+		<li class="colorlib-active"><a href="http://localhost:8080/yogi/lendplace/list">Lendplace</a></li>
+		<li><a href="http://localhost:8080/yogi/mypage/mypageView">MyPage</a></li>
+		<li><a href="">About</a></li>
+		<li><a href="http://localhost:8080/yogi/logout">Logout</a></li>
+	</ul>
+	</nav>
+	<div class="colorlib-footer">
+			<p><small>&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> Distributed by: <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> </span> <span>Demo Images: <a href="http://nothingtochance.co/" target="_blank">nothingtochance.co</a></span></small></p>
-				<ul>
-					<li><a href="#"><i class="icon-facebook2"></i></a></li>
-					<li><a href="#"><i class="icon-twitter2"></i></a></li>
-					<li><a href="#"><i class="icon-instagram"></i></a></li>
-					<li><a href="#"><i class="icon-linkedin2"></i></a></li>
-				</ul>
-			</div>
-		</aside>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><span>Demo Images: <a href="http://nothingtochance.co/" target="_blank">nothingtochance.co</a></span></small></p>
+<span>MADE BY: <a href="">YOMI</a></span>
+	</div>
+</aside>
+
+<!-- 사이드 바 -->
 
 
 		<div id="colorlib-main">

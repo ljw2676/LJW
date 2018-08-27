@@ -94,10 +94,6 @@ public class LendplaceServiceImpl implements LendplaceService {
 		lendplaceDAO.updateReviewOrder(map);
 	}
 
-	@Override
-	public void updateReviewOrderDelete(Map<String, Object> map) throws Exception {
-		lendplaceDAO.updateReviewOrderDelete(map);
-	}
 
 	@Override
 	public Map<String, Object> selectReviewChild(Map<String, Object> map) throws Exception {
