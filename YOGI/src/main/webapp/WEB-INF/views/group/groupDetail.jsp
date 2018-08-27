@@ -179,7 +179,7 @@
 	 <br/>
 	  
 	 <div>
-	 <form action="<c:url value='/comments'/>" id="cmtist" onsubmit="return cmt_check();" method="post">				
+	 <form action="<c:url value='/comments'/>" onsubmit="return cmt_check();" method="post">				
 						<input type="hidden" name="ref" value='0'>			
 						<input type="hidden" name="m_no1" value="${gModel.M_NO}"/> 
 						<input type="hidden" name="gg_no" value="${gModel.GG_NO }"/>
@@ -193,7 +193,7 @@
 								</div>
 							</div>
 
-							<div class="row">
+							
 							<div class="col-sm-12 text-right">
 									<a href="#" onclick="commentsInsert()">입력</a> <!-- <input type="submit" value="입력"/> -->
 							</div>
