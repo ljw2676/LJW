@@ -36,13 +36,7 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Resource(name="alramService")
 	private AlramService alramService;
-	
-	Calendar today = Calendar.getInstance();
-	
-	private int ref;
-	private int re_step;
-	private int re_level;
-	boolean reply = false;
+
 	private static final String filePath = "C:\\java\\git\\YOGI\\YOGI\\src\\main\\webapp\\resources\\upload\\";
 
 	@Override
@@ -204,10 +198,7 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Override
 	public void insertComments(Map<String, Object> map, HttpServletRequest request) throws Exception {
-	reply = true;
 	System.out.println(map);
-	/*Integer.parseInt(map.get("ref").toString()) == 0*/
-	System.out.println(ref);
 	if(Integer.parseInt(map.get("ref").toString()) == 0)
 	{
 		map.put("re_step",0);
@@ -220,11 +211,10 @@ public class GroupServiceImpl implements GroupService {
 	}
 	else {
 		groupDAO.updateReplyStep(map);
-		alramService.regAlram(Integer.parseInt(map.get("m_no1").toString()),(String)map.get("m_name"), 1, Integer.parseInt(map.get("gg_no").toString()));
+		alramService.regAlram(Integer.parseInt(map.get("m_no1").toString()),(String)map.get("c_name"), 1, Integer.parseInt(map.get("gg_no").toString()));
 		map.put("re_step", Integer.parseInt(map.get("re_step").toString())+1);
-		//cModel.setC_re(cModel.getC_re() + 1);
 		map.put("re_level", Integer.parseInt(map.get("re_level").toString())+1);
-		//cModel.setC_lv(cModel.getC_lv() + 1);
+		
 	}
 	
 	if(Integer.parseInt(map.get("ref").toString()) == 0)

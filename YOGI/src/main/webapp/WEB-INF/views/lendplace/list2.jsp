@@ -169,10 +169,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 							</c:if>
 									<div class="col-md-4 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
 										<div class="blog-entry">
-										<a href="blog.html" class="blog-img"><img src="/yogi/resources/bootstrap/images/blog-1.jpg" class="img-responsive" alt="HTML5 Bootstrap Template by colorlib.com"></a>
+										<a href="#this" name="title" class="blog-img"><input type="hidden" id="L_NO" value="${row.L_NO}"><img src="/yogi/resources/bootstrap/images/blog-1.jpg" class="img-responsive" alt="HTML5 Bootstrap Template by colorlib.com"></a>
 											<div class="desc">
 											<span><small>${row.L_SDATE} ~ ${row.L_EDATE}</small> | <small> ${row.L_PAYMENT}원 </small> | <small> <i class="icon-bubble3"></i>${row.L_ENABLE}명</small></span>
-											<h3><a href="blog.html">${row.L_SUBJECT}</a></h3><input type="hidden" id="L_NO" value="${row.L_NO}">
+											<h3><a href="#this" name="title">${row.L_SUBJECT}</a></h3><input type="hidden" id="L_NO" value="${row.L_NO}">
 											<p>${row.L_ADDR}</p>
 											</div>
 										</div>
@@ -184,38 +184,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 							등록된 장소가 없습니다.
 						</c:otherwise>
 					</c:choose>
-					<div class="row">
-						<div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
-							<!-- <ul class="pagination">
-								<li class="disabled"><a href="#">&laquo;</a></li>
-								<li class="active"><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">&raquo;</a></li>
-							</ul> -->
-							${pagingHtml}
+					<div class="row" >
+						<div class="col-md-12 animate-box" data-animate-effect="fadeInLeft"  style=" text-align: center" >
+							<ul class="pagination" style="display: inline-block;">
+								${pagingHtml}
+							</ul> 
 						</div>
 					</div>
 				</div>
 			</div>
 			<a href="<c:url value='/admin/lendplace/Form'/>">글쓰기</a>
-			<div id="get-in-touch" class="colorlib-bg-color">
-				<div class="colorlib-narrow-content">
-					<div class="row">
-						<div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
-							<h2>Get in Touch!</h2>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
-							<p class="colorlib-lead">Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-							<p><a href="#" class="btn btn-primary btn-learn">Contact me!</a></p>
-						</div>
-						
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 
@@ -240,6 +218,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 	<!-- MAIN JS -->
 	<script src="/yogi/resources/bootstrap/js/main.js"></script>
 	
+	<%@ include file="/WEB-INF/include/common-body.jspf"%>
 	<script src="<c:url value='/resources/datepicker/datepicker.js'/> "></script>
 	<script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
 	<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>

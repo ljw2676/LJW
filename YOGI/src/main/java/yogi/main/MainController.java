@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import yogi.alram.AlramServiceImpl;
 import yogi.common.util.PagingCalculator;
 import yogi.common.util.YogiUtils;
 import yogi.config.CommandMap;
@@ -28,6 +29,11 @@ public class MainController {
 	@Autowired
 	private MainService mainService;
 	
+	@Resource(name = "alramService")
+	private AlramServiceImpl alramService;
+	
+	private MembersModel mModel;
+	
 	@SuppressWarnings("unchecked")
 	@RequestMapping (value= "/main")
 	public ModelAndView main(HttpServletRequest request) throws Exception {
@@ -38,10 +44,9 @@ public class MainController {
 		mv.setViewName("mainPage");
 		List<Map<String, Object>> list = null;
 		
-		
 		MembersModel mm;
 		mm = mainService.getInterest( (String) session.getAttribute("session_m_id") );
-		
+	
 		if(mm.getM_fav_field() != null) {
 			String interest_tmp = mm.getM_fav_field();
 			String[] interest ;
@@ -72,14 +77,19 @@ public class MainController {
 			mv.addObject("list",list);
 		}
 		
+		List<Map<String, Object>> mem_alram = null;
+		if(alramService.alramExist(Integer.parseInt(session.getAttribute("session_m_no").toString())) != 0){
+			mem_alram = alramService.alramLoad(Integer.parseInt(session.getAttribute("session_m_no").toString()));
+		}
+		session.setAttribute("session_mem_alram", mem_alram);
 		return mv;
 		}
 		else {
+		
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("firstPage");
 			return mv;
-		}
+		}	
 	}
-	
 	
 }
