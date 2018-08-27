@@ -105,12 +105,12 @@ public class GroupController {
 		return new ModelAndView("redirect:/groupDetail?gg_no="+map.get("gg_no"));
 	}
 	
-	@RequestMapping(value="/commentsDelete", method=RequestMethod.POST)
+	/*@RequestMapping(value="/commentsDelete", method=RequestMethod.POST)
 	public ModelAndView deleteCmt(CommandMap map, HttpServletRequest request) throws Exception{
 		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
 		groupService.deleteComments(map.getMap(), request);
 		return new ModelAndView("redirect:/groupDetail?gg_no="+map.get("gg_no"));
-	}
+	}*/
 	
 	@RequestMapping(value="/commentsRep", method=RequestMethod.POST)
 	public ModelAndView insertCmtRep(CommandMap map, HttpServletRequest request) throws Exception{
@@ -174,4 +174,26 @@ public class GroupController {
 		
 		return mv;
 	}
+	
+	  @RequestMapping(value="/deleteCmt")
+	    public ModelAndView deleteCmt(CommandMap commandMap) throws Exception{
+	    	ModelAndView mv = new ModelAndView("redirect:/groupDetail?gg_no="+commandMap.get("gg_no"));
+	    	Map<String,Object> map = groupService.selectCmtChild(commandMap.getMap());
+	    	Integer cnt = Integer.parseInt(map.get("CNT").toString());
+	    	if ( cnt == 0) {
+	    		Map<String,Object> del = groupService.selectDeletedParent(commandMap.getMap());
+	    		Map<String,Object> par = groupService.selectParent(commandMap.getMap());
+	    		Integer DEL = Integer.parseInt(del.get("DEL").toString());
+	    		Integer PAR = Integer.parseInt(par.get("PAR").toString());
+	    		
+	    		groupService.deleteComments(commandMap.getMap());
+	    		if ( DEL == (PAR-1)) {
+	    			groupService.cmtGroupDelete(commandMap.getMap());
+				}
+	        	return mv;	
+	        }else {
+	        	groupService.updateDeleteFlag(commandMap.getMap());
+	    		return mv;
+	        }
+	    }
 }

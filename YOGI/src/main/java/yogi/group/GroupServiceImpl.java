@@ -226,13 +226,40 @@ public class GroupServiceImpl implements GroupService {
 	}
 	
 	@Override
-	public void deleteComments(Map<String, Object> map, HttpServletRequest request) throws Exception {
+	public void deleteComments(Map<String, Object> map) throws Exception {
 		groupDAO.cmtDelete(map);
 	}
 
 	@Override
 	public void inactivateGroup(Map<String, Object> map){
 		groupDAO.inactivateGroup(map);
+		
+	}
+
+	@Override
+	public Map<String, Object> selectCmtChild(Map<String, Object> map) throws Exception {	
+		return groupDAO.selectCmtChild(map);
+	}
+
+	@Override
+	public Map<String, Object> selectDeletedParent(Map<String, Object> map) throws Exception {
+		return groupDAO.selectDeletedParent(map);
+	}
+
+	@Override
+	public Map<String, Object> selectParent(Map<String, Object> map) throws Exception {
+		return groupDAO.selectParent(map);
+	}
+
+	@Override
+	public void updateDeleteFlag(Map<String, Object> map) throws Exception {
+		groupDAO.updateDeleteFlag(map);
+		
+	}
+
+	@Override
+	public void cmtGroupDelete(Map<String, Object> map) throws Exception {
+		groupDAO.cmtGroupDelete(map);
 		
 	}
 }

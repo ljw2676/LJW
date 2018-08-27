@@ -34,13 +34,30 @@
 				}
 			}
 
-			function fn_deleteCmt(c_no) {
+		/* 	function fn_deleteCmt(c_no) {
 				var cs = new ComSubmit();
 				cs.setUrl("<c:url value='/commentsDelete' />");
 				cs.addParam("c_no", c_no);
 				cs.addParam("gg_no", '${gModel.GG_NO }');
 				cs.submit();
+			} */
+			function fn_deleteCmt(c_no, c_group){
+			    if (!confirm("삭제하시겠습니까?")) {
+			        return;
+			    }
+			    $("#form2").attr("action", "<c:url value='/deleteCmt'/>");
+			    $("#c_no").val(c_no);
+			    $("#c_group").val(c_group);
+			    $("#form2").submit();
+
+			    /* var form = document.form2;
+
+			    form.action="<c:url value='/lendplace/deleteReview'/>";
+			    form.R_NO.value=R_NO;
+			    form.R_GROUP.value=R_GROUP;
+			    form.submit();     */
 			}
+			
 
 			function fn_meetingsModify() {
 				var cs = new ComSubmit();
@@ -56,6 +73,7 @@
 				cs.addParam("ref",0);
 				cs.addParam("m_no1",'${gModel.M_NO}');
 				cs.addParam("gg_no",'${gModel.GG_NO}');
+				cs.addParam("c_group");
 				cs.addParam("c_content",$(document).find("#comment").val());
 				cs.submit();
 			}
@@ -165,19 +183,31 @@ function fn_memberProfileLink(m_pno){
 		 <div>
 	 	<h4> COMMENTS(${fn:length(cmtList)})</h4>
 	 	<c:forEach items="${cmtList }" var="row" varStatus="status">	
-		<form action='<c:url value='/commentsRep?c_no=${row.C_NO}&ref=${row.REF}'/>' method='post'>
+		<form name="form2" id="form2" action='<c:url value='/commentsRep?c_no=${row.C_NO}&ref=${row.REF}'/>' method='post'>
 		<input type='hidden' name='re_step' value='${row.RE_STEP}'/>
 		<input type='hidden' name='re_level' value='${row.RE_LEVEL}'/>
 		<input type="hidden" name="gg_no" value="${gModel.GG_NO}"/>
 		<input type="hidden" name="m_no1" value="${gModel.M_NO}"/>
-		<input type="hidden" name="c_name" value="${row.C_NAME}" />		
+		<input type="hidden" name="c_name" value="${row.C_NAME}" />
+		<input type="hidden" name="c_no" id="c_no">
+		<input type="hidden" name="c_group" id="c_group" value="${row.C_GROUP }">		
 		<fmt:parseNumber var = "blank" type = "number" value = "${row.RE_LEVEL}" />
 		<div style="border: 1px solid gray; width: 600px; padding: 5px; margin-top: 5px; margin-left: <c:out value="${20*blank}"/>px; display: inline-block">	
-		${row.C_NAME } <fmt:formatDate value="${row.C_DATE}" pattern="yy/MM/dd hh:mm:ss"/> <a href="#" onclick="doDisplay('<c:out value='${row.C_NO}'/>')">답변</a> <c:if test="${row.M_NO == session_m_no }"><a href="#" onclick="fn_deleteCmt('<c:out value='${row.C_NO}'/>')">삭제</a></c:if><br/>	
+		<c:choose>
+		<c:when test="${row.C_DEL eq 'Y'}">
+		삭제된 댓글입니다.
+		<c:if test="${session_m_no == row.M_NO}">
+		<a href="#" onclick="fn_deleteCmt('<c:out value="${row.C_NO}"/>')">삭제</a>
+		</c:if>
+	</c:when>
+	<c:otherwise>	
+		${row.C_NAME } <fmt:formatDate value="${row.C_DATE}" pattern="yy/MM/dd hh:mm:ss"/> <a href="#" onclick="doDisplay('<c:out value='${row.C_NO}'/>')">답변</a> <c:if test="${row.M_NO == session_m_no }"><a href="#" onclick="fn_deleteCmt('<c:out value="${row.C_NO}"/>','<c:out value="${row.C_GROUP}"/>')">삭제</a></c:if><br/>	
 			${row.C_CONTENT }	
 		<div id="repDiv<c:out value='${row.C_NO}'/>" style="display:none">	
 		<textarea name="c_content"></textarea><input type="submit" value="답변전용">		
 		</div>
+		</c:otherwise>
+	</c:choose>
 		</div>
 		</form>
 	</c:forEach>
@@ -190,6 +220,7 @@ function fn_memberProfileLink(m_pno){
 						<input type="hidden" name="m_no1" value="${gModel.M_NO}"/> 
 						<input type="hidden" name="gg_no" value="${gModel.GG_NO }"/>
 						 <input type="hidden" name="m_name" value='${sWriter.M_NAME}'> 
+						 <input type="hidden" name="C_GROUP" id="C_GROUP">
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="form-group">

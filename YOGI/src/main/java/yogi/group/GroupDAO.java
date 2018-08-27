@@ -133,5 +133,27 @@ public class GroupDAO extends AbstractDAO{
 	public Map<String, Object> sessionWriter(Map<String, Object> map){
 		return (Map<String, Object>) selectOne("group.sessionWriter", map);
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectCmtChild(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>) selectOne("group.selectCmtChild",map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectDeletedParent(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>) selectOne("group.selectDeletedParent",map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectParent(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>) selectOne("group.selectParent",map);
+	}
+	
+	public void updateDeleteFlag(Map<String, Object> map) throws Exception{
+		update("group.updateDeleteFlag",map);
+	}
+	
+	public void cmtGroupDelete(Map<String, Object> map) throws Exception{
+		delete("group.cmtGroupDelete",map);
+	}
 }

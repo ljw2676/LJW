@@ -129,7 +129,7 @@
 		update group_gathering set gg_enable=gg_enable-1 where gg_no=#{gg_no}
 	</update>
 	
-	<!-- 댓글 삽입 -->
+	 <!-- 댓글 + 대댓 + 댓글 삭제 -->
     <insert id="insertCmt" parameterType="hashmap">
       INSERT INTO comments
       (
@@ -141,7 +141,8 @@
          ref,
          re_step,
          re_level,
-         c_del
+         c_del,
+         c_group
       )
       VALUES
       (
@@ -153,7 +154,8 @@
          comments_seq.currval,
          #{re_step},
          #{re_level},
-         'N'
+         'N',
+         (SELECT NVL(MAX(C_NO),0)+1 from COMMENTS)
       )
     </insert>
    
@@ -168,7 +170,8 @@
          ref,
          re_step,
          re_level,
-         c_del
+         c_del,
+         c_group
       )
       VALUES
       (
@@ -180,12 +183,13 @@
          #{ref},
          #{re_step},
          #{re_level},
-         'N'
+         'N', 
+         (SELECT c_group FROM COMMENTS WHERE C_NO=#{ref})
       )
     </insert>
    
    
-    <select id="selectCmtList" parameterType="hashmap" resultType="hashmap">
+     <select id="selectCmtList" parameterType="hashmap" resultType="hashmap">
       SELECT
          c_no,
          c_content,
@@ -195,6 +199,7 @@
          re_step,
          re_level,
          c_del,
+         c_group,
          m_name as c_name
       FROM
          comments natural join members
@@ -204,11 +209,47 @@
       	 ref DESC, re_step ASC
     </select>
 
-
 	<update id="updateReplyStep" parameterType="hashmap">
       UPDATE comments set re_step=re_step+1 where ref=#{ref} AND re_step>#{re_step}
     </update>
    
+    <delete parameterType="hashmap" id="cmtDelete">
+		delete from comments where c_no = #{c_no} 
+	</delete>
+	 
+	<delete id="cmtGroupDelete" parameterType="hashmap">
+	<![CDATA[
+		DELETE
+		FROM COMMENTS
+		WHERE c_group=#{c_group}
+	]]>
+	</delete>
+
+	<select id="selectCmtChild" resultType="hashmap" parameterType="hashmap">
+        SELECT COUNT(*) AS CNT
+		FROM COMMENTS
+		WHERE ref=#{c_no} 
+	</select>
+	
+	<select id="selectDeletedParent" resultType="hashmap" parameterType="hashmap">
+        SELECT COUNT(*) AS DEL
+		FROM COMMENTS
+		WHERE c_group=#{c_group} AND c_del='Y'
+	</select>
+	
+	<select id="selectParent" resultType="hashmap" parameterType="hashmap">
+        SELECT COUNT(*) AS PAR
+		FROM COMMENTS
+		WHERE c_group=#{c_group}
+	</select>
+
+	<update id="updateDeleteFlag" parameterType="hashmap">
+		UPDATE COMMENTS
+		SET C_DEL = 'Y'
+		WHERE c_no=#{c_no}
+	</update> 
+	<!-- 댓글 부분 끝 -->
+	
     <select id="groupEnrollList" parameterType="hashmap" resultType="hashmap">
       select ge_no,
             gg_no,
@@ -353,11 +394,7 @@
 		WHERE
 			gg_no=#{gg_no}
 		
-	</select>
-	
-	<delete parameterType="hashmap" id="cmtDelete">
-		delete from comments where c_no = #{c_no} 
-	</delete>
+	</select>	
 	
 	<select id="sessionWriter" parameterType="hashmap" resultType="hashmap">
 		select m_name from members where m_no = #{m_no}

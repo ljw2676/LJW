@@ -27,5 +27,15 @@ public interface GroupService {
 
 	void inactivateGroup(Map<String, Object> map);
 	
-	void deleteComments(Map<String, Object> map, HttpServletRequest request) throws Exception;
+	void deleteComments(Map<String, Object> map) throws Exception;
+	
+	Map<String, Object> selectCmtChild(Map<String, Object> map) throws Exception;
+	
+	Map<String, Object> selectDeletedParent(Map<String, Object> map) throws Exception;
+	
+	Map<String, Object> selectParent(Map<String, Object> map) throws Exception;
+	
+	void updateDeleteFlag(Map<String, Object> map) throws Exception;
+	
+	void cmtGroupDelete(Map<String, Object> map) throws Exception;
 }
