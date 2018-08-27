@@ -52,9 +52,9 @@ public class GroupController {
 	@RequestMapping(value="/groupList", method={RequestMethod.GET, RequestMethod.POST})
     public ModelAndView groupList(CommandMap map, HttpServletRequest request) throws Exception{
 		YogiUtils.savePageURI(request);
-		ModelAndView mv = new ModelAndView("/group/groupList");
+		ModelAndView mv = new ModelAndView("/group/groupList2");
 		List<Map<String,Object>> list = groupService.selectGroupList(map.getMap());
-		PagingCalculator paging = new PagingCalculator("group/groupList", map.getCurrentPageNo(), list, 6 ,3);
+		PagingCalculator paging = new PagingCalculator("/groupList", map.getCurrentPageNo(), list, 6 ,3);
 		Map<String, Object> result = paging.getPagingList();
 		mv.addObject("list", result.get("list"));
 		mv.addObject("pagingHtml", result.get("pagingHtml"));
