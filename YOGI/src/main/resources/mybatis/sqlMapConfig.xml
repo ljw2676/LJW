@@ -29,6 +29,7 @@ PUBLIC " - //mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/admin-sql.xml"/>
 		<mapper resource="mybatis/mypage-sql.xml"/>
 		<mapper resource="mybatis/alram-sql.xml"/>
+		<mapper resource="mybatis/report-sql.xml"/>
 	</mappers>
 	
 	</configuration>

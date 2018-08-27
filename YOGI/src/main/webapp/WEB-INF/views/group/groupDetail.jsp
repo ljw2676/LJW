@@ -82,7 +82,11 @@
 					})
 				})
 			})
-
+function fn_memberProfileLink(m_pno){
+   var url = "/yogi/report/viewUserInfo?m_pno="+m_pno;
+   var option = "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500,height=600";
+   window.open(url,"",option);
+}
 			
 	</script>
 </head>
@@ -150,9 +154,11 @@
 	 <div>
 		<h4>신청자(${geList.size()})</h4>
 		<c:forEach items="${geList }" var="gl">
-		<ul>
-		<li>${gl.GE_NAME }</li>
-		</ul>
+   		   <ul>
+       		  <a href="#this" onclick="fn_memberProfileLink('${gl.M_NO}')">
+           		 <li>${gl.GE_NAME }</li>
+       		  </a>
+    	  </ul>
 		</c:forEach>	
 	</div>
 	 

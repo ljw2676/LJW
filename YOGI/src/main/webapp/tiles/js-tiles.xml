@@ -11,4 +11,6 @@
 	<definition name="groupForm" template="/WEB-INF/views/group/groupForm.jsp"/>
 	<definition name="groupModifyForm" template="/WEB-INF/views/group/groupModifyForm.jsp"/>
 	<definition name="adminpageView" template="/WEB-INF/views/admin/adminpageView.jsp"/>
+	<definition name="viewUserInfo" template="/WEB-INF/views/report/viewUserInfo.jsp"/>
+	<definition name="reportForm" template="/WEB-INF/views/report/reportForm.jsp"/>
 </tiles-definitions>

@@ -36,12 +36,6 @@ public class MembersDAO extends AbstractDAO{
 	}
 	
 	public void updateMember(MembersModel model){
-		System.out.println("m_fav_area : "+model.getM_fav_area());
-		System.out.println("m_fav_field : "+model.getM_fav_field());
-		System.out.println("m_profile : "+model.getM_profile());
-		System.out.println("m_phone : "+model.getM_phone());
-		System.out.println("m_password : "+model.getM_password());
-		System.out.println("m_id : "+model.getM_id());
 		update("members.updateMembers", model);
 	}
 	
