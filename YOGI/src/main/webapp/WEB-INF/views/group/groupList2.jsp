@@ -272,9 +272,13 @@ function fn_groupDetailLink(gg_no){
 	
 			
 		</div>
-		<div class="pagingHtml">
-			${pagingHtml}
-		</div>
+	<div class="row" >
+						<div class="col-md-12 animate-box" data-animate-effect="fadeInLeft"  style=" text-align: center" >
+							<ul class="pagination" style="display: inline-block;">
+								${pagingHtml}
+							</ul> 
+						</div>
+	</div>
 	</div>
 	
 </div>
