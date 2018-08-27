@@ -34,6 +34,7 @@
 	<!-- <link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/icomoon.css"> -->
 	<!-- Bootstrap  -->
 	<link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/bootstrap.css">
+	<link href="http://localhost:8080/yogi/resources/first/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Flexslider  -->
 	<!-- <link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/flexslider.css"> -->
 	<!-- Flaticons  -->
@@ -173,122 +174,137 @@
 	
 </script>
 <style>
-.left-box {
-  position: absolute;
-  left: 0;
-}
-.right-box {
-  position: absolute;
-  right: 0;
-}
+dt { float: left;
+font-family: 'icomoon';
+font-size: 10px;
+ }
 </style>
 
 </head>
 <body>
 <br><br>
 <div class="colorlib-narrow-content">
-	<div class="row">
-		<div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
-			<span class="heading-meta">어서오세용 >__O</span>
-			<h2 class="colorlib-heading">회원가입</h2>
-		</div>
+<div class="row">
+	<div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+		<span class="heading-meta">어서오세용 >__O</span>
+		<h2 class="colorlib-heading">회원가입</h2>
 	</div>
-	<div class="row">
-		<div class="col-md-7 col-md-push-1">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1 col-md-pull-1 animate-box" data-animate-effect="fadeInLeft">
-					<form:form commandName="member" name="userinput" method="post" enctype="multipart/form-data">
-					<div class='left-box'>
-						<div class="form-group">
-							<input type="text" name="m_id" id="m_id" class="form-control" placeholder="Id">
-							<input type="button" id="checkId" class="btn btn-primary btn-send-message" value="중복확인" >
-						</div>
-						<div class="form-group">
-							<input type="file" class="btn btn-primary btn-send-message" name="file">
-						</div>
-						<div class="form-group">
-							<input type="password" name="m_password" class="form-control" placeholder="password" onkeyup="checkPwd()"/>
-						</div>
-						<div class="form-group">
-							<input type="password" name="m_password_check" class="form-control" placeholder="passwordCheck!" onkeyup="checkPwd()"/>
-						</div>
-							
-						<div id="checkcheck" class="alert alert-danger" style="width:400px;">동일한 암호를 입력하세요.</div>	
-						<div class="form-group">
-							<input type="text" class="form-control" name="m_name" placeholder="Name">
-						</div>
-						<div class="form-group">
-							<input type="text" class="form-control"  name="m_phone" placeholder="Phone ex) 010-0000-0000">
-						</div>
-						<div class="form-group">
-							<input type="button" value="제출!" onclick="insert()" class="btn btn-primary btn-send-message"/>
-						</div>
-					</div>
-					<div class='right-box'>
-					<div class="">
-					선호지역<br>
-    						<input type="checkbox" class="option-input checkbox" />
-    								Checkbox
-						<input type="checkbox" name="m_fav_field" value="실외활동">실외활동
-						<input type="checkbox" name="m_fav_field" value="패션">패션
-						<input type="checkbox" name="m_fav_field" value="맛집">맛집<br>
-	
-						<input type="checkbox" name="m_fav_field" value="게임">게임
-						<input type="checkbox" name="m_fav_field" value="동물">동물
-						<input type="checkbox" name="m_fav_field" value="보드게임">보드게임<br>
-	
-						<input type="checkbox" name="m_fav_field" value="전시/공연">전시/공연
-						<input type="checkbox" name="m_fav_field" value="취업/스터디">취업/스터디
-						<input type="checkbox" name="m_fav_field" value="춤">춤<br>
-	
-						<input type="checkbox" name="m_fav_field" value="독서/토론">독서/토론
-						<input type="checkbox" name="m_fav_field" value="음악">음악
-						<input type="checkbox" name="m_fav_field" value="언어교환">언어교환<br>
-	
-						<input type="checkbox" name="m_fav_field" value="여행">여행
-						<input type="checkbox" name="m_fav_field" value="웰빙">웰빙
-						<input type="checkbox" name="m_fav_field" value="공예">공예
-				</div>
-		<br><br>
-		<div class="area">
-			<input type="checkbox" name="m_fav_area" value="종로구">종로구
-			<input type="checkbox" name="m_fav_area" value="중구">중구
-			<input type="checkbox" name="m_fav_area" value="용산구">용산구
-			<input type="checkbox" name="m_fav_area" value="성동구">성동구<br>
-	
-			<input type="checkbox" name="m_fav_area" value="광진구">광진구
-			<input type="checkbox" name="m_fav_area" value="동대문구">동대문구
-			<input type="checkbox" name="m_fav_area" value="중랑구">중랑구
-			<input type="checkbox" name="m_fav_area" value="성북구">성북구<br>
-
-			<input type="checkbox" name="m_fav_area" value="강북구">강북구
-			<input type="checkbox" name="m_fav_area" value="도봉구">도봉구
-			<input type="checkbox" name="m_fav_area" value="노원구">노원구
-			<input type="checkbox" name="m_fav_area" value="은평구">은평구 <br>
-	
-			<input type="checkbox" name="m_fav_area" value="서대문구">서대문구
-			<input type="checkbox" name="m_fav_area" value="마포구">마포구
-			<input type="checkbox" name="m_fav_area" value="양천구">양천구
-			<input type="checkbox" name="m_fav_area" value="강서구">강서구<br>
-	
-			<input type="checkbox" name="m_fav_area" value="구로구">구로구
-			<input type="checkbox" name="m_fav_area" value="금천구">금천구
-			<input type="checkbox" name="m_fav_area" value="영등포구">영등포구
-			<input type="checkbox" name="m_fav_area" value="동작구">동작구<br>
-	
-			<input type="checkbox" name="m_fav_area" value="관악구">관악구
-			<input type="checkbox" name="m_fav_area" value="서초구">서초구
-			<input type="checkbox" name="m_fav_area" value="강남구">강남구
-			<input type="checkbox" name="m_fav_area" value="송파구">송파구<br>
-	
-			<input type="checkbox" name="m_fav_area" value="강동구">강동구
-		</div>
-					</div>
-					</form:form>
+</div>
+<div class="col-md-7 col-md-push-1">
+<div class="row">
+<div class="col-md-10 col-md-offset-1 col-md-pull-1 animate-box" data-animate-effect="fadeInLeft">
+	<form:form commandName="member" name="userinput" method="post" enctype="multipart/form-data">
+		<table>
+		<tr>
+			<td>
+			<div class="form-group">
+				<div class="input-group-append">				
+					<input type="text" name="m_id" id="m_id" class="form-control" placeholder="Id">
+					<input type="button" id="checkId" class="btn btn-primary btn-send-message" value="중복확인" >
 				</div>
 			</div>
-		</div>
+				<div class="form-group">
+					<input type="file" class="btn btn-primary btn-send-message" name="file">
+				</div>
+				<div class="form-group">
+					<input type="password" name="m_password" class="form-control" placeholder="password" onkeyup="checkPwd()"/>
+				</div>
+				<div class="form-group">
+					<input type="password" name="m_password_check" class="form-control" placeholder="passwordCheck!" onkeyup="checkPwd()"/>
+				</div>
+				<div id="checkcheck" class="alert alert-danger" style="width:400px;">동일한 암호를 입력하세요.</div>	
+				<div class="form-group">
+					<input type="text" class="form-control" name="m_name" placeholder="Name">
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control"  name="m_phone" placeholder="Phone ex) 010-0000-0000">
+				</div>
+				<div>
+				<br><br><br><br>
+				</div>
+		</td>
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td>
+		관심사
+		<dl>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="실외활동"></dt><dt>&nbsp;실외활동&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="패션"></dt><dt>&nbsp;패션&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="맛집"></dt><dt>&nbsp;맛집&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="게임"></dt><dt>&nbsp;게임</dt>
+			<span style="color:WHITE">WElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGI</span> 
+		</dl>
+		<dl>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="동물"></dt><dt>&nbsp;동물&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="보드게임"></dt><dt>&nbsp;보드게임&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="춤"></dt><dt>&nbsp;춤&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="공예"></dt><dt>&nbsp;공예&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+			<span style="color:WHITE">WElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGI</span> 
+		</dl>
+		<dl>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="전시/공연"></dt><dt>&nbsp;전시/공연&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="취업/스터디"></dt><dt>&nbsp;취업/스터디&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="독서/토론"></dt><dt>&nbsp;독서/토론&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+			<span style="color:WHITE">WElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGI</span> 
+		</dl>
+		<dl>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="음악"></dt><dt>&nbsp;음악&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="여행"></dt><dt>&nbsp;여행&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="웰빙"></dt><dt>&nbsp;웰빙&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="언어교환"></dt><dt>&nbsp;언어교환&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+			<span style="color:WHITE">WElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGI</span> 
+		</dl>
+		
+		<br>선호지역
+		<dl>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="종로구"></dt><dt>&nbsp;종로구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="중구"></dt><dt>&nbsp;중구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="용산구"></dt><dt>&nbsp;용산구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="성동구"></dt><dt>&nbsp;성동구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="광진구"></dt><dt>&nbsp;광진구&nbsp;&nbsp;&nbsp;</dt>
+			<span style="color:WHITE">WElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGI</span>  
+		</dl>
+		<dl>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="동대문구"></dt><dt>&nbsp;동대문구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="중랑구"></dt><dt>&nbsp;중랑구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="성북구"></dt><dt>&nbsp;성북구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="강북구"></dt><dt>&nbsp;강북구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="도봉구"></dt><dt>&nbsp;도봉구&nbsp;&nbsp;&nbsp;</dt>
+			<span style="color:WHITE">WElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGI</span>  
+		</dl>
+		<dl>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="노원구"></dt><dt>&nbsp;노원구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="은평구"></dt><dt>&nbsp;은평구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="서대문구"></dt><dt>&nbsp;서대문구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="마포구"></dt><dt>&nbsp;마포구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="양천구"></dt><dt>&nbsp;양천구&nbsp;&nbsp;&nbsp;</dt>
+			<span style="color:WHITE">WElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGI</span>  
+		</dl>
+		<dl>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="강서구"></dt><dt>&nbsp;강서구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="구로구"></dt><dt>&nbsp;구로구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="금천구"></dt><dt>&nbsp;금천구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="영등포구"></dt><dt>&nbsp;영등포구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="동작구"></dt><dt>&nbsp;동작구&nbsp;&nbsp;&nbsp;</dt>
+			<span style="color:WHITE">WElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGI</span>  
+		</dl>
+		<dl>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="관악구"></dt><dt>&nbsp;관악구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="서초구"></dt><dt>&nbsp;서초구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="강남구"></dt><dt>&nbsp;강남구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="송파구"></dt><dt>&nbsp;송파구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="강동구"></dt><dt>&nbsp;강동구&nbsp;&nbsp;&nbsp;</dt>
+			<span style="color:WHITE">WElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGI</span>  
+		</dl>
+		</td>
+	</tr>
+	</table>
+	<div class="form-group">
+		<input type="button" value="제출!" onclick="insert()" class="btn btn-primary btn-send-message"/>
 	</div>
+	</form:form>
+</div>
+</div>
+</div>
 </div>
 
 	<!-- jQuery -->
@@ -310,7 +326,5 @@
 	
 	<!-- MAIN JS -->
 	<script src="http://localhost:8080/yogi/resources/bootstrap/js/main.js"></script>
-	
-	
 </body>
 </html>
