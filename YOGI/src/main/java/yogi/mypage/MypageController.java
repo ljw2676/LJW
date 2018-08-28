@@ -31,12 +31,15 @@ public class MypageController {
 		return "/mypage/mypageView";
 	}*/
 	
+
+
+	
 	@RequestMapping("/mypage/mypageView")
 	public ModelAndView mypageView(HttpSession session) throws Exception{
 		if (session.getAttribute("session_m_no") == null) {
 			return new ModelAndView("redirect:/first");
 		}
-		ModelAndView mv = new ModelAndView("/mypage/mypageView");
+		ModelAndView mv = new ModelAndView("/mypage/mypageViewCss");
 		Map<String, Object> member = mypageService.selectOneMember(session.getAttribute("session_m_no"));
 		
 		mv.addObject("member", member);
