@@ -39,7 +39,7 @@
 </c:when>
 <c:otherwise>
 		<br>
-		신청 내역이 없습니다
+		개설한 모임이 없습니다.
 </c:otherwise>
 </c:choose>
 

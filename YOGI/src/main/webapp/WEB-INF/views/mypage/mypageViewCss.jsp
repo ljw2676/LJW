@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -102,12 +105,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 					<div class="row">
 						<div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
 							<span class="heading-meta">M Y P A G E</span>
-							<h2 class="colorlib-heading" style="margin-top: -10px;">${session_m_id }님  환영합니다 ! </h2>
+							<h2 class="colorlib-heading" style="margin-top: -10px;">${session_m_name}님  환영합니다 ! </h2>
 						</div>
 					</div>
 					
-						<div class="col-lg-4 sidebar-widgets">
-							<div class="widget-wrap">
+						<div class="col-lg-4 sidebar-widgets" style="top: -40px; ">
+							<div class="widget-wrap" >
 							
 								<div class="single-sidebar-widget user-info-widget">
 									<img src="/yogi/resources/bootstrap_my/img/blog/user-info.png" alt="">
@@ -161,16 +164,148 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 																						
 									</div>
 								</div>
-							
-							
-		
-					
+				</div>
+			</div>
 			
-			
+			<div class="col-md-8 animate-box" data-animate-effect="fadeInRight">
+							<div class="fancy-collapse-panel">
+								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+									<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="headingOne">
+									        <h4 class="panel-title">
+									            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">내가 개설한 모임
+									            </a>
+									        </h4>
+									    </div>
+									    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+									         <div class="panel-body">
+									            <div class="row">
+										      		<c:choose>
+														<c:when test="${fn:length(list) > 0 }">
+															<table border="1">
+																<tr background="gray">
+																	<td>no</td>
+																	<td>제목</td>
+																	<td>등록일</td>
+	
+																</tr>
+														<c:forEach items="${list}" var="row">
+																<tr>
+																	<td>${row.GG_NO}</td>
+																	<td>${row.GG_NAME}</td>
+																	<td>${row.GG_DATE}</td>
+	
+																</tr>
+														</c:forEach>
+															</table>
+														</c:when>
+												<c:otherwise>
+												<br>
+												개설한 모임이 없습니다.
+													</c:otherwise>
+											</c:choose>
 
-			
-		</div>
-	</div>
+												${pagingHtml}
+										      	</div>
+									         </div>
+									    </div>
+									</div>
+									<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="headingTwo">
+									        <h4 class="panel-title">
+									            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">내가 참여한 모임
+									            </a>
+									        </h4>
+									    </div>
+									    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+									        <div class="panel-body">
+									            <c:choose>
+													<c:when test="${fn:length(list) > 0 }">
+														<table border="1">
+															<tr background="gray">
+																<td>no</td>
+																<td>제목</td>
+																<td>등록일</td>
+	
+															</tr>
+														<c:forEach items="${list}" var="row">
+															<tr>
+																<td>${row.GG_NO}</td>
+																<td>${row.GG_NAME}</td>
+																<td>${row.GG_DATE}</td>
+															</tr>
+															</c:forEach>
+														</table>
+													</c:when>
+													<c:otherwise>
+														<br>
+													참여한 모임이 없습니다.
+														</c:otherwise>
+															</c:choose>
+
+													${pagingHtml}
+									        </div>
+									    </div>
+									</div>
+									<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="headingThree">
+									        <h4 class="panel-title">
+									            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">내가 찜한 모임
+									            </a>
+									        </h4>
+									    </div>
+									    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+									        <div class="panel-body">
+									            <p>Far far away, behind the word <strong>mountains</strong>, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>	
+									        </div>
+									    </div>
+									</div>
+									
+									<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="headingTwo">
+									        <h4 class="panel-title">
+									            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">장소 신청 내역
+									            </a>
+									        </h4>
+									    </div>
+									    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+									        <div class="panel-body">
+									            <p>Far far away, behind the word <strong>mountains</strong>, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+													<ul>
+														<li>Separated they live in Bookmarksgrove right</li>
+														<li>Separated they live in Bookmarksgrove right</li>
+													</ul>
+									        </div>
+									    </div>
+									</div>
+									
+									<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="headingTwo">
+									        <h4 class="panel-title">
+									            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">신고 내역
+									            </a>
+									        </h4>
+									    </div>
+									    
+									    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+									        <div class="panel-body">
+									            <p>Far far away, behind the word <strong>mountains</strong>, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+													<ul>
+														<li>Separated they live in Bookmarksgrove right</li>
+														<li>Separated they live in Bookmarksgrove right</li>
+													</ul>
+									        </div>
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+									
+	
 
 	<!-- jQuery -->
 	<script src="/yogi/resources/bootstrap/js/jquery.min.js"></script>

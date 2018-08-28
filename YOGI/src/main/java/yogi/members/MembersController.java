@@ -76,6 +76,8 @@ public class MembersController {
 			
 			/* 세션값 더 필요한 거 있으면 요기다 저장하세용~! */
 			session.setAttribute("session_m_id", mm.getM_id());
+			session.setAttribute("session_m_phone", mm.getM_phone());
+			session.setAttribute("session_m_name", mm.getM_name());
 			session.setAttribute("session_m_no", mm.getM_no());
 			session.setAttribute("session_mem_alram", mem_alram);
 			return "redirect:/main";

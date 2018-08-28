@@ -30,10 +30,8 @@
 		<c:forEach items="${list}" var="row">
 		<tr>
 			<td>${row.GG_NO}</td>
-			<td><a href="#this"  onclick="fn_selectLendplaceDetail'${row.GG_NO}')">${row.GG_NAME}</a>
-		
+			<td>${row.GG_NAME}</td>
 			<td>${row.GG_DATE}</td>
-	
 		</tr>
 		</c:forEach>
 </table>

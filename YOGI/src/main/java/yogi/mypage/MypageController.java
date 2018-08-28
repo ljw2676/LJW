@@ -25,13 +25,6 @@ public class MypageController {
 	
 	@Resource(name="mypageService")
 	private MypageService mypageService;
-	
-/*	@RequestMapping(value= "/mypage/mypageView")
-	public ModelAndView mypage(){
-		return "/mypage/mypageView";
-	}*/
-	
-
 
 	
 	@RequestMapping("/mypage/mypageView")
