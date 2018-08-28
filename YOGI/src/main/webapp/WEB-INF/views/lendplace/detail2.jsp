@@ -208,23 +208,58 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 	
 	<!-- MAIN JS -->
 	<script src="/yogi/resources/bootstrap/js/main.js"></script>
+	
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 	<script src="//apis.daum.net/maps/maps3.js?apikey=a18085cad4f8315645fc4a233bdb2875&libraries=services" onerror="alertify.log('지도 로드중 에러!')"></script>
 	<script src="<c:url value='/resources/datepicker/datepicker.js'/> "></script>
 	<script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
 	<script type="text/javascript">
 $(document).ready(function() {
-		$("a[name='apply']").on("click", function(e) { //신청
-		/* 태그의 기본 기능을 제거 */
-		e.preventDefault();
-		if(confirm("신청 하시겠습니까?")==true){
-		fn_applyLendplace();
-		} else {
-			return;
-		}
+		var IMP = window.IMP; // 생략가능
+		IMP.init('imp59404832'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		
+		$("a[name='apply']").on("click", function(e) { //신청
+			/* 태그의 기본 기능을 제거 */
+			e.preventDefault();
+			if(confirm("신청 하시겠습니까?")==true){
+				if ('${map.L_PAYMENT}'=='0') {
+					fn_applyLendplace();
+				}else{
+					fn_pay();
+				}
+			} else {
+				return;
+			}
 		});
+	
 });
+function fn_pay() {
+	//아임포트 결제관리
+	
+	IMP.request_pay({
+		pg : 'html5_inicis',
+	    pay_method : 'card',
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	    name : '${map.L_SUBJECT}',
+	    amount : '${map.L_PAYMENT}',
+	    buyer_email : 'YOGI@gmail.com',
+	    buyer_name : '${session_m_name}',
+	    buyer_tel : '${session_m_phone}',
+	    buyer_addr : '서울특별시 강남구 삼성동',
+	    buyer_postcode : '123-456',
+	}, function(rsp) {
+	    if ( rsp.success ) {
+	        //결제가 성공해야 신청처리 되도록 여기에 장소 신청 메서드 연결 
+	        fn_applyLendplace();
+	    } else {
+	        var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
+	        alert(msg);
+	    }
+	});
+	
+}
 
 function fn_applyLendplace(){
 	alert("장소 대여 신청이 완료되었습니다 :3");
