@@ -59,7 +59,7 @@ public class MainController {
 			mv.addObject("list",list);
 			
 		}
-		if( (list == null || list.size()<3 ) && mm.getM_fav_area() != null) {
+		if( (list == null || list.size()<6 ) && mm.getM_fav_area() != null) {
 			String area_tmp = mm.getM_fav_area();
 			String[] area ;
 			area = area_tmp.split(",");
@@ -72,7 +72,7 @@ public class MainController {
 			list = mainService.fav_area(hm);
 			mv.addObject("list",list);
 		}
-		if(list == null ||list.size()<3) {
+		if(list == null ||list.size()<6) {
 			list = mainService.all();
 			mv.addObject("list",list);
 		}
