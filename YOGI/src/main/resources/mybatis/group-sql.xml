@@ -283,7 +283,6 @@
 			gg_addr=#{gg_addr},
 			gg_place=#{gg_place},
 			gg_detail=#{gg_detail},
-			gg_cost=#{gg_cost},
 			gg_ofn=#{gg_ofn},
 			gg_rfn=#{gg_rfn}
 		WHERE 
@@ -296,7 +295,6 @@
 		SET 
 			gg_addr=#{gg_addr},
 			gg_place=#{gg_place},
-			gg_cost=#{gg_cost},
 			gg_detail=#{gg_detail}
 		WHERE 
 			gg_no=#{gg_no}

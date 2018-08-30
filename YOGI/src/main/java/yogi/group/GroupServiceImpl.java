@@ -178,7 +178,8 @@ public class GroupServiceImpl implements GroupService {
 					alramService.regAlram(Integer.parseInt(geList.get(i).get("M_NO").toString()),(String)map.get("wt_name"), 2, Integer.parseInt(map.get("gg_no").toString()));
 				}
 			}
-				groupDAO.modifyGroup(map);
+			System.out.println("groupDAO modifyGroup Map : "+map);
+			groupDAO.modifyGroup(map);
 		}
 		else {
 			List<Map<String,Object>> geList = groupDAO.groupEnrollList(map);

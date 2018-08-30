@@ -99,7 +99,7 @@ public class GroupDAO extends AbstractDAO{
 	}
 	
 	public String deleteFileName(String str) {
-		return (String) selectOne("selectFileName", str);
+		return (String) selectOne("group.selectFileName", str);
 	}
 	
 	public void modifyGroupExceptFile(Map<String, Object> map) {
