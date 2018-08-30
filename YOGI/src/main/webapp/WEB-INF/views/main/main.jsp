@@ -52,12 +52,7 @@ $(".chat").on({
 
 </script>
 <style>
-.row {
-  width: 100%;
-  display: block;
-  line-height: 60px;
-  text-align: center;
-}
+
 input[type="checkbox"] {
   display: none;
 }
@@ -327,7 +322,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 	<div class="about-desc">
 		<span class="heading-meta">Welcome</span>
 			<h2 class="colorlib-heading">Chat with other people!</h2>
-				<p>다른 사람들이랑 채팅... 해볼래...?</p>
 				<div class="check">
 					<input type="checkbox" id="status" onclick="openChat();"/> 
 					<label for="check"></label>
@@ -336,7 +330,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
   					<input type="checkbox" id="box_2" onclick="openChat();"/>
   					<label for="box_2" class="red"></label>
   				</div>
-
+<br>
 				
 	<div id="_chatbox" style="display: none">
 	<fieldset>
