@@ -263,16 +263,36 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 	
 	<c:otherwise> 등록된 장소가 없습니다. </c:otherwise>
 	</c:choose>
-					
-					
-				</div>
-			</div>
-
-			
-
-			
-		</div>
 	</div>
+	</div>
+<div class="col-md-6">
+	<div class="about-img animate-box" data-animate-effect="fadeInLeft" style="background-image: url(images/img_bg_2.jpg);"></div>
+</div>
+<div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
+	<div class="about-desc">
+		<span class="heading-meta">Welcome</span>
+			<h2 class="colorlib-heading">Chat with other people!</h2>
+				<p>다른 사람들이랑 채팅... 해볼래...?</p>
+				<div class="check">
+					<input type="checkbox" id="status" onclick="openChat();"/> 
+					<label for="check"></label>
+				</div>
+	<div id="_chatbox" style="display: none">
+	<fieldset>
+	<div id="messageWindow">
+        <input type="hidden" id="sender" value="${session_m_id}">
+        <input id="messageinput" type="text" onkeyup="enterkey()"  />
+        <input type="button" onclick="send();" value="Send">
+	    <!-- Server responses get written here -->
+    	<div id="messages"></div>
+    </div>
+	</fieldset>
+	</div>
+	</div>
+</div>
+</div>
+</div>
+	
 
 	<!-- jQuery -->
 	<script src="http://localhost:8080/yogi/resources/bootstrap/js/jquery.min.js"></script>
@@ -294,7 +314,72 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 	
 	<!-- MAIN JS -->
 	<script src="http://localhost:8080/yogi/resources/bootstrap/js/main.js"></script>
+	
+	<script type="text/javascript">
+	var ws;
+	var messages=document.getElementById("messages");
+        
+	function openSocket(){
+		if(ws!==undefined && ws.readyState!==WebSocket.CLOSED){
+			writeResponse("WebSocket is already opened.");
+			return;
+		}
+		//웹소켓 객체 만드는 코드
+		ws=new WebSocket("ws://localhost:8080/yogi/echoecho");
+            
+		ws.onopen=function(event){
+			if(event.data===undefined) return;
+				writeResponse(event.data);
+		};
+		ws.onmessage=function(event){
+			writeResponse(event.data);
+		};
+		ws.onclose=function(event){
+			writeResponse("Connection closed");
+		}
+	}
+        
+	function send(){
+		var text=document.getElementById("sender").value + ":" + document.getElementById("messageinput").value;
+		ws.send(text);
+		text="";
+		document.getElementById("messageinput").value="";
+	}
+        
+	function closeSocket(){
+		ws.close();
+	}
+	function writeResponse(text){
+		messages.innerHTML+="<br/>"+text;
+	}
+	
+	function openChat(){
+		var stat = document.getElementById('status').value;
+		if(stat == 'Close'){
+			document.getElementById("status").value="open";
+			$("#_chatbox").css("display", "none");
+			closeSocket();
+		}
+		else{
+			openSocket();
+			document.getElementById("status").value="Close";
+			$("#_chatbox").css("display", "block");
+			
+		}
+	}
+	
+//  엔터키를 통해 send함
+	function enterkey() {
+		if (window.event.keyCode == 13) {
+			send();
+		}
+	}
+    //채팅이 많아져 스크롤바가 넘어가더라도 자동적으로 스크롤바가 내려가게함
+	window.setInterval(function() {
+		var elem = document.getElementById('messageWindow');
+		elem.scrollTop = elem.scrollHeight;
+	}, 0);
+</script>
 
-	</body>
+</body>
 </html>
-
