@@ -82,6 +82,7 @@ public class LendplaceController {
     //후기 저장 & 수정
     @RequestMapping(value="/lendplace/insertReview")
     public ModelAndView insertReview(CommandMap commandMap) throws Exception{
+    	System.out.println(commandMap.getMap());
     	if (commandMap.get("R_NO") == null || "".equals(commandMap.get("R_NO"))) {
     		if (commandMap.get("R_PARENT") != null) {
     			lendplaceService.updateReviewOrder(commandMap.getMap());

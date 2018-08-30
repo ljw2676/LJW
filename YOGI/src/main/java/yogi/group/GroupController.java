@@ -96,29 +96,7 @@ public class GroupController {
     public ModelAndView enroll(CommandMap map, HttpServletRequest request) throws Exception{
     	groupService.insertGroupEnroll(map.getMap(),request);
     	return new ModelAndView("redirect:/groupDetail?gg_no="+map.get("gg_no"));
-    }
-	
-	@RequestMapping(value="/comments", method=RequestMethod.POST)
-	public ModelAndView insertCmt(CommandMap map, HttpServletRequest request) throws Exception{
-		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
-		groupService.insertComments(map.getMap(),request);
-		return new ModelAndView("redirect:/groupDetail?gg_no="+map.get("gg_no"));
-	}
-	
-	/*@RequestMapping(value="/commentsDelete", method=RequestMethod.POST)
-	public ModelAndView deleteCmt(CommandMap map, HttpServletRequest request) throws Exception{
-		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
-		groupService.deleteComments(map.getMap(), request);
-		return new ModelAndView("redirect:/groupDetail?gg_no="+map.get("gg_no"));
-	}*/
-	
-	@RequestMapping(value="/commentsRep", method=RequestMethod.POST)
-	public ModelAndView insertCmtRep(CommandMap map, HttpServletRequest request) throws Exception{
-		map.put("m_no", request.getSession().getAttribute(YogiConstants.M_NO));
-		groupService.insertComments(map.getMap(),request);
-
-		return new ModelAndView("redirect:/groupDetail?gg_no="+map.get("gg_no"));
-	}
+    }	
 	
 	//모임 폼 열기
 		@RequestMapping(value="/groupForm")
@@ -175,9 +153,25 @@ public class GroupController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/comments", method=RequestMethod.POST)
+	public ModelAndView insertCmt(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		if(commandMap.get("c_no") == null || "".equals(commandMap.get("c_no"))) {
+			if(commandMap.get("c_parent") != null) {
+					groupService.updateReplyStep(commandMap.getMap());			
+			}
+			
+			System.out.println(commandMap.getMap());
+			groupService.insertComments(commandMap.getMap());
+			alramService.regAlram(Integer.parseInt(commandMap.get("m_no1").toString()),(String)commandMap.get("m_name"), 1, Integer.parseInt(commandMap.get("gg_no").toString()));
+		}
+		return new ModelAndView("redirect:/groupDetail?gg_no="+commandMap.get("gg_no"));
+	}
+	
+	
 	  @RequestMapping(value="/deleteCmt")
 	    public ModelAndView deleteCmt(CommandMap commandMap) throws Exception{
 	    	ModelAndView mv = new ModelAndView("redirect:/groupDetail?gg_no="+commandMap.get("gg_no"));
+	    	System.out.println(commandMap.get("c_no"));
 	    	Map<String,Object> map = groupService.selectCmtChild(commandMap.getMap());
 	    	Integer cnt = Integer.parseInt(map.get("CNT").toString());
 	    	if ( cnt == 0) {
@@ -194,6 +188,7 @@ public class GroupController {
 	        }else {
 	        	groupService.updateDeleteFlag(commandMap.getMap());
 	    		return mv;
-	        }
+	        
 	    }
+	  }
 }

@@ -129,75 +129,16 @@
 		update group_gathering set gg_enable=gg_enable-1 where gg_no=#{gg_no}
 	</update>
 	
-	 <!-- 댓글 + 대댓 + 댓글 삭제 -->
-    <insert id="insertCmt" parameterType="hashmap">
-      INSERT INTO comments
-      (
-         c_no,
-         c_content,
-         c_date,
-         gg_no,
-         m_no,
-         ref,
-         re_step,
-         re_level,
-         c_del,
-         c_group
-      )
-      VALUES
-      (
-         comments_seq.nextval,
-         #{c_content},
-         sysdate,
-         #{gg_no},
-         #{m_no},
-         comments_seq.currval,
-         #{re_step},
-         #{re_level},
-         'N',
-         (SELECT NVL(MAX(C_NO),0)+1 from COMMENTS)
-      )
-    </insert>
-   
-   <insert id="insertCmtRep" parameterType="hashmap">
-      INSERT INTO comments
-      (
-         c_no,
-         c_content,
-         c_date,
-         gg_no,
-         m_no,
-         ref,
-         re_step,
-         re_level,
-         c_del,
-         c_group
-      )
-      VALUES
-      (
-         comments_seq.nextval,
-         #{c_content},
-         sysdate,
-         #{gg_no},
-         #{m_no},
-         #{ref},
-         #{re_step},
-         #{re_level},
-         'N', 
-         (SELECT c_group FROM COMMENTS WHERE C_NO=#{ref})
-      )
-    </insert>
-   
-   
+	<!-- 댓글 -->
      <select id="selectCmtList" parameterType="hashmap" resultType="hashmap">
       SELECT
          c_no,
          c_content,
          c_date,
          m_no,
-         ref,
-         re_step,
-         re_level,
+         c_parent,
+         c_depth,
+         c_order,
          c_del,
          c_group,
          m_name as c_name
@@ -206,11 +147,48 @@
       WHERE
          gg_no=#{gg_no}
       ORDER BY
-      	 ref DESC, re_step ASC
+      	 c_order ASC
     </select>
+     <insert id="insertCmt" parameterType="hashmap" >
+		INSERT INTO COMMENTS (	
+		 C_NO,
+		 C_CONTENT,		 
+		 C_DATE,
+		 GG_NO,
+		 M_NO,
+		 C_PARENT,
+         C_DEPTH,
+         C_ORDER,
+         C_DEL,
+         C_GROUP
+       	)
+		VALUES (
+		comments_seq.nextval,
+		#{c_content},		
+		sysdate,
+		#{gg_no},
+		#{m_no},
+	<choose>
+            <when test="c_parent==null">
+            		0,
+            		0,
+            		(SELECT NVL(MAX(C_ORDER),0)+1 from COMMENTS WHERE gg_no=#{gg_no}),
+            		'N',
+            		(SELECT NVL(MAX(C_NO),0)+1 from COMMENTS)
+            	</when>
+                <otherwise>
+                	#{c_parent},
+                	(SELECT C_DEPTH+1 C_DEPTH FROM COMMENTS WHERE c_no=#{c_parent}),
+                	(SELECT C_ORDER+1 C_ORDER FROM COMMENTS WHERE c_no=#{c_parent}),
+                	'N',
+                	(SELECT C_GROUP FROM COMMENTS WHERE c_no=#{c_parent})
+                </otherwise>
+            </choose>
+            )
+</insert>
 
 	<update id="updateReplyStep" parameterType="hashmap">
-      UPDATE comments set re_step=re_step+1 where ref=#{ref} AND re_step>#{re_step}
+      UPDATE comments set c_order=c_order+1 where gg_no=#{gg_no} AND c_order > (SELECT c_order FROM COMMENTS WHERE c_no = #{c_parent})
     </update>
    
     <delete parameterType="hashmap" id="cmtDelete">
@@ -228,7 +206,7 @@
 	<select id="selectCmtChild" resultType="hashmap" parameterType="hashmap">
         SELECT COUNT(*) AS CNT
 		FROM COMMENTS
-		WHERE ref=#{c_no} 
+		WHERE c_parent=#{c_no} 
 	</select>
 	
 	<select id="selectDeletedParent" resultType="hashmap" parameterType="hashmap">

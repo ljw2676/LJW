@@ -70,6 +70,8 @@ public class GroupDAO extends AbstractDAO{
 	}
 	
 	public void insertCmt(Map<String,Object> map) {
+		System.out.println(map);
+		System.out.println("***********************DAO****************************");
 		insert("group.insertCmt", map);
 	}
 	
@@ -85,10 +87,6 @@ public class GroupDAO extends AbstractDAO{
 	public void modifyGroup(Map<String, Object> map) {
 		System.out.println("groupModify:dao 실행");
 		update("group.modifyGroup", map);
-	}
-	
-	public void insertCmtRep(Map<String, Object> map) {
-		insert("group.insertCmtRep", map);
 	}
 	
 	public void updateReplyStep(Map<String, Object> map) {

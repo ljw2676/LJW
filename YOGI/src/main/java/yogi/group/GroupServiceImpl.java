@@ -197,32 +197,9 @@ public class GroupServiceImpl implements GroupService {
 	}
 	
 	@Override
-	public void insertComments(Map<String, Object> map, HttpServletRequest request) throws Exception {
-	System.out.println(map);
-	if(Integer.parseInt(map.get("ref").toString()) == 0)
-	{
-		map.put("re_step",0);
-		map.put("re_level",0);
-		System.out.println(map.get("m_no1"));
-		System.out.println(map.get("c_name"));
-		System.out.println(map.get("gg_no"));
+	public void insertComments(Map<String, Object> map) throws Exception {
 		
-		alramService.regAlram(Integer.parseInt(map.get("m_no1").toString()),(String)map.get("m_name"), 1, Integer.parseInt(map.get("gg_no").toString()));
-	}
-	else {
-		groupDAO.updateReplyStep(map);
-		alramService.regAlram(Integer.parseInt(map.get("m_no1").toString()),(String)map.get("c_name"), 1, Integer.parseInt(map.get("gg_no").toString()));
-		map.put("re_step", Integer.parseInt(map.get("re_step").toString())+1);
-		map.put("re_level", Integer.parseInt(map.get("re_level").toString())+1);
-		
-	}
-	
-	if(Integer.parseInt(map.get("ref").toString()) == 0)
 		groupDAO.insertCmt(map);
-	else 
-		groupDAO.insertCmtRep(map);
-	
-		
 	}
 	
 	@Override
@@ -261,5 +238,10 @@ public class GroupServiceImpl implements GroupService {
 	public void cmtGroupDelete(Map<String, Object> map) throws Exception {
 		groupDAO.cmtGroupDelete(map);
 		
+	}
+	
+	@Override
+	public void updateReplyStep(Map<String, Object> map) throws Exception{
+		groupDAO.updateReplyStep(map);
 	}
 }

@@ -13,71 +13,21 @@
 <script src="<c:url value='/resources/dtpicker/jquery.simple-dtpicker.css'/>" charset="utf-8"></script>
 <script src="<c:url value='/resources/dtpicker/jquery.simple-dtpicker.js'/>" charset="utf-8"></script>
 <script type="text/javascript">
-	function doDisplay(C_NO){
-   		 var con = document.getElementById("repDiv"+C_NO);
-    	if(con.style.display=='block'){
-    	    con.style.display = 'none';
-  		  }else{
-   		     con.style.display = 'block';
- 		   }
-	}	
-		
-		function cmt_check() {
-				var area = document.getElementById('comment');
-				if (!isLoginCheck("${sessionScope.session_m_email}")) {
-					return false;
-				}
-				if (!area.value) {
-					alertify.error("댓글에 내용이 입력되지 않았습니다.");
-					area.focus();
-					return false;
-				}
-			}
+function doDisplay(C_NO){
+		 var con = document.getElementById("repDiv"+C_NO);
+	if(con.style.display=='block'){
+	    con.style.display = 'none';
+		  }else{
+		     con.style.display = 'block';
+	   }
+}	
 
-		/* 	function fn_deleteCmt(c_no) {
-				var cs = new ComSubmit();
-				cs.setUrl("<c:url value='/commentsDelete' />");
-				cs.addParam("c_no", c_no);
-				cs.addParam("gg_no", '${gModel.GG_NO }');
-				cs.submit();
-			} */
-			function fn_deleteCmt(c_no, c_group){
-			    if (!confirm("삭제하시겠습니까?")) {
-			        return;
-			    }
-			    $("#form2").attr("action", "<c:url value='/deleteCmt'/>");
-			    $("#c_no").val(c_no);
-			    $("#c_group").val(c_group);
-			    $("#form2").submit();
-
-			    /* var form = document.form2;
-
-			    form.action="<c:url value='/lendplace/deleteReview'/>";
-			    form.R_NO.value=R_NO;
-			    form.R_GROUP.value=R_GROUP;
-			    form.submit();     */
-			}
-			
-
-			function fn_meetingsModify() {
-				var cs = new ComSubmit();
-				cs.setUrl("<c:url value='/groupModify' />");
-				cs.addParam("gg_no", '${gModel.GG_NO }');
-				cs.submit("GET");
-			}
-			
-			function commentsInsert(){	
-				var cs = new ComSubmit();	
-				cs.setUrl("<c:url value='/comments' />");
-				cs.addParam("m_name",'${sWriter.M_NAME}');
-				cs.addParam("ref",0);
-				cs.addParam("m_no1",'${gModel.M_NO}');
-				cs.addParam("gg_no",'${gModel.GG_NO}');
-				cs.addParam("c_group");
-				cs.addParam("c_content",$(document).find("#comment").val());
-				cs.submit();
-			}
-			
+function fn_meetingsModify() {
+	var cs = new ComSubmit();
+	cs.setUrl("<c:url value='/groupModify' />");
+	cs.addParam("gg_no", '${gModel.GG_NO }');
+	cs.submit("GET");
+}
 			$(document).ready(function(){
 				$("#likeit").bind("click", function() {
 					var gg_no = ${gModel.GG_NO };
@@ -165,7 +115,7 @@ function fn_memberProfileLink(m_pno){
 	 	<input type="hidden" name="m_no" value="${gModel.M_NO}">
 	 	<input type="submit" value="수정하기">
 	 </form>
-	 <a href="#this" name="inactivateGroup">삭제하기</a><input type="hidden" id="GG_NO" value="${gModel.GG_NO}">
+	 <a href="#this" name="inactivateGroup">삭제하기</a><input type="hidden" id="gg_no" value="${gModel.GG_NO}">
 	 </c:if>
 	 </div>
 	 
@@ -180,62 +130,71 @@ function fn_memberProfileLink(m_pno){
 		</c:forEach>	
 	</div>
 	 
-		 <div>
 	 	<h4> COMMENTS(${fn:length(cmtList)})</h4>
-	 	<c:forEach items="${cmtList }" var="row" varStatus="status">	
-		<form name="form2" id="form2" action='<c:url value='/commentsRep?c_no=${row.C_NO}&ref=${row.REF}'/>' method='post'>
-		<input type='hidden' name='re_step' value='${row.RE_STEP}'/>
-		<input type='hidden' name='re_level' value='${row.RE_LEVEL}'/>
-		<input type="hidden" name="gg_no" value="${gModel.GG_NO}"/>
-		<input type="hidden" name="m_no1" value="${gModel.M_NO}"/>
-		<input type="hidden" name="c_name" value="${row.C_NAME}" />
-		<input type="hidden" name="c_no" id="c_no">
-		<input type="hidden" name="c_group" id="c_group" value="${row.C_GROUP }">		
-		<fmt:parseNumber var = "blank" type = "number" value = "${row.RE_LEVEL}" />
-		<div style="border: 1px solid gray; width: 600px; padding: 5px; margin-top: 5px; margin-left: <c:out value="${20*blank}"/>px; display: inline-block">	
-		<c:choose>
-		<c:when test="${row.C_DEL eq 'Y'}">
-		삭제된 댓글입니다.
-		<c:if test="${session_m_no == row.M_NO}">
-		<a href="#" onclick="fn_deleteCmt('<c:out value="${row.C_NO}"/>')">삭제</a>
-		</c:if>
-	</c:when>
-	<c:otherwise>	
-		${row.C_NAME } <fmt:formatDate value="${row.C_DATE}" pattern="yy/MM/dd hh:mm:ss"/> <a href="#" onclick="doDisplay('<c:out value='${row.C_NO}'/>')">답변</a> <c:if test="${row.M_NO == session_m_no }"><a href="#" onclick="fn_deleteCmt('<c:out value="${row.C_NO}"/>','<c:out value="${row.C_GROUP}"/>')">삭제</a></c:if><br/>	
-			${row.C_CONTENT }	
-		<div id="repDiv<c:out value='${row.C_NO}'/>" style="display:none">	
-		<textarea name="c_content"></textarea><input type="submit" value="답변전용">		
-		</div>
-		</c:otherwise>
-	</c:choose>
-		</div>
-		</form>
-	</c:forEach>
-	 </div>
-	 <br/>
-	  
-	 <div>
-	 <form action="<c:url value='/comments'/>" onsubmit="return cmt_check();" method="post">				
-						<input type="hidden" name="ref" value='0'>			
-						<input type="hidden" name="m_no1" value="${gModel.M_NO}"/> 
-						<input type="hidden" name="gg_no" value="${gModel.GG_NO }"/>
-						 <input type="hidden" name="m_name" value='${sWriter.M_NAME}'> 
-						 <input type="hidden" name="C_GROUP" id="C_GROUP">
-							<div class="row">
-								<div class="col-sm-12">
-									<div class="form-group">
-										<label for="comment">Comment <span class="required">*</span></label>
-										<textarea class="form-control" id="comment" rows="4" name="c_content"></textarea>
-									</div>
-								</div>
+	 	
+	 	<div style="border: 1px solid; width: 600px; padding: 5px">
+    							<form name="review_form" id="review_form" action="<c:url value='/comments'/>" method="post">
+        						<input type="hidden" name="gg_no" value="<c:out value="${gModel.GG_NO}"/>"> 
+        						<input type="hidden" name="m_name" value='${sWriter.M_NAME}'> 
+								<input type="hidden" name="m_no1" value="${gModel.M_NO}"/> 
+        						<input type="hidden" name="m_no" value="<c:out value="${session_m_no}"/>">
+        						<textarea name="c_content" id="c_content" rows="3" cols="60" maxlength="500" placeholder="댓글을 달아주세요."></textarea>
+        						<a href="#" onclick="fn_insertReview()">저장</a>
+    							</form>
 							</div>
 
-							
-							<div class="col-sm-12 text-right">
-									<a href="#" onclick="commentsInsert()">입력</a> <!-- <input type="submit" value="입력"/> -->
+							<c:forEach var="row" items="${cmtList}" varStatus="status">
+							<fmt:parseNumber var = "blank" type = "number" value = "${row.C_DEPTH}" />
+    						<div style="border: 1px solid gray; width: 600px; padding: 5px; margin-top: 5px; margin-left: <c:out value="${20*blank}"/>px; display: inline-block">
+        						<c:choose>
+        							<c:when test="${row.C_DEL eq 'Y'}">
+        								삭제된 댓글입니다.
+        							<c:if test="${session_m_no == row.M_NO}">
+        								<a href="#" onclick="fn_deleteReview('<c:out value="${row.C_NO}"/>')">삭제</a>
+        							</c:if>
+        							</c:when>
+        							<c:otherwise>
+	        							<c:out value="${row.C_NAME}"/>
+	        							<c:if test="${session_m_no == row.M_NO}">
+        									<a href="#" onclick="fn_deleteReview('<c:out value="${row.C_NO}"/>','<c:out value="${row.C_GROUP}"/>')">삭제</a>
+        								</c:if>
+        									<a href="#" onclick="fn_reviewReply('<c:out value="${row.C_NO}"/>')">댓글</a>
+        								<br/>
+        								<div id="review<c:out value="${row.C_NO}"/>">	
+        									<c:out value="${row.C_CONTENT}"/>
+        								</div>
+        							</c:otherwise>
+        						</c:choose>
+    						</div>					
+							</c:forEach>
+
+							 <div id="reviewDiv" style="width: 99%; display:none">
+    							<form name="form2" id="form2" action="<c:url value='/comments' />" method="post">
+    							    <input type="hidden" name="gg_no" value="<c:out value="${gModel.GG_NO}"/>">
+        							<input type="hidden" name="c_no" id="c_no">
+     							    <input type="hidden" name="c_group" id="c_group">
+     							    <input type="hidden" name="c_parent">   							
+        							<input type="hidden" name="m_name" value='${sWriter.M_NAME}'> 
+									<input type="hidden" name="m_no1" value="${gModel.M_NO}"/> 
+									<input type="hidden" name="m_no" value="<c:out value="${session_m_no}"/>"> 
+        							<textarea name="c_content" rows="3" cols="60" maxlength="500"></textarea>
+        							<a href="#" onclick="fn_reviewUpdateSave()">저장</a>
+        							<a href="#" onclick="fn_reviewUpdateCancel()">취소</a>
+    							</form>
+							</div> 
+
+							<div id="replyDialog" style="width: 99%; display:none">
+    							<form name="form3" action="<c:url value='/comments'/>" method="post">
+     							   <input type="hidden" name="gg_no" value="<c:out value="${gModel.GG_NO}"/>"> 							   					   
+   								   <input type="hidden" name="c_parent">
+   								   <input type="hidden" name="m_name" value='${sWriter.M_NAME}'> 
+								   <input type="hidden" name="m_no1" value="${gModel.M_NO}"/> 
+     							   <input type="hidden" name="m_no" value="<c:out value="${session_m_no}"/>"> <br/>
+   								   <textarea name="c_content" rows="3" cols="60" maxlength="500"></textarea>
+    							   <a href="#" onclick="fn_replyReviewSave()">저장</a>
+   								   <a href="#" onclick="fn_replyReviewCancel()">취소</a>
+    							</form>	
 							</div>
-					</form>
-			 </div>
 			
 	 <form id="commonForm" name="commonForm"></form>
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -254,6 +213,118 @@ function fn_memberProfileLink(m_pno){
 			comSubmit.addParam("GG_NO", obj.parent().find("#GG_NO").val());
 			comSubmit.submit();
 		}
+		
+		function fn_insertReview() {
+			if ($.trim($("#c_content").val()) == "") {
+		        alert("내용을 입력해주세요.");
+		        $("#c_content").focus();
+		        return;
+		    }
+		    $("#review_form").submit();  
+		}
+		
+		function fn_deleteReview(C_NO, C_GROUP){
+		    if (!confirm("삭제하시겠습니까?")) {
+		        return;
+		    }
+		    $("#form2").attr("action", "<c:url value='/deleteCmt'/>");
+		    $("#c_no").val(C_NO);
+		    $("#c_group").val(C_GROUP);
+		    $("#form2").submit();
+
+		    /* var form = document.form2;
+
+		    form.action="<c:url value='/lendplace/deleteReview'/>";
+		    form.R_NO.value=R_NO;
+		    form.R_GROUP.value=R_GROUP;
+		    form.submit();     */
+		}
+
+
+	 var updatec_no = updatec_content = null;
+		function fn_reviewUpdate(c_no){
+		    var form = document.form2;
+		    var review = document.getElementById("review"+c_no);
+		    var reviewDiv = document.getElementById("reviewDiv");
+		    reviewDiv.style.display = "";
+		    
+		    if (updatec_no) {
+		        document.body.appendChild(reviewDiv);
+		        var oldc_no = document.getElementById("review"+updatec_no);
+		        oldc_no.innerText = updatec_content;
+		    } 
+		    
+		    form.c_no.value=c_no;
+		    form.c_content.value = review.innerText;
+		    review.innerText ="";
+		    review.appendChild(reviewDiv);
+		    updatec_no = c_no;
+		    updatec_content = form.c_content.value;
+		    form.c_content.focus();
+		} 
+
+		 function fn_reviewUpdateSave(){
+		    var form = document.form2;
+		    if (form.c_content.value=="") {
+		        alert("글 내용을 입력해주세요.");
+		        form.c_content.focus();
+		        return;
+		    }
+		    
+		    form.action="<c:url value='/lendplace/insertReview' />";
+		    form.submit();    
+		}
+
+	 	function fn_reviewUpdateCancel(){
+		    var form = document.form2;
+		    var reviewDiv = document.getElementById("reviewDiv");
+		    document.body.appendChild(reviewDiv);
+		    reviewDiv.style.display = "none";
+		    
+		    var oldReno = document.getElementById("review"+updatec_no);
+		    oldReno.innerText = updatec_content;
+		    updatec_no = updatec_content = null;
+		}
+
+
+		function hideDiv(id){
+		    var div = document.getElementById(id);
+		    div.style.display = "none";
+		    document.body.appendChild(div);
+		}
+
+		function fn_reviewReply(c_no){
+		    var form = document.form3;
+		    var reply = document.getElementById("review"+c_no);
+		    var replyDia = document.getElementById("replyDialog");
+		    replyDia.style.display = "";
+		    
+		    if (updatec_no) {
+		    	fn_reviewUpdateCancel();
+		    } 
+		    
+		    form.c_content.value = "";
+		    form.c_parent.value=c_no;
+		    reply.appendChild(replyDia);
+		    form.c_content.focus();
+		} 
+		function fn_replyReviewCancel(){
+		    hideDiv("replyDialog");
+		} 
+
+		function fn_replyReviewSave(){
+		    var form = document.form3;
+		    
+		    if (form.c_content.value=="") {
+		        alert("글 내용을 입력해주세요.");
+		        form.c_content.focus();
+		        return;
+		    }
+		    
+		    form.action="<c:url value='/comments' />";
+		    form.submit();    
+		}
+		
 </script>
 </body>
 </html>
