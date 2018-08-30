@@ -5,8 +5,8 @@
    
    <!-- 회원가입 -->
 	<insert id="insertMember" parameterType="MembersModel">
-		INSERT INTO MEMBERS(m_no, m_id, m_name, m_password, m_phone, m_fav_area, m_fav_field, m_grade, m_penalty, m_lv, m_active, m_date, m_profile)
-		VALUES(members_seq.nextval, #{m_id}, #{m_name}, #{m_password}, #{m_phone}, #{m_fav_area, jdbcType=VARCHAR}, #{m_fav_field, jdbcType=VARCHAR},  0, 0,'일반회원', 0, #{m_date}, #{m_profile, jdbcType=VARCHAR})
+		INSERT INTO MEMBERS(m_no, m_id, m_name, m_password, m_phone, m_fav_area, m_fav_field, m_grade, m_penalty, m_lv, m_active, m_date, m_profile, m_email)
+		VALUES(members_seq.nextval, #{m_id}, #{m_name}, #{m_password}, #{m_phone}, #{m_fav_area, jdbcType=VARCHAR}, #{m_fav_field, jdbcType=VARCHAR},  0, 0,'일반회원', 0, #{m_date}, #{m_profile, jdbcType=VARCHAR}, #{m_email})
  	</insert>
 	
 	<select id="idCheck" resultType="int" parameterType="string">
@@ -56,11 +56,11 @@
 	</select>
 	
 	<update id="updateMembers" parameterType="MembersModel">
-		update members set m_password=#{m_password}, m_phone=#{m_phone}, m_fav_area=#{m_fav_area}, m_fav_field=#{m_fav_field}, m_profile=#{m_profile} where m_id=#{m_id}
+		update members set m_password=#{m_password}, m_phone=#{m_phone}, m_email=#{m_email}, m_fav_area=#{m_fav_area}, m_fav_field=#{m_fav_field}, m_profile=#{m_profile} where m_id=#{m_id}
 	</update>
 	
 	<update id="updateMembersExceptFile" parameterType="MembersModel">
-		update members set m_password=#{m_password}, m_phone=#{m_phone}, m_fav_area=#{m_fav_area}, m_fav_field=#{m_fav_field} where m_id=#{m_id}
+		update members set m_password=#{m_password}, m_phone=#{m_phone}, m_email=#{m_email}, m_fav_area=#{m_fav_area}, m_fav_field=#{m_fav_field} where m_id=#{m_id}
 	</update>
 	
 	<update id="deleteMembers" parameterType="String">

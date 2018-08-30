@@ -75,6 +75,11 @@
 			join.m_phone.focus();
 			return false;
 		}
+		if (join.m_email.value == "") {
+			alert("이메일을 입력해주세요");
+			join.m_email.focus();
+			return false;
+		}
 
 		if (!join.m_phone.value.match(phone_check1) && !join.m_phone.value.match(phone_check2)) {
 			alert("전화번호 형식이 잘못되었습니다. 다시 입력해주세요.");
@@ -177,7 +182,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 					<input type="text" class="form-control" name="m_name" style="font-weight:bold;" value=${members.m_id } readonly>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control"  name="m_phone" value=${members.m_phone}>
+					<input type="text" class="form-control"  name="m_phone" value=${members.m_phone} placeholder="Phone ex) 010-0000-0000">
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control"  name="m_email" value=${members.m_email} placeholder="Email ex) yomi@yogi.com">
 				</div>
 		</td>
 		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

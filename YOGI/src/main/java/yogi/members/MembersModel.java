@@ -17,6 +17,7 @@ public class MembersModel {
 	private int m_penalty;
 	private String m_profile;
 	private int m_active;
+	private String m_email;
 	
 	public int getM_no() {
 		return m_no;
@@ -96,5 +97,12 @@ public class MembersModel {
 	public void setM_active(int m_active) {
 		this.m_active = m_active;
 	}
+	public String getM_email() {
+		return m_email;
+	}
+	public void setM_email(String m_email) {
+		this.m_email = m_email;
+	}
+	
 	
 }

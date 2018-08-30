@@ -51,6 +51,7 @@ $(".chat").on({
 });
 
 </script>
+
 </head>
 <body>
 <div id="colorlib-page">
@@ -141,113 +142,157 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 		</div>
 		<c:choose>
 		<c:when test="${fn:length(list) > 0 }">
-		<c:forEach items="${list}" var="row" begin="1" end="4" step="1">
 		<div class="row">
 		<div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
-			<div class="project" style="background-image: url(images/img-1.jpg);">
+			<div class="project" style="background-image: url('/yogi/resources/upload/${list[0].GG_RFN}');">
 			<div class="desc"><div class="con">
-				<h3><a href="http://localhost:8080/yogi/groupDetail?gg_no='${row.GG_NO}'">${row.GG_NAME}</a></h3>
-				<span>${row.GG_NAME}</span>
+				<h3><a href="http://localhost:8080/yogi/groupDetail?gg_no=${list[0].GG_NO}">${list[0].GG_NAME }</a></h3>
+				<span>
+				<br><br><br>
+				#${list[0].GG_CATEGORY}<br>
+				비용 : ${list[0].GG_COST }<br>
+				인원 : ${list[0].GG_TOTAL} / ${list[0].GG_ENABLE}
+				장소 : ${list[0].GG_ADDR}<br>
+				날짜 : ${list[0].GG_DATE}<br>
+				</span>
 					<p class="icon">
-						<span><a href="#"><i class="icon-share3"></i></a></span>
-						<span><a href="#"><i class="icon-eye"></i> 100</a></span>
-						<span><a href="#"><i class="icon-heart"></i> 49</a></span>
+						<span><i class="icon-share3"></i></span>
+						<span><i class="icon-eye"></i> 100</span>
+						<span><i class="icon-heart"></i> 49</span>
 					</p>
 			</div></div></div>
 		</div>
 		
-						<div class="col-md-3 animate-box" data-animate-effect="fadeInLeft">
-							<div class="project" style="background-image: url(images/img-2.jpg);">
-								<div class="desc">
-									<div class="con">
-										<h3><a href="work.html">Work 02</a></h3>
-										<span>House, Apartment</span>
-										<p class="icon">
-											<span><a href="#"><i class="icon-share3"></i></a></span>
-											<span><a href="#"><i class="icon-eye"></i> 100</a></span>
-											<span><a href="#"><i class="icon-heart"></i> 49</a></span>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3 animate-box" data-animate-effect="fadeInLeft">
-							<div class="project" style="background-image: url(images/img-3.jpg);">
-								<div class="desc">
-									<div class="con">
-										<h3><a href="work.html">Work 03</a></h3>
-										<span>Dining Room</span>
-										<p class="icon">
-											<span><a href="#"><i class="icon-share3"></i></a></span>
-											<span><a href="#"><i class="icon-eye"></i> 100</a></span>
-											<span><a href="#"><i class="icon-heart"></i> 49</a></span>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3 animate-box" data-animate-effect="fadeInLeft">
-							<div class="project" style="background-image: url(images/img-4.jpg);">
-								<div class="desc">
-									<div class="con">
-										<h3><a href="work.html">Work 04</a></h3>
-										<span>House, Building</span>
-										<p class="icon">
-											<span><a href="#"><i class="icon-share3"></i></a></span>
-											<span><a href="#"><i class="icon-eye"></i> 100</a></span>
-											<span><a href="#"><i class="icon-heart"></i> 49</a></span>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3 animate-box" data-animate-effect="fadeInLeft">
-							<div class="project" style="background-image: url(images/img-5.jpg);">
-								<div class="desc">
-									<div class="con">
-										<h3><a href="work.html">Work 05</a></h3>
-										<span>Condo, Pad</span>
-										<p class="icon">
-											<span><a href="#"><i class="icon-share3"></i></a></span>
-											<span><a href="#"><i class="icon-eye"></i> 100</a></span>
-											<span><a href="#"><i class="icon-heart"></i> 49</a></span>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
-							<div class="project" style="background-image: url(images/img-6.jpg);">
-								<div class="desc">
-									<div class="con">
-										<h3><a href="work.html">Work 06</a></h3>
-										<span>Table, Chairs</span>
-										<p class="icon">
-											<span><a href="#"><i class="icon-share3"></i></a></span>
-											<span><a href="#"><i class="icon-eye"></i> 100</a></span>
-											<span><a href="#"><i class="icon-heart"></i> 49</a></span>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					</c:forEach>						
-			</c:when>
+		<div class="col-md-3 animate-box" data-animate-effect="fadeInLeft">
+			<div class="project" style="background-image: url('/yogi/resources/upload/${list[1].GG_RFN}');">
+				<div class="desc"><div class="con">
+				<h3><a href="http://localhost:8080/yogi/groupDetail?gg_no=${list[1].GG_NO}">${list[1].GG_NAME}</a></h3>
+				<span>
+				<br><br><br>
+				#${list[1].GG_CATEGORY}<br>
+				비용 : ${list[1].GG_COST }<br>
+				인원 : ${list[1].GG_TOTAL} / ${list[1].GG_ENABLE}
+				장소 : ${list[1].GG_ADDR}<br>
+				날짜 : ${list[1].GG_DATE}<br>
+				</span>
+					<p class="icon">
+						<span><i class="icon-share3"></i></span>
+						<span><i class="icon-eye"></i> 100</span>
+						<span><i class="icon-heart"></i> 49</span>
+					</p>
+			</div></div></div>
+		</div>
+		<div class="col-md-3 animate-box" data-animate-effect="fadeInLeft">
+			<div class="project" style="background-image: url('/yogi/resources/upload/${list[2].GG_RFN}');">
+				<div class="desc"><div class="con">
+				<h3><a href="http://localhost:8080/yogi/groupDetail?gg_no=${list[2].GG_NO}">${list[2].GG_NAME}</a></h3>
+				<span>
+				<br><br><br>
+				#${list[2].GG_CATEGORY}<br>
+				비용 : ${list[2].GG_COST }<br>
+				인원 : ${list[2].GG_TOTAL} / ${list[2].GG_ENABLE}
+				장소 : ${list[2].GG_ADDR}<br>
+				날짜 : ${list[2].GG_DATE}<br>
+				</span>
+					<p class="icon">
+						<span><i class="icon-share3"></i></span>
+						<span><i class="icon-eye"></i> 100</span>
+						<span><i class="icon-heart"></i> 49</span>
+					</p>
+			</div></div></div>
+		</div>
+		<div class="col-md-3 animate-box" data-animate-effect="fadeInLeft">
+			<div class="project" style="background-image: url('/yogi/resources/upload/${list[3].GG_RFN}');">
+				<div class="desc"><div class="con">
+				<h3><a href="http://localhost:8080/yogi/groupDetail?gg_no=${list[3].GG_NO}">${list[3].GG_NAME}</a></h3>
+				<span>
+				<br><br><br>
+				#${list[3].GG_CATEGORY}<br>
+				비용 : ${list[3].GG_COST }<br>
+				인원 : ${list[3].GG_TOTAL} / ${list[3].GG_ENABLE}
+				장소 : ${list[3].GG_ADDR}<br>
+				날짜 : ${list[3].GG_DATE}<br>
+				</span>
+					<p class="icon">
+						<span><i class="icon-share3"></i></span>
+						<span><i class="icon-eye"></i> 100</span>
+						<span><i class="icon-heart"></i> 49</span>
+					</p>
+			</div></div></div>
+		</div>
+		<div class="col-md-3 animate-box" data-animate-effect="fadeInLeft">
+			<div class="project" style="background-image: url('/yogi/resources/upload/${list[4].GG_RFN}');">
+				<div class="desc"><div class="con">
+				<h3><a href="http://localhost:8080/yogi/groupDetail?gg_no=${list[4].GG_NO}">${list[4].GG_NAME}</a></h3>
+				<span>
+				<br><br><br>
+				#${list[4].GG_CATEGORY}<br>
+				비용 : ${list[4].GG_COST }<br>
+				인원 : ${list[4].GG_TOTAL} / ${list[4].GG_ENABLE}
+				장소 : ${list[4].GG_ADDR}<br>
+				날짜 : ${list[4].GG_DATE}<br>
+				</span>
+					<p class="icon">
+						<span><i class="icon-share3"></i></span>
+						<span><i class="icon-eye"></i> 100</span>
+						<span><i class="icon-heart"></i> 49</span>
+					</p>
+			</div></div></div>
+		</div>
+		<div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
+			<div class="project" style="background-image: url('/yogi/resources/upload/${list[5].GG_RFN}');">
+			<div class="desc"><div class="con">
+				<h3><a href="http://localhost:8080/yogi/groupDetail?gg_no=${list[5].GG_NO}">${list[5].GG_NAME }</a></h3>
+				<span>
+				<br><br><br>
+				#${list[5].GG_CATEGORY}<br>
+				비용 : ${list[5].GG_COST }<br>
+				인원 : ${list[5].GG_TOTAL} / ${list[5].GG_ENABLE}
+				장소 : ${list[5].GG_ADDR}<br>
+				날짜 : ${list[5].GG_DATE}<br>
+				</span>
+					<p class="icon">
+						<span><i class="icon-share3"></i></span>
+						<span><i class="icon-eye"></i> 100</span>
+						<span><i class="icon-heart"></i> 49</span>
+					</p>
+			</div></div></div>
+		</div>
+						
+		</div>
+		</c:when>
 	
 	<c:otherwise> 등록된 장소가 없습니다. </c:otherwise>
 	</c:choose>
-					
-					
-				</div>
-			</div>
-
-			
-
-			
-		</div>
 	</div>
-
+	</div>
+<div class="col-md-6">
+	<div class="about-img animate-box" data-animate-effect="fadeInLeft" style="background-image: url(images/img_bg_2.jpg);"></div>
+</div>
+<div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
+	<div class="about-desc">
+		<span class="heading-meta">Welcome</span>
+			<h2 class="colorlib-heading">Chat with other people!</h2>
+				<p>다른 사람들이랑 채팅... 해볼래...?</p>
+				<div class="check">
+					<input type="checkbox" id="status" onclick="openChat();"/> 
+					<label for="check"></label>
+				</div>
+	<div id="_chatbox" style="display: none">
+	<fieldset>
+	<div id="messageWindow">
+        <input type="hidden" id="sender" value="${session_m_id}">
+        <input id="messageinput" type="text" onkeyup="enterkey()"  />
+        <input type="button" onclick="send();" value="Send">
+	    <!-- Server responses get written here -->
+    	<div id="messages"></div>
+    </div>
+</fieldset>
+	</div>
+	</div>
+</div>
+</div>
+</div>
 	<!-- jQuery -->
 	<script src="http://localhost:8080/yogi/resources/bootstrap/js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
@@ -268,7 +313,71 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 	
 	<!-- MAIN JS -->
 	<script src="http://localhost:8080/yogi/resources/bootstrap/js/main.js"></script>
-
-	</body>
+	
+	<script type="text/javascript">
+	var ws;
+	var messages=document.getElementById("messages");
+        
+	function openSocket(){
+		if(ws!==undefined && ws.readyState!==WebSocket.CLOSED){
+			writeResponse("WebSocket is already opened.");
+			return;
+		}
+		//웹소켓 객체 만드는 코드
+		ws=new WebSocket("ws://localhost:8080/yogi/echoecho");
+            
+		ws.onopen=function(event){
+			if(event.data===undefined) return;
+				writeResponse(event.data);
+		};
+		ws.onmessage=function(event){
+			writeResponse(event.data);
+		};
+		ws.onclose=function(event){
+			writeResponse("Connection closed");
+		}
+	}
+        
+	function send(){
+		var text=document.getElementById("sender").value + ":" + document.getElementById("messageinput").value;
+		ws.send(text);
+		text="";
+		document.getElementById("messageinput").value="";
+	}
+        
+	function closeSocket(){
+		ws.close();
+	}
+	function writeResponse(text){
+		messages.innerHTML+="<br/>"+text;
+	}
+	
+	function openChat(){
+		var stat = document.getElementById('status').value;
+		if(stat == 'Close'){
+			document.getElementById("status").value="open";
+			$("#_chatbox").css("display", "none");
+			closeSocket();
+		}
+		else{
+			openSocket();
+			document.getElementById("status").value="Close";
+			$("#_chatbox").css("display", "block");
+			
+		}
+	}
+	
+//  엔터키를 통해 send함
+	function enterkey() {
+		if (window.event.keyCode == 13) {
+			send();
+		}
+	}
+    //채팅이 많아져 스크롤바가 넘어가더라도 자동적으로 스크롤바가 내려가게함
+	window.setInterval(function() {
+		var elem = document.getElementById('messageWindow');
+		elem.scrollTop = elem.scrollHeight;
+	}, 0);
+</script>
+</body>
 </html>
-

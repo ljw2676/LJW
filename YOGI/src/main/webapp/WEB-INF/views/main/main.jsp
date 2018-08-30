@@ -51,6 +51,61 @@ $(".chat").on({
 });
 
 </script>
+<style>
+.row {
+  width: 100%;
+  display: block;
+  line-height: 60px;
+  text-align: center;
+}
+input[type="checkbox"] {
+  display: none;
+}
+input[type="checkbox"] + label {
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  position: relative;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  margin: 0px 20px;
+  box-sizing: border-box;
+}
+input[type="checkbox"] + label:after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 20px;
+  height: 20px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+#box_2:checked + label.red{
+  background: #ECA9A7;
+}
+#box_2:checked + label.red:after{
+  background: #D9534F;
+}
+#box_2:checked + label:after{
+  left: calc(100% - 18px);
+}
+#box_2 + label{
+  background: #ddd;
+}
+#box_2 + label:after{
+  background: #fff;
+  width: 16px;
+  height: 16px;
+  top: 2px;
+  left: 2px;
+}
+
+</style>
+
 </head>
 <body>
 <div id="colorlib-page">
@@ -277,6 +332,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 					<input type="checkbox" id="status" onclick="openChat();"/> 
 					<label for="check"></label>
 				</div>
+				<div class="row">
+  					<input type="checkbox" id="box_2" onclick="openChat();"/>
+  					<label for="box_2" class="red"></label>
+  				</div>
+
+				
 	<div id="_chatbox" style="display: none">
 	<fieldset>
 	<div id="messageWindow">
@@ -286,14 +347,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 	    <!-- Server responses get written here -->
     	<div id="messages"></div>
     </div>
-	</fieldset>
+</fieldset>
 	</div>
 	</div>
 </div>
 </div>
 </div>
-	
-
 	<!-- jQuery -->
 	<script src="http://localhost:8080/yogi/resources/bootstrap/js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
@@ -380,6 +439,5 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 		elem.scrollTop = elem.scrollHeight;
 	}, 0);
 </script>
-
 </body>
 </html>
