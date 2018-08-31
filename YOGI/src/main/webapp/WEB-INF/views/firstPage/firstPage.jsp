@@ -21,6 +21,7 @@
     <!-- Custom styles for this template -->
     <link href="http://localhost:8080/yogi/resources/first/css/coming-soon.min.css" rel="stylesheet">
 
+
 <script>
 function insert() {
 		var join = document.userinput
@@ -70,6 +71,8 @@ function insert() {
 						<input type="checkbox" name="idSave" id="idSave"  value="save"/>Remember ID/PW&nbsp;&nbsp;&nbsp;&nbsp;
 						<a class="mb-5" style="color:white" href="http://localhost:8080/yogi/members/createForm"><strong>Sign In</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a class="mb-5" style="color:white" href="http://localhost:8080/yogi/members/find"><strong>Find ID/PW</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/kakaoLogin' />">
+						<img src="/yogi/resources/image/kakao_account_login_btn_medium_narrow.png" onmouseover="this.src='/yogi/resources/image/kakao_account_login_btn_medium_narrow_ov.png';" onmouseout="this.src='/yogi/resources/image/kakao_account_login_btn_medium_narrow.png';"/></a>
 					</c:when>
 					<c:otherwise>
 						<div class="input-group-append">
@@ -80,6 +83,8 @@ function insert() {
 						<input type="checkbox" name="idSave" id="idSave" value="save" checked/>Remember ID/PW&nbsp;&nbsp;&nbsp;&nbsp;
 						<a class="mb-5" style="color:white" href="http://localhost:8080/yogi/members/createForm"><strong>Sign In</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a class="mb-5" style="color:white" href="http://localhost:8080/yogi/members/find"><strong>Find ID/PW</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/kakaoLogin' />">
+						<img src="/yogi/resources/image/kakao_account_login_btn_medium_narrow.png" onmouseover="this.src='/yogi/resources/image/kakao_account_login_btn_medium_narrow_ov.png';" onmouseout="this.src='/yogi/resources/image/kakao_account_login_btn_medium_narrow.png';"/></a>
 					</c:otherwise>
 				</c:choose>
 				<br>
@@ -110,14 +115,21 @@ function insert() {
         </li>
       </ul>
     </div>
-
+    
+   	<!-- 팝업창을 눈에 보이지 않게 띄우기 위해 설정한 iframe -->
+	<iframe width=0 height=0 name="hiddenframe1" style="display:none;"></iframe>
     <!-- Bootstrap core JavaScript -->
     <script src="http://localhost:8080/yogi/resources/first/vendor/jquery/jquery.min.js"></script>
     <script src="http://localhost:8080/yogi/resources/first/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom scripts for this template -->
     <script src="http://localhost:8080/yogi/resources/first/js/coming-soon.min.js"></script>
-
+	
+	<script type="text/javascript">
+	window.onload = function () {
+		window.open("https://developers.kakao.com/logout", "hiddenframe1", "width=1, height=1, left=0, top=0,  scrollbars=no,status=no,toolbar=no,menubar=no,resizeable=no,location=no");
+	}
+	</script>
   </body>
 
 </html>

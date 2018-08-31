@@ -2,6 +2,9 @@ package yogi.members;
 
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,16 +18,14 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import yogi.common.common.YogiConstants;
-import yogi.common.util.YogiUtils;
+import com.google.gson.Gson;
+
 import yogi.config.CommandMap;
 import yogi.alram.AlramServiceImpl;
 import yogi.members.CookieBox;
@@ -38,6 +39,98 @@ public class MembersController {
 	
 	@Resource(name = "alramService")
 	private AlramServiceImpl alramService;
+	
+	// REST API KEY
+	private static final String restapi = "2ab48798bf1b7030199a226eec55208a";
+	// redirect_uri
+	private static final String mydomainkakao = "http://localhost:8080/yogi/kakaoCallback";
+			
+	//카카오로그인
+		@RequestMapping(value="/kakaoLogin")
+		public String kakao() {
+			String karequestUrl = "https://kauth.kakao.com/oauth/authorize?client_id="+restapi+"&redirect_uri="+mydomainkakao+"&response_type=code";
+			log.info("login 코드 요청 종료 CallBack 기다리는 중");
+	        log.info("login 코드 요청 보낸 uri 값은 "+karequestUrl);
+	        return "redirect:" + karequestUrl;   //만들어진 URL로 인증을 요청합니다.		
+	       	}
+		
+		@SuppressWarnings("static-access")
+		@RequestMapping(value="/kakaoCallback",method=RequestMethod.GET)
+		public String kakaoLogin(@RequestParam(required = false,value = "code") String code,HttpServletRequest request) throws Exception {
+				Kakao kakao = null;
+				HttpSession session = request.getSession(); 
+				
+				log.info("카카오로 부터 응답이 왔습니다.");
+		        log.info("카카오로 부터 callback 이 호출됩니다.");
+		        log.info("받은 변수의 값은 code :"+code);
+
+		        log.info("인증 코드를 받았습니다.");
+
+		        String grant_type="authorization_code";
+		        /*
+		        * client_id
+		        * redirect_uri
+		        * code
+		        * */
+		        log.info("토큰을 받을 주소를 만듭니다.");
+		        String tokenReqUrl="https://kauth.kakao.com/oauth/token?grant_type="+grant_type+"&client_id="+restapi
+		                +"&redirect_uri="+mydomainkakao+"&code="+code;
+
+		        log.info("토큰 주소는 : "+tokenReqUrl);
+
+		        log.info("토크을 보내고 받아 옵니다.");
+
+				String data = kakao.getHtml(tokenReqUrl, code);       //access_token을 받아옵니다.
+		        log.info("응답바디는 :" + data);
+		        Map<String,String> map = kakao.JSONStringToMap(data); //JSON의 형태로 받아온 값을 Map으로 저장합니다.
+
+		        String accessToken = map.get("access_token");
+		        String tokenType = map.get("token_type");
+		        String refresh_Token = map.get("refresh_token");
+		        String scope = map.get("scope");
+
+		       
+		        /* 아래 형태로 access_token을 받아 온다.
+		        "access_token":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+		        "token_type":"bearer",
+		        "refresh_token":"yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+		        "expires_in":43199,
+		        "scope":"Basic_Profile"
+		        */
+
+		        log.info("accessToken : " + accessToken);
+		        log.info("token_type : " + tokenType);
+		        log.info("refresh_token : " + refresh_Token);
+		        log.info("scope : "+ scope);
+
+		        
+		        String kakaoUserProfileReqUrl="https://kapi.kakao.com/v2/user/me?Authorization="+accessToken;
+
+		        log.info("받아온 토큰으로 사용자 정보 요청 url 생성 : " + kakaoUserProfileReqUrl);
+
+		        String userData = kakao.getHtml(kakaoUserProfileReqUrl, tokenType + " " + accessToken);
+
+		        log.info("1.받아온 데이터는 : " + userData);
+
+		        UserkakaoVo userkakaoVo    = new Gson().fromJson(userData, UserkakaoVo.class );
+		        
+		        log.info("로그인 유저 카카오 ID : " +userkakaoVo.getId());
+
+		        log.info("로그인 유저 카카오 닉네임 : " +userkakaoVo.getProperties().get("nickname"));
+		        
+		        List<Map<String, Object>> mem_alram = null;
+				if(alramService.alramExist(Integer.parseInt(userkakaoVo.getId())) != 0){
+					mem_alram = alramService.alramLoad(Integer.parseInt(userkakaoVo.getId()));
+				}
+
+				/* 세션값 더 필요한 거 있으면 요기다 저장하세용~! */
+				session.setAttribute("session_m_id", userkakaoVo.getProperties().get("nickname"));
+				session.setAttribute("session_m_no", userkakaoVo.getId());
+				session.setAttribute("session_mem_alram", mem_alram);
+				return "redirect:/main2";
+		    }
+		
+	
 	
 	@RequestMapping(value= {"/", "/first"}, method=RequestMethod.GET)
 	 public String first(HttpServletRequest request, Model model) throws IOException{
