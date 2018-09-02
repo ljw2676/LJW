@@ -9,7 +9,9 @@
 			m_no,
 			m_id,
 			m_name,
-			m_phone,
+			m_email,
+			m_fav_area,
+			m_fav_field,
 			m_grade,
 			m_lv,
 			m_penalty,
@@ -24,6 +26,18 @@
 				</if>
 				<if test="searchCategory.equals('grade')">
 					AND REGEXP_LIKE(m_lv,#{searchWord}) 
+				</if>
+				<if test="searchCategory.equals('name')">
+					AND REGEXP_LIKE(m_name,#{searchWord}) 
+				</if>
+				<if test="searchCategory.equals('favArea')">
+					AND REGEXP_LIKE(m_fav_area,#{searchWord}) 
+				</if>
+				<if test="searchCategory.equals('favField')">
+					AND REGEXP_LIKE(m_fav_field,#{searchWord}) 
+				</if>
+				<if test="searchCategory.equals('penalty')">
+					AND m_penalty <![CDATA[ >= ]]> #{searchWord}
 				</if>
 			</if>
 			<if test="searchMemberActive != null">
@@ -75,15 +89,6 @@
 			m_no=#{M_NO}
 	</update>
 
-	<!-- 회원목록에서 검색하기 -->
-	<select id="MemberList_search_m_name_select_all"> 
-		SELECT * FROM members WHERE m_name like '%'||#m_name#||'%' ORDER BY m_no desc 
-	</select>
-
-	<select id="MemberList_search_m_id_select_all"> 
-		SELECT * FROM members WHERE m_id like '%'||#m_id#||'%' ORDER BY m_no desc
-	</select>
-
 <!-- 멤버 관리 끝 -->
 
 <!-- 모임 관리 -->
@@ -92,18 +97,48 @@
 		SELECT
 			gg_no,
 			gg_name,
-			m_name,
+			m_id,
 			gg_category,
 			gg_place,
 			gg_cost,
 			gg_total,
+			gg_enable,
 			gg_penalty,
 			gg_active,
 			to_char(gg_date,'yyyy/MM/dd') as gg_date
 		FROM
 			group_gathering g, members m
-		WHERE
-			g.m_no = m.m_no
+		<where>
+			g.m_no=m.m_no
+			<if test="searchWord != null">
+				<if test="searchCategory.equals('id')">
+					AND REGEXP_LIKE(m_id,#{searchWord}) 
+				</if>
+				<if test="searchCategory.equals('category')">
+					AND REGEXP_LIKE(gg_category,#{searchWord}) 
+				</if>
+				<if test="searchCategory.equals('groupName')">
+					AND REGEXP_LIKE(gg_name,#{searchWord}) 
+				</if>
+				<if test="searchCategory.equals('place')">
+					AND REGEXP_LIKE(gg_place,#{searchWord}) 
+				</if>
+				<if test="searchCategory.equals('total')">
+					AND REGEXP_LIKE(gg_total,#{searchWord}) 
+				</if>
+				<if test="searchCategory.equals('penalty')">
+					AND g.gg_penalty <![CDATA[ >= ]]> #{searchWord}
+				</if>
+			</if>
+			<if test="searchGroupActive != null">
+				<if test='searchGroupActive.equals("O")'>
+					<![CDATA[ AND gg_active = 0  ]]>
+				</if>
+				<if test='searchGroupActive.equals("X")'>
+					<![CDATA[ AND gg_active = 1   ]]>
+				</if>
+			</if>
+		</where>
 		ORDER BY
 			gg_no DESC
 	</select>
@@ -130,24 +165,57 @@
 <!-- 신고 관리 -->
 	<!-- 신고 목록 가져오기 -->
 	<select id="selectAdminReportList" resultType="hashmap">
-		<![CDATA[
 				SELECT 
-					r.r_no,
-                    g.gg_name,
-					m.m_id,
+					r_no,
+                    gg_name,
+                    gg_category,
+					m_id,
 					r.m_no,
-					r.r_comment,
-					m.m_active,
-					m.m_penalty,
-					g.gg_active,
-					g.gg_penalty
+					r_comment,
+					m_active,
+					m_penalty,
+					gg_active,
+					gg_penalty
 				FROM
 					Report r, Members m, Group_Gathering g
-				WHERE
+				<where>
 					r.m_pno=m.m_no AND r.gg_no=g.gg_no
+					<if test="searchWord != null">
+						<if test="searchCategory.equals('id')">
+							AND REGEXP_LIKE(m_id,#{searchWord}) 
+						</if>
+						<if test="searchCategory.equals('category')">
+							AND REGEXP_LIKE(gg_category,#{searchWord}) 
+						</if>
+						<if test="searchCategory.equals('groupName')">
+							AND REGEXP_LIKE(gg_name,#{searchWord}) 
+						</if>
+						<if test="searchCategory.equals('penaltyMember')">
+							AND m.m_penalty <![CDATA[ >= ]]> #{searchWord}
+						</if>
+						<if test="searchCategory.equals('penaltyGroup')">
+							AND g.gg_penalty <![CDATA[ >= ]]> #{searchWord}
+						</if>
+					</if>
+					<if test="searchGroupActive != null">
+						<if test='searchGroupActive.equals("O")'>
+							<![CDATA[ AND gg_active = 0  ]]>
+						</if>
+						<if test='searchGroupActive.equals("X")'>
+							<![CDATA[ AND gg_active = 1   ]]>
+						</if>
+					</if>
+					<if test="searchMemberActive != null">
+						<if test='searchMemberActive.equals("O")'>
+							<![CDATA[ AND m_active = 0  ]]>
+						</if>
+						<if test='searchMemberActive.equals("X")'>
+							<![CDATA[ AND m_active = 1   ]]>
+						</if>
+					</if>
+				</where>
 				ORDER BY
 					r_no DESC
-		]]>
 	</select>
 
 	<!-- 회원 비활성화 -->
@@ -159,19 +227,6 @@
 	<update parameterType="hashmap" id="group_inactive"> 
 		UPDATE Group_Gathering SET gg_active=#{gg_active} WHERE gg_no=#{gg_no} 
 	</update>
-
-	<!-- 신고목록에서 검색하기 -->
-	<select id="ReportList_search_gg_name_select_all"> 
-		select m.*,g.* from group_gathering g inner join members m on g.m_no=m.m_no where g.gg_penalty>0 and gg_name like '%'||#gg_name#||'%' order by g.gg_no desc 
-	</select>
-
-	<select id="ReportList_search_m_id_select_all"> 
-		select m.*,g.* from group_gathering g inner join members m on g.m_no=m.m_no where g.gg_penalty>0 and m_id like '%'||#m_id#||'%' ORDER BY g.gg_no desc 
-	</select>
-
-	<select id="ReportList_search_m_name_select_all"> 
-		select m.*,g.* from group_gathering g inner join members m on g.m_no=m.m_no where g.gg_penalty>0 and m_name like '%'||#m_name#||'%' ORDER BY g.gg_no desc 
-	</select>
 
 <!-- 신고 관리 끝-->
 
@@ -191,23 +246,29 @@
 			l_udate
 		FROM 
 			lendplace 
+		<where>
+			<if test="searchWord != null">
+				<if test="searchCategory.equals('addr')">
+					AND REGEXP_LIKE(l_addr,#{searchWord}) 
+				</if>
+				<if test="searchCategory.equals('place')">
+					AND REGEXP_LIKE(l_subject,#{searchWord}) 
+				</if>
+				<if test="searchCategory.equals('enable')">
+					AND l_enable <![CDATA[ >= ]]> #{searchWord}
+				</if>
+				<if test="searchCategory.equals('payment')">
+					AND l_payment <![CDATA[ >= ]]> #{searchWord}
+				</if>
+				<if test="searchCategory.equals('rate')">
+					AND l_rate <![CDATA[ >= ]]> #{searchWord}
+				</if>
+			</if>
+		</where>
 		ORDER BY 
 			l_no desc 
 	</select>
 	
-	<!-- 장소 목록에서 검색하기 -->
-	<select id="LendplaceAdmin_search_l_subject_select_all"> 
-		select lendplace.l_no, lendplace.l_subject, lendplace.l_addr, lendplace.l_sdate, lendplace.l_edate, placebook.l_date, members.m_id from lendplace, placebook, members where lendplace.l_no = placebook.l_no and placebook.m_no = members.m_no and l_subject like '%'||#l_subject#||'%' ORDER BY lendplace.l_no desc 
-	</select>
-
-	<select id="LendplaceAdmin_search_l_addr_select_all"> 
-		select lendplace.l_no, lendplace.l_subject, lendplace.l_addr, lendplace.l_sdate, lendplace.l_edate, placebook.l_date, members.m_id from lendplace, placebook, members where lendplace.l_no = placebook.l_no and placebook.m_no = members.m_no and l_addr like '%'||#l_addr#||'%' ORDER BY lendplace.l_no desc 
-	</select>
-
-	<select id="LendplaceAdmin_search_m_id_select_all"> 
-		select lendplace.l_no, lendplace.l_subject, lendplace.l_addr, lendplace.l_sdate, lendplace.l_edate, placebook.l_date, members.m_id from lendplace, placebook, members where lendplace.l_no = placebook.l_no and placebook.m_no = members.m_no and m_id like '%'||#m_id#||'%' ORDER BY lendplace.l_no desc 
-	</select>
-
 <!-- 장소 관리 끝 -->
 
 <!-- 장소 예약 현황 -->
@@ -215,13 +276,29 @@
 	<select id="selectAdminPlaceBookList" resultType="hashmap">
 		SELECT
 			pb_no,
-			l_no,
-			m_no,
-			TO_CHAR(PB_DATE,'YYYY-MM-DD') AS PB_DATE
+			l_addr,
+			l_subject,
+			m_id,
+			TO_CHAR(PB_DATE,'YYYY-MM-DD') AS PB_DATE,
+			u_date
 		FROM
-			placebook
+			placebook p, lendplace l, members m
+		<where>
+			p.m_no=m.m_no AND p.l_no=l.l_no
+			<if test="searchWord != null">
+				<if test="searchCategory.equals('id')">
+					AND REGEXP_LIKE(m_id,#{searchWord}) 
+				</if>
+				<if test="searchCategory.equals('addr')">
+					AND REGEXP_LIKE(l_addr,#{searchWord}) 
+				</if>
+				<if test="searchCategory.equals('place')">
+					AND REGEXP_LIKE(l_subject,#{searchWord}) 
+				</if>
+			</if>
+		</where>
 		ORDER BY
-			l_no desc
+			pb_no desc
 	</select>
 
 

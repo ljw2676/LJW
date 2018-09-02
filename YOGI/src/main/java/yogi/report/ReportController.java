@@ -1,6 +1,7 @@
 package yogi.report;
 
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -24,7 +25,7 @@ public class ReportController {
 	private ReportService reportService;
 	
 	@RequestMapping(value="report/viewUserInfo")
-	public ModelAndView viewUserInfo(HttpServletRequest request) throws Exception{
+	public ModelAndView viewUserInfo(HttpServletRequest request, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView("viewUserInfo");
 		
 		/*Enumeration<String> params = request.getParameterNames(); 
@@ -33,10 +34,16 @@ public class ReportController {
 		 System.out.println("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
 		}*/
 		
+		Map<String, Object> report = reportService.selectGroup(request, session);
+		List<String> group = (List<String>) report.get("groupList");
+		if (group.isEmpty()) {
+			mv.addObject("group", "0");
+		}
+		
 		Map<String, Object> userInfo = reportService.viewUserInfo(request);
 		mv.addObject("userInfo",userInfo);
 		
-		System.out.println(userInfo);
+		System.out.println(mv.getModelMap());
 		
 		return mv;
 	}

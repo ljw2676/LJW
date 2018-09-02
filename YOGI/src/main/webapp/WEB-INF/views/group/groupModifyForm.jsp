@@ -143,13 +143,22 @@ div.map_title{
 	<!-- 왼쪽 사이드바 -->
 		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
 		<aside id="colorlib-aside" role="complementary" class="border js-fullheight">
-			<h1 id="colorlib-logo"><a href="index.html">YOGI</a></h1>
+			<h1 id="colorlib-logo"><a href="http://localhost:8080/yogi/main">YOGI</a></h1>
 			<nav id="colorlib-main-menu" role="navigation">
 				<ul>
-					<li><a href="index.html">Main</a></li>
-					<li class="colorlib-active"><a href="work.html">Group</a></li>
-					<li><a href="about.html">Landplace</a></li>
-					<li><a href="services.html">AdminPage</a></li>
+					<li><a href="http://localhost:8080/yogi/main">Home</a></li>
+					<li class="colorlib-active"><a href="http://localhost:8080/yogi/groupList">Group</a></li>
+					<li><a href="http://localhost:8080/yogi/lendplace/list">Lendplace</a></li>
+					<c:choose>
+					<c:when test="${m_lv =='관리자'}">
+					<li><a href="http://localhost:8080/yogi/admin/adminpageView">AdminPage</a></li>
+					</c:when>
+					<c:otherwise>
+					<li><a href="http://localhost:8080/yogi/mypage/mypageView">MyPage</a></li>
+					</c:otherwise>
+					</c:choose>
+					<li><a href="">About</a></li>
+					<li><a href="http://localhost:8080/yogi/logout">Logout</a></li>
 				</ul>
 			</nav>
 
@@ -185,7 +194,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 								<input type="hidden" name="wt_name" value="${gModel.WT_NAME }">
 								
 								<div class="form-group col-md-12">
-									<div class="col-md-1" style="padding-left: 0;">
+									<div class="col-md-2" style="padding-left: 0;">
 										<font class="form-control" >${gModel.GG_CATEGORY }</font>
 								   </div>
 			  					 	<div class="col-md-5" style="padding-left: 0;">

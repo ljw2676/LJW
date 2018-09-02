@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,11 +73,24 @@ public class AdminLendplaceServiceImpl implements AdminLendplaceService {
 
 	@Override
 	public List<Map<String, Object>> selectLendplaceList(Map<String, Object> map) throws Exception {
+		System.out.println("adminlendplaceService if절 remove 전 :"+map);
+		if(map.get("searchWord") == null || StringUtils.isBlank(map.get("searchWord").toString())){
+			map.remove("searchWord");
+			map.remove("searchCategory");
+		}
+		System.out.println("adminlendplaceService if절 remove 후 :"+map);
 		return lendplaceDAO.selectLendplaceList(map);
 	}
 
 	@Override
 	public List<Map<String, Object>> selectPlaceBookList(Map<String, Object> map) throws Exception {
+		System.out.println("adminlendplaceService if절 remove 전 :"+map);
+		if(map.get("searchWord") == null || StringUtils.isBlank(map.get("searchWord").toString())){
+			map.remove("searchWord");
+			map.remove("searchCategory");
+		}
+		System.out.println("adminlendplaceService if절 remove 후 :"+map);
+		
 		return lendplaceDAO.selectPlaceBookList(map);
 	}
 	

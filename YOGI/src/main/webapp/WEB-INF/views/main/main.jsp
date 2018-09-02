@@ -112,7 +112,14 @@ input[type="checkbox"] + label:after {
 		<li class="colorlib-active"><a href="http://localhost:8080/yogi/main">Home</a></li>
 		<li><a href="http://localhost:8080/yogi/groupList">Group</a></li>
 		<li><a href="http://localhost:8080/yogi/lendplace/list">Lendplace</a></li>
+		<c:choose>
+		<c:when test="${m_lv =='관리자'}">
+		<li><a href="http://localhost:8080/yogi/admin/adminpageView">AdminPage</a></li>
+		</c:when>
+		<c:otherwise>
 		<li><a href="http://localhost:8080/yogi/mypage/mypageView">MyPage</a></li>
+		</c:otherwise>
+		</c:choose>
 		<li><a href="">About</a></li>
 		<li><a href="http://localhost:8080/yogi/logout">Logout</a></li>
 	</ul>

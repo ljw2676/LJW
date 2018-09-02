@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,17 @@ public class AdminGroupServiceImpl implements AdminGroupService{
 
 	@Override
 	public List<Map<String, Object>> selectAdminGroupList(Map<String, Object> map) throws Exception {
+		System.out.println("adminGroupService if절 remove 전 :"+map);
+		if(map.get("searchWord") == null || StringUtils.isBlank(map.get("searchWord").toString())){
+			map.remove("searchWord");
+			map.remove("searchCategory");
+		}
+		if(map.get("searchGroupActive") == null || StringUtils.isBlank(map.get("searchGroupActive").toString())){
+			map.remove("searchGroupActive");
+		}
+		
+		System.out.println("adminGroupService if절 remove 후 :"+map);
+		
 		return adminGroupDao.selectGroupList(map);
 	}
 

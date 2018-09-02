@@ -82,6 +82,8 @@ public class MainController {
 			mem_alram = alramService.alramLoad(Integer.parseInt(session.getAttribute("session_m_no").toString()));
 		}
 		session.setAttribute("session_mem_alram", mem_alram);
+		mv.addObject("m_lv", mm.getM_lv());
+		System.out.println(mv.getModelMap());
 		return mv;
 		}
 		else {

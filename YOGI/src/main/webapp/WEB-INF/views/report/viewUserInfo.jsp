@@ -19,25 +19,56 @@ function end(){
 	self.close();
 }
 </script>
+<style type="text/css">
+.circle-cropper {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+.btn{
+	border: 1px solid transparent;
+	text-align: center;
+	border-radius: .25em;
+	background-color: #FFC300;
+	padding: 10px;
+}
+</style>
 </head>
 <body>
-<div align="center">
-<c:if test="${userInfo.M_PROFILE }!=null">
-	<img src="/yogi/resources/upload/${userInfo.M_PROFILE }" style="width: 200px; height: 200px;">
-</c:if>
-<c:if test="${userInfo.M_PROFILE }==null">
-	<img src="/yogi/resources/image/no_image.png" style="width: 200px; height: 200px;">
-</c:if>
-</div>
-<div align="center">
+
+<div align="center" style="background-color: #f3f3f3">
 	<form:form commandName="user" name="user" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="m_no" value="${userInfo.M_NO }">
-		ID : ${userInfo.M_ID }<br />
-		이름 : ${userInfo.M_NAME}<br />
-		등급 : ${userInfo.M_LV }<br />
-		페널티 : ${userInfo.M_PENALTY }<br />
-		<input type="button" value="신고하기" onclick="report('${userInfo.M_NO }')">
-		<input type="button" value="닫기" onclick="end()">
+		<div style="padding: 15px; background-color: #FFC300;">
+				<font style="font-weight: bold; font-size: x-large; ">[${userInfo.M_NAME }]</font>'s Profile
+			</div>
+		<div style="padding-top: 30px;">
+			<div class="circle-cropper" style="background-image:url(/yogi/resources/upload/${userInfo.M_PROFILE });"></div>
+		</div>
+		<div style="padding-top: 30px;">
+			<input type="hidden" name="m_no" value="${userInfo.M_NO }">
+			<div style="padding: 10px; background-color: white;">
+				<font>ID : </font><font style="font-weight: bold;">${userInfo.M_ID }</font>
+			</div>
+			<div style="padding: 10px;">
+				<font>이름 : </font><font>${userInfo.M_NAME}</font>
+			</div>
+			<div style="padding: 10px; background-color: white;">
+				<font>등급 : </font><font>${userInfo.M_LV }</font>
+			</div>
+			<div style="padding: 10px;">
+				<font>페널티 : </font><font color="red">${userInfo.M_PENALTY }</font>
+			</div>
+		</div>
+		<div style="padding-top: 40px; padding-bottom: 10px;">
+			<c:if test="${group !='0' }">
+			<input class="btn" type="button" value="신고하기" onclick="report('${userInfo.M_NO }')">
+			</c:if>
+			<input class="btn" style="background-color: gray;" type="button" value="닫기" onclick="end()">
+		</div>
 	</form:form>
 </div>
 </body>
