@@ -120,7 +120,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 								<div class="table-row" >
 									<div class="serial" style="position:relative; left:55px;"><span style="text-align: center;">${row.GG_NO }</span></div>
 									<div class="country" style="position:relative; left:280px; ">
-									<a href="#this" name="detail">${row.GG_NAME}</a><input type="hidden" id="GG_NO" value="${row.GG_NO}">
+									<a href="#this" name="detail">${row.GG_NAME}</a><input type="hidden" id="gg_no" value="${row.GG_NO}">
 									</div>
 									<div class="visit" style="position:relative; left:335px; "><span style="text-align: center;">${row.GG_DATE }</span></div>
 								</div>
@@ -190,7 +190,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 		function fn_groupDetail(obj) {
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/groupDetail' />");
-			comSubmit.addParam("GG_NO",obj.parent().find("#GG_NO").val());
+			comSubmit.addParam("gg_no",obj.parent().find("#gg_no").val());
 			comSubmit.addParam("currentPageNo", "${currentPageNo}");
 			comSubmit.submit();
 		}

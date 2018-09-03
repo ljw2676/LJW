@@ -119,7 +119,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 							
 								<div class="table-row" >
 									<div class="serial" style="position:relative; left:55px;"><span style="text-align: center;">${row.GG_NO }</span></div>
-									<div class="country" style="position:relative; left:280px; ">${row.GG_NAME }</div>
+										<div class="country" style="position:relative; left:280px; ">
+									<a href="#this" name="detail">${row.GG_NAME}</a><input type="hidden" id="gg_no" value="${row.GG_NO}">
+									</div>
 									<div class="visit" style="position:relative; left:335px; "><span style="text-align: center;">${row.GG_DATE }</span></div>
 								</div>
 								</c:forEach>
@@ -189,6 +191,26 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 			<script src="/yogi/resources/bootstrap_my/js/mail-script.js"></script>	
 			<script src="/yogi/resources/bootstrap_my/js/main.js"></script>	 -->
 
+			<%@ include file="/WEB-INF/include/common-body.jspf"%>
+	<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("a[name='detail']").on("click", function(e) {
+				/* 태그의 기본 기능을 제거 */
+				e.preventDefault();
+				fn_groupDetail($(this));
+					
+				});
+		});
+		function fn_groupDetail(obj) {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/groupDetail' />");
+			comSubmit.addParam("gg_no",obj.parent().find("#gg_no").val());
+			comSubmit.addParam("currentPageNo", "${currentPageNo}");
+			comSubmit.submit();
+		}
+			
+	</script>
 
 </body>
 </html>

@@ -49,7 +49,6 @@
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="/yogi/resources/bootstrap/css/style.css">
 	
-	<link rel="stylesheet" href="/resources/datepicker/datepicker.css">
 	
 	<link rel="stylesheet" href="/yogi/resources/bootstrap_my/css/linearicons.css">
 	<link rel="stylesheet" href="/yogi/resources/bootstrap_my/css/font-awesome.min.css">
@@ -99,7 +98,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 					<div class="row">
 						<div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
 							<span class="heading-meta">M Y P A G E</span>
-							<h2 class="colorlib-heading" style="margin-top: -10px;">장소 신청 내역</h2>
+							<h2 class="colorlib-heading" style="margin-top: -15px;">장소 신청 내역 </h2>
 						</div>
 					</div>
 				</div>
@@ -120,10 +119,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 								<c:forEach items="${list}" var="row">
 							
 								<div class="table-row" >
-									<div class="serial" style="position:relative; left:48px;"><span style="text-align: center;">${row.L_SUBJECT}</span></div>
-									<div class="country" style="position:relative; left:260px; "><span style="text-align: center;">${row.U_DATE }</span></div>
-									<div class="visit" style="position:relative; left:250px; "><span style="text-align: center;">${row.PB_DATE}</span></div>
-										<div class="form-group" style="position:relative; left:255px; ">
+									<div class="country" style="position:relative; left:75px; ">
+									<a href="#this" name="detail">${row.L_SUBJECT}</a><input type="hidden" id="L_NO" value="${row.L_NO}">
+									</div>
+									<div class="country" style="position:relative; left:125px; "><span style="text-align: center;">${row.U_DATE }</span></div>
+									<div class="visit" style="position:relative; left:115px; "><span style="text-align: center;">${row.PB_DATE}</span></div>
+										<div class="form-group" style="position:relative; left:120px; ">
 											<input class="btn btn-primary btn-send-message" type="button" id="cancel" name="cancel" value="취소" onclick="#this" />
 									<input type="hidden" id="L_NO" value="${row.L_NO}">
 									<input type="hidden" id="U_DATE" value="${row.U_DATE}">
@@ -157,6 +158,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 			</div>
 			</div>
 			</div>
+	
+									
+	
+
 	
 									
 	
@@ -196,36 +201,31 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 			<script src="/yogi/resources/bootstrap_my/js/jquery.nice-select.min.js"></script>							
 			<script src="/yogi/resources/bootstrap_my/js/mail-script.js"></script>	
 			<script src="/yogi/resources/bootstrap_my/js/main.js"></script>	 -->
-
-<%@ include file="/WEB-INF/include/common-body.jspf"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
-<script type="text/javascript">
+			
+			<%@ include file="/WEB-INF/include/common-body.jspf"%>
+	<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
+	<script type="text/javascript">
 		$(document).ready(function() {
-			$("#cancel").on("click", function(e) { //취소
+			$("a[name='detail']").on("click", function(e) {
+				/* 태그의 기본 기능을 제거 */
 				e.preventDefault();
-			if(confirm("취소 하시겠습니까?")==true){
-				fn_cancelLendplace($(this));
-			}
-			else {
-				return;
-			}
-			});
+				fn_lendplaceDetail($(this));
+					
+				});
 		});
-		
-	      function fn_cancelLendplace(obj){
-	    	  alert("신청이 취소되었습니다 :3");
-	          var comSubmit = new ComSubmit();
-	      	  comSubmit.setUrl("<c:url value='/admin/lendplace/Cancel' />");
-			  comSubmit.addParam("L_NO", obj.parent().find("#L_NO").val());
-			  comSubmit.addParam("M_NO", obj.parent().find("#M_NO").val());
-			  comSubmit.addParam("U_DATE", obj.parent().find("#U_DATE").val());
-	          comSubmit.submit();
-	      }
-		
+		function fn_lendplaceDetail(obj) {
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/lendplace/detail' />");
+			comSubmit.addParam("L_NO",obj.parent().find("#L_NO").val());
+			comSubmit.addParam("currentPageNo", "${currentPageNo}");
+			comSubmit.submit();
+		}
+			
+	</script>
+			
 
-</script>
 
 </body>
 </html>
+
 
