@@ -71,32 +71,26 @@
 	<body>
 	<div id="colorlib-page">
 		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
-		<aside id="colorlib-aside" role="complementary" class="border js-fullheight">
-			<h1 id="colorlib-logo"><a href="index.html">Balay</a></h1>
-			<nav id="colorlib-main-menu" role="navigation">
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="work.html">Project</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="services.html">Services</a></li>
-					<li><a href="blog.html">Blog</a></li>
-					<li class="colorlib-active"><a href="contact.html">Contact</a></li>
-				</ul>
-			</nav>
-
-			<div class="colorlib-footer">
-				<p><small>&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+		<!-- 사이드 바 -->
+<aside id="colorlib-aside" role="complementary" class="border js-fullheight">
+	<h1 id="colorlib-logo"><a href="http://localhost:8080/yogi/main">YOGI</a></h1>
+	<nav id="colorlib-main-menu" role="navigation">
+	<ul>
+		<li><a href="http://localhost:8080/yogi/main">Home</a></li>
+		<li><a href="http://localhost:8080/yogi/groupList">Group</a></li>
+		<li class="colorlib-active"><a href="http://localhost:8080/yogi/lendplace/list">Lendplace</a></li>
+		<li><a href="http://localhost:8080/yogi/mypage/mypageView">MyPage</a></li>
+		<li><a href="">About</a></li>
+		<li><a href="http://localhost:8080/yogi/logout">Logout</a></li>
+	</ul>
+	</nav>
+	<div class="colorlib-footer">
+			<p><small>&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> Distributed by: <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> </span> <span>Demo Images: <a href="http://nothingtochance.co/" target="_blank">nothingtochance.co</a></span></small></p>
-				<ul>
-					<li><a href="#"><i class="icon-facebook2"></i></a></li>
-					<li><a href="#"><i class="icon-twitter2"></i></a></li>
-					<li><a href="#"><i class="icon-instagram"></i></a></li>
-					<li><a href="#"><i class="icon-linkedin2"></i></a></li>
-				</ul>
-			</div>
-s
-		</aside>
+<span>MADE BY: <a href="">YOMI</a></span>
+	</div>
+</aside>
 
 		<div id="colorlib-main">
 
@@ -116,11 +110,8 @@ s
 										</div>
 										
 										<div class="form-group">
-										<input class="form-control" id="search_keyword_addr" type="text" name="" size="53%" onkeypress="searchAddrEnterKey();" maxlength="25" placeholder="주소를 검색하세요 !">
-     									</div>
-     									
-     									<div class="form-group">
-     									 <input class="btn btn-primary btn-send-message" type="button" value="검색" onclick="searchAddrEnterKey('13');">
+										<input class="form-control" id="search_keyword_addr" type="text" name="" size="30%" onkeypress="searchAddrEnterKey();" maxlength="25" placeholder="주소를 검색하세요 !" style="width: 700px;">
+     									<input class="btn btn-primary btn-send-message" type="button" value="검색" onclick="searchAddrEnterKey('13');">
      									 </div>
      									 
 										 <div class="map_title">

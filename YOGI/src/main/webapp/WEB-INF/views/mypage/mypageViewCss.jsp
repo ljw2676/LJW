@@ -71,32 +71,26 @@
 	<body>
 	<div id="colorlib-page">
 		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
-		<aside id="colorlib-aside" role="complementary" class="border js-fullheight">
-			<h1 id="colorlib-logo"><a href="index.html">Balay</a></h1>
-			<nav id="colorlib-main-menu" role="navigation">
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="work.html">Project</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="services.html">Services</a></li>
-					<li><a href="blog.html">Blog</a></li>
-					<li class="colorlib-active"><a href="contact.html">Contact</a></li>
-				</ul>
-			</nav>
-
-			<div class="colorlib-footer">
-				<p><small>&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+		<!-- 사이드 바 -->
+<aside id="colorlib-aside" role="complementary" class="border js-fullheight">
+	<h1 id="colorlib-logo"><a href="http://localhost:8080/yogi/main">YOGI</a></h1>
+	<nav id="colorlib-main-menu" role="navigation">
+	<ul>
+		<li><a href="http://localhost:8080/yogi/main">Home</a></li>
+		<li><a href="http://localhost:8080/yogi/groupList">Group</a></li>
+		<li><a href="http://localhost:8080/yogi/lendplace/list">Lendplace</a></li>
+		<li class="colorlib-active"><a href="http://localhost:8080/yogi/mypage/mypageView">MyPage</a></li>
+		<li><a href="">About</a></li>
+		<li><a href="http://localhost:8080/yogi/logout">Logout</a></li>
+	</ul>
+	</nav>
+	<div class="colorlib-footer">
+			<p><small>&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> Distributed by: <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> </span> <span>Demo Images: <a href="http://nothingtochance.co/" target="_blank">nothingtochance.co</a></span></small></p>
-				<ul>
-					<li><a href="#"><i class="icon-facebook2"></i></a></li>
-					<li><a href="#"><i class="icon-twitter2"></i></a></li>
-					<li><a href="#"><i class="icon-instagram"></i></a></li>
-					<li><a href="#"><i class="icon-linkedin2"></i></a></li>
-				</ul>
-			</div>
-
-		</aside>
+<span>MADE BY: <a href="">YOMI</a></span>
+	</div>
+</aside>
 
 		<div id="colorlib-main">
 
@@ -116,8 +110,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 									<img src="/yogi/resources/bootstrap_my/img/blog/user-info.png" alt="">
 									<div class="single-sidebar-widget popular-post-widget">
 									<h4 class="popular-title">${session_m_id }님</h4>
+									<div class="details">
+												<h6 style="margin-top:10px;">보유 포인트 : ${member.M_GRADE } </h6>
+											</div>
 									</div>
-									<a href="#"><h4>"${member.M_LV }"</h4></a>
+									
+									<h4 style="margin-bottom: 15px;">"${member.M_LV }"</h4>
 									
 										<c:if test="${member.M_GRADE lt 50 }">
 										<img src="/yogi/resources/image/lv-b.png">
@@ -147,26 +145,22 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 											<div class="thumb">
 												<img class="img-fluid" src="img/blog/pp1.jpg" alt="">
 											</div>
-											<div class="details">
-												<a href="blog-single.html"><h6>보유 포인트 : ${member.M_GRADE } </h6></a>
 											
-											</div>
-										</div>
-										<div class="single-post-list d-flex flex-row align-items-center">
-											<div class="thumb">
-												<img class="img-fluid" src="img/blog/pp2.jpg" alt="">
-											</div>
 											<div class="details">
-												<a href="blog-single.html"><h6>신고 횟수 :  ${member.M_PENALTY }</h6></a>
-											
+												<h6 style="margin-top:10px;">포인트를 쌓아 등급별로 다양한 혜택을 받아보세요 !</h6>
 											</div>
+											<p align="center">※포인트 안내※ <br />
+											모임 개설 : 30pt <br />
+											모임 참여 : 10pt <br />
+											댓글 작성  : 1pt <br />
+											장소 후기 작성 : 5pt</p>
 										</div>
-																						
 									</div>
 								</div>
 				</div>
 			</div>
 			
+	
 			<div class="col-md-8 animate-box" data-animate-effect="fadeInRight">
 							<div class="fancy-collapse-panel">
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -180,32 +174,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 									    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 									         <div class="panel-body">
 									            <div class="row">
-										      		<c:choose>
-														<c:when test="${fn:length(list) > 0 }">
-															<table border="1">
-																<tr background="gray">
-																	<td>no</td>
-																	<td>제목</td>
-																	<td>등록일</td>
-	
-																</tr>
-														<c:forEach items="${list}" var="row">
-																<tr>
-																	<td>${row.GG_NO}</td>
-																	<td>${row.GG_NAME}</td>
-																	<td>${row.GG_DATE}</td>
-	
-																</tr>
-														</c:forEach>
-															</table>
-														</c:when>
-												<c:otherwise>
-												<br>
-												개설한 모임이 없습니다.
-													</c:otherwise>
-											</c:choose>
-
-												${pagingHtml}
+										      		회원님이 현재 개설한 모임은 총 ${member.WRITE_COUNT }개 입니다. <br/>
+										      		<a href="http://localhost:8080/yogi/mypage/writeHistory" class="genric-btn danger circle arrow" style="height:30px; margin-top:10px;">확인하러 가기<span class="lnr lnr-arrow-right"></span></a>
+									
 										      	</div>
 									         </div>
 									    </div>
@@ -213,37 +184,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 									<div class="panel panel-default">
 									    <div class="panel-heading" role="tab" id="headingTwo">
 									        <h4 class="panel-title">
-									            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">내가 참여한 모임
+									            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">내가 신청한 모임
 									            </a>
 									        </h4>
 									    </div>
 									    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 									        <div class="panel-body">
-									            <c:choose>
-													<c:when test="${fn:length(list) > 0 }">
-														<table border="1">
-															<tr background="gray">
-																<td>no</td>
-																<td>제목</td>
-																<td>등록일</td>
-	
-															</tr>
-														<c:forEach items="${list}" var="row">
-															<tr>
-																<td>${row.GG_NO}</td>
-																<td>${row.GG_NAME}</td>
-																<td>${row.GG_DATE}</td>
-															</tr>
-															</c:forEach>
-														</table>
-													</c:when>
-													<c:otherwise>
-														<br>
-													참여한 모임이 없습니다.
-														</c:otherwise>
-															</c:choose>
-
-													${pagingHtml}
+										     	 회원님이 현재 신청한 모임은 총 ${member.MEET_COUNT }개 입니다.<br />
+										     	 <a href="http://localhost:8080/yogi/mypage/meetHistory" class="genric-btn danger circle arrow" style="height:30px; margin-top:10px;">확인하러 가기<span class="lnr lnr-arrow-right"></span></a>
 									        </div>
 									    </div>
 									</div>
@@ -256,47 +204,42 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 									    </div>
 									    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
 									        <div class="panel-body">
-									            <p>Far far away, behind the word <strong>mountains</strong>, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>	
+									             회원님이  현재 찜한 모임은 총 ${member.ZZIM_COUNT }개 입니다. <br />
+									             <a href="http://localhost:8080/yogi/mypage/zzimHistory" class="genric-btn danger circle arrow" style="height:30px; margin-top:10px;">확인하러 가기<span class="lnr lnr-arrow-right"></span></a>
 									        </div>
 									    </div>
 									</div>
 									
 									<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="headingTwo">
+									    <div class="panel-heading" role="tab" id="heading4">
 									        <h4 class="panel-title">
-									            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">장소 신청 내역
+									            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapse4">장소 신청 내역
 									            </a>
 									        </h4>
 									    </div>
-									    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+									    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
 									        <div class="panel-body">
-									            <p>Far far away, behind the word <strong>mountains</strong>, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-													<ul>
-														<li>Separated they live in Bookmarksgrove right</li>
-														<li>Separated they live in Bookmarksgrove right</li>
-													</ul>
+									            회원님이 현재 신청한 장소는 총 ${member.PLACEBOOK_COUNT }개 입니다. <br />
+									            <a href="http://localhost:8080/yogi/mypage/placebookHistory" class="genric-btn danger circle arrow" style="height:30px; margin-top:10px;">확인하러 가기<span class="lnr lnr-arrow-right"></span></a>
 									        </div>
 									    </div>
 									</div>
 									
 									<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="headingTwo">
+									    <div class="panel-heading" role="tab" id="heading5">
 									        <h4 class="panel-title">
-									            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">신고 내역
+									            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapse5">신고 내역
 									            </a>
 									        </h4>
 									    </div>
-									    
-									    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+									    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
 									        <div class="panel-body">
-									            <p>Far far away, behind the word <strong>mountains</strong>, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-													<ul>
-														<li>Separated they live in Bookmarksgrove right</li>
-														<li>Separated they live in Bookmarksgrove right</li>
-													</ul>
+									            회원님은 현재 총 ${member.REPORT_COUNT }번의 신고를 당했습니다. <br />
+									            <a href="http://localhost:8080/yogi/mypage/reportHistory" class="genric-btn danger circle arrow" style="height:30px; margin-top:10px;">확인하러 가기<span class="lnr lnr-arrow-right"></span></a>
 									        </div>
 									    </div>
 									</div>
+									
 								</div>
 							</div>
 						</div>
