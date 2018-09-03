@@ -122,12 +122,16 @@ public class MembersController {
 				if(alramService.alramExist(Integer.parseInt(userkakaoVo.getId())) != 0){
 					mem_alram = alramService.alramLoad(Integer.parseInt(userkakaoVo.getId()));
 				}
+				
 
-				/* 세션값 더 필요한 거 있으면 요기다 저장하세용~! */
 				session.setAttribute("session_m_id", userkakaoVo.getProperties().get("nickname"));
+				session.setAttribute("session_m_name",userkakaoVo.getProperties().get("nickname"));
 				session.setAttribute("session_m_no", userkakaoVo.getId());
+				if (userkakaoVo.getProperties().get("email") != null) {
+					session.setAttribute("session_m_email", userkakaoVo.getProperties().get("email"));
+				}
 				session.setAttribute("session_mem_alram", mem_alram);
-				return "redirect:/main2";
+				return "redirect:/main";
 		    }
 		
 	

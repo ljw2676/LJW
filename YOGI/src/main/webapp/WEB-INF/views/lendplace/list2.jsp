@@ -167,7 +167,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 										<a href="#this" name="title" class="blog-img"><input type="hidden" id="L_NO" value="${row.L_NO}"><img src="/yogi/resources/bootstrap/images/blog-1.jpg" class="img-responsive" alt="HTML5 Bootstrap Template by colorlib.com"></a>
 											<div class="desc">
 											<span><small>${row.L_SDATE} ~ ${row.L_EDATE}</small> | <small> ${row.L_PAYMENT}원 </small> | <small> <i class="icon-bubble3"></i>${row.L_ENABLE}명</small></span>
-											<h3><a href="#this" name="title">${row.L_SUBJECT}</a></h3><input type="hidden" id="L_NO" value="${row.L_NO}">
+											<h3><a href="#this" name="title">${row.L_SUBJECT}<input type="hidden" id="L_NO" value="${row.L_NO}"></a></h3>
 											<p>${row.L_ADDR}</p>
 											</div>
 										</div>
