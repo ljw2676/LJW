@@ -71,6 +71,7 @@ public class GroupServiceImpl implements GroupService {
 		Map<String, Object> sWriter = groupDAO.sessionWriter(map);
 		List<Map<String,Object>> geList = groupDAO.groupEnrollList(map);
 		List<Map<String,Object>> cmtList = groupDAO.selectCmtList(map);
+		Map<String, Object> enrollM = groupDAO.enrollMno(map);
 		detail.put("GG_DATE", YogiUtils.dateFormat((Date)detail.get("GG_DATE")));
 		if(map.get("m_no") != null && !StringUtils.isEmpty(map.get("m_no").toString())) {
 			Map<String, Object> likeit = groupDAO.selectLikeitExist(map);
@@ -91,7 +92,7 @@ public class GroupServiceImpl implements GroupService {
 			detail.put("GG_LIKEIT", null);
 			detail.put("GG_ENROLL", null);
 		}
-
+		resultMap.put("enrollM", enrollM);
 		resultMap.put("detail", detail);
 		resultMap.put("cmtList", cmtList);
 		resultMap.put("geList", geList);
@@ -158,6 +159,13 @@ public class GroupServiceImpl implements GroupService {
 		}
 		*/
 		//새로 넘어온 파일 처리
+		Enumeration<String> params = request.getParameterNames();
+		while(params.hasMoreElements()) {
+			String paramName = params.nextElement();
+			System.out.println("parameter Name -" + paramName + ", value -" +request.getParameter(paramName));
+		}
+		
+		
 		Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
 		if(fileMap!=null) {
 			

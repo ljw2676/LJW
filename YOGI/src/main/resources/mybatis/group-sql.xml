@@ -48,7 +48,8 @@
 			gg_ofn,
 			gg_rfn,
 			(gg_total - gg_enable) as gg_permit_pnum,
-			m_name as wt_name
+			m_name as wt_name,
+			m_email as m_email
 		FROM
 			group_gathering natural join members
 		WHERE
@@ -268,7 +269,7 @@
 			#{gg_detail}, 
 			#{gg_cost}, 
 			#{gg_total}, 
-			#{gg_total}-1, 
+			0, 
 			#{gg_ofn}, 
 			0, 
 			0, 
@@ -374,5 +375,9 @@
 	
 	<select id="sessionWriter" parameterType="hashmap" resultType="hashmap">
 		select m_name from members where m_no = #{m_no}
+	</select>
+	
+	<select id="enrollMno" parameterType="hashmap" resultType="hashmap">
+		select m_no from group_enroll where gg_no = #{gg_no} and m_no = #{m_no}
 	</select>
 </mapper>

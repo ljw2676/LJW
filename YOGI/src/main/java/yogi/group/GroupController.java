@@ -55,6 +55,9 @@ public class GroupController {
 		ModelAndView mv = new ModelAndView("/group/groupList2");
 		List<Map<String,Object>> list = groupService.selectGroupList(map.getMap());
 		PagingCalculator paging = new PagingCalculator("/groupList", map.getCurrentPageNo(), list, 6 ,3);
+		System.out.println("dddddddddddddd" + map.get("searchCategory"));
+		System.out.println("dddddddddddddd" + map.get("searchAddr"));
+		System.out.println("dddddddddddddd" + map.get("searchMStart"));
 		Map<String, Object> result = paging.getPagingList();
 		mv.addObject("list", result.get("list"));
 		mv.addObject("pagingHtml", result.get("pagingHtml"));
@@ -69,6 +72,7 @@ public class GroupController {
 		map.put("m_no", (Integer)session.getAttribute("session_m_no"));
 		System.out.println(map.get("m_no"));
 		Map<String, Object> result = groupService.selectGroupDetail(map.getMap());
+		mv.addObject("enrollM", result.get("enrollM"));
 		mv.addObject("gModel",result.get("detail"));
 		mv.addObject("cmtList", result.get("cmtList"));
 		mv.addObject("sWriter",result.get("sWriter"));

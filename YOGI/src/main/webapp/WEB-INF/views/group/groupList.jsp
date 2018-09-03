@@ -30,15 +30,6 @@ $(function() {
 		document.search_form.reset();
 		}); 
 	
-	$('.date').appendDtpicker({
-	"futureOnly" : true,
-	"autodateOnStart" : false,
-	"locale" : "ko",
-	"dateFormat": "YY/MM/DD",
-	"dateOnly": true,
-	"closeOnSelected": true,
-	"calendarMouseScroll": false
-	});
 });		
 		    function searchSubmit(){
 			var categorySize = "";
@@ -110,6 +101,7 @@ function fn_groupDetailLink(gg_no){
 					</tr>
 				</table>
 			</li>
+			
 		</c:forEach>
 	</ul>
 	<c:choose>

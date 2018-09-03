@@ -154,4 +154,9 @@ public class GroupDAO extends AbstractDAO{
 	public void cmtGroupDelete(Map<String, Object> map) throws Exception{
 		delete("group.cmtGroupDelete",map);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> enrollMno(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>) selectOne("group.enrollMno",map);
+	}
 }

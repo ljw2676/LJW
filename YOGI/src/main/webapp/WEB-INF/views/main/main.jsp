@@ -124,6 +124,47 @@ input[type="checkbox"] + label:after {
 		<li><a href="http://localhost:8080/yogi/logout">Logout</a></li>
 	</ul>
 	</nav>
+	
+	<div style="position: relative; top:0px; left: 80px">
+		  <a href="#" class="#" data-toggle="dropdown" aria-expanded="false">
+							  	<span class="my_menu">
+							  		<img src="/yogi/resources/image/alram_img.png" alt="arlam_img" style="width:33px;height:31px;" class="img-circle" />
+							  	</span>
+							  	
+							 
+							  	<span class="badge">
+								  	<c:if test="${fn:length(sessionScope.session_mem_alram) > 99}">
+								  		99+
+								  	</c:if>
+								  	<c:if test="${fn:length(sessionScope.session_mem_alram) <= 99}">
+							  			${fn:length(sessionScope.session_mem_alram)}				  			
+								  	</c:if>
+								  	 		
+							  	</span>
+							</a>
+						<ul class="dropdown-menu pull-right " style="background-color: black; position:absolute; top:35px; left: -120px; max-height:200px;width:285px;overflow-y:auto;">
+		<c:forEach items="${sessionScope.session_mem_alram}" var="alram">
+			<li>
+				<table style="width: 100%">
+					<tr>			
+						<td>
+						<c:if test="${alram.ALRAM_INDEX_NO == 1 }">
+								<a href="alramRead?alram_seq=${alram.ALRAM_SEQ }">작성한 모임에
+									<strong>${alram.REG_ID }</strong> 님이 댓글을 남겼습니다!
+								</a>
+							</c:if>
+							<c:if test="${alram.ALRAM_INDEX_NO == 2 }">
+								<a href="alramRead?alram_seq=${alram.ALRAM_SEQ }">회원님이 신청한 모임이 수정되었습니다!
+								</a>
+							</c:if>
+						</td>
+						
+					</tr>
+				</table>
+			</li>
+		</c:forEach>
+	</ul>
+	</div>
 	<div class="colorlib-footer">
 			<p><small>&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> Distributed by: <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
