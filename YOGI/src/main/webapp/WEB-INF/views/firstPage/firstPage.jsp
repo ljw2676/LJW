@@ -26,14 +26,12 @@
 function insert() {
 		var join = document.userinput
 		if (join.m_id.value == "") {
-			/* alertify.error("아이디를 입력해주세요"); */
 			alert("아이디를 입력해주세요");
 			join.m_id.focus();
 			return false;
 		}
 		
 		if (join.m_password.value == "") {
-			/* alertify.error("비밀번호를 입력해주세요"); */
 			alert("비밀번호를 입력해주세요");
 			join.m_password.focus();
 			return false;

@@ -2,6 +2,7 @@ package yogi.members;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Calendar;
@@ -179,8 +180,15 @@ public class MembersController {
 			session.setAttribute("session_mem_alram", mem_alram);
 			return "redirect:/main";
 		}
-		else
+		else {
+			response.setContentType("text/html");
+			response.setCharacterEncoding("utf-8");
+			PrintWriter writer = response.getWriter();
+			writer.write("<script> alert('아이디, 비밀번호를 확인해주세요!') </script>");
+			writer.flush();
 			return "firstPage";
+		}
+			
 	}
 	@RequestMapping(value= "/logout")
 	public String logout(HttpServletRequest request) {
