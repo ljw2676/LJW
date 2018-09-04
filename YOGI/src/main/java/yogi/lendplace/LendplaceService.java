@@ -9,6 +9,8 @@ import yogi.config.CommandMap;
 public interface LendplaceService {
 
 	List<Map<String, Object>> selectLendplaceList(Map<String, Object> map) throws Exception;
+	
+	List<Map<String, Object>> checkReview(Map<String, Object> map) throws Exception;
 
 	Map<String, Object> selectLendplaceDetail(Map<String, Object> map) throws Exception;
 

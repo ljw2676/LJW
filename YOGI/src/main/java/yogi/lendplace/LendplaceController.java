@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -39,11 +40,21 @@ public class LendplaceController {
 	
 	//장소 상세
 	@RequestMapping(value="/lendplace/detail")
-	public ModelAndView selectLendplaceDetail(CommandMap commandMap) throws Exception{
+	public ModelAndView selectLendplaceDetail(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
 		ModelAndView mv = new ModelAndView("/lendplace/detail2");
 		Map<String,Object> map = lendplaceService.selectLendplaceDetail(commandMap.getMap());
+		commandMap.put("M_NO", session.getAttribute("session_m_no"));
+		List<Map<String, Object>> check = lendplaceService.checkReview(commandMap.getMap());
+		if(check != null)
+			mv.addObject("check", check);
+		else
+			mv.addObject("check", null);
 		mv.addObject("map", map);
 		int Udate = (Integer.parseInt(map.get("L_UDATE").toString()));
+		double n = Double.parseDouble(map.get("L_RATE").toString() );
+		mv.addObject("rate", (int)n * 10 / 10);
+		System.out.println(n*10/10);
 		if (Udate != 0 && Udate >= 1) {
 			List<Map<String, Object>> date = lendplaceService.dateCheck(commandMap.getMap());
 			mv.addObject("date",date);
@@ -82,7 +93,12 @@ public class LendplaceController {
     //후기 저장 & 수정
     @RequestMapping(value="/lendplace/insertReview")
     public ModelAndView insertReview(CommandMap commandMap) throws Exception{
-    	System.out.println(commandMap.getMap());
+    	
+    	if( commandMap.get( "star-input" ) != null)	
+    		commandMap.put("rate", commandMap.get( "star-input" ));
+    	else
+    		commandMap.put("rate", -1 );
+    	
     	if (commandMap.get("R_NO") == null || "".equals(commandMap.get("R_NO"))) {
     		if (commandMap.get("R_PARENT") != null) {
     			lendplaceService.updateReviewOrder(commandMap.getMap());

@@ -15,7 +15,7 @@ public class LendplaceDAO extends AbstractDAO{
 	public List<Map<String, Object>> selectLendplaceList(Map<String, Object> map) throws Exception{
 		return (List<Map<String, Object>>)selectList("lendplace.selectLendplaceList",map);
 	}
-
+	
 //	장소상세페이지 조회
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> selectLendplaceDetail(Map<String, Object> map) throws Exception{
@@ -43,16 +43,22 @@ public class LendplaceDAO extends AbstractDAO{
 		update("lendplace.upCountUdate",map);
 	}
 	
+//	장소후기 확인
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> checkReview(Map<String, Object> map) throws Exception{
+		return (List<Map<String, Object>>)selectList("lendplace.checkReview",map);
+	}
+	
 //	장소후기 입력 
 	public void insertReview(Map<String, Object> map) throws Exception{
 		insert("lendplace.insertReview",map);
+		update("lendplace.RATE",map);
 	}
-	
 //	장소후기 삭제
 	public void deleteReview(Map<String, Object> map) throws Exception{
 		delete("lendplace.deleteReview",map);
+		update("lendplace.RATE", map);
 	}
-	
 	public void deleteGroupReview(Map<String, Object> map) throws Exception{
 		delete("lendplace.deleteGroupReview",map);
 	}

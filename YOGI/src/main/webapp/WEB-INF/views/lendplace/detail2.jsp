@@ -32,6 +32,9 @@
 
 	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
 	
+	<!-- 별점 -->
+	<link rel="stylesheet" href="/yogi/resources/bootstrap/css/star.css">
+	
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="/yogi/resources/bootstrap/css/animate.css">
 	<!-- Icomoon Icon Fonts-->
@@ -123,10 +126,63 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 					<div class="row">
 						<div class="col-md-4 animate-box" data-animate-effect="fadeInLeft">
 							<h2 class="colorlib-heading">Review</h2>
+							<h3>평점 : ${rate}
+							<span class="star-input"><span class="input">
+							<c:choose>
+							<c:when test="${rate==1}">
+								<input type="radio" checked><label for="p1"></label>		
+							</c:when>
+							<c:when test="${rate==2}">
+								<input type="radio" checked><label for="p2"></label>		
+							</c:when>
+							<c:when test="${rate==3}">
+								<input type="radio" checked><label for="p3"></label>		
+							</c:when>
+							<c:when test="${rate==4}">
+								<input type="radio" checked><label for="p4"></label>		
+							</c:when>
+							<c:when test="${rate==5}">
+								<input type="radio" checked><label for="p5"></label>		
+							</c:when>
+							<c:when test="${rate==6}">
+								<input type="radio" checked><label for="p6"></label>		
+							</c:when>
+							<c:when test="${rate==7}">
+								<input type="radio" checked><label for="p7"></label>		
+							</c:when>
+							<c:when test="${rate==8}">
+								<input type="radio" checked><label for="p8"></label>		
+							</c:when>
+							<c:when test="${rate==9}">
+								<input type="radio" checked><label for="p9"></label>		
+							</c:when>
+							<c:when test="${rate==10}">
+								<input type="radio" checked><label for="p10"></label>		
+							</c:when>
+							</c:choose>
+							</span></span>
+							</h3>
 							<div style="border: 1px solid; width: 600px; padding: 5px">
     							<form name="review_form" id="review_form" action="<c:url value='/lendplace/insertReview' />" method="post">
         						<input type="hidden" name="L_NO" value="<c:out value="${map.L_NO}"/>"> 
         						<input type="hidden" name="M_NO" value="<c:out value="${session_m_no}"/>">
+        						<c:if  test = "${fn:length(check) == 0}">
+        						<span class="star-input">
+  								<span class="input">
+    								<input type="radio" name="star-input" id="p1" value="1"><label for="p1">1</label>
+    								<input type="radio" name="star-input" id="p2" value="2"><label for="p2">2</label>
+    								<input type="radio" name="star-input" id="p3" value="3"><label for="p3">3</label>
+    								<input type="radio" name="star-input" id="p4" value="4"><label for="p4">4</label>
+    								<input type="radio" name="star-input" id="p5" value="5"><label for="p5">5</label>
+    								<input type="radio" name="star-input" id="p6" value="6"><label for="p6">6</label>
+    								<input type="radio" name="star-input" id="p7" value="7"><label for="p7">7</label>
+    								<input type="radio" name="star-input" id="p8" value="8"><label for="p8">8</label>
+    								<input type="radio" name="star-input" id="p9" value="9"><label for="p9">9</label>
+    								<input type="radio" name="star-input" id="p10" value="10"><label for="p10">10</label>
+  								</span>
+  									<output for="star-input"><b>0</b>점</output>
+								</span>
+        						</c:if>
         						<textarea name="R_CONTENT" id="R_CONTENT" rows="3" cols="60" maxlength="500" placeholder="후기를 달아주세요."></textarea>
         						<a href="#" onclick="fn_insertReview()">저장</a>
     							</form>
@@ -186,7 +242,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 				</div>
 			</div>
 		</div>
-	</div>
 
 	<!-- jQuery -->
 	<script src="/yogi/resources/bootstrap/js/jquery.min.js"></script>
@@ -214,6 +269,42 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 	<script src="//apis.daum.net/maps/maps3.js?apikey=a18085cad4f8315645fc4a233bdb2875&libraries=services" onerror="alertify.log('지도 로드중 에러!')"></script>
 	<script src="<c:url value='/resources/datepicker/datepicker.js'/> "></script>
 	<script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
+	<script type="text/javascript">
+	// star rating
+	var starRating = function(){
+	  var $star = $(".star-input"),
+	      $result = $star.find("output>b");
+	  $(document)
+	    .on("focusin", ".star-input>.input", function(){
+	    $(this).addClass("focus");
+	  })
+	    .on("focusout", ".star-input>.input", function(){
+	    var $this = $(this);
+	    setTimeout(function(){
+	      if($this.find(":focus").length === 0){
+	        $this.removeClass("focus");
+	      }
+	    }, 100);
+	  })
+	    .on("change", ".star-input :radio", function(){
+	    $result.text($(this).next().text());
+	  })
+	    .on("mouseover", ".star-input label", function(){
+	    $result.text($(this).text());
+	  })
+	    .on("mouseleave", ".star-input>.input", function(){
+	    var $checked = $star.find(":checked");
+	    if($checked.length === 0){
+	      $result.text("0");
+	    } else {
+	      $result.text($checked.next().text());
+	    }
+	  });
+	};
+	starRating();
+	
+	</script>
+	
 	<script type="text/javascript">
 $(document).ready(function() {
 		var IMP = window.IMP; // 생략가능

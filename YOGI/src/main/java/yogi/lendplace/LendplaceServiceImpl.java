@@ -87,6 +87,7 @@ public class LendplaceServiceImpl implements LendplaceService {
 	@Override
 	public void deleteReview(Map<String, Object> map) throws Exception {
 		lendplaceDAO.deleteReview(map);
+		
 	}
 
 	@Override
@@ -120,4 +121,8 @@ public class LendplaceServiceImpl implements LendplaceService {
 		return lendplaceDAO.selectParent(map);
 	}
 
+	@Override
+	public List<Map<String, Object>> checkReview(Map<String, Object> map) throws Exception {
+		return lendplaceDAO.checkReview(map);
+	}
 }

@@ -188,17 +188,20 @@
 			L_NO,
 			R_NO,
 			M_NO,
+			L_RATE,
 			R_CONTENT,
 			R_DATE,
 			R_DELETEFLAG,
             R_PARENT,
             R_DEPTH,
             R_ORDER,
-            R_GROUP)
+            R_GROUP
+            )
 		VALUES (
 			#{L_NO},
 			(SELECT NVL(MAX(R_NO),0)+1 from REVIEW),
 			#{M_NO},
+			#{rate},
 		<![CDATA[
 			#{R_CONTENT},
 		]]>
@@ -221,6 +224,13 @@
             )
 </insert>
 
+<update id="RATE" parameterType="hashmap">
+	UPDATE LENDPLACE SET L_RATE =
+		( SELECT AVG(L_RATE) FROM REVIEW  WHERE L_RATE>=0 GROUP BY L_NO HAVING L_NO=#{L_NO})
+	 WHERE L_NO=#{L_NO}
+</update>
+
+
 <update id="updateReview" parameterType="hashmap">
     <![CDATA[
     	UPDATE REVIEW
@@ -228,7 +238,9 @@
      	WHERE R_NO=#{R_NO}
     ]]>
 </update> 
-
+<select id="checkReview" resultType="hashmap" parameterType="hashmap">
+	SELECT * FROM REVIEW WHERE M_NO=#{M_NO} AND L_NO=#{L_NO}
+</select>
 <select id="selectReview" parameterType="hashmap" resultType="hashmap">
 	<![CDATA[
     	SELECT 

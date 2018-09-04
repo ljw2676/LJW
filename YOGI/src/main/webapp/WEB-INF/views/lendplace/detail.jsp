@@ -7,128 +7,263 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>장소 상세보기</title>
-<link  href="<c:url value='/resources/datepicker/datepicker.css' />" rel="stylesheet">
-</head>
-<body>
-<form name="apply_form" action="<c:url value='/lendplace/apply' />"  method="post">
-<table border="1">
-					<tr>
-						<td>번호</td>
-						<td>제목</td>
-						<td>주소</td>
-						<td>내용</td>
-						<td>이미지</td>
-						<td>인원</td>
-						<td>비용</td>
-						<td>기간</td>
-						<td>평점</td>
-					</tr>
-					<tr>
-						<td>${map.L_NO}번</td>
-						<td>${map.L_SUBJECT}</td>
-						<td><a href="javascript:map();">${map.L_ADDR}&nbsp;(${map.L_SUBJECT})</a></td>
-						<td>${map.L_CONTENT}</td>
-						<td>${map.L_REP_IMAGE}</td>
-						<td>${map.L_ENABLE}명</td>
-						<td>${map.L_PAYMENT}원</td>
-						<td>${map.L_SDATE} ~ ${map.L_EDATE}</td>
-						<td>${map.L_RATE}</td>
-					</tr>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>장소 상세보기</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+
+  <!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="/yogi/resources/bootstrap/css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="/yogi/resources/bootstrap/css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="/yogi/resources/bootstrap/css/bootstrap.css">
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="/yogi/resources/bootstrap/css/flexslider.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="/yogi/resources/bootstrap/fonts/flaticon/font/flaticon.css">
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="/yogi/resources/bootstrap/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="/yogi/resources/bootstrap/css/owl.theme.default.min.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="/yogi/resources/bootstrap/css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="/yogi/resources/bootstrap/js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<link  href="<c:url value='/resources/datepicker/datepicker.css' />" rel="stylesheet">
+	</head>
+	<body>
+	
+	<!-- 사이드 바 -->
+<aside id="colorlib-aside" role="complementary" class="border js-fullheight">
+	<h1 id="colorlib-logo"><a href="http://localhost:8080/yogi/main">YOGI</a></h1>
+	<nav id="colorlib-main-menu" role="navigation">
+	<ul>
+		<li><a href="http://localhost:8080/yogi/main">Home</a></li>
+		<li><a href="http://localhost:8080/yogi/groupList">Group</a></li>
+		<li class="colorlib-active"><a href="http://localhost:8080/yogi/lendplace/list">Lendplace</a></li>
+		<li><a href="http://localhost:8080/yogi/mypage/mypageView">MyPage</a></li>
+		<li><a href="">About</a></li>
+		<li><a href="http://localhost:8080/yogi/logout">Logout</a></li>
+	</ul>
+	</nav>
+	<div class="colorlib-footer">
+			<p><small>&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> Distributed by: <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><span>Demo Images: <a href="http://nothingtochance.co/" target="_blank">nothingtochance.co</a></span></small></p>
+<span>MADE BY: <a href="">YOMI</a></span>
+	</div>
+</aside>
+
+<!-- 사이드 바 -->
+
+		<div id="colorlib-main">
+
+			<div class="colorlib-about">
+				<div class="colorlib-narrow-content">
+					<div class="row row-bottom-padded-md">
+						<div class="col-md-6" style="position:relative; width: 62%;">
+							<div class="about-img animate-box" data-animate-effect="fadeInLeft" style="background-image: url(/yogi/resources/bootstrap/images/img_bg_2.jpg); height: 550px;">
+							</div>
+						</div>
+						<div class="col-md-6 a nimate-box" data-animate-effect="fadeInLeft" style="position:relative; width: 38%;">
+							<div class="about-desc">
+								<span class="heading-meta">Welcome</span>
+								<h2 class="colorlib-heading">${map.L_SUBJECT}</h2>
+								<div style="position:relative; top: -35px;">
+								<h5>${map.L_ENABLE}명</h5>
+								<h5>${map.L_PAYMENT}원</h5>
+								<h5>${map.L_SDATE} ~ ${map.L_EDATE}</h5>
+								<h4>${map.L_ADDR}&nbsp;(${map.L_SUBJECT})</h4>
+								</div>
+								<form name="apply_form" action="<c:url value='/lendplace/apply' />"  method="post">
+								<input type="hidden" name="L_NO" value="${map.L_NO}"><input type="hidden" name="M_NO" value="${session_m_no}">
+								<input type="hidden" data-toggle="datepicker" name="U_DATE"></input> 
+								<div id="datepicker-container" style="position: relative; left: 10px; top: -20px;"></div>
+								<a href="#this" class="btn btn-primary btn-learn" name="apply" style="position: relative; left: 290px; top: -65px;">신청</a> 
+								<a href="<c:url value='/lendplace/list'/>" class="btn btn-primary btn-learn" style="position: relative; left: 300px; top: -65px;">목록</a>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="row" style="position: relative; top:-70px;">
+						<div class="col-md-4 animate-box" data-animate-effect="fadeInLeft" style="position: relative; width: 60%; height: 420px;">
+							<h2 class="colorlib-heading">Content</h2>
+							<p>${map.L_CONTENT}</p>
+						</div>
+						<div class="col-md-4 animate-box" data-animate-effect="fadeInLeft" style="position:relative; width:40%; height:300px; top: 0px;">
+							<h2 class="colorlib-heading">Location</h2>
+							<div id="map"  class="om_detail_contet_map" style="position: relative;  height: 400px;"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 animate-box" data-animate-effect="fadeInLeft">
+							<h2 class="colorlib-heading">Review</h2>
+							<div style="border: 1px solid; width: 600px; padding: 5px">
+    							<form name="review_form" id="review_form" action="<c:url value='/lendplace/insertReview' />" method="post">
+        						<input type="hidden" name="L_NO" value="<c:out value="${map.L_NO}"/>"> 
+        						<input type="hidden" name="M_NO" value="<c:out value="${session_m_no}"/>">
+        						<textarea name="R_CONTENT" id="R_CONTENT" rows="3" cols="60" maxlength="500" placeholder="후기를 달아주세요."></textarea>
+        						<a href="#" onclick="fn_insertReview()">저장</a>
+    							</form>
+							</div>
+
+							<c:forEach var="reviewlist" items="${list}" varStatus="status">
+							<fmt:parseNumber var = "blank" type = "number" value = "${reviewlist.R_DEPTH}" />
+    						<div style="border: 1px solid gray; width: 600px; padding: 5px; margin-top: 5px; margin-left: <c:out value="${20*blank}"/>px; display: inline-block">
+        						<c:choose>
+        							<c:when test="${reviewlist.R_DELETEFLAG eq 'Y'}">
+        								삭제된 댓글입니다.
+        							<c:if test="${session_m_id == reviewlist.M_ID}">
+        								<a href="#" onclick="fn_deleteReview('<c:out value="${reviewlist.R_NO}"/>')">삭제</a>
+        							</c:if>
+        							</c:when>
+        							<c:otherwise>
+	        							<c:out value="${reviewlist.M_ID}"/> <c:out value="${reviewlist.R_DATE}"/>
+	        							<c:if test="${session_m_id == reviewlist.M_ID}">
+        									<a href="#" onclick="fn_deleteReview('<c:out value="${reviewlist.R_NO}"/>','<c:out value="${reviewlist.R_GROUP}"/>')">삭제</a>
+        									<a href="#" onclick="fn_reviewUpdate('<c:out value="${reviewlist.R_NO}"/>')">수정</a>
+        								</c:if>
+        									<a href="#" onclick="fn_reviewReply('<c:out value="${reviewlist.R_NO}"/>')">댓글</a>
+        								<br/>
+        								<div id="review<c:out value="${reviewlist.R_NO}"/>">	
+        									<c:out value="${reviewlist.R_CONTENT}"/>
+        								</div>
+        							</c:otherwise>
+        						</c:choose>
+    						</div>
+							</c:forEach>
+
+							<div id="reviewDiv" style="width: 99%; display:none">
+    							<form name="form2" id="form2" action="<c:url value='/lendplace/insertReview' />" method="post">
+    							    <input type="hidden" name="L_NO" value="<c:out value="${map.L_NO}"/>">
+        							<input type="hidden" name="R_GROUP" id="R_GROUP">
+        							<input type="hidden" name="R_NO" id="R_NO"> 
+        							<textarea name="R_CONTENT" rows="3" cols="60" maxlength="500"></textarea>
+        							<a href="#" onclick="fn_reviewUpdateSave()">저장</a>
+        							<a href="#" onclick="fn_reviewUpdateCancel()">취소</a>
+    							</form>
+							</div>
+
+							<div id="replyDialog" style="width: 99%; display:none">
+    							<form name="form3" action="<c:url value='/lendplace/insertReview' />" method="post">
+     							   <input type="hidden" name="L_NO" value="<c:out value="${map.L_NO}"/>"> 
+     							   <input type="hidden" name="R_NO"> 
+   								   <input type="hidden" name="R_PARENT">
+     							   <input type="hidden" name="M_NO" value="<c:out value="${session_m_no}"/>"> <br/>
+   								   <textarea name="R_CONTENT" rows="3" cols="60" maxlength="500"></textarea>
+    							   <a href="#" onclick="fn_replyReviewSave()">저장</a>
+   								   <a href="#" onclick="fn_replyReviewCancel()">취소</a>
+    							</form>	
+							</div>
+						</div>
+					</div>
 					
-					<tr>
-						<td><a href="#this" name="apply">신청</a></td>
-						<td><a href="<c:url value='/lendplace/list'/>">목록</a></td>
-					</tr>
-</table>
-<input type="hidden" name="L_NO" value="${map.L_NO}"><input type="hidden" name="M_NO" value="${session_m_no}">
-<input type="hidden" data-toggle="datepicker" name="U_DATE"></input> 
-<div id="datepicker-container"></div>
-</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<p>&nbsp;</p>
+	<!-- jQuery -->
+	<script src="/yogi/resources/bootstrap/js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="/yogi/resources/bootstrap/js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="/yogi/resources/bootstrap/js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="/yogi/resources/bootstrap/js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="/yogi/resources/bootstrap/js/jquery.flexslider-min.js"></script>
+	<!-- Sticky Kit -->
+	<script src="/yogi/resources/bootstrap/js/sticky-kit.min.js"></script>
+	<!-- Owl carousel -->
+	<script src="/yogi/resources/bootstrap/js/owl.carousel.min.js"></script>
+	<!-- Counters -->
+	<script src="/yogi/resources/bootstrap/js/jquery.countTo.js"></script>
+	
+	
+	<!-- MAIN JS -->
+	<script src="/yogi/resources/bootstrap/js/main.js"></script>
+	
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
-후기 
-<div style="border: 1px solid; width: 600px; padding: 5px">
-    <form name="review_form" id="review_form" action="<c:url value='/lendplace/insertReview' />" method="post">
-        <input type="hidden" name="L_NO" value="<c:out value="${map.L_NO}"/>"> 
-        <input type="hidden" name="M_NO" value="<c:out value="${session_m_no}"/>">
-        <textarea name="R_CONTENT" id="R_CONTENT" rows="3" cols="60" maxlength="500" placeholder="후기를 달아주세요."></textarea>
-        <a href="#" onclick="fn_insertReview()">저장</a>
-    </form>
-</div>
-
-<c:forEach var="reviewlist" items="${list}" varStatus="status">
-	<fmt:parseNumber var = "blank" type = "number" value = "${reviewlist.R_DEPTH}" />
-    <div style="border: 1px solid gray; width: 600px; padding: 5px; margin-top: 5px; margin-left: <c:out value="${20*blank}"/>px; display: inline-block">
-        <c:choose>
-        	<c:when test="${reviewlist.R_DELETEFLAG eq 'Y'}">
-        		삭제된 댓글입니다.
-        		<c:if test="${session_m_id == reviewlist.M_ID}">
-        			<a href="#" onclick="fn_deleteReview('<c:out value="${reviewlist.R_NO}"/>')">삭제</a>
-        		</c:if>
-        	</c:when>
-        	<c:otherwise>
-	        	<c:out value="${reviewlist.M_ID}"/> <c:out value="${reviewlist.R_DATE}"/>
-	        	<c:if test="${session_m_id == reviewlist.M_ID}">
-        			<a href="#" onclick="fn_deleteReview('<c:out value="${reviewlist.R_NO}"/>','<c:out value="${reviewlist.R_GROUP}"/>')">삭제</a>
-        			<a href="#" onclick="fn_reviewUpdate('<c:out value="${reviewlist.R_NO}"/>')">수정</a>
-        		</c:if>
-        		<a href="#" onclick="fn_reviewReply('<c:out value="${reviewlist.R_NO}"/>')">댓글</a>
-        		<br/>
-        		<div id="review<c:out value="${reviewlist.R_NO}"/>">	
-        		<c:out value="${reviewlist.R_CONTENT}"/>
-        		</div>
-        	</c:otherwise>
-        </c:choose>
-    </div>
-</c:forEach>
-
-<div id="reviewDiv" style="width: 99%; display:none">
-    <form name="form2" id="form2" action="<c:url value='/lendplace/insertReview' />" method="post">
-        <input type="hidden" name="L_NO" value="<c:out value="${map.L_NO}"/>">
-        <input type="hidden" name="R_GROUP" id="R_GROUP">
-        <input type="hidden" name="R_NO" id="R_NO"> 
-        <textarea name="R_CONTENT" rows="3" cols="60" maxlength="500"></textarea>
-        <a href="#" onclick="fn_reviewUpdateSave()">저장</a>
-        <a href="#" onclick="fn_reviewUpdateCancel()">취소</a>
-    </form>
-</div>
-
-<div id="replyDialog" style="width: 99%; display:none">
-    <form name="form3" action="<c:url value='/lendplace/insertReview' />" method="post">
-        <input type="hidden" name="L_NO" value="<c:out value="${map.L_NO}"/>"> 
-        <input type="hidden" name="R_NO"> 
-        <input type="hidden" name="R_PARENT">
-       	<input type="hidden" name="M_NO" value="<c:out value="${session_m_no}"/>"> <br/>
-        <textarea name="R_CONTENT" rows="3" cols="60" maxlength="500"></textarea>
-        <a href="#" onclick="fn_replyReviewSave()">저장</a>
-        <a href="#" onclick="fn_replyReviewCancel()">취소</a>
-    </form>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="<c:url value='/resources/datepicker/datepicker.js'/> "></script>
-<script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
-<script type="text/javascript">
+	<script src="//apis.daum.net/maps/maps3.js?apikey=a18085cad4f8315645fc4a233bdb2875&libraries=services" onerror="alertify.log('지도 로드중 에러!')"></script>
+	<script src="<c:url value='/resources/datepicker/datepicker.js'/> "></script>
+	<script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
+	<script type="text/javascript">
 $(document).ready(function() {
-    $("a[name='apply']").on("click", function(e) { //신청
-    /* 태그의 기본 기능을 제거 */
-    e.preventDefault();
-    if(confirm("신청 하시겠습니까?")==true){
-    fn_applyLendplace();
-    } else {
-       return;
-    }
-    
-    });
+		var IMP = window.IMP; // 생략가능
+		IMP.init('imp59404832'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		
+		$("a[name='apply']").on("click", function(e) { //신청
+			/* 태그의 기본 기능을 제거 */
+			e.preventDefault();
+			if(confirm("신청 하시겠습니까?")==true){
+				if ('${map.L_PAYMENT}'=='0') {
+					fn_applyLendplace();
+				}else{
+					fn_pay();
+				}
+			} else {
+				return;
+			}
+		});
+	
 });
+function fn_pay() {
+	//아임포트 결제관리
+	
+	IMP.request_pay({
+		pg : 'html5_inicis',
+	    pay_method : 'card',
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	    name : '${map.L_SUBJECT}',
+	    amount : '${map.L_PAYMENT}',
+	    buyer_email : 'YOGI@gmail.com',
+	    buyer_name : '${session_m_name}',
+	    buyer_tel : '${session_m_phone}',
+	    buyer_addr : '서울특별시 강남구 삼성동',
+	    buyer_postcode : '123-456',
+	}, function(rsp) {
+	    if ( rsp.success ) {
+	        //결제가 성공해야 신청처리 되도록 여기에 장소 신청 메서드 연결 
+	        fn_applyLendplace();
+	    } else {
+	        var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
+	        alert(msg);
+	    }
+	});
+	
+}
 
 function fn_applyLendplace(){
- alert("장소 대여 신청이 완료되었습니다 :3");
-    document.apply_form.submit();
+	alert("장소 대여 신청이 완료되었습니다 :3");
+		document.apply_form.submit();
 }
 
 function fn_insertReview() {
@@ -266,19 +401,56 @@ $( function() {/* 달력 */
 	 });
 });
 
-//지도
-function map(){
-	var popupX=(window.screen.width/2)-(700/2);
+//지도 
 	
-	var popupY=(window.screen.height/2)-(500/2);
-	
-	var uri="http://localhost:8080/yogi/map/map.jsp?l_addr=${map.L_ADDR}&l_subject=${map.L_SUBJECT}";
-	var res = encodeURI(uri);
-	
-	
-	window.open(res,"post","toolbar=no ,width=700 ,height=500 ,directories=no,status=yes,scrollbars=no,menubar=no,left="+ popupX +",top="+ popupY +", screenX="+ popupX +", screenY= "+ popupY);
-	}
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	mapOption = {
+	    center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+	    level: 3 // 지도의 확대 레벨
+	};  
 
+	//지도를 생성합니다    
+	var map = new daum.maps.Map(mapContainer, mapOption); 
+
+	//일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+	var mapTypeControl = new daum.maps.MapTypeControl();
+
+	//지도에 컨트롤을 추가해야 지도위에 표시됩니다
+	//daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+	map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+
+	//지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+	var zoomControl = new daum.maps.ZoomControl();
+	map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+
+	//주소-좌표 변환 객체를 생성합니다
+	var geocoder = new daum.maps.services.Geocoder();
+
+	//주소로 좌표를 검색합니다
+	geocoder.addr2coord("${map.L_ADDR}", function(status, result) {
+
+	// 정상적으로 검색이 완료됐으면 
+	 if (status === daum.maps.services.Status.OK) {
+
+	    var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+
+	    // 결과값으로 받은 위치를 마커로 표시합니다
+	    var marker = new daum.maps.Marker({
+	        map: map,
+	        position: coords
+	    });
+
+	    // 인포윈도우로 장소에 대한 설명을 표시합니다
+	    var infowindow = new daum.maps.InfoWindow({
+	        content: '<div style="width:150px;text-align:center;padding:6px 0;">${map.L_SUBJECT}</div>'
+	    });
+	    infowindow.open(map, marker);
+
+	    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	    map.setCenter(coords);
+	} 
+	});
 </script>
-</body>
+	</body>
 </html>
+
