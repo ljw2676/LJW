@@ -237,6 +237,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 <script src="<c:url value='/resources/datepicker/datepicker.js'/> "></script>
 <script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
 <script type="text/javascript">
+$(document).ready(function(){
+	if("${session_m_no}" == ""){
+		alert("로그인이 필요합니다.");
+		window.location="/yogi/first";
+	};
+});
+
 $(function() {
 	$('#searchbox').keypress(function(event) {
 		if (event.keyCode == 13) { //여기서 keyCode 13은 엔터키를 의미한다.
