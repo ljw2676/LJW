@@ -111,7 +111,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 						<input class="btn btn-primary btn-learn" style="position: relative; left: 140px;" type="submit" value="검색">
 						</div>
 						
-						
 						<div style="position: relative; left: 240px; top: -250px;">
 						<input type="checkbox" style="margin-top:67px; margin-left:90px; "name="area" value="종로구">종로구
 						<input type="checkbox" style="margin-left:47px;" name="area" value="중구">중구
@@ -223,6 +222,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 	<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
 	<script>
 		$(document).ready(function() {
+			if ("${session_m_no}" == "") {
+				alert('로그인이 필요합니다!');
+				window.location = "/yogi/first";
+			}
+			
 			$("a[name='title']").on("click", function(e) { //신청
 				/* 태그의 기본 기능을 제거 */
 				e.preventDefault();

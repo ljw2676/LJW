@@ -307,6 +307,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 	
 	<script type="text/javascript">
 $(document).ready(function() {
+	if ("${session_m_no}" == "") {
+		alert('로그인이 필요합니다!');
+		window.location = "/yogi/first";
+	}
+	
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp59404832'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		
