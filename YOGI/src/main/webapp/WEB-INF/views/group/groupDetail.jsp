@@ -119,7 +119,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 				<div class="colorlib-narrow-content">
 					<div class="row row-bottom-padded-md">
 						<div class="col-md-6" style="position:relative; width: 62%;">
-							<div class="about-img animate-box" data-animate-effect="fadeInLeft"><img src="/yogi/resources/upload/${gModel.GG_RFN }" style="width: 600px; height: 550px;"/>
+							<div class="about-img animate-box" data-animate-effect="fadeInLeft"><img src="/yogi/resources/upload/${gModel.GG_RFN }" onERROR="this.src='/yogi/resources/image/image_error.jpeg'" style="width: 600px; height: 550px;"/>
 							</div>
 						</div>
 						<div class="col-md-6 a nimate-box" data-animate-effect="fadeInLeft" style="position:relative; width: 38%;">

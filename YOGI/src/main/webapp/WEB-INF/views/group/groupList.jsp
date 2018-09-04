@@ -174,7 +174,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 						<c:forEach items="${list }" var="row">	
 						<div class="col-md-4 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
 							<div class="blog-entry">
-								<a href="#this" onclick="fn_groupDetailLink('${row.GG_NO}')"class="blog-img"><img src="/yogi/resources/upload/${row.GG_RFN }" style="width: 340px; height: 300px;"/></a>
+								<a href="#this" onclick="fn_groupDetailLink('${row.GG_NO}')"class="blog-img"><img src="/yogi/resources/upload/${row.GG_RFN }" onERROR="this.src='/yogi/resources/image/image_error.jpeg'" style="width: 340px; height: 300px;"/></a>
 								<div class="desc">
 									<span><small><fmt:formatDate value="${row.GG_DATE}" pattern="yy/MM/dd"/> </small> | <small> ${row.GG_CATEGORY} </small> | <small> <c:if test ="${row.GG_COST == 0 }">NO CHARGE</c:if> <c:if test = "${row.GG_COST > 0 }">￦${row.GG_COST}</c:if><br /></small></span>
 									<h3><a href="#this" onclick="fn_groupDetailLink('${row.GG_NO}')">${row.GG_NAME }</a></h3>

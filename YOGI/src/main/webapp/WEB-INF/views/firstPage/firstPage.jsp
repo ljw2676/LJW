@@ -71,8 +71,12 @@ function insert() {
 						<input type="checkbox" name="idSave" id="idSave"  value="save"/>Remember ID/PW&nbsp;&nbsp;&nbsp;&nbsp;
 						<a class="mb-5" style="color:white" href="http://localhost:8080/yogi/members/createForm"><strong>Sign In</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a class="mb-5" style="color:white" href="http://localhost:8080/yogi/members/find"><strong>Find ID/PW</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<div style="position: relative; top: -100px;">
 						<a href="<c:url value='/kakaoLogin' />">
 						<img src="/yogi/resources/image/kakao_account_login_btn_medium_narrow.png" onmouseover="this.src='/yogi/resources/image/kakao_account_login_btn_medium_narrow_ov.png';" onmouseout="this.src='/yogi/resources/image/kakao_account_login_btn_medium_narrow.png';"/></a>
+						<a href="<c:url value='/kakaoLogin' />">
+						<img src="/yogi/resources/image/Log_in_with_NAVER_Official_Green.PNG" style="width: 340px; height: 300px;"/></a>
+						</div>
 					</c:when>
 					<c:otherwise>
 						<div class="input-group-append">
@@ -83,8 +87,12 @@ function insert() {
 						<input type="checkbox" name="idSave" id="idSave" value="save" checked/>Remember ID/PW&nbsp;&nbsp;&nbsp;&nbsp;
 						<a class="mb-5" style="color:white" href="http://localhost:8080/yogi/members/createForm"><strong>Sign In</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a class="mb-5" style="color:white" href="http://localhost:8080/yogi/members/find"><strong>Find ID/PW</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<div style="position: relative; top: 20px;">
 						<a href="<c:url value='/kakaoLogin' />">
 						<img src="/yogi/resources/image/kakao_account_login_btn_medium_narrow.png" onmouseover="this.src='/yogi/resources/image/kakao_account_login_btn_medium_narrow_ov.png';" onmouseout="this.src='/yogi/resources/image/kakao_account_login_btn_medium_narrow.png';"/></a>
+						<a href="<c:url value='/kakaoLogin' />">
+						<img src="/yogi/resources/image/Log_in_with_NAVER_Official_Green.PNG" style="width: 200px; height: 49px;"/></a>
+						</div>
 					</c:otherwise>
 				</c:choose>
 				<br>
