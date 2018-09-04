@@ -81,6 +81,15 @@ input.cancel{
 	border:none;
 	background:url('/yogi/resources/image/cancelBtn.png');
 }
+
+pre{
+	display: block;
+	padding-left: 10px;
+	margin: 0;
+	border: none;
+	font-size: 15px;
+	
+}
 </style>	
 	</head>
 <body>
@@ -192,7 +201,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 					<div class="row" style="position: relative; top:-70px;">
 						<div class="col-md-4 animate-box" data-animate-effect="fadeInLeft" style="position: relative; width: 60%; height: 420px;">
 							<h2 class="colorlib-heading">Content</h2>
-							<p>${gModel.GG_DETAIL}</p>
+							<p><pre>${gModel.GG_DETAIL}</pre></p>
 						</div>
 						<div class="col-md-4 animate-box" data-animate-effect="fadeInLeft" style="position:relative; width:40%; height:300px; top: 0px;">
 							<h2 class="colorlib-heading">subscriber</h2>
