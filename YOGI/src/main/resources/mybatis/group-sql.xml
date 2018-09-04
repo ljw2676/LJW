@@ -264,7 +264,7 @@
 			#{m_no}, 
 			#{gg_category}, 
 			#{gg_addr}, 
-			TO_DATE(#{gg_date},'YYYY-MM-DD'), 
+			TO_DATE(#{gg_date},'YYYY-MM-DD HH:mi'),
 			#{gg_place}, 
 			#{gg_detail}, 
 			#{gg_cost}, 
@@ -317,7 +317,7 @@
 		SET
 			gg_active=1
 		WHERE
-			gg_no=#{GG_NO}
+			gg_no=#{gg_no}
 	</update>
 	
 	<insert parameterType="GroupModel" id="insertGroupExceptFile"> 
@@ -342,12 +342,12 @@
 			#{m_no}, 
 			#{gg_category}, 
 			#{gg_addr}, 
-			TO_DATE(#{gg_date},'YYYY-MM-DD'), 
+			TO_DATE(#{gg_date},'YYYY-MM-DD HH:mi'), 
 			#{gg_place}, 
 			#{gg_detail}, 
 			#{gg_cost}, 
 			#{gg_total}, 
-			#{gg_total}-1, 
+			0, 
 			0, 
 			0
 			) 

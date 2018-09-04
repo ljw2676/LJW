@@ -142,7 +142,7 @@ input[type="checkbox"] + label:after {
 								  	 		
 							  	</span>
 							</a>
-						<ul class="dropdown-menu pull-right " style="background-color: black; position:absolute; top:35px; left: -120px; max-height:200px;width:285px;overflow-y:auto;">
+						<ul class="dropdown-menu pull-right " style="background-color: #8b8b8b; position:absolute; top:35px; left: -120px; max-height:200px;width:285px;overflow-y:auto;">
 		<c:forEach items="${sessionScope.session_mem_alram}" var="alram">
 			<li>
 				<table style="width: 100%">
@@ -150,11 +150,15 @@ input[type="checkbox"] + label:after {
 						<td>
 						<c:if test="${alram.ALRAM_INDEX_NO == 1 }">
 								<a href="alramRead?alram_seq=${alram.ALRAM_SEQ }">작성한 모임에
-									<strong>${alram.REG_ID }</strong> 님이 댓글을 남겼습니다!
+									<strong>${alram.REG_ID }</strong> 님이 댓글을 남겼습니다.
 								</a>
 							</c:if>
 							<c:if test="${alram.ALRAM_INDEX_NO == 2 }">
-								<a href="alramRead?alram_seq=${alram.ALRAM_SEQ }">회원님이 신청한 모임이 수정되었습니다!
+								<a href="alramRead?alram_seq=${alram.ALRAM_SEQ }">회원님이 신청한 모임이 수정되었습니다.
+								</a>
+							</c:if>
+							<c:if test="${alram.ALRAM_INDEX_NO == 3 }">
+								<a href="alramRead?alram_seq=${alram.ALRAM_SEQ }">회원님이 신청한 모임이 삭제되었습니다.
 								</a>
 							</c:if>
 						</td>

@@ -29,11 +29,11 @@ public class AlramController {
 		
 		String url = "";
 		
-		if(Integer.parseInt(alramModel.get("ALRAM_INDEX_NO").toString()) == 1 || Integer.parseInt(alramModel.get("ALRAM_INDEX_NO").toString()) == 2 || Integer.parseInt(alramModel.get("alram_index_no").toString()) == 5 || Integer.parseInt(alramModel.get("alram_index_no").toString()) == 6 || Integer.parseInt(alramModel.get("alram_index_no").toString()) == 7) {
+		if(Integer.parseInt(alramModel.get("ALRAM_INDEX_NO").toString()) == 1 || Integer.parseInt(alramModel.get("ALRAM_INDEX_NO").toString()) == 2) {
 			url = "groupDetail?gg_no="+alramModel.get("ALRAM_CONTNUM");
-		}/* else if(Integer.parseInt(alramModel.get("alram_index_no").toString()) == 2) {
-			url = "viewCollection.do?url=myPageActivity&mem_id="+alramModel.get("alram_contnum")+"&collection_seq="+alramModel.get("alram_contnum");
-		} else if(Integer.parseInt(alramModel.get("alram_index_no").toString()) == 3) {
+		} else if(Integer.parseInt(alramModel.get("ALRAM_INDEX_NO").toString()) == 3) {
+			url = "main";
+		} /*else if(Integer.parseInt(alramModel.get("alram_index_no").toString()) == 3) {
 			url = "myPageActivitySty.do?mem_id="+alramModel.get("alram_id");
 		}*/
 	

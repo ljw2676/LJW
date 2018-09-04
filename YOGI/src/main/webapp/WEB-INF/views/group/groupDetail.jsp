@@ -369,7 +369,7 @@ function fn_memberProfileLink(m_pno){
 			function fn_inactivateGroup(obj) {
 				var comSubmit = new ComSubmit();
 				comSubmit.setUrl("<c:url value='/inactivateGroup' />");
-				comSubmit.addParam("GG_NO", obj.parent().find("#gg_no").val());
+				comSubmit.addParam("gg_no", obj.parent().find("#gg_no").val());
 				comSubmit.submit();
 			}
 			

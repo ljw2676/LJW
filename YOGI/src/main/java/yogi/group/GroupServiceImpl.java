@@ -66,7 +66,6 @@ public class GroupServiceImpl implements GroupService {
 	public Map<String, Object> selectGroupDetail(Map<String, Object> map) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		System.out.println(map);
-		System.out.println("뭐" + map.get("m_no"));
 		Map<String, Object> detail = groupDAO.selectGroupDetail(map);
 		Map<String, Object> sWriter = groupDAO.sessionWriter(map);
 		List<Map<String,Object>> geList = groupDAO.groupEnrollList(map);
@@ -219,7 +218,6 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public void inactivateGroup(Map<String, Object> map){
 		groupDAO.inactivateGroup(map);
-		
 	}
 
 	@Override

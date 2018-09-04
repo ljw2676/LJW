@@ -52,12 +52,9 @@ public class GroupController {
 	@RequestMapping(value="/groupList", method={RequestMethod.GET, RequestMethod.POST})
     public ModelAndView groupList(CommandMap map, HttpServletRequest request) throws Exception{
 		YogiUtils.savePageURI(request);
-		ModelAndView mv = new ModelAndView("/group/groupList2");
+		ModelAndView mv = new ModelAndView("/group/groupList");
 		List<Map<String,Object>> list = groupService.selectGroupList(map.getMap());
 		PagingCalculator paging = new PagingCalculator("/groupList", map.getCurrentPageNo(), list, 6 ,3);
-		System.out.println("dddddddddddddd" + map.get("searchCategory"));
-		System.out.println("dddddddddddddd" + map.get("searchAddr"));
-		System.out.println("dddddddddddddd" + map.get("searchMStart"));
 		Map<String, Object> result = paging.getPagingList();
 		mv.addObject("list", result.get("list"));
 		mv.addObject("pagingHtml", result.get("pagingHtml"));
@@ -150,10 +147,16 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value="/inactivateGroup")
-	public ModelAndView inactivateGroup(CommandMap commandMap, HttpServletRequest request) throws Exception{
+	public ModelAndView inactivateGroup(CommandMap map, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/groupList");
-		groupService.inactivateGroup(commandMap.getMap());
+		groupService.inactivateGroup(map.getMap());
+		List<Map<String,Object>> geList = groupDAO.groupEnrollList(map.getMap());
+		if(geList.size()!=0) { 
 		
+			for(int i=0; i<geList.size(); i++) {
+				alramService.regAlram(Integer.parseInt(geList.get(i).get("M_NO").toString()),"null", 3, Integer.parseInt(map.get("gg_no").toString()));
+			}
+		}
 		return mv;
 	}
 	
