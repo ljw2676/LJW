@@ -55,6 +55,8 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 	<link  href="<c:url value='/resources/datepicker/datepicker.css' />" rel="stylesheet">
+	
+	<link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/checkBox.css">
 	</head>
 	<body>
 	
@@ -96,21 +98,21 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 				<div class="row">
 						<form name="search_form" action="<c:url value='/lendplace/list' />" role="search" method="post"  onsubmit="searchSubmit()" style="height: 230px;">
 						
-						<div style="position: relative; left: 0px; top: 0px;">
+						<div style="position: relative; left: 0px; top: 10px;">
 						<input id="currentPageNo" type="hidden" name="currentPageNo" value="${currentPageNo }">
 						<input id="searchAddr" type="hidden" name="searchAddr">
 						키워드 검색 
 						<input autocomplete="off" class="searchbox" id="searchWord" type="text" name="searchWord" maxlength="10" placeholder="예)역삼동,음향,주차 등" style="background-color:transparent;" />
 						<br><br>
-						비용 검색
+						   비용 검색
 						<input autocomplete="off" class="min_pay" type="text" name="min_pay" id="min_pay" size="13" placeholder="0" style="background-color:transparent;"> - 
 						<input autocomplete="off" class="max_pay" type="text" name="max_pay" id="max_pay" size="13" placeholder="0" style="background-color:transparent;">
 						<br><br><br>
-						<input type="submit" value="검색">
+						<input class="btn btn-primary btn-learn" style="position: relative; left: 140px;" type="submit" value="검색">
 						</div>
 						
 						
-						<div style="position: relative; left: 260px; top: -250px;">
+						<div style="position: relative; left: 240px; top: -250px;">
 						<input type="checkbox" style="margin-top:67px; margin-left:90px; "name="area" value="종로구">종로구
 						<input type="checkbox" style="margin-left:47px;" name="area" value="중구">중구
 						<input type="checkbox" style="margin-left:58px;" name="area" value="용산구">용산구
@@ -144,7 +146,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 						<input type="checkbox" style="margin-top:15px; margin-left:90px;" name="area" value="강동구">강동구
 						</div>
 						
-						<div style="position: relative; left: 780px; top: -550px;">
+						<div style="position: relative; left: 730px; top: -550px;">
 						<h4 style="position: relative; left: 85px; top: 65px;">시작</h4>
 						<h4 style="position: relative; left: 325px; top: 15px;">종료</h4>
 							<input type="hidden" data-toggle="datepicker1" name="l_sdate"></input>
@@ -164,7 +166,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 							</c:if>
 									<div class="col-md-4 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
 										<div class="blog-entry">
-										<a href="#this" name="title" class="blog-img"><input type="hidden" id="L_NO" value="${row.L_NO}"><img src="/yogi/resources/bootstrap/images/blog-1.jpg" class="img-responsive" alt="HTML5 Bootstrap Template by colorlib.com"></a>
+										<a href="#this" name="title" class="blog-img">
+										<input type="hidden" id="L_NO" value="${row.L_NO}">
+										<img src="/yogi/resources/upload/${row.L_REP_IMG}" onERROR="this.src='/yogi/resources/image/image_error.jpeg'" class="img-responsive" style="width: 340px; height: 300px;"/></a>
 											<div class="desc">
 											<span><small>${row.L_SDATE} ~ ${row.L_EDATE}</small> | <small> ${row.L_PAYMENT}원 </small> | <small> <i class="icon-bubble3"></i>${row.L_ENABLE}명</small></span>
 											<h3><a href="#this" name="title">${row.L_SUBJECT}<input type="hidden" id="L_NO" value="${row.L_NO}"></a></h3>
