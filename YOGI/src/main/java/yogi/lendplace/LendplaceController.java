@@ -27,7 +27,7 @@ public class LendplaceController {
 	@RequestMapping(value="/lendplace/list")
     public ModelAndView selectLendplaceList(CommandMap commandMap,HttpServletRequest request) throws Exception{
 		YogiUtils.savePageURI(request);
-		ModelAndView mv = new ModelAndView("/lendplace/list2");
+		ModelAndView mv = new ModelAndView("/lendplace/list");
     	List<Map<String, Object>> list = lendplaceService.selectLendplaceList(commandMap.getMap());
     	PagingCalculator paging = new PagingCalculator("lendplace/list", commandMap.getCurrentPageNo(), list, 6 ,3);
     	Map<String, Object> result = paging.getPagingList();
@@ -42,7 +42,7 @@ public class LendplaceController {
 	@RequestMapping(value="/lendplace/detail")
 	public ModelAndView selectLendplaceDetail(CommandMap commandMap, HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
-		ModelAndView mv = new ModelAndView("/lendplace/detail2");
+		ModelAndView mv = new ModelAndView("/lendplace/detail");
 		Map<String,Object> map = lendplaceService.selectLendplaceDetail(commandMap.getMap());
 		commandMap.put("M_NO", session.getAttribute("session_m_no"));
 		List<Map<String, Object>> check = lendplaceService.checkReview(commandMap.getMap());
