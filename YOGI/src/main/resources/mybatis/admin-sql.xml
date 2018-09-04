@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC " - //mybatis.org//DTD Config 3.0//EN" " http://mybatis.org/dtd/mybatis-3-mapper.dtd">
      
 <mapper namespace="admin">
+	<select id="selectOneAdminMember" parameterType="Integer" resultType="hashmap">
+		SELECT
+			*
+		FROM
+			members
+		WHERE
+			m_no=#{M_NO}
+	</select>
+
 <!-- 멤버 관리 -->
 	<!-- 멤버 목록 가져오기 -->
 	<select id="selectAdminMemberList" resultType="hashmap">	
