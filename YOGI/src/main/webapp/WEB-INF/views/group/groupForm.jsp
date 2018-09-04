@@ -60,8 +60,6 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-	<link  href="<c:url value='/resources/datepicker/datepicker.css' />" rel="stylesheet">
-
 
 
 <style>
@@ -152,16 +150,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 									 </div>
 						         </div>
 						 		 
-						 		 <div class="col-md-12" style="padding-bottom: 30px;">
-			  						 <span class="heading-meta" style="margin-left: 55px; margin-top: 10px; ">모임 날짜</span>
-								 	 <input type="hidden" data-toggle="datepicker" name="gg_date" id="gg_date"></input>
-					 			 	 <div id="datepicker-container" style="position: relative; margin-top: -15px;">
+						 		 <div class="col-md-12" style="padding-bottom: 30px; padding-left: 0;">
+						 		 	 <div class="col-md-4">
+								 	 <input type="text" class="datetimepicker form-control" name="gg_date" id="gg_date" placeholder="모임 날짜 (클릭하면 달력이 생성됩니다)"></input>
 					 			 	 </div>
 						 		 </div>
 						 		 
 						 		 <!-- 주소 -->
 						 		 <div class="form-group col-md-12">
-			  						 <div class="col-md-6" style="padding-right: 0px; padding-left: 0px;">
+			  						 <div class="col-md-6" style="padding-right: 0px;">
 										 <input class="form-control" id="search_keyword_addr" type="text" name="" size="53%" onkeypress="searchAddrEnterKey();" maxlength="25" placeholder="모임이 열리는 장소를 검색하세요 !">
 								     </div>
 								 
@@ -185,14 +182,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 						 		 </div>
 						 		 
 			  					 <div class="form-group col-md-12">
-			  					 	<div class="col-md-2" style="padding-left: 0;">
+			  					 	<div class="col-md-4" style="padding-left: 0;">
 							 		 <input class="form-control " type="number" name="gg_total" id="gg_total" placeholder="모집 인원 (2인 이상)">
 					 			 	</div>
 					 			 	<div class="col-md-1" style="padding-top: 10px; padding-left: 1px;"><font color="gray" size="5">명</font></div>
 					 			 </div>
 						 
 			  					 <div class="form-group col-md-12">
-			  					 	<div class="col-md-2" style="padding-left: 0;">
+			  					 	<div class="col-md-4" style="padding-left: 0;">
 							 		 <input class="form-control " type="number" name="gg_cost" id="gg_cost" placeholder="비용 (비용이 없다면 0을 적어주세요)">
 								    </div>
 								    <div class="col-md-1" style="padding-top: 10px; padding-left: 1px;"><font color="gray" size="5">원</font></div>
@@ -223,7 +220,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 		</div>
 </div>
 
-<!-- jQuery -->
+	<!-- jQuery -->
 	<script src="/yogi/resources/bootstrap/js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
 	<script src="/yogi/resources/bootstrap/js/jquery.easing.1.3.js"></script>
@@ -248,8 +245,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 <script src="//apis.daum.net/maps/maps3.js?apikey=a18085cad4f8315645fc4a233bdb2875&libraries=services"></script>
 <script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
 
-<script src="<c:url value='/resources/datepicker/datepicker.js'/> "></script>
-<script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
+	<link rel="stylesheet" href="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.css">
+	<script src="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
+
+
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -292,12 +291,9 @@ $(document).ready(function() {
 		}
 	});
     
-    var gg_date = $('[data-toggle="datepicker"]').datepicker({
-   	 language: 'ko-KR',
-   	 inline: true,
-   	 container: '#datepicker-container',
-   	format: 'yyyy-mm-dd'
-    });
+    $('.datetimepicker').appendDtpicker({'locale':'ko'});
+   
+
 });
 
 function fn_insertGroup(){
