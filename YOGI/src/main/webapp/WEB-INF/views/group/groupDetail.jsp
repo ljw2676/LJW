@@ -134,7 +134,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 								<span class="heading-meta">Detail</span>
 								<h2 class="colorlib-heading">${gModel.GG_NAME}</h2>							
 								<div style="position:relative; top: -35px;">
-								<h5>${gModel.WT_NAME }</h5>
+								<h5><a href="#this" onclick="fn_memberProfileLink('${gModel.M_NO}')">${gModel.WT_NAME }</a></h5>
 								<h5>${gModel.M_EMAIL }</h5>	
 								<h5><img src="/yogi/resources/image/w_person.png"/>&nbsp;&nbsp;${gModel.GG_TOTAL} [${gModel.GG_ENABLE }]</h5>
 								<c:if test="${gModel.GG_COST > 0 }">
@@ -254,7 +254,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
         							</c:if>
         							</c:when>
         							<c:otherwise>
-	        							<c:out value="${row.C_NAME}"/>
+	        							<a href="#this" onclick="fn_memberProfileLink('${row.M_NO}')">${row.C_NAME }</a>
 	        							<a href="#" onclick="fn_reviewReply('<c:out value="${row.C_NO}"/>')">답변</a>
 	        							<c:if test="${session_m_no == row.M_NO}">
         									<a href="#" onclick="fn_deleteReview('<c:out value="${row.C_NO}"/>','<c:out value="${row.C_GROUP}"/>')">삭제</a>
