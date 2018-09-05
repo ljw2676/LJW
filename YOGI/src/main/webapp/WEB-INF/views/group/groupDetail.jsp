@@ -136,15 +136,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 								<div style="position:relative; top: -35px;">
 								<h5>${gModel.WT_NAME }</h5>
 								<h5>${gModel.M_EMAIL }</h5>	
-								<h5>인원: ${gModel.GG_TOTAL} [${gModel.GG_ENABLE }]</h5>
+								<h5><img src="/yogi/resources/image/w_person.png"/>&nbsp;&nbsp;${gModel.GG_TOTAL} [${gModel.GG_ENABLE }]</h5>
 								<c:if test="${gModel.GG_COST > 0 }">
-								<h5>비용: ${gModel.GG_COST}</h5>
+								<h5><img src="/yogi/resources/image/w_money.png"/>&nbsp;&nbsp;${gModel.GG_COST}</h5>
 								</c:if>
 								<c:if test="${gModel.GG_COST == 0}">
-								<h5>NO CHARGE</h5>
+								<h5><img src="/yogi/resources/image/w_money.png"/>&nbsp;&nbsp;NO CHARGE</h5>
 								</c:if>
-								<h5>날짜: ${gModel.GG_DATE}</h5>							
-								<h4>장소: ${gModel.GG_ADDR}&nbsp;(${gModel.GG_PLACE})</h4>
+								<h5><img src="/yogi/resources/image/w_time.png"/>&nbsp;&nbsp;${gModel.GG_DATE}</h5>							
+								<h4><img src="/yogi/resources/image/w_place.png"/>&nbsp;&nbsp;${gModel.GG_ADDR}&nbsp;(${gModel.GG_PLACE})</h4>
 								</div>	
 								
 								<div class="zzim" style="position:relative; top:-50px;">
@@ -238,8 +238,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
         						<input type="hidden" name="m_name" value='${sWriter.M_NAME}'> 
 								<input type="hidden" name="m_no1" value="${gModel.M_NO}"/> 
         						<input type="hidden" name="m_no" value="<c:out value="${session_m_no}"/>">
-        						<textarea name="c_content" id="c_content" rows="3" cols="60" maxlength="500" placeholder="댓글을 달아주세요."></textarea>
-        						<a href="#" onclick="fn_insertReview()">저장</a>
+        						<textarea name="c_content" id="c_content" rows="3" cols="73" maxlength="500" placeholder="댓글을 달아주세요." style="border:none;"></textarea>
+        						<a href="#" onclick="fn_insertReview()">댓글</a>
     							</form>
 							</div>
 

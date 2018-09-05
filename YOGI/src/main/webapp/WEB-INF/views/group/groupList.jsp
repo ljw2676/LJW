@@ -175,7 +175,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 </div>
 	
 <div class="Pay" style="position: relative; left: 1050px; top: -935px;">
-	<span class="heading-meta">PAY</span>
+	<span class="heading-meta">COST</span>
 	<input type="checkbox" name="Pay" value="유료">유료<br>
 	<input type="checkbox" name="Pay" value="무료" style="margin-top: 20px;">무료<br>
 </div>
