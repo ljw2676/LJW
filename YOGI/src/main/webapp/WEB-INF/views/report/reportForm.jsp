@@ -144,14 +144,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 								<div class="form-group col-md-12">
 			  					<div class="col-md-8" style="padding-left: 0; padding-top: 30px;">
 			  					<font color="red" size="2">※아래 모임은 신고받는 사람의 주최한 모임 중 회원님이 참여한 모임만 나옵니다.</font>
-									<c:forEach items="${report.groupList }" var="groupMPNO">
+									
 										<div class="selectb" style="margin-bottom: 10px; height: 3.0em;">
-											<select>
-												<option>&nbsp;&nbsp;&nbsp;${groupMPNO.GG_NAME }</option>
+											<select name="gg_no" id="gg_no">
+												<c:forEach items="${report.groupList }" var="groupMPNO">
+												<option value="${groupMPNO.GG_NO }">&nbsp;&nbsp;&nbsp;${groupMPNO.GG_NAME }</option>
+												</c:forEach>
 											</select>
 										</div>
-										<input type="hidden" id="gg_no" name="gg_no" value="${groupMPNO.GG_NO }">
-									</c:forEach>
 								</div>
 								<div class="form-group col-md-12" style="padding-left: 0;">
 			  					<div class="col-md-8" style="padding-left: 0; padding-top: 30px;">

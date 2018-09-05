@@ -65,7 +65,16 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-	
+	<style type="text/css">
+.circle-cropper {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+</style>
 	</head>
 	
 	<body>
@@ -105,7 +114,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 					
 						<div class="col-lg-4 sidebar-widgets" style="top: -40px; ">
 							<div class="widget-wrap" >
-									<img src="/yogi/resources/bootstrap_my/img/blog/user-info.png" style="margin-left:88px; "alt="">
+								<div align="center">
+									<div class="circle-cropper" style="background-image:url(/yogi/resources/upload/${member.M_PROFILE });"></div>
+								</div>
 									<div class="single-sidebar-widget popular-post-widget">
 							<div class="button-group-area mt-10">
 							<a href="http://localhost:8080/yogi/members/modifyForm" class="genric-btn danger-border radius" style="height:40px; margin-top:-15px; margin-bottom:12px; margin-left:60px;">프로필 수정</a>
