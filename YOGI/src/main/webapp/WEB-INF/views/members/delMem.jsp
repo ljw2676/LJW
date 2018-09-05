@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기 결과창!</title>
+<title>잘.... 가....!</title>
 <script>
 	function end(){
 		window.opener.location.href="http://localhost:8080/yogi/";

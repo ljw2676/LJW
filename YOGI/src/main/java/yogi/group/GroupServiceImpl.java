@@ -36,7 +36,6 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Resource(name="alramService")
 	private AlramService alramService;
-
 	private static final String filePath = "C:\\java\\git\\YOGI\\YOGI\\src\\main\\webapp\\resources\\upload\\";
 
 	@Override

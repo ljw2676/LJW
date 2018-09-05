@@ -363,7 +363,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 		</div>
 		</c:when>
 	
-	<c:otherwise> 등록된 장소가 없습니다. </c:otherwise>
+	<c:otherwise> 등록된 모임이 없습니다. </c:otherwise>
 	</c:choose>
 	</div>
 	</div>
