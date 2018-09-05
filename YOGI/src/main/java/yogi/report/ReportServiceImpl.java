@@ -24,6 +24,7 @@ public class ReportServiceImpl implements ReportService{
 	public void insertReport(Map<String, Object> map) throws Exception {
 		
 		reportDAO.insertReport(map);
+		reportDAO.updatePenalty(map);
 		
 	}
 
@@ -49,6 +50,16 @@ public class ReportServiceImpl implements ReportService{
 		report.put("groupList", groupIntersection);
 		
 		return report;
+	}
+
+	@Override
+	public int checkReport(HttpServletRequest request) {
+		Map<String, Object> report = new HashMap<String, Object>();
+		
+		report.put("userNo", request.getParameter("userNo"));
+		report.put("groupNo", request.getParameter("groupNo"));
+		
+		return reportDAO.reportCheck(report);
 	}
 
 }

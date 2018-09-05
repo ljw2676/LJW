@@ -1,6 +1,7 @@
 package yogi.report;
 
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import yogi.common.common.YogiConstants;
@@ -75,5 +77,20 @@ public class ReportController {
 		
 		return "redirect:/main";
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value="/checkReport")
+	public Map<Object, Object> checkReport(HttpServletRequest request){
+		
+		System.out.println(request.getParameter("userNo"));
+		System.out.println(request.getParameter("groupNo"));
+		
+		int count = 0;
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		count = reportService.checkReport(request);
+		map.put("cnt", count);
+		
+		System.out.println(map);
+		return map;
+	}
 }

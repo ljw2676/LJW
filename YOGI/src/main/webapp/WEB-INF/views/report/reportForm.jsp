@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -147,7 +150,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 												<option>&nbsp;&nbsp;&nbsp;${groupMPNO.GG_NAME }</option>
 											</select>
 										</div>
-										<input type="hidden" name="gg_no" value="${groupMPNO.GG_NO }">
+										<input type="hidden" id="gg_no" name="gg_no" value="${groupMPNO.GG_NO }">
 									</c:forEach>
 								</div>
 								<div class="form-group col-md-12" style="padding-left: 0;">
@@ -156,7 +159,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 								</div>
 					 			</div>
 								<div class="form-group col-md-5" align="center" style="padding-top: 30px;">
-									<input class="btn btn-primary btn-send-message" style="background-color: gray; border-color: gray" type="hidden" name="m_pno" value="${report.userInfo.M_NO }">
+									<input class="btn btn-primary btn-send-message" type="hidden" name="m_pno" value="${report.userInfo.M_NO }">
+									<input type="hidden" id="userNo" name="userNo" value="${session_m_no }">
 									<input class="btn btn-primary btn-send-message" type="button" value="신고하기" onclick="#this" id="insert" name="insert">
 								</div>
 							</form>
@@ -168,6 +172,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 </div>
 
 <!-- jQuery -->
+<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8""></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 	<script src="/yogi/resources/bootstrap/js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
 	<script src="/yogi/resources/bootstrap/js/jquery.easing.1.3.js"></script>
@@ -189,6 +196,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 	<!-- MAIN JS -->
 	<script src="/yogi/resources/bootstrap/js/main.js"></script>
 	
+	
 <script type="text/javascript">
 function fn_insertReport(){
     var comSubmit = new ComSubmit("reportinput");
@@ -199,14 +207,34 @@ function fn_insertReport(){
 $(document).ready(function() {
     $("#insert").on("click", function(e) { //등록
        e.preventDefault();
-		if($('#r_comment').val()==""){
-			alert("신고할 내용을 입력해주세요");
-			return false;
-		}else{
-		alert("신고가 완료되었습니다 :3");
-		fn_insertReport();
-	 }
-});
+    	var userNo = $("#userNo").val();
+    	var groupNo = $("#gg_no").val();
+    	$.ajax({
+    		async:true,
+			type:'POST', 
+			data : {"userNo":userNo,"groupNo":groupNo},
+			url:'/yogi/checkReport',
+			dataType : "json",
+			success : function(data){
+				if(data.cnt == 0){
+					if($('#r_comment').val()==""){
+						alert("신고할 내용을 입력해주세요");
+						$("#r_comment").focus();
+					}else{
+						alert("신고가 완료되었습니다 :3");
+						fn_insertReport();
+					}
+				}else{
+					alert("이미 신고한 모임와 주최자 입니다.");
+				}
+				
+			},
+			error : function(error){
+				alert("error: " + error)
+			}
+    	})	
+    
+	});
 });
 
 </script>

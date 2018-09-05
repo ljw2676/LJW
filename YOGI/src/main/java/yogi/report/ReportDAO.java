@@ -24,4 +24,16 @@ public class ReportDAO extends AbstractDAO{
 	public List<Map<String, Object>> groupIntersection(Map<String, Object> mnopno){
 		return (List<Map<String, Object>>) selectList("report.groupIntersection", mnopno);
 	}
+	
+	public void updatePenalty(Map<String, Object> map) {
+		update("report.updatePenaltyByMNO", map);
+		update("report.updatePenaltyByGGNO", map);
+	}
+	
+	public int reportCheck(Map<String, Object> map) {
+		if(selectOne("report.reportCheck", map) != null)
+			return 1;
+		else
+			return 0;
+	}
 }
