@@ -105,38 +105,45 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 					
 						<div class="col-lg-4 sidebar-widgets" style="top: -40px; ">
 							<div class="widget-wrap" >
-							
-								<div class="single-sidebar-widget user-info-widget">
-									<img src="/yogi/resources/bootstrap_my/img/blog/user-info.png" alt="">
+									<img src="/yogi/resources/bootstrap_my/img/blog/user-info.png" style="margin-left:88px; "alt="">
 									<div class="single-sidebar-widget popular-post-widget">
+							<div class="button-group-area mt-10">
+							<a href="http://localhost:8080/yogi/members/modifyForm" class="genric-btn danger-border radius" style="height:40px; margin-top:-15px; margin-bottom:12px; margin-left:60px;">프로필 수정</a>
+							
+									
+									
 									<h4 class="popular-title">${session_m_id }님</h4>
-									<div class="details">
+									<div class="details" align="center">
 												<h6 style="margin-top:10px;">보유 포인트 : ${member.M_GRADE } </h6>
 											</div>
 									</div>
 									
-									<h4 style="margin-bottom: 15px;">"${member.M_LV }"</h4>
+									<div class="single-sidebar-widget popular-post-widget">
+									</div>
+									
+									<h4 style="margin-bottom: 15px;" align="center">"${member.M_LV }"</h4>
 									
 										<c:if test="${member.M_GRADE lt 50 }">
-										<img src="/yogi/resources/image/lv-b.png">
+										<img src="/yogi/resources/image/lv-b.png" style="margin-left:108px;">
 										</c:if>
 		
 										<c:if test="${member.M_GRADE ge 50 && member.M_GRADE lt 100}">
-										<img src="/yogi/resources/image/lv-s.png">
+										<img src="/yogi/resources/image/lv-s.png" style="margin-left:108px;">
 										</c:if>
 	
 										<c:if test="${member.M_GRADE ge 100 && member.M_GRADE lt 200}">
-										<img src="/yogi/resources/image/lv-g.png">
+										<img src="/yogi/resources/image/lv-g.png" style="margin-left:108px;">
 										</c:if>
 	
 										<c:if test="${member.M_GRADE ge 200 && member.M_GRADE lt 300}">
-										<img src="/yogi/resources/image/lv-v.png">
+										<img src="/yogi/resources/image/lv-v.png" style="margin-left:108px;">
 										</c:if>
 	
 										<c:if test="${member.M_GRADE ge 300 && member.M_GRADE le 400}">
-										<img src="/yogi/resources/image/lv-w.png">
+										<img src="/yogi/resources/image/lv-w.png" style="margin-left:108px;">
 										</c:if>
 								</div>
+							
 								
 								<div class="single-sidebar-widget popular-post-widget">
 								
@@ -159,8 +166,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 								</div>
 				</div>
 			</div>
-			
 	
+			
 			<div class="col-md-8 animate-box" data-animate-effect="fadeInRight">
 							<div class="fancy-collapse-panel">
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">

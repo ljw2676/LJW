@@ -8,6 +8,7 @@
 		SELECT M_GRADE,
       			 M_LV,
      			 M_PENALTY,
+     			 M_PROFILE,
      			 (select COUNT(*) from (SELECT * FROM GROUP_GATHERING where m_no=#{m_no})) as WRITE_COUNT,
 		(select COUNT(*) from (SELECT * FROM GROUP_GATHERING WHERE gg_no in(select gg_no from group_enroll where m_no=#{m_no}))) as MEET_COUNT,
 		(select COUNT(*) from (select * from Group_Gathering where gg_no in(select gg_no from LikeIt where m_no=#{m_no}))) as ZZIM_COUNT,
