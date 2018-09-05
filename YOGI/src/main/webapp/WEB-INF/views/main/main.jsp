@@ -252,7 +252,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 				<br><br><br>
 				#${list[4].GG_CATEGORY}<br>
 				비용 : ${list[4].GG_COST }<br>
-				인원 : ${list[4].GG_TOTAL} / ${list[4].GG_ENABLE}
+				인원 : ${list[4].GG_ENABLE} / ${list[4].GG_TOTAL}
 				장소 : ${list[4].GG_ADDR}<br>
 				날짜 : ${list[4].GG_DATE}<br>
 				</span>
@@ -272,7 +272,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 				<br><br><br>
 				#${list[5].GG_CATEGORY}<br>
 				비용 : ${list[5].GG_COST }<br>
-				인원 : ${list[5].GG_TOTAL} / ${list[5].GG_ENABLE}
+				인원 : ${list[5].GG_ENABLE} / ${list[5].GG_TOTAL}
 				장소 : ${list[5].GG_ADDR}<br>
 				날짜 : ${list[5].GG_DATE}<br>
 				</span>
@@ -291,7 +291,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 				<br><br><br>
 				#${list[2].GG_CATEGORY}<br>
 				비용 : ${list[2].GG_COST }<br>
-				인원 : ${list[2].GG_TOTAL} / ${list[2].GG_ENABLE}
+				인원 : ${list[2].GG_ENABLE} / ${list[2].GG_TOTAL}
 				장소 : ${list[2].GG_ADDR}<br>
 				날짜 : ${list[2].GG_DATE}<br>
 				</span>
@@ -310,7 +310,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 				<br><br><br>
 				#${list[0].GG_CATEGORY}<br>
 				비용 : ${list[0].GG_COST }<br>
-				인원 : ${list[0].GG_TOTAL} / ${list[0].GG_ENABLE}
+				인원 : ${list[0].GG_ENABLE} / ${list[0].GG_TOTAL}
 				장소 : ${list[0].GG_ADDR}<br>
 				날짜 : ${list[0].GG_DATE}<br>
 				</span>
@@ -329,7 +329,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 				<br><br><br>
 				#${list[3].GG_CATEGORY}<br>
 				비용 : ${list[3].GG_COST }<br>
-				인원 : ${list[3].GG_TOTAL} / ${list[4].GG_ENABLE}
+				인원 : ${list[3].GG_ENABLE} / ${list[4].GG_TOTAL}
 				장소 : ${list[3].GG_ADDR}<br>
 				날짜 : ${list[3].GG_DATE}<br>
 				</span>
@@ -348,7 +348,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 				<br><br><br>
 				#${list[1].GG_CATEGORY}<br>
 				비용 : ${list[1].GG_COST }<br>
-				인원 : ${list[1].GG_TOTAL} / ${list[1].GG_ENABLE}
+				인원 : ${list[1].GG_ENABLE} / ${list[1].GG_TOTAL}
 				장소 : ${list[1].GG_ADDR}<br>
 				날짜 : ${list[1].GG_DATE}<br>
 				</span>
