@@ -72,7 +72,7 @@ function insert() {
 						<div style="position: relative; top: -100px;">
 						<a href="<c:url value='/kakaoLogin' />">
 						<img src="/yogi/resources/image/kakao_account_login_btn_medium_narrow.png" onmouseover="this.src='/yogi/resources/image/kakao_account_login_btn_medium_narrow_ov.png';" onmouseout="this.src='/yogi/resources/image/kakao_account_login_btn_medium_narrow.png';"/></a>
-						<a href="<c:url value='/kakaoLogin' />">
+						<a href="<c:url value='/naverLogin' />">
 						<img src="/yogi/resources/image/Log_in_with_NAVER_Official_Green.PNG" style="width: 340px; height: 300px;"/></a>
 						</div>
 					</c:when>
@@ -88,7 +88,7 @@ function insert() {
 						<div style="position: relative; top: 20px;">
 						<a href="<c:url value='/kakaoLogin' />">
 						<img src="/yogi/resources/image/kakao_account_login_btn_medium_narrow.png" onmouseover="this.src='/yogi/resources/image/kakao_account_login_btn_medium_narrow_ov.png';" onmouseout="this.src='/yogi/resources/image/kakao_account_login_btn_medium_narrow.png';"/></a>
-						<a href="<c:url value='/kakaoLogin' />">
+						<a href="<c:url value='/naverLogin' />">
 						<img src="/yogi/resources/image/Log_in_with_NAVER_Official_Green.PNG" style="width: 200px; height: 49px;"/></a>
 						</div>
 					</c:otherwise>
@@ -134,6 +134,7 @@ function insert() {
 	<script type="text/javascript">
 	window.onload = function () {
 		window.open("https://developers.kakao.com/logout", "hiddenframe1", "width=1, height=1, left=0, top=0,  scrollbars=no,status=no,toolbar=no,menubar=no,resizeable=no,location=no");
+		window.open("http://nid.naver.com/nidlogin.logout", "hiddenframe1", "width=1, height=1, left=0, top=0,  scrollbars=no,status=no,toolbar=no,menubar=no,resizeable=no,location=no");
 	}
 	</script>
   </body>

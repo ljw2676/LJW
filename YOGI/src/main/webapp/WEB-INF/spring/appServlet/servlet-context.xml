@@ -70,6 +70,9 @@
       <beans:property name="order" value="0"></beans:property> 
    </beans:bean>
    
+   <beans:bean id="naverLoginBO" class="yogi.members.NaverLoginBO" />
+   <!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
+   
     <!-- 다운로드뷰  -->
    <!-- <beans:bean id="download" class="download 클래스 넣으면 돼!" />  -->
    

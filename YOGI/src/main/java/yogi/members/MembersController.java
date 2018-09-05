@@ -25,11 +25,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.google.gson.Gson;
 
 import yogi.config.CommandMap;
 import yogi.alram.AlramServiceImpl;
 import yogi.members.CookieBox;
+import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import yogi.members.NaverLoginBO;;
 
 @Controller
 public class MembersController {
@@ -40,6 +47,54 @@ public class MembersController {
 	
 	@Resource(name = "alramService")
 	private AlramServiceImpl alramService;
+	
+	/* NaverLoginBO */
+	private NaverLoginBO naverLoginBO;
+
+	/* NaverLoginBO */
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO){
+		this.naverLoginBO = naverLoginBO;
+	}
+	
+	@RequestMapping("/naverLogin")
+    public ModelAndView login(HttpSession session) {
+        /* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
+        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+        
+        /* 생성한 인증 URL을 View로 전달 */
+        return new ModelAndView("redirect:" +naverAuthUrl);
+    }
+	
+	@RequestMapping("/naverCallback")
+	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session) throws Exception {
+		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
+		String apiResult = naverLoginBO.getUserProfile(oauthToken);
+		
+		log.info("1.받아온 데이터는 : " + apiResult);
+
+        Usernaver usernaverVo    = new Gson().fromJson(apiResult, Usernaver.class );
+        
+        log.info("resultcode : " +usernaverVo.getResultcode());
+        log.info("message : " +usernaverVo.getMessage());
+        log.info("로그인 유저 네이버 ID : " +usernaverVo.getResponse().get("id"));
+        log.info("로그인 유저 네이버 닉네임 : " +usernaverVo.getResponse().get("nickname"));
+        
+        List<Map<String, Object>> mem_alram = null;
+		if(alramService.alramExist(Integer.parseInt(usernaverVo.getResponse().get("id"))) != 0){
+			mem_alram = alramService.alramLoad(Integer.parseInt(usernaverVo.getResponse().get("id")));
+		}
+		
+
+		session.setAttribute("session_m_id", usernaverVo.getResponse().get("nickname"));
+		session.setAttribute("session_m_name",usernaverVo.getResponse().get("name"));
+		session.setAttribute("session_m_no", usernaverVo.getResponse().get("id"));
+		if (usernaverVo.getResponse().get("email") != null) {
+			session.setAttribute("session_m_email", usernaverVo.getResponse().get("email"));
+		}
+		session.setAttribute("session_mem_alram", mem_alram);
+		return "redirect:/main2";
+	}
 	
 	// REST API KEY
 	private static final String restapi = "2ab48798bf1b7030199a226eec55208a";
@@ -132,8 +187,8 @@ public class MembersController {
 					session.setAttribute("session_m_email", userkakaoVo.getProperties().get("email"));
 				}
 				session.setAttribute("session_mem_alram", mem_alram);
-				return "redirect:/main";
-		    }
+				return "redirect:/main2";
+		}
 		
 	
 	
