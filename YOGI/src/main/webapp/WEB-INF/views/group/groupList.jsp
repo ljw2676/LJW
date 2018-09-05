@@ -95,13 +95,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 						<div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
 							<span class="heading-meta">Group</span>
 							<h2 class="colorlib-heading">Group List</h2>
-							<div style="position:relative; top: -100px; left: 900px;">
+							<div style="position:relative; top: -100px; left: 930px;">
 							<a href="/yogi/groupForm "><strong>모임개설</strong></a>
 							</div>
 						</div>
 					</div>
 <div class="row" style="width:590px; height:300px;">
-<div class="submit" style="position: relative; left:30px;">
+<div class="submit" style="position: relative; left:30px; top:-50px">
+			<span class="heading-meta">&nbsp;&nbsp;CALENDAR</span>
 			<form name="search_form" action="<c:url value="/groupList"/>" role="search" method="post" onsubmit="searchSubmit()">
 			<input id="currentPageNo" type="hidden" name="currentPageNo" value="${currentPageNo }">
 			<input id="searchCategory" type="hidden" name="searchCategory" value="${searchCategory} ">
@@ -115,7 +116,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 			
 			</form>
 </div>
-<div class="category" style="position: relative; left: 250px; top: -275px;">
+<div class="category" style="position: relative; left: 250px; top: -364px;">
+	<span class="heading-meta">&nbsp;&nbsp;CATEGORY</span>
 	<input type="checkbox" style="margin-top:0px; margin-left:30px;" name="Category" value="실외활동">실외활동
 	<input type="checkbox" style="margin-left:30px;" name="Category" value="패션">패션
 	<input type="checkbox" style="margin-left:30px;" name="Category" value="맛집">맛집<br>
@@ -137,7 +139,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 	<input type="checkbox" style="margin-left:30px;" name="Category" value="취업/스터디">취업/스터디
 </div>
 
-<div class="region" style="position: relative; left: 530px; top: -505px;">
+<div class="region" style="position: relative; left: 530px; top: -630px;">
+	<span class="heading-meta">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REGION</span>
 	<input type="checkbox" style="margin-top:0px; margin-left:80px;"name="Addr" value="종로구">종로구
 	<input type="checkbox" style="margin-left:45px;" name="Addr" value="중구">중구
 	<input type="checkbox" style="margin-left:45px;" name="Addr" value="용산구">용산구
@@ -171,7 +174,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 	<input type="checkbox" style="margin-top:20px; margin-left:230px;" name="Addr" value="동대문구">동대문구
 </div>
 	
-<div class="Pay" style="position: relative; left: 1050px; top: -710px;">
+<div class="Pay" style="position: relative; left: 1050px; top: -935px;">
+	<span class="heading-meta">PAY</span>
 	<input type="checkbox" name="Pay" value="유료">유료<br>
 	<input type="checkbox" name="Pay" value="무료" style="margin-top: 20px;">무료<br>
 </div>
