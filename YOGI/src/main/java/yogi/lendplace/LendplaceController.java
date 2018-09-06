@@ -44,6 +44,10 @@ public class LendplaceController {
 		HttpSession session = request.getSession();
 		ModelAndView mv = new ModelAndView("/lendplace/detail");
 		Map<String,Object> map = lendplaceService.selectLendplaceDetail(commandMap.getMap());
+		if (map.get("L_CONTENT").toString().contains("\r\n")) {
+			String content2 = map.get("L_CONTENT").toString().replace("\r\n", "<br>");
+			map.put("L_CONTENT2", content2);
+		}
 		commandMap.put("M_NO", session.getAttribute("session_m_no"));
 		List<Map<String, Object>> check = lendplaceService.checkReview(commandMap.getMap());
 		if(check != null)

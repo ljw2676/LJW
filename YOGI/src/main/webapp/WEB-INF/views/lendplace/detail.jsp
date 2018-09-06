@@ -112,7 +112,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 								</div>
 								<form name="apply_form" action="<c:url value='/lendplace/apply' />"  method="post">
 								<input type="hidden" name="L_NO" value="${map.L_NO}"><input type="hidden" name="M_NO" value="${session_m_no}">
-								<input type="hidden" data-toggle="datepicker" name="U_DATE"></input> 
+								<input type="hidden" data-toggle="datepicker" name="U_DATE" id="U_DATE"></input> 
 								<div id="datepicker-container" style="position: relative; left: 10px; top: -20px;"></div>
 								<a href="#this" class="btn btn-primary btn-learn" name="apply" style="position: relative; left: 290px; top: -65px;">신청</a> 
 								<a href="<c:url value='/lendplace/list'/>" class="btn btn-primary btn-learn" style="position: relative; left: 300px; top: -65px;">목록</a>
@@ -123,7 +123,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 					<div class="row" style="position: relative; top:-70px;">
 						<div class="col-md-4 animate-box" data-animate-effect="fadeInLeft" style="position: relative; width: 60%; height: 420px;">
 							<h2 class="colorlib-heading">Content</h2>
-							<p>${map.L_CONTENT}</p>
+							<p>${map.L_CONTENT2}</p>
 						</div>
 						<div class="col-md-4 animate-box" data-animate-effect="fadeInLeft" style="position:relative; width:40%; height:300px; top: 0px;">
 							<h2 class="colorlib-heading">Location</h2>
@@ -325,6 +325,10 @@ $(document).ready(function() {
 		$("a[name='apply']").on("click", function(e) { //신청
 			/* 태그의 기본 기능을 제거 */
 			e.preventDefault();
+			if($('#U_DATE').val()==""){
+		        alert("대관 신청 날짜를 입력해주세요.");
+		          return false;
+		     }
 			if(confirm("신청 하시겠습니까?")==true){
 				if ('${map.L_PAYMENT}'=='0') {
 					fn_applyLendplace();

@@ -79,7 +79,7 @@
 		<li><a href="http://localhost:8080/yogi/main">Home</a></li>
 		<li><a href="http://localhost:8080/yogi/groupList">Group</a></li>
 		<li class="colorlib-active"><a href="http://localhost:8080/yogi/lendplace/list">Lendplace</a></li>
-		<li><a href="http://localhost:8080/yogi/mypage/mypageView">MyPage</a></li>
+		<li><a href="http://localhost:8080/yogi/admin/adminpageView">AdminPage</a></li>
 		<li><a href="">About</a></li>
 		<li><a href="http://localhost:8080/yogi/logout">Logout</a></li>
 	</ul>
@@ -99,7 +99,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 					<div class="row">
 						<div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
 							<span class="heading-meta">L E N D P L A C E</span>
-							<h2 class="colorlib-heading" style="margin-top: -10px;">Place Rental</h2>
+							<h2 class="colorlib-heading" style="margin-top: -10px;">Place Registration</h2>
 						</div>
 					</div>
 							<div class="row">
@@ -154,25 +154,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 							</div>
 						</div>
 			</div>
-
-		
-
-			<div id="get-in-touch" class="colorlib-bg-color">
-				<div class="colorlib-narrow-content">
-					<div class="row">
-						<div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
-							<h2>Get in Touch!</h2>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
-							<p class="colorlib-lead">Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-							<p><a href="#" class="btn btn-primary btn-learn">Contact me!</a></p>
-						</div>
-						
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 
@@ -198,7 +179,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 	<!-- MAIN JS -->
 	<script src="/yogi/resources/bootstrap/js/main.js"></script>
 	
-	<script src="//apis.daum.net/maps/maps3.js?apikey=a18085cad4f8315645fc4a233bdb2875&libraries=services"></script>	
+	<script src="//apis.daum.net/maps/maps3.js?apikey=a18085cad4f8315645fc4a233bdb2875&libraries=services" onerror="alertify.log('지도 로드중 에러!')"></script>	
 	<script src="<c:url value='/resources/datepicker/datepicker.js'/> "></script>
 	<script src="<c:url value='/resources/datepicker/datepicker.ko-KR.js'/> "></script>
 	<script src="<c:url value='/resources/js/common.js'/>" charset="utf-8"></script>
