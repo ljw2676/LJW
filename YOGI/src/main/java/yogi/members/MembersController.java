@@ -307,6 +307,7 @@ public class MembersController {
 			session.setAttribute("session_m_name", mm.getM_name());
 			session.setAttribute("session_m_no", mm.getM_no());
 			session.setAttribute("session_mem_alram", mem_alram);
+			session.setAttribute("session_m_lv", mm.getM_lv());
 			return "redirect:/main";
 		}
 		else {

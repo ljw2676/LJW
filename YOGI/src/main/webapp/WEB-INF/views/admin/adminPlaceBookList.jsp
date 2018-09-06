@@ -149,7 +149,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 									<td align="center">장소 명</td>
 									<td align="center">신청자 ID</td>
 									<td align="center">대관 날짜</td>
-									<td align="center">해당 장소 대관 횟수</td>
 								</tr>
 								</thead>
 								<tbody>
@@ -159,7 +158,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 									<td>&nbsp;&nbsp;${row.L_ADDR}&nbsp;&nbsp;</td>
 									<td>&nbsp;&nbsp;${row.L_SUBJECT}&nbsp;&nbsp;</td>
 									<td>&nbsp;&nbsp;${row.M_ID}&nbsp;&nbsp;</td>
-									<td>&nbsp;&nbsp;${row.PB_DATE}&nbsp;&nbsp;</td>
 									<td>&nbsp;&nbsp;${row.U_DATE}&nbsp;&nbsp;</td>
 								</tr>
 								</c:forEach>
@@ -168,7 +166,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 						</c:when>
 						<c:otherwise>
 								<br>
-								가입한 멤버가 없습니다.
+								예약된 장소가 없습니다.
 						</c:otherwise>
 						</c:choose>
 							<div class="row" >

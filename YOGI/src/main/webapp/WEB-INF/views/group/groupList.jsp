@@ -69,7 +69,7 @@
 		<li class="colorlib-active"><a href="http://localhost:8080/yogi/groupList">Group</a></li>
 		<li><a href="http://localhost:8080/yogi/lendplace/list">Lendplace</a></li>
 		<c:choose>
-		<c:when test="${m_lv =='관리자'}">
+		<c:when test="${session_m_lv =='관리자'}">
 		<li><a href="http://localhost:8080/yogi/admin/adminpageView">AdminPage</a></li>
 		</c:when>
 		<c:otherwise>
@@ -189,7 +189,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 								<div class="desc">
 									<span><small><fmt:formatDate value="${row.GG_DATE}" pattern="yy/MM/dd"/> </small> | <small> ${row.GG_CATEGORY} </small> | <small> <c:if test ="${row.GG_COST == 0 }">NO CHARGE</c:if> <c:if test = "${row.GG_COST > 0 }">￦${row.GG_COST}</c:if><br /></small></span>
 									<h3><a href="#this" onclick="fn_groupDetailLink('${row.GG_NO}')">${row.GG_NAME }</a></h3>
-									<p>${row.GG_ADDR } <br> ${row.GG_PLACE }</p>
+									<p>${row.GG_ADDR } <br> ${row.GG_PLACE }<br><c:if test="${row.GG_TOTAL == row.GG_ENABLE}" ><font color="red">신청마감!</font></c:if></p>
 								</div>
 							</div>
 						</div>
