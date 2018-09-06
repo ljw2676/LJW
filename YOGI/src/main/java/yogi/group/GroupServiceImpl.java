@@ -69,6 +69,10 @@ public class GroupServiceImpl implements GroupService {
 		Map<String, Object> sWriter = groupDAO.sessionWriter(map);
 		List<Map<String,Object>> geList = groupDAO.groupEnrollList(map);
 		List<Map<String,Object>> cmtList = groupDAO.selectCmtList(map);
+		if (detail.get("GG_DETAIL").toString().contains("\r\n")) {
+			String detail2 = detail.get("GG_DETAIL").toString().replace("\r\n", "<br>");
+			detail.put("GG_DETAIL", detail2);
+		}
 		Map<String, Object> enrollM = groupDAO.enrollMno(map);
 		detail.put("GG_DATE", YogiUtils.dateFormat((Date)detail.get("GG_DATE")));
 		if(map.get("m_no") != null && !StringUtils.isEmpty(map.get("m_no").toString())) {
