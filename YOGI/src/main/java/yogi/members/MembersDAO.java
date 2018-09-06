@@ -11,12 +11,24 @@ public class MembersDAO extends AbstractDAO{
 		insert("members.insertMember", model);
 	}
 	
+	public void insertSnsMember(MembersModel model) {
+		insert("members.insertSnsMember", model);
+	}
+	
+	public MembersModel snsLoginCheck(String password) {
+		return (MembersModel)selectOne("members.snsLoginCheck", password);
+	}
+	
 	public MembersModel loginCheck(MembersModel model){
 		return (MembersModel)selectOne("members.loginCheck", model);
 	}
 	
 	public int idCheck(String id) {
 		return (Integer)selectOne("members.idCheck", id);
+	}
+	
+	public int snsIdCheck(String password) {
+		return (Integer)selectOne("members.snsIdCheck",password);
 	}
 	
 	public MembersModel findId(MembersModel model) {

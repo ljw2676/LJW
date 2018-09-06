@@ -1,26 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>회원가입</title>
+<title>회원정보수정</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
 	<meta name="author" content="" />
-
-  <!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="favicon.ico">
@@ -34,7 +25,6 @@
 	<!-- <link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/icomoon.css"> -->
 	<!-- Bootstrap  -->
 	<link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/bootstrap.css">
-	<link href="http://localhost:8080/yogi/resources/first/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Flexslider  -->
 	<!-- <link rel="stylesheet" href="http://localhost:8080/yogi/resources/bootstrap/css/flexslider.css"> -->
 	<!-- Flaticons  -->
@@ -47,59 +37,21 @@
 
 	<!-- Modernizr JS -->
 	<script src="http://localhost:8080/yogi/resources/bootstrap/js/modernizr-2.6.2.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript">
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		alert('추가정보가 필요합니다!');
+	})
+
 	var kor_check = /([^가-힣ㄱ-ㅎㅏ-ㅣ\x20])/i;
 	var eng_check = /^[A-za-z]/g;
 	var num_check = /^[0-9]*$/;
 	var phone_check1 = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 	var phone_check2 = /^\d{2,3}-\d{3,4}-\d{4}$/;
 	var id_check = 0;
-	var pw_check = 0;
 
 	function insert() {
 		var join = document.userinput
-		if (join.m_id.value == "") {
-			alert("아이디를 입력해주세요");
-			join.m_id.focus();
-			return false;
-		}
-
-		if (join.m_password.value == "") {
-			alert("비밀번호를 입력해주세요");
-			join.m_password.focus();
-			return false;
-		}
-
-		if (userinput.m_password.value.length < 4) {
-			alert("최소 4자리 이상 입력해주세요!");
-			userinput.m_password.focus();
-			return false;
-		}
-
-		if (join.m_password_check.value == "") {
-			alert("비밀번호를 한번 더 입력해주세요!");
-			join.m_password.focus();
-			return false;
-		}
-		
-		if (join.m_password_check.value != join.m_password.value) {
-			alertify.error("비밀번호를 틀리게 입력하셨습니다...");
-			join.m_password.focus();
-			return false;
-		} 
-
-		if (join.m_name.value == "") {
-			alert("이름을 입력해주세요");
-			join.m_name.focus();
-			return false;
-		}
-
-		if (join.m_name.value.match(num_check)) {
-			alert("이름을 입력해주세요");
-			join.m_name.focus();
-			return false;
-		}
 
 		if (join.m_phone.value == "") {
 			alert("전화번호를 입력해주세요");
@@ -109,6 +61,17 @@
 		if (join.m_email.value == "") {
 			alert("이메일을 입력해주세요");
 			join.m_email.focus();
+			return false;
+		}
+		if (join.m_name.value == "") {
+			alert("이름을 입력해주세요");
+			join.m_name.focus();
+			return false;
+		}
+
+		if (join.m_name.value.match(num_check)) {
+			alert("이름을 입력해주세요");
+			join.m_name.focus();
 			return false;
 		}
 
@@ -123,15 +86,9 @@
 			join.m_id.focus();
 			return false;
 		}
-		if(pw_check != 1){
-			alert("비밀번호를 확인해 주세요.");
-			join.m_password.focus();
-			return false;
-		}
-		alert("회원가입 완료! 환영합니다 >__<");
+		alert("회원정보 입력 완료!");
 		join.submit();
 	}
-
 	
 	$(document).ready(function(){
 		$("#checkId").bind("click", function() {
@@ -153,7 +110,6 @@
 					}else{
 						id_check=1;
 						alert("사용가능한 아이디입니다.");
-						$("#m_password").foucs();
 					}
 				},
 				error : function(error){
@@ -162,21 +118,6 @@
 			})
 		})
 	})
-	
-	function checkPwd(){
-		var pw1 = document.userinput.m_password.value;
-		var pw2 = document.userinput.m_password_check.value;
-		if(pw1!=pw2){
-			document.getElementById('checkcheck').className="alert alert-danger";
-			document.getElementById('checkcheck').innerHTML = "동일한 암호를 입력하세요.";
-			pw_check=0;
-		}else{
-			document.getElementById('checkcheck').className="alert alert-success";
-			document.getElementById('checkcheck').innerHTML = "암호가 확인되었습니다.";
-			pw_check=1;
-		}
-	}
-	
 </script>
 <style>
 dt { float: left;
@@ -184,59 +125,91 @@ font-family: 'icomoon';
 font-size: 10px;
  }
 </style>
-
 </head>
 <body>
-<br><br>
-<div class="colorlib-narrow-content">
-<div class="row">
-	<div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
-		<span class="heading-meta">어서오세용 >__O</span>
-		<h2 class="colorlib-heading">회원가입</h2>
+<div id="colorlib-page">
+<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+<!-- 사이드 바 -->
+<aside id="colorlib-aside" role="complementary" class="border js-fullheight">
+	<h1 id="colorlib-logo"><a href="http://localhost:8080/yogi/main">YOGI</a></h1>
+	<nav id="colorlib-main-menu" role="navigation">
+	<ul>
+		<li><a href="http://localhost:8080/yogi/main">Home</a></li>
+		<li><a href="http://localhost:8080/yogi/groupList">Group</a></li>
+		<li><a href="http://localhost:8080/yogi/lendplace/list">Lendplace</a></li>
+		<li class="colorlib-active"><a href="http://localhost:8080/yogi/mypage/mypageView">MyPage</a></li>
+		<li><a href="">About</a></li>
+		<li><a href="http://localhost:8080/yogi/logout">Logout</a></li>
+	</ul>
+	</nav>
+	<div class="colorlib-footer">
+			<p><small>&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> Distributed by: <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> </span> <span>Demo Images: <a href="http://nothingtochance.co/" target="_blank">nothingtochance.co</a></span></small></p>
+<span>MADE BY: <a href="">YOMI</a></span>
 	</div>
-</div>
-<div class="col-md-7 col-md-push-1">
-<div class="row">
-<div class="col-md-10 col-md-offset-1 col-md-pull-1 animate-box" data-animate-effect="fadeInLeft">
+</aside>
+<!-- 사이드 바 -->
+
+<div id="colorlib-main">
+<div class="colorlib-contact">
+<div class="colorlib-narrow-content">
+	<div class="row">
+		<div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+			<span class="heading-meta">Modify</span>
+			<h2 class="colorlib-heading">회원 정보 추가 입력</h2>
+		</div>
+	</div>
 	<form:form commandName="member" name="userinput" method="post" enctype="multipart/form-data">
 		<table>
 		<tr>
 			<td>
-			ID
-			<div class="form-group">
+				<!-- sns로 로그인하기 때문에 여기서는 닉네임같이 쓸거임 -->
+				ID *앞으로는 ID변경이 불가합니다*
+				<div class="form-group">
 				<div class="input-group-append">				
-					<input type="text" name="m_id" id="m_id" class="form-control" >
+					<input type="text" name="m_id" id="m_id" class="form-control" value="${session_sns_nickname}">
 					<input type="button" id="checkId" class="btn btn-primary btn-send-message" value="중복확인" >
 				</div>
-			</div>
+				</div>
+				<!-- sns이름과 id값을 더해서 password에 저장하고 구분하기 위한 용도로 쓸거임 -->
+				<input type="hidden" name="m_password" value="${session_sns_password}"/>
 				Profile
 				<div class="form-group">
 					<input type="file" class="btn btn-primary btn-send-message" name="file">
 				</div>
-				Password
-				<div class="form-group">
-					<input type="password" name="m_password" class="form-control"  onkeyup="checkPwd()"/>
-				</div>
-				PasswordCheck
-				<div class="form-group">
-					<input type="password" name="m_password_check" class="form-control" onkeyup="checkPwd()"/>
-				</div>
-				<div id="checkcheck" class="alert alert-danger" style="width:400px;">동일한 암호를 입력하세요.</div>	
 				Name
+				<c:choose>
+				<c:when test="${session_sns_name eq null}">
 				<div class="form-group">
-					<input type="text" class="form-control" name="m_name" >
+					<input type="text" class="form-control" name="m_name">
 				</div>
-				Phone
+				</c:when>
+				<c:otherwise>
+				<div class="form-group">
+					<input type="text" class="form-control" name="m_name"  value="${session_sns_name}" readonly>
+				</div>
+				</c:otherwise>
+			</c:choose>
+			Phone
 				<div class="form-group">
 					<input type="text" class="form-control"  name="m_phone" placeholder="ex) 010-0000-0000">
 				</div>
-				Email
+			Email
+			<c:choose>
+				<c:when test="${session_sns_email eq null}">
 				<div class="form-group">
 					<input type="text" class="form-control"  name="m_email" placeholder="ex) yomi@yogi.com">
 				</div>
-				<div>
-				<br><br><br><br>
+				</c:when>
+				<c:otherwise>
+				<div class="form-group">
+					<input type="text" class="form-control"  name="m_email" value="${session_sns_email}">
 				</div>
+				</c:otherwise>
+			</c:choose>
+				
+				
 		</td>
 		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td>
@@ -314,10 +287,10 @@ font-size: 10px;
 	</tr>
 	</table>
 	<div class="form-group">
-		<input type="button" value="제출!" onclick="insert()" class="btn btn-primary btn-send-message"/>
+		<input type="button" value="회원정보입력!" onclick="insert()" class="btn btn-primary btn-send-message"/>
 	</div>
 	</form:form>
-</div>
+	
 </div>
 </div>
 </div>
@@ -341,5 +314,7 @@ font-size: 10px;
 	
 	<!-- MAIN JS -->
 	<script src="http://localhost:8080/yogi/resources/bootstrap/js/main.js"></script>
+
 </body>
 </html>
+

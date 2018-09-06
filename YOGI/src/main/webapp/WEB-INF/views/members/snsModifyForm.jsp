@@ -41,34 +41,9 @@
 	<script type="text/javascript">
 	var phone_check1 = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 	var phone_check2 = /^\d{2,3}-\d{3,4}-\d{4}$/;
-	var pw_check = 0;
 
 	function insert() {
 		var join = document.userinput
-
-		if (join.m_password.value == "") {
-			alert("비밀번호를 입력해주세요");
-			join.m_password.focus();
-			return false;
-		}
-
-		if (userinput.m_password.value.length < 4) {
-			alert("최소 4자리 이상 입력해주세요!");
-			userinput.m_password.focus();
-			return false;
-		}
-
-		if (join.m_password_check.value == "") {
-			alert("비밀번호를 한번 더 입력해주세요!");
-			join.m_password.focus();
-			return false;
-		}
-		
-		if (join.m_password_check.value != join.m_password.value) {
-			alertify.error("비밀번호를 틀리게 입력하셨습니다...");
-			join.m_password.focus();
-			return false;
-		} 
 
 		if (join.m_phone.value == "") {
 			alert("전화번호를 입력해주세요");
@@ -88,11 +63,6 @@
 			return false;
 		}
 
-		if(pw_check != 1){
-			alert("비밀번호를 확인해 주세요.");
-			join.m_password.focus();
-			return false;
-		}
 		alert("회원정보 수정 완료!");
 		join.submit();
 	}
@@ -102,21 +72,6 @@
 		var url = "/yogi/members/delMem?id=" + document.userinput.m_id.value;
 		var option = "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300,height=400";
 		window.open(url,"",option);
-	}
-	
-	
-	function checkPwd(){
-		var pw1 = document.userinput.m_password.value;
-		var pw2 = document.userinput.m_password_check.value;
-		if(pw1!=pw2){
-			document.getElementById('checkcheck').className="alert alert-danger";
-			document.getElementById('checkcheck').innerHTML = "동일한 암호를 입력하세요.";
-			pw_check=0;
-		}else{
-			document.getElementById('checkcheck').className="alert alert-success";
-			document.getElementById('checkcheck').innerHTML = "암호가 확인되었습니다.";
-			pw_check=1;
-		}
 	}
 	
 </script>
@@ -165,35 +120,38 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 		<table>
 		<tr>
 			<td>
+				<!-- sns로 로그인하기 때문에 여기서는 닉네임같이 쓸거임 -->
 				ID
 				<div class="form-group">
 					<input type="text" name="m_id" id="m_id" style="font-weight:bold;"class="form-control" value = ${members.m_id } readonly>
 				</div>
+				<!-- sns이름과 id값을 더해서 password에 저장하고 구분하기 위한 용도로 쓸거임 -->
+				<input type="hidden" name="m_password" value="${members.m_password}"/>
 				Profile
 				<div class="form-group">
 					<input type="file" class="btn btn-primary btn-send-message" name="file">
 				</div>
-				Password
-				<div class="form-group">
-					<input type="password" name="m_password" class="form-control"  onkeyup="checkPwd()"/>
-				</div>
-				PasswordCheck
-				<div class="form-group">
-					<input type="password" name="m_password_check" class="form-control"  onkeyup="checkPwd()"/>
-				</div>
-				<div id="checkcheck" class="alert alert-danger" style="width:400px;">동일한 암호를 입력하세요.</div>	
 				Name
 				<div class="form-group">
-					<input type="text" class="form-control" name="m_name" style="font-weight:bold;" value=${members.m_name } readonly>
+					<input type="text" class="form-control" style="font-weight:bold;" name="m_name"  value="${members.m_name}" readonly>
 				</div>
 				Phone
 				<div class="form-group">
-					<input type="text" class="form-control"  name="m_phone" value=${members.m_phone} placeholder="ex) 010-0000-0000">
+					<input type="text" class="form-control"  name="m_phone" value="${members.m_phone}">
 				</div>
 				Email
+			<c:choose>
+				<c:when test="${members.m_email eq null}">
 				<div class="form-group">
-					<input type="text" class="form-control"  name="m_email" value=${members.m_email} placeholder="ex) yomi@yogi.com">
+					<input type="text" class="form-control"  name="m_email" placeholder="ex) yomi@yogi.com">
 				</div>
+				</c:when>
+				<c:otherwise>
+				<div class="form-group">
+					<input type="text" class="form-control"  name="m_email" value="${members.m_email}">
+				</div>
+				</c:otherwise>
+			</c:choose>
 		</td>
 		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td>

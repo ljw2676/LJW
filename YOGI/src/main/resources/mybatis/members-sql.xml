@@ -9,27 +9,40 @@
 		VALUES(members_seq.nextval, #{m_id}, #{m_name}, #{m_password}, #{m_phone}, #{m_fav_area, jdbcType=VARCHAR}, #{m_fav_field, jdbcType=VARCHAR},  0, 0,'일반회원', 0, #{m_date}, #{m_profile, jdbcType=VARCHAR}, #{m_email})
  	</insert>
 	
+	<insert id="insertSnsMember" parameterType="MembersModel">
+		INSERT INTO MEMBERS(m_no, m_id, m_name, m_password, m_phone, m_fav_area, m_fav_field, m_grade, m_penalty, m_lv, m_active, m_date, m_profile, m_email)
+		VALUES(members_seq.nextval, #{m_id}, #{m_name}, #{m_password}, #{m_phone}, #{m_fav_area, jdbcType=VARCHAR}, #{m_fav_field, jdbcType=VARCHAR},  0, 0,'일반회원', 2, #{m_date}, #{m_profile, jdbcType=VARCHAR}, #{m_email})
+ 	</insert>
+ 	
 	<select id="idCheck" resultType="int" parameterType="string">
-		SELECT COUNT(*) FROM MEMBERS WHERE m_id=#{m_id}
+		SELECT COUNT(*) FROM MEMBERS WHERE m_id=#{m_id} and (m_active=0 or m_active=2)
+	</select>
+	
+	<select id="snsIdCheck" resultType="int" parameterType="string">
+		SELECT COUNT(*) FROM MEMBERS WHERE m_password=#{m_password} and m_active=2
 	</select>
 	
 	<select id="loginCheck" resultType="MembersModel" parameterType="MembersModel">
 		SELECT * FROM MEMBERS WHERE m_id = #{m_id} and m_password=#{m_password} and m_active=0
 	</select>
 	
+	<select id="snsLoginCheck" resultType="MembersModel" parameterType="string">
+		SELECT * FROM MEMBERS WHERE m_password=#{m_password} and m_active=2
+	</select>
+	
 	<select id="findId" resultType="MembersModel" parameterType="MembersModel">
-		select * from members where m_name=#{m_name, jdbcType=VARCHAR} and m_phone=#{m_phone, jdbcType=VARCHAR}
+		select * from members where m_name=#{m_name, jdbcType=VARCHAR} and m_phone=#{m_phone, jdbcType=VARCHAR} and m_active=0
 	</select>
 	<!-- 비밀번호 재설정 -->
 	<select id="findPW" resultType="MembersModel" parameterType="MembersModel">
-		select * from members where m_id=#{m_id, jdbcType=VARCHAR} and m_name=#{m_name, jdbcType=VARCHAR} and m_phone=#{m_phone, jdbcType=VARCHAR}
+		select * from members where m_id=#{m_id, jdbcType=VARCHAR} and m_name=#{m_name, jdbcType=VARCHAR} and m_phone=#{m_phone, jdbcType=VARCHAR} and m_active=0
 	</select>
 	<update id="resetPW" parameterType="MembersModel">
-		update members set m_password=#{m_password} where m_id=#{m_id}
+		update members set m_password=#{m_password} where m_id=#{m_id} and m_active=0
 	</update>
 	<!-- 추천추천 -->
 	<select id="check" resultType="MembersModel" parameterType="String">
-		select * from members where m_id=#{m_id}
+		select * from members where m_id=#{m_id} and (m_active=0 or m_active=2) 
 	</select>
 	
 	<select id = "fav_field" resultType="hashmap" parameterType="hashmap">
@@ -56,15 +69,15 @@
 	</select>
 	
 	<update id="updateMembers" parameterType="MembersModel">
-		update members set m_password=#{m_password}, m_phone=#{m_phone}, m_email=#{m_email}, m_fav_area=#{m_fav_area}, m_fav_field=#{m_fav_field}, m_profile=#{m_profile} where m_id=#{m_id}
+		update members set m_password=#{m_password}, m_phone=#{m_phone}, m_email=#{m_email}, m_fav_area=#{m_fav_area, jdbcType=VARCHAR}, m_fav_field=#{m_fav_field, jdbcType=VARCHAR}, m_profile=#{m_profile, jdbcType=VARCHAR} where m_id=#{m_id} and (m_active=0 or m_active=2)
 	</update>
 	
 	<update id="updateMembersExceptFile" parameterType="MembersModel">
-		update members set m_password=#{m_password}, m_phone=#{m_phone}, m_email=#{m_email}, m_fav_area=#{m_fav_area}, m_fav_field=#{m_fav_field} where m_id=#{m_id}
+		update members set m_password=#{m_password}, m_phone=#{m_phone}, m_email=#{m_email}, m_fav_area=#{m_fav_area, jdbcType=VARCHAR}, m_fav_field=#{m_fav_field, jdbcType=VARCHAR} where m_id=#{m_id} and (m_active=0 or m_active=2)
 	</update>
 	
 	<update id="deleteMembers" parameterType="String">
-		update members set m_active=1 where m_id=#{m_id}
+		update members set m_active=1 where m_id=#{m_id} and (m_active=0 or m_active=2)
 	</update>
 	
 	<select id="selectFileName" resultType="String">

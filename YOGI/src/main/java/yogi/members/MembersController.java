@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -67,7 +68,7 @@ public class MembersController {
     }
 	
 	@RequestMapping("/naverCallback")
-	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session) throws Exception {
+	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		String apiResult = naverLoginBO.getUserProfile(oauthToken);
 		
@@ -80,20 +81,42 @@ public class MembersController {
         log.info("로그인 유저 네이버 ID : " +usernaverVo.getResponse().get("id"));
         log.info("로그인 유저 네이버 닉네임 : " +usernaverVo.getResponse().get("nickname"));
         
-        List<Map<String, Object>> mem_alram = null;
-		if(alramService.alramExist(Integer.parseInt(usernaverVo.getResponse().get("id"))) != 0){
-			mem_alram = alramService.alramLoad(Integer.parseInt(usernaverVo.getResponse().get("id")));
+        MembersModel model = new MembersModel();
+        model.setM_id("N"+usernaverVo.getResponse().get("id"));
+        model.setM_password("N"+usernaverVo.getResponse().get("id"));
+		int count = 0;
+		count = membersService.checksnsId("N"+usernaverVo.getResponse().get("id"));
+		if (count == 1) {
+			MembersModel mm;
+			mm=membersService.snsLoginCheck("N"+usernaverVo.getResponse().get("id"));
+			
+			System.out.println("member_no"+mm.getM_no());
+			List<Map<String, Object>> mem_alram = null;
+			if(alramService.alramExist(mm.getM_no()) != 0){
+				mem_alram = alramService.alramLoad(mm.getM_no());
+			}
+			
+			/* 세션값 더 필요한 거 있으면 요기다 저장하세용~! */
+			session.setAttribute("session_m_id", mm.getM_id());
+			session.setAttribute("session_m_phone", mm.getM_phone());
+			session.setAttribute("session_m_name", mm.getM_name());
+			session.setAttribute("session_m_no", mm.getM_no());
+			session.setAttribute("session_mem_alram", mem_alram);
+			return "redirect:/main";
+		}else {
+			session.setAttribute("session_sns_password", "N"+usernaverVo.getResponse().get("id"));
+			session.setAttribute("session_sns_name", usernaverVo.getResponse().get("name"));
+			session.setAttribute("session_sns_nickname", usernaverVo.getResponse().get("nickname"));
+			if (usernaverVo.getResponse().get("email") != null) {
+				session.setAttribute("session_sns_email", usernaverVo.getResponse().get("email"));
+				log.info("session_sns_email : "+session.getAttribute("session_sns_email"));
+			}
+			log.info("session_sns_password : "+session.getAttribute("session_sns_password"));
+			log.info("session_sns_name : "+session.getAttribute("session_sns_name"));
+			log.info("session_sns_nickname : "+session.getAttribute("session_sns_nickname"));
+			
+			return "redirect:/members/snsInsertForm";
 		}
-		
-
-		session.setAttribute("session_m_id", usernaverVo.getResponse().get("nickname"));
-		session.setAttribute("session_m_name",usernaverVo.getResponse().get("name"));
-		session.setAttribute("session_m_no", usernaverVo.getResponse().get("id"));
-		if (usernaverVo.getResponse().get("email") != null) {
-			session.setAttribute("session_m_email", usernaverVo.getResponse().get("email"));
-		}
-		session.setAttribute("session_mem_alram", mem_alram);
-		return "redirect:/main2";
 	}
 	
 	// REST API KEY
@@ -112,7 +135,7 @@ public class MembersController {
 		
 		@SuppressWarnings("static-access")
 		@RequestMapping(value="/kakaoCallback",method=RequestMethod.GET)
-		public String kakaoLogin(@RequestParam(required = false,value = "code") String code,HttpServletRequest request) throws Exception {
+		public String kakaoLogin(@RequestParam(required = false,value = "code") String code,HttpServletRequest request,HttpServletResponse response) throws Exception {
 				Kakao kakao = null;
 				HttpSession session = request.getSession(); 
 				
@@ -173,23 +196,74 @@ public class MembersController {
 		        log.info("로그인 유저 카카오 ID : " +userkakaoVo.getId());
 
 		        log.info("로그인 유저 카카오 닉네임 : " +userkakaoVo.getProperties().get("nickname"));
-		        
-		        List<Map<String, Object>> mem_alram = null;
-				if(alramService.alramExist(Integer.parseInt(userkakaoVo.getId())) != 0){
-					mem_alram = alramService.alramLoad(Integer.parseInt(userkakaoVo.getId()));
+		        MembersModel model = new MembersModel();
+		        model.setM_id("K"+userkakaoVo.getId());
+		        model.setM_password("K"+userkakaoVo.getId());
+		        int count = 0;
+				count = membersService.checksnsId("K"+userkakaoVo.getId());
+				if (count == 1) {
+					MembersModel mm;
+					mm=membersService.snsLoginCheck("K"+userkakaoVo.getId());
+					
+					System.out.println("member_no"+mm.getM_no());
+					List<Map<String, Object>> mem_alram = null;
+					if(alramService.alramExist(mm.getM_no()) != 0){
+						mem_alram = alramService.alramLoad(mm.getM_no());
+					}
+					
+					/* 세션값 더 필요한 거 있으면 요기다 저장하세용~! */
+					session.setAttribute("session_m_id", mm.getM_id());
+					session.setAttribute("session_m_phone", mm.getM_phone());
+					session.setAttribute("session_m_name", mm.getM_name());
+					session.setAttribute("session_m_no", mm.getM_no());
+					session.setAttribute("session_mem_alram", mem_alram);
+					return "redirect:/main";
+				}else {
+					session.setAttribute("session_sns_password", "K"+userkakaoVo.getId());
+					session.setAttribute("session_sns_nickname", userkakaoVo.getProperties().get("nickname"));
+					if (userkakaoVo.getProperties().get("email") != null) {
+						session.setAttribute("session_sns_email", userkakaoVo.getProperties().get("email"));	
+					}
+					return "redirect:/members/snsInsertForm";
 				}
 				
-
-				session.setAttribute("session_m_id", userkakaoVo.getProperties().get("nickname"));
-				session.setAttribute("session_m_name",userkakaoVo.getProperties().get("nickname"));
-				session.setAttribute("session_m_no", userkakaoVo.getId());
-				if (userkakaoVo.getProperties().get("email") != null) {
-					session.setAttribute("session_m_email", userkakaoVo.getProperties().get("email"));
-				}
-				session.setAttribute("session_mem_alram", mem_alram);
-				return "redirect:/main2";
 		}
-		
+		@RequestMapping(value="/members/snsInsertForm")
+		public String snsModifyForm(Model model) {	
+			return "members/snsInsertForm";
+		}
+		@RequestMapping(value="/members/snsInsertForm", method=RequestMethod.POST)
+		public String snsJoin(@ModelAttribute("member") MembersModel member, HttpServletRequest request) throws Exception{
+			HttpSession session = request.getSession(); 
+			membersService.insertSnsMember(member, request);	
+			MembersModel mm;
+			mm=membersService.snsLoginCheck(session.getAttribute("session_sns_password").toString());
+			
+			
+			System.out.println("member_no"+mm.getM_no());
+			List<Map<String, Object>> mem_alram = null;
+			if(alramService.alramExist(mm.getM_no()) != 0){
+				mem_alram = alramService.alramLoad(mm.getM_no());
+			}
+			
+			session.removeAttribute("session_sns_password");
+			session.removeAttribute("session_sns_nickname");
+			if (session.getAttribute("session_sns_name") != null) {
+				session.removeAttribute("session_sns_name");	
+			}
+			if (session.getAttribute("session_sns_email") != null) {
+				session.removeAttribute("session_sns_email");	
+			}
+			
+			/* 세션값 더 필요한 거 있으면 요기다 저장하세용~! */
+			session.setAttribute("session_m_id", mm.getM_id());
+			session.setAttribute("session_m_phone", mm.getM_phone());
+			session.setAttribute("session_m_name", mm.getM_name());
+			session.setAttribute("session_m_no", mm.getM_no());
+			session.setAttribute("session_m_email", mm.getM_email());
+			session.setAttribute("session_mem_alram", mem_alram);
+			return "redirect:/main";
+		}
 	
 	
 	@RequestMapping(value= {"/", "/first"}, method=RequestMethod.GET)
@@ -251,6 +325,9 @@ public class MembersController {
 		if(session.getAttribute("session_m_id") != null){
 			session.removeAttribute("session_m_id");
 			session.removeAttribute("session_m_no");
+			session.removeAttribute("session_m_phone");
+			session.removeAttribute("session_m_name");
+			session.removeAttribute("session_mem_alram");
 		}
 		return "redirect:first";
 	}
@@ -337,8 +414,13 @@ public class MembersController {
 	@RequestMapping(value="/members/modifyForm", method=RequestMethod.GET)
 	public ModelAndView modifyForm(CommandMap map, HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
-		ModelAndView mv = new ModelAndView("/members/modifyForm");
 		MembersModel result = membersService.mInfo((Integer)session.getAttribute("session_m_no"));
+		ModelAndView mv = new ModelAndView();
+		if (result.getM_active() == 2) {
+			 mv.setViewName("/members/snsModifyForm");
+		}else if (result.getM_active() == 0) {
+			 mv.setViewName("/members/modifyForm");
+		}
 		String[] gogo = null;
 		if(result.getM_fav_field() != null) {
 			String[] interest = result.getM_fav_field().split(",");
@@ -443,9 +525,9 @@ public class MembersController {
 		return mv;
 	}
 
-	@RequestMapping(value="/members/modifyForm", method=RequestMethod.POST)
+	@RequestMapping(value= {"/members/modifyForm"} , method=RequestMethod.POST)
 	public String modify(@ModelAttribute("member") MembersModel member, HttpServletRequest request) throws Exception{
-		membersService.updateMember(member, request);	
+		membersService.updateMember(member, request);
 		return "redirect:/main";
 	}
 	
