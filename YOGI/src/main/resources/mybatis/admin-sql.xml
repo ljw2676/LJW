@@ -289,7 +289,7 @@
 			l_subject,
 			m_id,
 			TO_CHAR(PB_DATE,'YYYY-MM-DD') AS PB_DATE,
-			u_date
+			TO_CHAR(U_DATE,'YYYY-MM-DD') AS u_date
 		FROM
 			placebook p, lendplace l, members m
 		<where>

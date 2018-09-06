@@ -192,7 +192,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 						</c:when>
 						<c:otherwise>
 								<br>
-								가입한 멤버가 없습니다.
+								개설된 모임이 없습니다.
 						</c:otherwise>
 						</c:choose>
 							<div class="row" >

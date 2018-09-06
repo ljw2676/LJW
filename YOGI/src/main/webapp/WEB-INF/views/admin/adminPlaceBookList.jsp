@@ -166,7 +166,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 						</c:when>
 						<c:otherwise>
 								<br>
-								가입한 멤버가 없습니다.
+								예약된 장소가 없습니다.
 						</c:otherwise>
 						</c:choose>
 							<div class="row" >
