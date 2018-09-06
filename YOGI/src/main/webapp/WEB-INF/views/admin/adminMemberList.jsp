@@ -181,7 +181,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 									<td>&nbsp;&nbsp;${row.M_LV}&nbsp;&nbsp;</td>
 									<td>&nbsp;&nbsp;${row.M_PENALTY}&nbsp;&nbsp;</td>
 									<td>&nbsp;&nbsp;${row.M_DATE}&nbsp;&nbsp;</td>
-									<c:if test="${row.M_ACTIVE == 0}">
+									<c:if test="${row.M_ACTIVE == 0 || row.M_ACTIVE == 2}">
 									<td>&nbsp;&nbsp;<a href="#this" name="inactivateMember">O</a><input type="hidden" id="M_NO" value="${row.M_NO}">&nbsp;&nbsp;</td>
 									</c:if>
 									<c:if test="${row.M_ACTIVE == 1 }">
