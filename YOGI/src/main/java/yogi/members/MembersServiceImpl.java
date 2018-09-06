@@ -39,10 +39,32 @@ public class MembersServiceImpl implements MembersService{
 	}
 	
 	@Override
+	public void insertSnsMember(MembersModel model, HttpServletRequest request) throws Exception {
+		Map<String, Object> fileMap = fileUtils.parseInsertFileInfo(request);
+		if(fileMap != null) {
+			model.setM_profile(fileMap.toString().valueOf(fileMap.get("STORED_FILE_NAME")));
+			System.out.println(model.getM_profile());
+		}
+		model.setM_date(Calendar.getInstance().getTime());
+		membersDAO.insertSnsMember(model);
+	}
+
+	
+	@Override
 	public int checkId(String id) {
 		return membersDAO.idCheck(id);
 	}
+	
+	@Override
+	public int checksnsId(String password) {
+		return membersDAO.snsIdCheck(password);
+	}
 
+	@Override
+	public MembersModel snsLoginCheck(String password) {
+		return (MembersModel)membersDAO.snsLoginCheck(password);
+	}
+	
 	@Override
 	public MembersModel loginCheck(MembersModel model, HttpServletRequest request) {
 		membersDAO.loginCheck(model);
@@ -99,5 +121,6 @@ public class MembersServiceImpl implements MembersService{
 	public void deleteMember(String name) {
 		membersDAO.deleteMember(name);
 	}
+
 	
 }

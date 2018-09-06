@@ -124,6 +124,7 @@ function insert() {
     
    	<!-- 팝업창을 눈에 보이지 않게 띄우기 위해 설정한 iframe -->
 	<iframe width=0 height=0 name="hiddenframe1" style="display:none;"></iframe>
+	<iframe width=0 height=0 name="hiddenframe2" style="display:none;"></iframe>
     <!-- Bootstrap core JavaScript -->
     <script src="http://localhost:8080/yogi/resources/first/vendor/jquery/jquery.min.js"></script>
     <script src="http://localhost:8080/yogi/resources/first/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -134,7 +135,7 @@ function insert() {
 	<script type="text/javascript">
 	window.onload = function () {
 		window.open("https://developers.kakao.com/logout", "hiddenframe1", "width=1, height=1, left=0, top=0,  scrollbars=no,status=no,toolbar=no,menubar=no,resizeable=no,location=no");
-		window.open("http://nid.naver.com/nidlogin.logout", "hiddenframe1", "width=1, height=1, left=0, top=0,  scrollbars=no,status=no,toolbar=no,menubar=no,resizeable=no,location=no");
+		window.open("http://nid.naver.com/nidlogin.logout", "hiddenframe2", "width=1, height=1, left=0, top=0,  scrollbars=no,status=no,toolbar=no,menubar=no,resizeable=no,location=no");
 	}
 	</script>
   </body>
