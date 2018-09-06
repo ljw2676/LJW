@@ -313,41 +313,41 @@ font-size: 10px;
 		<dl>
 			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="종로구"></dt><dt>&nbsp;종로구&nbsp;&nbsp;&nbsp;</dt>
 			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="중구"></dt><dt>&nbsp;중구&nbsp;&nbsp;&nbsp;</dt>
-			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="용산구"></dt><dt>&nbsp;용산구&nbsp;&nbsp;&nbsp;</dt>
-			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="성동구"></dt><dt>&nbsp;성동구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="용산구"></dt><dt>&nbsp;용산구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="성동구"></dt><dt>&nbsp;성동구&nbsp;&nbsp;&nbsp;</dt>
 			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="광진구"></dt><dt>&nbsp;광진구&nbsp;&nbsp;&nbsp;</dt>
 			<span style="color:WHITE">WElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGI</span>  
 		</dl>
 		<dl>
 			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="동대문구"></dt><dt>&nbsp;동대문구&nbsp;&nbsp;&nbsp;</dt>
-			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="중랑구"></dt><dt>&nbsp;중랑구&nbsp;&nbsp;&nbsp;</dt>
-			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="성북구"></dt><dt>&nbsp;성북구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="중랑구"></dt><dt>&nbsp;중랑구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="성북구"></dt><dt>&nbsp;성북구&nbsp;&nbsp;&nbsp;</dt>
 			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="강북구"></dt><dt>&nbsp;강북구&nbsp;&nbsp;&nbsp;</dt>
 			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="도봉구"></dt><dt>&nbsp;도봉구&nbsp;&nbsp;&nbsp;</dt>
 			<span style="color:WHITE">WElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGI</span>  
 		</dl>
 		<dl>
-			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="노원구"></dt><dt>&nbsp;노원구&nbsp;&nbsp;&nbsp;</dt>
-			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="은평구"></dt><dt>&nbsp;은평구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="노원구"></dt><dt>&nbsp;노원구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="은평구"></dt><dt>&nbsp;은평구&nbsp;&nbsp;&nbsp;</dt>
 			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="서대문구"></dt><dt>&nbsp;서대문구&nbsp;&nbsp;&nbsp;</dt>
 			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="마포구"></dt><dt>&nbsp;마포구&nbsp;&nbsp;&nbsp;</dt>
 			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="양천구"></dt><dt>&nbsp;양천구&nbsp;&nbsp;&nbsp;</dt>
 			<span style="color:WHITE">WElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGI</span>  
 		</dl>
 		<dl>
-			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="강서구"></dt><dt>&nbsp;강서구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="강서구"></dt><dt>&nbsp;강서구&nbsp;&nbsp;&nbsp;</dt>
 			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="구로구"></dt><dt>&nbsp;구로구&nbsp;&nbsp;&nbsp;</dt>
 			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="금천구"></dt><dt>&nbsp;금천구&nbsp;&nbsp;&nbsp;</dt>
-			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="영등포구"></dt><dt>&nbsp;영등포구&nbsp;&nbsp;&nbsp;</dt>
-			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="동작구"></dt><dt>&nbsp;동작구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="영등포구"></dt><dt>&nbsp;영등포구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="동작구"></dt><dt>&nbsp;동작구&nbsp;&nbsp;&nbsp;</dt>
 			<span style="color:WHITE">WElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGI</span>  
 		</dl>
 		<dl>
 			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="관악구"></dt><dt>&nbsp;관악구&nbsp;&nbsp;&nbsp;</dt>
 			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="서초구"></dt><dt>&nbsp;서초구&nbsp;&nbsp;&nbsp;</dt>
-			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="강남구"></dt><dt>&nbsp;강남구&nbsp;&nbsp;&nbsp;</dt>
-			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="송파구"></dt><dt>&nbsp;송파구&nbsp;&nbsp;&nbsp;</dt>
-			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_field" value="강동구"></dt><dt>&nbsp;강동구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="강남구"></dt><dt>&nbsp;강남구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="송파구"></dt><dt>&nbsp;송파구&nbsp;&nbsp;&nbsp;</dt>
+			<dt><input type="checkbox" class="option-input checkbox" name="m_fav_area" value="강동구"></dt><dt>&nbsp;강동구&nbsp;&nbsp;&nbsp;</dt>
 			<span style="color:WHITE">WElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGIWElCOMETOYOGI</span>  
 		</dl>
 		</td>
