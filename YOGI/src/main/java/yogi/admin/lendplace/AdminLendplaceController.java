@@ -67,7 +67,7 @@ public class AdminLendplaceController {
 
          L_REP_IMG.transferTo(file);
 
-         return new ModelAndView("redirect:/lendplace/list"); //리다이렉트:관리자 장소 리스트 페이지
+         return new ModelAndView("redirect:admin/lendplace/list"); //리다이렉트:관리자 장소 리스트 페이지
        }
          
 	//테스트용 success화면

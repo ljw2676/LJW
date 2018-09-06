@@ -69,7 +69,7 @@
 		<li><a href="http://localhost:8080/yogi/groupList">Group</a></li>
 		<li class="colorlib-active"><a href="http://localhost:8080/yogi/lendplace/list">Lendplace</a></li>
 		<c:choose>
-		<c:when test="${m_lv =='관리자'}">
+		<c:when test="${session_m_lv =='관리자'}">
 		<li><a href="http://localhost:8080/yogi/admin/adminpageView">AdminPage</a></li>
 		</c:when>
 		<c:otherwise>
