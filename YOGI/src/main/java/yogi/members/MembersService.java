@@ -9,6 +9,7 @@ public interface MembersService {
 	public void deleteMember(String name);
 	public int checksnsId(String password);
 	public int checkId(String id);
+	public int checkPhone(String phone);
 	public MembersModel snsLoginCheck(String password);
 	public MembersModel loginCheck(MembersModel model, HttpServletRequest request);
 	public MembersModel findId(MembersModel model, HttpServletRequest request);

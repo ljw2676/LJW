@@ -56,6 +56,7 @@
 	var phone_check2 = /^\d{2,3}-\d{3,4}-\d{4}$/;
 	var id_check = 0;
 	var pw_check = 0;
+	var phone_check=0;
 
 	function insert() {
 		var join = document.userinput
@@ -123,6 +124,11 @@
 			join.m_id.focus();
 			return false;
 		}
+		if(phone_check != 1){
+			alert("핸드폰 번호 중복 확인을 해주세요.");
+			join.m_phone.focus();
+			return false;
+		}
 		if(pw_check != 1){
 			alert("비밀번호를 확인해 주세요.");
 			join.m_password.focus();
@@ -154,6 +160,37 @@
 						id_check=1;
 						alert("사용가능한 아이디입니다.");
 						$("#m_password").foucs();
+					}
+				},
+				error : function(error){
+					alert("error: " + error)
+				}
+			})
+		})
+	})
+	
+	
+	$(document).ready(function(){
+		$("#checkPhone").bind("click", function() {
+			var userPhone = $("#m_phone").val();
+			$.ajax({
+				async:true,
+				type:'POST', 
+				data : {"userPhone":userPhone},
+				url:'/yogi/checkPhone',
+				dataType : "json",
+				success : function(data_p){
+					if (userPhone == "") {
+						alert("핸드폰 번호를 입력해주세요");
+						$("#m_phone").focus();
+					}
+					else if(data_p.cnt > 0){
+						alert("이미 등록된 번호입니다. 번호를 확인 해주세요.");
+						$("#m_phone").focus();
+					}else{
+						phone_check=1;
+						alert("등록되었습니다.");
+						$("#m_email").foucs();
 					}
 				},
 				error : function(error){
@@ -228,7 +265,10 @@ font-size: 10px;
 				</div>
 				Phone
 				<div class="form-group">
-					<input type="text" class="form-control"  name="m_phone" placeholder="ex) 010-0000-0000">
+				<div class="input-group-append">
+					<input type="text" class="form-control"  name="m_phone" id="m_phone" placeholder="ex) 010-0000-0000">
+					<input type="button" id="checkPhone" class="btn btn-primary btn-send-message" value="중복확인" >
+				</div>
 				</div>
 				Email
 				<div class="form-group">

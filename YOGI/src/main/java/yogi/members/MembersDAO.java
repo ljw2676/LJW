@@ -27,6 +27,10 @@ public class MembersDAO extends AbstractDAO{
 		return (Integer)selectOne("members.idCheck", id);
 	}
 	
+	public int phoneCheck(String id) {
+		return (Integer)selectOne("members.phoneCheck", id);
+	}
+	
 	public int snsIdCheck(String password) {
 		return (Integer)selectOne("members.snsIdCheck",password);
 	}

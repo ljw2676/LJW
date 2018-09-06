@@ -18,6 +18,10 @@
 		SELECT COUNT(*) FROM MEMBERS WHERE m_id=#{m_id} and (m_active=0 or m_active=2)
 	</select>
 	
+	<select id="phoneCheck" resultType="int" parameterType="string">
+		SELECT COUNT(*) FROM MEMBERS WHERE m_phone=#{m_phone} and (m_active=0 or m_active=2)
+	</select>
+	
 	<select id="snsIdCheck" resultType="int" parameterType="string">
 		SELECT COUNT(*) FROM MEMBERS WHERE m_password=#{m_password} and m_active=2
 	</select>

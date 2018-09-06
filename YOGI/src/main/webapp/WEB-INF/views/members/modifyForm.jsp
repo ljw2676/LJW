@@ -87,7 +87,6 @@
 			 join.m_phone.focus();
 			return false;
 		}
-
 		if(pw_check != 1){
 			alert("비밀번호를 확인해 주세요.");
 			join.m_password.focus();

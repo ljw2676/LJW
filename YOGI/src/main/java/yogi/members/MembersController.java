@@ -355,6 +355,18 @@ public class MembersController {
 		return map;
 	}
 	
+	@ResponseBody//자바 객체를 HTTP 요청의 body 내용으로 매핑하는 역할을 합니다.
+	@RequestMapping("/checkPhone")
+	public Map<Object, Object> phoneCheck(HttpServletRequest request){
+		String userPhone = request.getParameter("userPhone");
+		int count = 0;
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		count = membersService.checkPhone(userPhone);
+		map.put("cnt", count);
+		System.out.println(map);
+		return map;
+	}
+	
 	@RequestMapping(value= {"/members/find"}, method=RequestMethod.GET)
 	 public String findForm(){
 		return "findPage";

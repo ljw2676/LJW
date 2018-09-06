@@ -56,6 +56,11 @@ public class MembersServiceImpl implements MembersService{
 	}
 	
 	@Override
+	public int checkPhone(String phone) {
+		return membersDAO.phoneCheck(phone);
+	}
+	
+	@Override
 	public int checksnsId(String password) {
 		return membersDAO.snsIdCheck(password);
 	}
