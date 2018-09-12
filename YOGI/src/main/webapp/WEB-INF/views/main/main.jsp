@@ -204,8 +204,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 			<div class="col-md-6 col-md-offset-3 col-md-push-3 col-sm-12 col-xs-12 js-fullheight slider-text">
 			<div class="slider-text-inner">
 			<div class="desc">
-				<h1>Interior Design Studio</h1>
-				<h2>100% html5 bootstrap templates Made by <a href="https://colorlib.com/" target="_blank">colorlib.com</a></h2>
+				<h1>Coffee Design Studio</h1>
+				<h2>Barista teaches coffee classes <a href="https://colorlib.com/" target="_blank">Good Smell</a></h2>
 				<p><a class="btn btn-primary btn-learn">View Project <i class="icon-arrow-right3"></i></a></p>
 			</div>
 			</div>

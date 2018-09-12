@@ -141,7 +141,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 						<div class="col-md-12" align="center">
 						<c:choose>
 						<c:when test="${fn:length(list) > 0 }">
-							<table border="1">
+							<table border="1" style="width: 1500px; ">
 								<thead>
 								<tr>
 									<td align="center">no.</td>

@@ -152,7 +152,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 						<div class="col-md-12" align="center">
 						<c:choose>
 						<c:when test="${fn:length(list) > 0 }">
-							<table border="1">
+							<table border="1" style="width: 1200px; ">
 								<thead>
 								<tr>
 									<td align="center">no.</td>
@@ -218,9 +218,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
 								</div>
 								<div class="col-md-12">
 									<div class="searchCategory col-md-offset-4" style="float: inherit; padding-left: 50px;">
-										<select name="searchCategory" id="searchCategory" style="height: 33px;">
+										<select name="searchCategory" id="searchCategory" style="height: 33px; ">
 											<option value="id" selected="selected">ID</option>
-											<option value="grade">등급</option>
+											<option value="grade">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 등급&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</option>
 											<option value="name">이름</option>
 											<option value="favArea">선호지역</option>
 											<option value="favField">선호영역</option>
