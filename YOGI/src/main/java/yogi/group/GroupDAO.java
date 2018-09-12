@@ -82,6 +82,7 @@ public class GroupDAO extends AbstractDAO{
 	
 	public void insertGroup(Map<String, Object> map) {
 		insert("group.insertGroup", map);
+		update("group.plusGradeByGroupInsert", map);
 	}
 	
 	public void modifyGroup(Map<String, Object> map) {

@@ -380,4 +380,9 @@
 	<select id="enrollMno" parameterType="hashmap" resultType="hashmap">
 		select m_no from group_enroll where gg_no = #{gg_no} and m_no = #{m_no}
 	</select>
+	
+	<!-- 모임 개설 점수 주기 -->
+	<update id="plusGradeByGroupInsert" parameterType="hashmap">
+		update members set m_grade=m_grade+30 where m_no=#{m_no}
+	</update>
 </mapper>
