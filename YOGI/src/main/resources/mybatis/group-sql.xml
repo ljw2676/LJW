@@ -114,11 +114,11 @@
 	
 	<!-- 점수 주기 -->
 	<update id="plusGrade" parameterType="hashmap">
-		update members set m_grade=m_grade+1 where m_no=#{m_no}
+		update members set m_grade=m_grade+10 where m_no=#{m_no}
 	</update>
 	
 	<update id="minusGrade" parameterType="hashmap">
-		update members set m_grade=m_grade-1 where m_no=#{m_no}
+		update members set m_grade=m_grade-10 where m_no=#{m_no}
 	</update>
 	
 	<!-- 신청 인원 더하기 -->
