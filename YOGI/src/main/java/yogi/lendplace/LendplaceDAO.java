@@ -97,4 +97,11 @@ public class LendplaceDAO extends AbstractDAO{
 		update("lendplace.updateDeleteFlag",map);
 	}
 
+	public void updateplusGrade(Map<String, Object> map) throws Exception{
+		update("lendplace.plusGrade",map);
+	}
+	
+	public void updateminusGrade(Map<String, Object> map) throws Exception{
+		update("lendplace.minusGrade",map);
+	}
 }

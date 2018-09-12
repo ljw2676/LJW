@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -108,6 +109,7 @@ public class LendplaceController {
     			lendplaceService.updateReviewOrder(commandMap.getMap());
     		} 
     		lendplaceService.insertReview(commandMap.getMap());
+    		lendplaceService.updateplusGrade(commandMap.getMap());
     	}else {
     		lendplaceService.updateReview(commandMap.getMap());
     	}
@@ -127,12 +129,14 @@ public class LendplaceController {
     		Integer PAR = Integer.parseInt(par.get("PAR").toString());
     		
     		lendplaceService.deleteReview(commandMap.getMap());
+    		lendplaceService.updateminusGrade(commandMap.getMap());
     		if ( DEL == (PAR-1)) {
 				lendplaceService.deleteGroupReview(commandMap.getMap());
 			}
         	return mv;	
         }else {
         	lendplaceService.updateDeleteFlag(commandMap.getMap());
+        	lendplaceService.updateminusGrade(commandMap.getMap());
     		return mv;
         }
     }

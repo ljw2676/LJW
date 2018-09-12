@@ -41,4 +41,8 @@ public interface LendplaceService {
 	Map<String, Object> selectParent(Map<String, Object> map) throws Exception;
 	
 	void updateDeleteFlag(Map<String, Object> map) throws Exception;
+	
+	void updateplusGrade (Map<String, Object> map) throws Exception;
+	
+	void updateminusGrade (Map<String, Object> map) throws Exception;
 }

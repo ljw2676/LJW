@@ -226,6 +226,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Made 
     							    <input type="hidden" name="L_NO" value="<c:out value="${map.L_NO}"/>">
         							<input type="hidden" name="R_GROUP" id="R_GROUP">
         							<input type="hidden" name="R_NO" id="R_NO"> 
+        							<input type="hidden" name="M_NO" value="<c:out value="${session_m_no}"/>">
         							<textarea name="R_CONTENT" rows="3" cols="60" maxlength="500"></textarea>
         							<a href="#" onclick="fn_reviewUpdateSave()">저장</a>
         							<a href="#" onclick="fn_reviewUpdateCancel()">취소</a>

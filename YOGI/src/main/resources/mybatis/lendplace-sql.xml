@@ -230,6 +230,14 @@
 	 WHERE L_NO=#{L_NO}
 </update>
 
+<!-- 점수 주기 -->
+	<update id="plusGrade" parameterType="hashmap">
+		UPDATE MEMBERS SET M_GRADE=M_GRADE+1 WHERE M_NO=#{M_NO}
+	</update>
+	
+	<update id="minusGrade" parameterType="hashmap">
+		UPDATE MEMBERS SET M_GRADE=M_GRADE-1 WHERE M_NO=#{M_NO}
+	</update>
 
 <update id="updateReview" parameterType="hashmap">
     <![CDATA[

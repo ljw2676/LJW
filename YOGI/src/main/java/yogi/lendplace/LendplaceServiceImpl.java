@@ -125,4 +125,12 @@ public class LendplaceServiceImpl implements LendplaceService {
 	public List<Map<String, Object>> checkReview(Map<String, Object> map) throws Exception {
 		return lendplaceDAO.checkReview(map);
 	}
+	
+	public void updateplusGrade(Map<String, Object> map) throws Exception{
+		lendplaceDAO.updateplusGrade(map);
+	}
+	
+	public void updateminusGrade(Map<String, Object> map) throws Exception{
+		lendplaceDAO.updateminusGrade(map);
+	}
 }
