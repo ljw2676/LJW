@@ -94,17 +94,5 @@ public class MainController {
 		}	
 	}
 	
-	@RequestMapping (value= "/main2")
-	public ModelAndView main2(HttpServletRequest request) throws Exception {
-		HttpSession session = request.getSession();
-		ModelAndView mv = new ModelAndView();
-		if(session.getAttribute("session_m_id")!=null) {
-			mv.setViewName("mainPage");
-			return mv;
-		}
-		mv.setViewName("mainPage");
-		return mv;
-	}
-	
 }
 	
