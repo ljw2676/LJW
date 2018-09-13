@@ -59,7 +59,7 @@ public class MembersController {
 	}
 	
 	@RequestMapping("/naverLogin")
-    public ModelAndView login(HttpSession session) {
+    public ModelAndView naverLogin(HttpSession session) {
         /* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
         String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
         
@@ -68,7 +68,7 @@ public class MembersController {
     }
 	
 	@RequestMapping("/naverCallback")
-	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session,HttpServletRequest request,HttpServletResponse response) throws Exception {
+	public String naverCallback(@RequestParam String code, @RequestParam String state, HttpSession session,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		String apiResult = naverLoginBO.getUserProfile(oauthToken);
 		
@@ -126,7 +126,7 @@ public class MembersController {
 			
 	//카카오로그인
 		@RequestMapping(value="/kakaoLogin")
-		public String kakao() {
+		public String kakaoLogin() {
 			String karequestUrl = "https://kauth.kakao.com/oauth/authorize?client_id="+restapi+"&redirect_uri="+mydomainkakao+"&response_type=code";
 			log.info("login 코드 요청 종료 CallBack 기다리는 중");
 	        log.info("login 코드 요청 보낸 uri 값은 "+karequestUrl);
@@ -135,7 +135,7 @@ public class MembersController {
 		
 		@SuppressWarnings("static-access")
 		@RequestMapping(value="/kakaoCallback",method=RequestMethod.GET)
-		public String kakaoLogin(@RequestParam(required = false,value = "code") String code,HttpServletRequest request,HttpServletResponse response) throws Exception {
+		public String kakaoCallback(@RequestParam(required = false,value = "code") String code,HttpServletRequest request,HttpServletResponse response) throws Exception {
 				Kakao kakao = null;
 				HttpSession session = request.getSession(); 
 				
@@ -229,7 +229,7 @@ public class MembersController {
 				
 		}
 		@RequestMapping(value="/members/snsInsertForm")
-		public String snsModifyForm(Model model) {	
+		public String snsInsertForm(Model model) {	
 			return "members/snsInsertForm";
 		}
 		@RequestMapping(value="/members/snsInsertForm", method=RequestMethod.POST)
